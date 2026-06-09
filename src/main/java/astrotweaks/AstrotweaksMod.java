@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -29,6 +30,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.item.Item;
 import net.minecraft.block.Block;
 
+import astrotweaks.procedure.FoodEffectHandler;
+
 import astrotweaks.world.SnowVillage;
 import astrotweaks.world.ForestVillage;
 import astrotweaks.world.DepthsDim;
@@ -36,6 +39,8 @@ import astrotweaks.util.LoadConfig;
 import astrotweaks.world.CavernMobModifier;
 import astrotweaks.util.CombinedFuelHandler;
 import astrotweaks.util.Handler;
+
+import astrotweaks.tweaks.RemVillagerTrades;
 
 
 import astrotweaks.world.BushDecorator;
@@ -48,10 +53,11 @@ import astrotweaks.ModVariables;
 
 import java.util.function.Supplier;
 
+
 @Mod(modid = AstrotweaksMod.MODID, version = AstrotweaksMod.VERSION)
 public class AstrotweaksMod {
 	public static final String MODID = "astrotweaks";
-	public static final String VERSION = "b-5.1";
+	public static final String VERSION = "b-5.2";
 	public static final SimpleNetworkWrapper PACKET_HANDLER = NetworkRegistry.INSTANCE.newSimpleChannel("astrotweaks:a");
 	@SidedProxy(clientSide = "astrotweaks.ClientProxyAstrotweaksMod", serverSide = "astrotweaks.ServerProxyAstrotweaksMod")
 	public static IProxyAstrotweaksMod proxy;
@@ -97,6 +103,7 @@ public class AstrotweaksMod {
 
 
 
+
 	}
 
 	private SnowVillage snowVillage;
@@ -106,12 +113,16 @@ public class AstrotweaksMod {
 	private ModVariables modVariables;
 	private CombinedFuelHandler cfh;
 	private RealisticBreak realBreak;
+	private FoodEffectHandler feh;
+	//private RemVillagerTrades RVT;
 
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 		elements.getElements().forEach(element -> element.init(event));
 		proxy.init(event);
+		modVariables.init();
+		
 		UOredictRegistrar.init(event);
 	
 
@@ -122,6 +133,9 @@ public class AstrotweaksMod {
 			MinecraftForge.TERRAIN_GEN_BUS.register(new BushDecorator());
 		}
 
+		feh = new FoodEffectHandler();
+		feh.init();
+		
 	    
 
 	}
@@ -129,6 +143,9 @@ public class AstrotweaksMod {
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit(event);
+
+
+		
 
 		if (ModVariables.Extra_Fuels) {
 			cfh = new CombinedFuelHandler();
@@ -138,8 +155,6 @@ public class AstrotweaksMod {
 			realBreak = new RealisticBreak();
 	        realBreak.postInit(event);
 		}
-
-
 		
 	}
 
@@ -164,6 +179,15 @@ public class AstrotweaksMod {
 	    }
 	    RecipeHandler.RECIPES_TO_REGISTER.clear();
 	}
+
+
+	@Mod.EventHandler
+	public void onLoadComplete(FMLLoadCompleteEvent event) {
+		//System.out.println("MEOWW 1");
+		if (ModVariables.Remove_METS_engineer)
+			RemVillagerTrades.postInit(event);
+	}
+
 
 
 

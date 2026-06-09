@@ -17,6 +17,7 @@ import net.minecraft.world.biome.Biome;
 
 import astrotweaks.AstrotweaksModVariables;
 import astrotweaks.ModVariables;
+import net.minecraft.block.material.Material;
 
 
 public final class SurfaceWorldGenerator {
@@ -43,22 +44,20 @@ public final class SurfaceWorldGenerator {
     ))); 
 
 	public static void generateSurface(Random rand, int chunkX, int chunkZ, World world, Block block, Set<Biome> allowedBiomes, double gen_attempts, int minY, int maxY) {
-		//try {
-			if (world == null/* || block == null*/) return;
-			if (gen_attempts <= 0) return;
-			if (minY > maxY) return;
-			if (allowedBiomes == null) allowedBiomes = ModVariables.GEN_DEFAULT_BIOMES;
-			if (gen_attempts > 999) gen_attempts = 999;
-			if (minY < 1) minY = 1;
-			if (maxY > 255) maxY = 250; // max Y scan Pos
-		//} catch (Exception e) {
-			//System.out.println("Error init AstroTweaks World Decorator! Please, edit mod config.");
-		//}
+
+		//if (world == null) return;
+		if (gen_attempts <= 0) return;
+		if (minY > maxY) return;
+		if (allowedBiomes == null) allowedBiomes = ModVariables.GEN_DEFAULT_BIOMES;
+		if (gen_attempts > 999) gen_attempts = 999;
+		if (minY < 1) minY = 1;
+		if (maxY > 254) maxY = 254; // max Y scan Pos
+
 
 	    int attempts; // check attempts
 	    if (gen_attempts < 1.0) {
-	        if (rand.nextFloat() >= gen_attempts) return;
-	        attempts = 1;
+			if (rand.nextDouble() >= gen_attempts) return;
+			attempts = 1;
 	    } else {
 	        int guaranteed = (int) gen_attempts;
 	        double fractional = gen_attempts - guaranteed;
@@ -81,54 +80,49 @@ public final class SurfaceWorldGenerator {
             int z = chunkZ + 1 + rand.nextInt(14);
 			// find Y up Solid block in HEIGHT_LINE
 			int topY = world.getHeight(x, z);
-
-			//BlockPos probe = new BlockPos(x, topY - 1, z);
-			//BlockPos.MutableBlockPos probe = new BlockPos.MutableBlockPos(x, topY - 1, z);
-			//probe.setPos(x, world.getHeight(x, z) - 1, z);
-            //IBlockState probeState = world.getBlockState(probe); 
+			if (topY <= minY) continue;
 
 			probe.setPos(x, topY - 1, z);
 			IBlockState probeState = world.getBlockState(probe);
-            while (probe.getY() > minY) {
-            	boolean air = world.isAirBlock(probe);
-            	if (!air && !isLeavesBlock(probeState) && !isLogBlock(probeState)) break;
-                probe.move(EnumFacing.DOWN);
-                probeState = world.getBlockState(probe);
-            }
-            int surfaceY = probe.getY();
-            if (surfaceY < minY || surfaceY > maxY) continue;
+			while (probe.getY() > minY) {
+				if (probeState != null && probeState.isOpaqueCube() && probeState.isFullCube() && probeState.isSideSolid(world, probe, EnumFacing.UP) && !isLeavesBlock(probeState) && !isLogBlock(probeState)) {
+					break;
+				}
+				probe.move(EnumFacing.DOWN);
+				probeState = world.getBlockState(probe);
+			}
+			int surfaceY = probe.getY();
+			if (surfaceY < minY || surfaceY > maxY) continue;
 
             // Check surface block is valid
-            Block groundBlock = probeState.getBlock();
-            //boolean baseIsSolid = probeState.isOpaqueCube() &&  probeState.isFullCube() && probeState.isSideSolid(world, probe, EnumFacing.UP);
-		    if (!probeState.isOpaqueCube()) continue; // cheap check first
-		    if (!probeState.isSideSolid(world, probe, EnumFacing.UP) || !probeState.isFullCube()) continue;
-		    if (FORBIDDEN_BLOCKS.contains(groundBlock)) continue;
-            
-            //if (!baseIsSolid) continue;
-            //if (FORBIDDEN_BLOCKS.contains(groundBlock)) continue;
+			if (probeState == null) continue;
+			Block groundBlock = probeState.getBlock();
+			if (!probeState.isOpaqueCube()) continue;
+			if (!probeState.isSideSolid(world, probe, EnumFacing.UP) || !probeState.isFullCube()) continue;
+			if (FORBIDDEN_BLOCKS.contains(groundBlock)) continue;
 
-		    placePos.setPos(probe.getX(), probe.getY() + 1, probe.getZ());
-		    if (placePos.getY() < 0 || placePos.getY() > 255) continue;
+			placePos.setPos(probe.getX(), probe.getY() + 1, probe.getZ());
+			if (placePos.getY() < 1 || placePos.getY() > 254) continue;
 
-		    IBlockState placeState = world.getBlockState(placePos);
-		    Block placeBlock = placeState.getBlock();
-		    if (placeBlock == block) continue;
-		    if (!world.isAirBlock(placePos) && !placeState.getMaterial().isReplaceable() && !isLeavesBlock(placeState)) continue;
+			IBlockState placeState = world.getBlockState(placePos);
+			if (placeState.getMaterial().isLiquid()) continue;
+			Block placeBlock = placeState.getBlock();
+			if (placeBlock == block) continue;
 
-			// place
+			//boolean placePosReplaceable = placeState.getMaterial().isReplaceable() || isLeavesBlock(placeState) || placeState.getBlock().isAir(placeState, world, placePos);
+			if (!(placeState.getMaterial().isReplaceable() || isLeavesBlock(placeState) || placeState.getBlock().isAir(placeState, world, placePos))) continue;
+
 			world.setBlockState(placePos, block.getDefaultState(), 2);
 		}
 	}
 	private static boolean isLeavesBlock(IBlockState state) {
-		if (state == null) return false;
-		Block b = state.getBlock();
-		// mods can also add their own leaves - you can check the material
-		return b == Blocks.LEAVES || b == Blocks.LEAVES2 || state.getMaterial() == net.minecraft.block.material.Material.LEAVES;
+		//if (state == null) return false;
+		return state.getMaterial() == net.minecraft.block.material.Material.LEAVES;
 	}
-    private static boolean isLogBlock(IBlockState state) {
-        if (state == null) return false;
-        Block b = state.getBlock();
-        return b == Blocks.LOG || b == Blocks.LOG2;
-    }
+
+	private static boolean isLogBlock(IBlockState state) {
+		//if (state == null) return false;
+		//Block b = state.getBlock();
+		return state.getMaterial() == net.minecraft.block.material.Material.WOOD; //b == Blocks.LOG || b == Blocks.LOG2;
+	}
 }

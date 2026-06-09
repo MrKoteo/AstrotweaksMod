@@ -29,7 +29,7 @@ import net.minecraft.block.Block;
 import java.util.Random;
 
 import astrotweaks.creativetab.TabAstroTweaks;
-import astrotweaks.AstrotweaksModVariables;
+import astrotweaks.ModVariables;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -89,12 +89,11 @@ public class BlockQuartzOreGranite extends ElementsAstrotweaksMod.ModElement {
 	@Override
 	public void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
 	    if (dimID != 0) return;
-	    if (!AstrotweaksModVariables.Overworld_Quartz_Generation) return;
+	    if (!ModVariables.OW_Quartz_Gen) return;
 			
 		com.google.common.base.Predicate<IBlockState> match = new com.google.common.base.Predicate<IBlockState>() {
 		    @Override
 		    public boolean apply(IBlockState state) {
-		        //if (state == null) return false;
 		        return state.getBlock() == Blocks.STONE && state.getBlock().getMetaFromState(state) == 1;
 		    }
 		};

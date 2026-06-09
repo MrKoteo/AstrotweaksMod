@@ -1,0 +1,8 @@
+{
+  "parent": "astrotweaks:custom/mine",
+  "textures": {
+    "all": "astrotweaks:blocks/mine",
+    "particle": "astrotweaks:blocks/mine",
+    "mine": "astrotweaks:blocks/mine"
+  }
+}

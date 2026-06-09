@@ -1,0 +1,12 @@
+{"variants":
+{"shape=north_south":
+{"model":"astrotweaks:rail_mine"},
+"shape=east_west":{"model":"astrotweaks:rail_mine","y":90},
+"shape=ascending_east":{"model":"astrotweaks:rail_mine_raised_ne","y":90},
+"shape=ascending_west":{"model":"astrotweaks:rail_mine_raised_sw","y":90},
+"shape=ascending_north":{"model":"astrotweaks:rail_mine_raised_ne"},
+"shape=ascending_south":{"model":"astrotweaks:rail_mine_raised_sw"},
+"shape=south_east":{"model":"astrotweaks:rail_mine_curved"},
+"shape=south_west":{"model":"astrotweaks:rail_mine_curved","y":90},
+"shape=north_west":{"model":"astrotweaks:rail_mine_curved","y":180},
+"shape=north_east":{"model":"astrotweaks:rail_mine_curved","y":270}}}

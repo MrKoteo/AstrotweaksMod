@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "meta=0": {"model":"astrotweaks:ruby_ore"},
+    "meta=1": {"model":"astrotweaks:quartz_ore_stone"},
+    "meta=2": {"model":"astrotweaks:quartz_ore_granite"},
+    "meta=3": {"model":"minecraft:coal_ore"},
+    "meta=4": {"model":"minecraft:iron_ore"},
+    "meta=5": {"model":"minecraft:gold_ore"},
+    "meta=6": {"model":"minecraft:diamond_ore"},
+    "meta=7": {"model":"minecraft:emerald_ore"},
+    "meta=8": {"model":"minecraft:lapis_ore"},
+    "meta=9": {"model":"minecraft:redstone_ore"},
+    "meta=10": {"model":"minecraft:quartz_ore"},
+    "meta=11": {"model":"minecraft:coal_block"},
+    "meta=12": {"model":"minecraft:iron_block"},
+    "meta=13": {"model":"minecraft:gold_block"},
+    "meta=14": {"model":"minecraft:diamond_block"},
+    "meta=15": {"model":"minecraft:emerald_block"}
+  }
+}

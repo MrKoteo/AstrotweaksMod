@@ -1,0 +1,57 @@
+{
+  "parent": "block/block",
+  "ambientocclusion": false,
+  "display": {
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    }
+  },
+  "elements": [
+    {
+      "from": [
+        3,
+        0,
+        3
+      ],
+      "to": [
+        13,
+        3,
+        13
+      ],
+      "faces": {
+        "up": {
+          "texture": "#heavy_mine"
+        },
+        "down": {
+          "texture": "#heavy_mine"
+        },
+        "west": {
+          "texture": "#heavy_mine"
+        },
+        "east": {
+          "texture": "#heavy_mine"
+        },
+        "north": {
+          "texture": "#heavy_mine"
+        },
+        "south": {
+          "texture": "#heavy_mine"
+        }
+      }
+    }
+  ]
+}

@@ -58,7 +58,6 @@ public class BlockBush1 extends ElementsAstrotweaksMod.ModElement {
 	public static class BlockCustomFlower extends BlockBush {
 		public BlockCustomFlower() {
 			setSoundType(SoundType.PLANT);
-			//setCreativeTab(TabAstroTweaks.tab);
 			setHardness(0F);
 			setResistance(0F);
 			setUnlocalizedName("bush_1");
@@ -101,10 +100,7 @@ public class BlockBush1 extends ElementsAstrotweaksMod.ModElement {
 		    boolean hasSilk = stack != null && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;
 
 		    if (!world.isRemote && (hasShears || hasSilk)) {
-		        // bush
 		        spawnAsEntity(world, pos, new ItemStack(this));
-		        // remove block
-		        //world.setBlockToAir(pos);
 		    } else {
 		        // def (get_drops)
 		        super.harvestBlock(world, player, pos, state, te, stack);

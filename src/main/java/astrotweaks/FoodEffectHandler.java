@@ -10,12 +10,7 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Collections;
-import java.util.List;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 
 import astrotweaks.AstrotweaksModVariables;
@@ -25,104 +20,82 @@ import astrotweaks.ModVariables;
 @Mod.EventBusSubscriber
 public class FoodEffectHandler {
     // map  "item -> effect"
-    private static Map<Item, PotionData[]> FOOD_EFFECTS = new HashMap<>();
+    private static Map<ItemStack, PotionData[]> FOOD_EFFECTS = new HashMap<>();
 
-    static {
-        initEffects();
-    }
+	public static void init() {
+		if (!(AstrotweaksModVariables.Food_Negative_Effects)) { FOOD_EFFECTS = Collections.emptyMap();return; }
 
-	private static void initEffects() {
-		if (!(AstrotweaksModVariables.Food_Negative_Effects)) { return; }
+		Map<ItemStack, PotionData[]> map = new HashMap<>();
+		
         // register
         // Format:  Name, Time in Ticks, Level
-        addFoodEffects(Items.ROTTEN_FLESH,
+        addEffects(map, new ItemStack(net.minecraft.init.Items.ROTTEN_FLESH),
             potion(MobEffects.WEAKNESS, 600, 0),
-            potion(MobEffects.MINING_FATIGUE, 600, 0),
+            potion(MobEffects.MINING_FATIGUE, 800, 0),
             potion(MobEffects.HUNGER, 1800, 1),
             potion(MobEffects.SLOWNESS, 600, 0),
             potion(MobEffects.NAUSEA, 200, 0),
             potion(MobEffects.POISON, 200, 0)
         );
-        addFoodEffects(Items.POISONOUS_POTATO,
+        addEffects(map, new ItemStack(net.minecraft.init.Items.POISONOUS_POTATO),
             potion(MobEffects.POISON, 200, 2),
-            potion(MobEffects.WEAKNESS, 400, 0),
-            potion(MobEffects.MINING_FATIGUE, 800, 0),
-            potion(MobEffects.HUNGER, 900, 2),
+            potion(MobEffects.WEAKNESS, 600, 0),
+            potion(MobEffects.MINING_FATIGUE, 1200, 0),
+            potion(MobEffects.HUNGER, 800, 3),
             potion(MobEffects.SLOWNESS, 600, 0),
-            potion(MobEffects.NAUSEA, 200, 1)
+            potion(MobEffects.NAUSEA, 400, 1)
         );
-        addFoodEffects(Items.SPIDER_EYE,
+        addEffects(map, new ItemStack(net.minecraft.init.Items.SPIDER_EYE),
             potion(MobEffects.POISON, 300, 1),
             potion(MobEffects.WEAKNESS, 1200, 0),
-            potion(MobEffects.MINING_FATIGUE, 400, 0),
-            potion(MobEffects.HUNGER, 400, 2),
+            potion(MobEffects.MINING_FATIGUE, 1200, 0),
+            potion(MobEffects.HUNGER, 600, 2),
             potion(MobEffects.SLOWNESS, 600, 0),
             potion(MobEffects.NAUSEA, 100, 0)
         );
         // RAW meat
         if (ModVariables.Raw_Meat_Negative_Effects) {
-        	
-	        addFoodEffects(Items.PORKCHOP,
-	            potion(MobEffects.WEAKNESS, 600, 0),
-	            potion(MobEffects.MINING_FATIGUE, 600, 0),
-	            potion(MobEffects.HUNGER, 1200, 2),
-            	potion(MobEffects.POISON, 200, 0)
-	        );
-	        addFoodEffects(Items.BEEF,
-	            potion(MobEffects.WEAKNESS, 400, 0),
-	            potion(MobEffects.MINING_FATIGUE, 600, 0),
-	            potion(MobEffects.HUNGER, 1200, 2),
-            	potion(MobEffects.POISON, 200, 0)
-	        );
-	        addFoodEffects(Items.CHICKEN,
-	            potion(MobEffects.WEAKNESS, 400, 0),
-	            potion(MobEffects.MINING_FATIGUE, 600, 0),
-	            potion(MobEffects.HUNGER, 1200, 1),
-            	potion(MobEffects.POISON, 200, 0)
-	        );
-	        addFoodEffects(Items.RABBIT,
-	            potion(MobEffects.WEAKNESS, 400, 0),
-	            potion(MobEffects.MINING_FATIGUE, 600, 0),
-	            potion(MobEffects.HUNGER, 1200, 2),
-            	potion(MobEffects.POISON, 200, 0)
-	        );
-	        addFoodEffects(Items.MUTTON,
-	            potion(MobEffects.WEAKNESS, 400, 0),
-	            potion(MobEffects.MINING_FATIGUE, 600, 0),
-	            potion(MobEffects.HUNGER, 1200, 1),
-            	potion(MobEffects.POISON, 200, 0)
-	        );
-	        addFoodEffects(Items.FISH,
-	            potion(MobEffects.WEAKNESS, 400, 0),
-	            potion(MobEffects.MINING_FATIGUE, 600, 0),
-	            potion(MobEffects.HUNGER, 1200, 2),
-            	potion(MobEffects.POISON, 200, 0)
-	        );
-
+            PotionData[] meatEffects = {
+                potion(MobEffects.WEAKNESS, 400, 0),
+                potion(MobEffects.MINING_FATIGUE, 800, 0),
+                potion(MobEffects.HUNGER, 1800, 1),
+                potion(MobEffects.POISON, 160, 0),
+                potion(MobEffects.SLOWNESS, 30, 1)
+            };
+            for (ItemStack meatItem : ModVariables.MEAT_LIST) {
+                if (meatItem != null) {
+                    addEffects(map, meatItem, meatEffects);
+                }
+            }
         }
 
-        FOOD_EFFECTS = Collections.unmodifiableMap(new HashMap<>(FOOD_EFFECTS));
+        FOOD_EFFECTS = Collections.unmodifiableMap(map);
     }
-    
+
     private static final PotionData potion(net.minecraft.potion.Potion potion, int duration, int amplifier) {
         return new PotionData(potion, duration, amplifier);
     }
-	private static void addFoodEffects(Item item, PotionData... effects) {
-	    FOOD_EFFECTS.put(item, effects);
-	}
+    private static void addEffects(Map<ItemStack, PotionData[]> map, ItemStack item, PotionData... effects) {
+        map.put(item, effects);
+    }
 
     @SubscribeEvent
     public static void onFoodEaten(LivingEntityUseItemEvent.Finish event) {
-    	if (!(event.getEntityLiving() instanceof EntityPlayer)) return;
-		PotionData[] effects = FOOD_EFFECTS.get(event.getItem().getItem());
-    	if (effects == null) return;
-    	EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+    	if (Math.random() < 0.25) return;
+        if (!(event.getEntityLiving() instanceof EntityPlayer)) return;
+        ItemStack eaten = event.getItem();
+        if (eaten.isEmpty()) return;
 
-        for (PotionData data : effects) {
-            player.addPotionEffect(new PotionEffect(data.potion, data.duration, data.amplifier));
+        for (Map.Entry<ItemStack, PotionData[]> entry : FOOD_EFFECTS.entrySet()) {
+            if (entry.getKey().isItemEqual(eaten)) {
+                EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+                for (PotionData data : entry.getValue()) {
+                    player.addPotionEffect(new PotionEffect(data.potion, data.duration, data.amplifier));
+                }
+                break;
+            }
         }
     }
-
     private static class PotionData {
         public final net.minecraft.potion.Potion potion;
         public final int duration;

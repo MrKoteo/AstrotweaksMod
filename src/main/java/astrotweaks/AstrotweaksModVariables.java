@@ -14,8 +14,7 @@ import net.minecraft.client.Minecraft;
 public class AstrotweaksModVariables {
 	public static boolean EnableProgressionSystem = false;
 	public static boolean AstroTech_Environment = false;
-	public static boolean Overworld_Quartz_Generation = true;
-	public static boolean Ruby_Generation = true;
+	public static boolean Overworld_Quartz_Gen = true;
 	public static boolean Money_Can_Smelt = true;
 	public static boolean Money_Can_Craft = true;
 	public static boolean Food_Negative_Effects = true;

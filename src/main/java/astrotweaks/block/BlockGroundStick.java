@@ -91,7 +91,7 @@ public class BlockGroundStick extends ElementsAstrotweaksMod.ModElement {
 	public static class BlockCustom extends Block {
 		public static final PropertyDirection FACING = BlockHorizontal.FACING;
 		public BlockCustom() {
-			super(Material.WOOD); // ???
+			super(Material.CLOTH); // ???
 			setUnlocalizedName("ground_stick");
 			setSoundType(SoundType.LADDER);
 			setHardness(0F);

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "meta=0": {"model":"astrotweaks:carrot_block"},
+    "meta=1": {"model":"astrotweaks:apple_block"},
+    "meta=2": {"model":"astrotweaks:beetroot_block"}
+  }
+}

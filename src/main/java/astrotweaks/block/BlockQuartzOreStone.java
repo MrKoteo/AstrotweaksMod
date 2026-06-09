@@ -30,7 +30,7 @@ import java.util.function.Predicate;
 import java.util.Random;
 
 import astrotweaks.creativetab.TabAstroTweaks;
-import astrotweaks.AstrotweaksModVariables;
+import astrotweaks.ModVariables;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -54,32 +54,11 @@ public class BlockQuartzOreStone extends ElementsAstrotweaksMod.ModElement {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0,
 				new ModelResourceLocation("astrotweaks:quartz_ore_stone", "inventory"));
 	}
-
-/*
-	@Override
-	public void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
-	    if (dimID != 0) return;
-	    if (!AstrotweaksModVariables.Overworld_Quartz_Generation) return;
-	
-	    Predicate<IBlockState> match = blockAt -> blockAt != null && blockAt.getBlock() == Blocks.STONE;
-	
-	    for (int i = 0; i < 6; i++) {
-	        int x = chunkX + random.nextInt(16);
-	        int y = random.nextInt(35) + 25;
-	        int z = chunkZ + random.nextInt(16);
-	
-	        new WorldGenMinable(block.getDefaultState(), 4, (com.google.common.base.Predicate<IBlockState>) match::test)
-	                .generate(world, random, new BlockPos(x, y, z));
-	    }
-	}
-*/
-
-
 	
 	@Override
 	public void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
 	    if (dimID != 0) return;
-	    if (!AstrotweaksModVariables.Overworld_Quartz_Generation) return;
+	    if (!ModVariables.OW_Quartz_Gen) return;
 	
 	    com.google.common.base.Predicate<IBlockState> match = new com.google.common.base.Predicate<IBlockState>() {
 	        @Override
@@ -97,8 +76,6 @@ public class BlockQuartzOreStone extends ElementsAstrotweaksMod.ModElement {
 	    }
 	}
 	
-
-
 
 	
 	public static class BlockCustom extends Block {

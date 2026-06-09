@@ -19,6 +19,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.Vec3d;
@@ -51,6 +52,8 @@ public class BlockUDestroyerBlock extends ElementsAstrotweaksMod.ModElement {
 			super(Material.IRON, MapColor.IRON);
 			setUnlocalizedName("u_destroyer_block");
 			setSoundType(SoundType.METAL);
+			setHardness(1000F);
+			setResistance(1000F);
 			setCreativeTab(TabAstroTweaks.tab);
 			setBlockUnbreakable();
 		}
@@ -79,35 +82,45 @@ public class BlockUDestroyerBlock extends ElementsAstrotweaksMod.ModElement {
 		// Execute several fill commands to clear stacked regions around pos (server-side)
 		private static void DelXArea(World world, BlockPos pos) {
 			if (world == null || pos == null || world.isRemote) return;
-			MinecraftServer server = world.getMinecraftServer();
-			if (server == null) return;
+			
+			//MinecraftServer server = world.getMinecraftServer();
+			//if (server == null) return;
 
-			final ICommandSender sender = new ICommandSender() {
-				@Override public String getName() { return "udestroyer"; }
-				@Override public boolean canUseCommand(int perm, String cmd) { return true; }
-				@Override public World getEntityWorld() { return world; }
-				@Override public MinecraftServer getServer() { return server; }
-				@Override public boolean sendCommandFeedback() { return false; }
-				@Override public BlockPos getPosition() { return pos; }
-				@Override public Vec3d getPositionVector() { return new Vec3d(pos.getX(), pos.getY(), pos.getZ()); }
-			};
+			final int r = 10; // radius
+			int worldMaxY = 255;
+			try {
+				worldMaxY = world.getHeight();
+			} catch (Throwable t) {
+				///
+			}
+			
+			for (int dy = -r; dy <= r; dy++) {
+				int y = pos.getY() + dy;
+		
+				if (y < 1) continue;
+				if (y >= worldMaxY) continue;
+		
+				for (int dx = -r; dx <= r; dx++) {
+					for (int dz = -r; dz <= r; dz++) {
+						BlockPos p = new BlockPos(pos.getX() + dx, y, pos.getZ() + dz);
+		
+						//if (!world.isBlockLoaded(p)) continue;
+		
+						IBlockState state = world.getBlockState(p);
+						Block b = state.getBlock();
+		
+						if (b == Blocks.AIR) continue;
+						
+						//if (b == Blocks.BEDROCK) continue;
+						//TileEntity te = world.getTileEntity(p);
+						//if (te != null) continue;
 
-			final String[] cmds = {
-				"fill ~10 ~10 ~10 ~-10 ~9 ~-10 air 0 replace",
-				"fill ~10 ~8 ~10 ~-10 ~6 ~-10 air 0 replace",
-				"fill ~10 ~5 ~10 ~-10 ~3 ~-10 air 0 replace",
-				"fill ~10 ~2 ~10 ~-10 ~-2 ~-10 air 0 replace",
-				"fill ~10 ~-3 ~10 ~-10 ~-5 ~-10 air 0 replace",
-				"fill ~10 ~-6 ~10 ~-10 ~-8 ~-10 air 0 replace",
-				"fill ~10 ~-9 ~10 ~-10 ~-10 ~-10 air 0 replace"
-			};
-			for (String c : cmds) {
-				try {
-					server.getCommandManager().executeCommand(sender, c);
-				} catch (Exception e) {
-					// prevent server crash; ignore or log if desired
+						world.setBlockToAir(p);
+					}
 				}
 			}
+
+			//world.setBlockToAir(pos);
 		}
 	}
 }

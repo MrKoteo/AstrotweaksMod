@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "meta=0": {"model":"minecraft:hay_block"},
+    "meta=1": {"model":"minecraft:red_sandstone"},
+    "meta=2": {"model":"minecraft:purpur_block"},
+    "meta=3": {"model":"minecraft:end_bricks"},
+    "meta=4": {"model":"minecraft:bone_block"},
+    "meta=5": {"model":"minecraft:nether_brick"},
+    "meta=6": {"model":"minecraft:hardened_clay"},
+    "meta=7": {"model":"minecraft:prismarine"},
+    "meta=8": {"model":"minecraft:sea_lantern"},
+    "meta=9": {"model":"minecraft:packed_ice"},
+    "meta=10": {"model":"minecraft:sponge"},
+    "meta=11": {"model":"minecraft:sand"},
+    "meta=12": {"model":"minecraft:mycelium"},
+    "meta=13": {"model":"astrotweaks:dirt_bricks"},
+    "meta=14": {"model":"astrotweaks:ruby_block"},
+    "meta=15": {"model":"astrotweaks:brass_block"}
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "meta=0": {"model":"minecraft:stone"},
+    "meta=1": {"model":"minecraft:dirt"},
+    "meta=2": {"model":"minecraft:cobblestone"},
+    "meta=3": {"model":"minecraft:sandstone"},
+    "meta=4": {"model":"minecraft:mossy_cobblestone"},
+    "meta=5": {"model":"minecraft:brick_block"},
+    "meta=6": {"model":"minecraft:bookshelf"},
+    "meta=7": {"model":"minecraft:snow"},
+    "meta=8": {"model":"minecraft:clay"},
+    "meta=9": {"model":"minecraft:pumpkin"},
+    "meta=10": {"model":"minecraft:netherrack"},
+    "meta=11": {"model":"minecraft:end_stone"},
+    "meta=12": {"model":"minecraft:glowstone"},
+    "meta=13": {"model":"minecraft:lit_pumpkin"},
+    "meta=14": {"model":"minecraft:stonebrick"},
+    "meta=15": {"model":"minecraft:melon_block"}
+  }
+}

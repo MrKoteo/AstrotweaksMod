@@ -81,6 +81,14 @@ public class UOredictRegistrar {
 
 		OreDictionary.registerOre("wireGold", new ItemStack(ItemInductanceCoil1.block, (int) (1)));
 		OreDictionary.registerOre("wireCopper", new ItemStack(ItemInductanceCoil2.block, (int) (1)));
+
+		OreDictionary.registerOre("listAllmeatraw", new ItemStack(Items.PORKCHOP, (int) (1)));
+		OreDictionary.registerOre("listAllmeatraw", new ItemStack(Items.BEEF, (int) (1)));
+		OreDictionary.registerOre("listAllmeatraw", new ItemStack(Items.RABBIT, (int) (1)));
+		OreDictionary.registerOre("listAllmeatraw", new ItemStack(Items.MUTTON, (int) (1)));
+		OreDictionary.registerOre("listAllmeatraw", new ItemStack(Items.CHICKEN, (int) (1)));
+
+		OreDictionary.registerOre("listAllfishraw", new ItemStack(Items.FISH, (int) (1)));
 	}
 	private static void OreBlocks() {
 		OreDictionary.registerOre("blockRuby", new ItemStack(BlockRubyBlock.block, (int) (1)));

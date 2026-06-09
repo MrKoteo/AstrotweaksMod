@@ -126,6 +126,7 @@ public class BlockFexplosive extends ElementsAstrotweaksMod.ModElement {
 	        double y = pos.getY() + 0.5;
 	        double z = pos.getZ() + 0.5;
 	        // createExplosion(Entity exploder, double x, double y, double z, float strength, boolean createsFire)
+	        world.setBlockToAir(pos);
 	        world.createExplosion(null, x, y, z, 2.0F, true);
 	        // Optionally: world.setBlockToAir(pos); if you want to remove block explicitly
 	    }

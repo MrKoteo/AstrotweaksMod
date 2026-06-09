@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "meta=0": {"model":"minecraft:red_glazed_terracotta"},
+    "meta=1": {"model":"minecraft:black_glazed_terracotta"},
+    "meta=2": {"model":"astrotweaks:minerals_ore"},
+    "meta=3": {"model":"astrotweaks:deep_minerals"},
+    "meta=4": {"model":"astrotweaks:deep_diamond_ore"},
+    "meta=5": {"model":"astrotweaks:deep_gold_ore"},
+    "meta=6": {"model":"astrotweaks:deep_emerald_ore"},
+    "meta=7": {"model":"astrotweaks:deep_iron_ore"},
+    "meta=8": {"model":"astrotweaks:deep_lapis_ore"},
+    "meta=9": {"model":"astrotweaks:deep_redstone_ore"},
+    "meta=10": {"model":"astrotweaks:deepslate"},
+    "meta=11": {"model":"astrotweaks:deepslate_bricks"},
+    "meta=12": {"model":"astrotweaks:cobbled_deepslate"},
+    "meta=13": {"model":"astrotweaks:deepslate_tiles"},
+    "meta=14": {"model":"astrotweaks:bread_block"},
+    "meta=15": {"model":"astrotweaks:potato_block"}
+  }
+}

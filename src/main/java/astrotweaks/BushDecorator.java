@@ -119,15 +119,16 @@ public class BushDecorator {
         Bush7_biomes_ch = toBiomeSet(Bush7_biomes);
         Fern1_biomes_ch = toBiomeSet(Fern1_biomes);
 
+		//		Block, 			  Biome, 		chance, count
 		addBush(BlockBush1.block, Bush1_biomes_ch, 1.5, 8); // Forest
-		addBush(BlockBush2.block, Bush2_biomes_ch, 1.9, 8); // swamp
+		addBush(BlockBush2.block, Bush2_biomes_ch, 1.9, 9); // swamp
 		addBush(BlockBush3.block, Bush3_biomes_ch, 1.7, 7); // Taiga
 		addBush(BlockBush4.block, Bush4_biomes_ch, 1.8, 11);// Jungle
-		addBush(BlockBush5.block, Bush5_biomes_ch, 1.2, 6); // siren
-		addBush(BlockBush6.block, Bush6_biomes_ch, 0.7, 9); // Plains
+		addBush(BlockBush5.block, Bush5_biomes_ch, 1.0, 6); // siren
+		addBush(BlockBush6.block, Bush6_biomes_ch, 0.65,8);// Plains
 		addBush(BlockBush7.block, Bush7_biomes_ch, 1.6, 9);// Jungle
 
-		addBush(BlockFern1.block, Fern1_biomes_ch, 2.3, 11); //
+		addBush(BlockFern1.block, Fern1_biomes_ch, 2.3, 12); //
 
 		// final
 		BUSHES = Collections.unmodifiableList(new ArrayList<>(BUSHES));
@@ -149,40 +150,36 @@ public class BushDecorator {
 	}
 
 	///
-	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public void onDecorate(DecorateBiomeEvent.Decorate event) {
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onDecorate(DecorateBiomeEvent.Decorate event) {
         if (event.getType() != DecorateBiomeEvent.Decorate.EventType.FLOWERS) return;
-		World world = event.getWorld();
-		Random rand = event.getRand();
-		BlockPos chunkPos = event.getPos();
-		//System.out.println(chunkPos);
-		Biome currentBiome = world.getBiome(chunkPos);
-		//Biome currentBiome = world.getBiome(new BlockPos(chunkPos.getX() + 8, 64, chunkPos.getZ() + 8));
+        World world = event.getWorld();
+        Random rand = event.getRand();
+        BlockPos chunkPos = event.getPos();
+        Biome currentBiome = world.getBiome(chunkPos);
 
-		List<BushEntry> entries = BUSH_MAP.get(currentBiome);
-		if (entries == null) return;
+        List<BushEntry> entries = BUSH_MAP.get(currentBiome);
+        if (entries == null) return;
+
         for (BushEntry entry : entries) {
-            if (!entry.biomes.contains(currentBiome)) continue;
-
             int attempts = getAttempts(entry.frequency, rand);
             for (int i = 0; i < attempts; i++) {
                 generateBushCluster(world, rand, chunkPos, entry);
             }
         }
-	}
+    }
 	
 	private static void initBlockSets() {
-	    Set<Block> ground = new HashSet<>();
-	    Set<Block> replaceable = new HashSet<>();
-	
-	    // def
-	    ground.add(Blocks.GRASS);
-	    ground.add(Blocks.DIRT);
-	
-	    replaceable.add(Blocks.AIR);
-	    replaceable.add(Blocks.TALLGRASS);
-	    replaceable.add(Blocks.RED_FLOWER);
-	    replaceable.add(Blocks.SNOW_LAYER);
+        Set<Block> ground = new HashSet<>();
+        Set<Block> replaceable = new HashSet<>();
+		// def
+        ground.add(Blocks.GRASS);
+        ground.add(Blocks.DIRT);
+
+        replaceable.add(Blocks.AIR);
+        replaceable.add(Blocks.TALLGRASS);
+        replaceable.add(Blocks.RED_FLOWER);
+        replaceable.add(Blocks.SNOW_LAYER);
 	
 	    // Add blocks for "templates" registryName,
 	    for (Block b : Block.REGISTRY) {
@@ -190,131 +187,121 @@ public class BushDecorator {
 	        if (rl == null) continue;
 	        String ns = rl.getResourceDomain(); // getNamespace() return domain
 	        String path = rl.getResourcePath();
-	
-	        // example
+
 	        // if namespace "ore" & contain "grass" -> ground
-	        if ("ore".equals(ns) && path.contains("grass") && !path.contains("tall")) {
-	            ground.add(b);
-	        }
+            if ("ore".equals(ns) && path.contains("grass") && !path.contains("tall")) {
+                ground.add(b);
+            }
 	        //if ("ore".equals(ns) && path.contains("dirt")) {
 	        //    ground.add(b);
 	        //}
-	        // any ore:tallgrass - add to replaceable
-	        if ("ore".equals(ns) && path.contains("tallgrass")) {
-	            replaceable.add(b);
-	        }
-
+            if ("ore".equals(ns) && path.contains("tallgrass")) {
+                replaceable.add(b);
+            }
 	    }
-	
-	    GROUND_BLOCKS = Collections.unmodifiableSet(ground);
-	    REPLACEABLE_BLOCKS = Collections.unmodifiableSet(replaceable);
-	
-	    System.out.println("BushDecorator: ground set size=" + GROUND_BLOCKS.size() + " replaceable set size=" + REPLACEABLE_BLOCKS.size());
+        GROUND_BLOCKS = Collections.unmodifiableSet(ground);
+        REPLACEABLE_BLOCKS = Collections.unmodifiableSet(replaceable);
+
+        System.out.println("BushDecorator: ground set size=" + GROUND_BLOCKS.size() + " replaceable set size=" + REPLACEABLE_BLOCKS.size());
 	}
 
-	private static void generateBushCluster(World world, Random rand, BlockPos chunkPos, BushEntry entry) {
-	    int chunkX = chunkPos.getX() >> 4;
-	    int chunkZ = chunkPos.getZ() >> 4;
-	    int originX = chunkX << 4;
-	    int originZ = chunkZ << 4;
+    private static void generateBushCluster(World world, Random rand, BlockPos chunkPos, BushEntry entry) {
+        int chunkX = chunkPos.getX() >> 4;
+        int chunkZ = chunkPos.getZ() >> 4;
+        int originX = chunkX << 4;
+        int originZ = chunkZ << 4;
 
 	    //Chunk chunk = world.getChunk(chunkX, chunkZ);
-	    Chunk chunk = world.getChunkFromChunkCoords(chunkX, chunkZ);
-	    if (chunk == null) return;
+        Chunk chunk = world.getChunkFromChunkCoords(chunkX, chunkZ);
+        if (chunk == null) return;
 	
 	    // calc center; exclude [0..15] borders by using [1..14]
 	    int localX = rand.nextInt(14) + 1; // [1..14]
 	    int localZ = rand.nextInt(14) + 1;
-	
 	    int x = originX + localX;
 	    int z = originZ + localZ;
 	
-	    int y = getGroundHeight(chunk, localX, localZ);
-	    if (y < 59 || y > 200) return;
+        // OPT: Reusable MutableBlockPos for height and placement lookup
+        BlockPos.MutableBlockPos mpos = new BlockPos.MutableBlockPos();
+        int y = getGroundHeight(chunk, localX, localZ, mpos);
+        if (y <= 0 || y < 59 || y > 210) return;
 	
-	    BlockPos.MutableBlockPos center = new BlockPos.MutableBlockPos(x, y, z);
-	    if (!canPlaceBush(chunk, center, entry.state)) return;
-	    chunk.setBlockState(center, entry.state);
+        mpos.setPos(x, y, z);
+        IBlockState state = entry.state; // OPT: local var
+        if (!canPlaceBush(chunk, x, y, z, state)) return;
+        chunk.setBlockState(mpos, state);
 
 	    // place additional bushes around (density)
 	    int density = entry.clusterDensity;
-	    BlockPos.MutableBlockPos candidate = new BlockPos.MutableBlockPos();
-	    for (int i = 1; i < density; i++) {
-	        int dx = rand.nextInt(7) - 3;
-	        int dz = rand.nextInt(7) - 3;
-	        int dy = rand.nextInt(5) - 2;
-	
-	        int cx = center.getX() + dx;
-	        int cz = center.getZ() + dz;
-	
-	        // -
-	        if ((cx >> 4) != chunkX || (cz >> 4) != chunkZ) continue;
-	
-	        int localCx = cx & 15, localCz = cz & 15;
-	        if (localCx == 0 || localCx == 15 || localCz == 0 || localCz == 15) continue;
-	
-	        int cy = center.getY() + dy;
-	        candidate.setPos(cx, cy, cz);
-	
-	        // -
-	        if (canPlaceBush(chunk, candidate, entry.state)) {
-	            chunk.setBlockState(candidate, entry.state);
-	        }
-	    }
+        for (int i = 1; i < density; i++) {
+            int dx = rand.nextInt(7) - 3;
+            int dz = rand.nextInt(7) - 3;
+            int dy = rand.nextInt(5) - 2;
+
+            int cx = x + dx;
+            int cz = z + dz;
+
+            // checking for belonging to the same chunk
+            if ((cx >> 4) != chunkX || (cz >> 4) != chunkZ) continue;
+
+            int localCx = cx & 15, localCz = cz & 15;
+            if (localCx == 0 || localCx == 15 || localCz == 0 || localCz == 15) continue;
+
+            int cy = y + dy;
+            // OPT: reuse mpos
+            mpos.setPos(cx, cy, cz);
+            if (canPlaceBush(chunk, cx, cy, cz, state)) {
+                chunk.setBlockState(mpos, state);
+            }
+        }
 	}
 
 	// Finds the height (y) of the top block of grass or earth in the given column,
 	// above which there is air (as for flowers).
-	private static int getGroundHeight(Chunk chunk, int localX, int localZ) {
-	    int baseX = (chunk.x << 4) + localX;
-	    int baseZ = (chunk.z << 4) + localZ;
-    
-	    int startY = 200; 
-	    BlockPos.MutableBlockPos mpos = new BlockPos.MutableBlockPos();
-	    for (int y = startY; y > 0; y--) {
-	        mpos.setPos(baseX, y, baseZ);
-	        IBlockState state = chunk.getBlockState(mpos);
-	        Block block = state.getBlock();
+	// OPT: Use getHeightValue to speed up height lookups
+	// OPT: Pass a reusable MutableBlockPos
+    private static int getGroundHeight(Chunk chunk, int localX, int localZ, BlockPos.MutableBlockPos mpos) {
+        int baseX = (chunk.x << 4) + localX;
+        int baseZ = (chunk.z << 4) + localZ;
+        int topY = chunk.getHeightValue(localX, localZ);
+        int startY = Math.min(211, topY + 5);
 
-	        mpos.setPos(baseX, y + 1, baseZ);
-	        IBlockState above = chunk.getBlockState(mpos);
-	        Block aboveBlock = above.getBlock();
-			if (GROUND_BLOCKS.contains(block) && REPLACEABLE_BLOCKS.contains(aboveBlock)) {
-			    return y + 1;
-			}
-	    }
-	    return -1;
-	}
+        for (int y = startY; y > 0; y--) {
+            mpos.setPos(baseX, y, baseZ);
+            IBlockState state = chunk.getBlockState(mpos);
+            Block block = state.getBlock();
+
+            mpos.setPos(baseX, y + 1, baseZ);
+            IBlockState above = chunk.getBlockState(mpos);
+            Block aboveBlock = above.getBlock();
+
+            if (GROUND_BLOCKS.contains(block) && REPLACEABLE_BLOCKS.contains(aboveBlock)) {
+                return y + 1;
+            }
+        }
+        return -1;
+    }
     private static int getAttempts(double frequency, Random rand) {
         if (frequency >= 1.0) {
             int base = (int) frequency;
             double remainder = frequency - base;
-            if (remainder == 0.0) return base;
-            return rand.nextDouble() < remainder ? base + 1 : base;
+            return (rand.nextDouble() < remainder) ? base + 1 : base;
         } else {
-            return rand.nextDouble() < frequency ? 1 : 0;
+            return (rand.nextDouble() < frequency) ? 1 : 0;
         }
     }
 
-	private static final Block B_GRASS = Blocks.GRASS;
-	private static final Block B_DIRT = Blocks.DIRT;
-	private static final Block B_AIR = Blocks.AIR;
-	private static final Block B_TALLGRASS = Blocks.TALLGRASS;
-	private static final Block B_SNOW_LAYER = Blocks.SNOW_LAYER;
-	private static final Block B_RED_FLOWER = Blocks.RED_FLOWER;
+	// OPT: New signature - accept int coordinates instead of BlockPos
+	// OPT: Removed chunk boundary checking (it's already done in the calling code)
+    private static boolean canPlaceBush(Chunk chunk, int x, int y, int z, IBlockState bushState) {
+        // check that the position is replaceable
+        IBlockState stateAtPos = chunk.getBlockState(x, y, z);
+        if (!REPLACEABLE_BLOCKS.contains(stateAtPos.getBlock())) return false;
+        // check down
+        IBlockState below = chunk.getBlockState(x, y - 1, z);
+        return GROUND_BLOCKS.contains(below.getBlock());
+    }
 
-	private static boolean canPlaceBush(Chunk chunk, BlockPos pos, IBlockState bushState) {
-	    int localX = pos.getX() & 15, localZ = pos.getZ() & 15;
-	    if (localX == 0 || localX == 15 || localZ == 0 || localZ == 15) return false;
-
-	    BlockPos.MutableBlockPos mpos = new BlockPos.MutableBlockPos(pos);
-	    IBlockState stateAtPos = chunk.getBlockState(mpos);
-	    Block blockAtPos = stateAtPos.getBlock();
-		if (!REPLACEABLE_BLOCKS.contains(blockAtPos)) return false;
-		mpos.setPos(mpos.getX(), mpos.getY() - 1, mpos.getZ());
-		Block groundBlock = chunk.getBlockState(mpos).getBlock();
-		return GROUND_BLOCKS.contains(groundBlock);
-	}
     private static class BushEntry {
         final IBlockState state;
         final Set<Biome> biomes;

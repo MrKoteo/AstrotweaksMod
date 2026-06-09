@@ -48,7 +48,6 @@ public class ProcedureRclickBlock extends ElementsAstrotweaksMod.ModElement {
 	    public final int x, y, z;
 	    public final ItemStack mainHand, offHand;
 	    public final net.minecraft.block.Block blockAt, blockAbove;
-
 	    public Context(Entity entity, World world, int x, int y, int z) {
 	        this.entity = entity;
 	        this.world = world;
@@ -61,14 +60,12 @@ public class ProcedureRclickBlock extends ElementsAstrotweaksMod.ModElement {
 	    }
 
 	    public boolean isPlayer() { return entity instanceof EntityPlayer; }
-	
 	    public void giveToPlayer(ItemStack stack) {
 	        if (isPlayer()) ItemHandlerHelper.giveItemToPlayer((EntityPlayer) entity, stack);
 	    }
 		public void removeOneMatching(net.minecraft.item.Item item) {
 		    if (isPlayer()) ((EntityPlayer) entity).inventory.clearMatchingItems(item, -1, 1, null);
 		}
-	    
 
 	    public void spawnItemStack(ItemStack stack) {
 	        if (!world.isRemote) {
@@ -78,7 +75,6 @@ public class ProcedureRclickBlock extends ElementsAstrotweaksMod.ModElement {
 	        }
 	    }
     }
-
 	private static class Rule {
 	    final Condition condition;
 	    final Action action;
@@ -144,18 +140,12 @@ public class ProcedureRclickBlock extends ElementsAstrotweaksMod.ModElement {
         }));
         return rules;
     }
-    public static void executeProcedure(Entity entity, World world, int x, int y, int z) {    
-        //World world = (World) dependencies.get("world");
+    public static void exect(Entity entity, World world, int x, int y, int z) {    
         if (world.isRemote) return;
-        //Entity entity = (Entity) dependencies.get("entity");
         if (!(entity instanceof EntityPlayer)) return;
-        //int x = (int) dependencies.get("x");
-        //int y = (int) dependencies.get("y");
-        //int z = (int) dependencies.get("z");
 
         Context ctx = new Context(entity, world, x, y, z);
         
-        //List<Rule> rules = buildRules();
         for (Rule r : RULES)
             if (r.condition.matches(ctx)) {
             	double rand = ThreadLocalRandom.current().nextDouble();
@@ -163,7 +153,7 @@ public class ProcedureRclickBlock extends ElementsAstrotweaksMod.ModElement {
             	break;
             }
     }
-    
+
     @SubscribeEvent
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         EntityPlayer entity = event.getEntityPlayer();
@@ -171,17 +161,8 @@ public class ProcedureRclickBlock extends ElementsAstrotweaksMod.ModElement {
         int j = event.getPos().getY();
         int k = event.getPos().getZ();
         World world = event.getWorld();
-        /*
-        java.util.HashMap<String, Object> dependencies = new java.util.HashMap<>();
-        dependencies.put("x", i);
-        dependencies.put("y", j);
-        dependencies.put("z", k);
-        dependencies.put("world", world);
-        dependencies.put("entity", entity);
-        dependencies.put("event", event);*/
 
-        this.executeProcedure(entity, world, i, j, k);
-        //this.executeProcedure(dependencies);
+        this.exect(entity, world, i, j, k);
     }
     @Override
     public void preInit(FMLPreInitializationEvent event) {

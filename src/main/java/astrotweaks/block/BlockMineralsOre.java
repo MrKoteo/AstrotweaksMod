@@ -62,7 +62,7 @@ public class BlockMineralsOre extends ElementsAstrotweaksMod.ModElement {
 	@Override
 	public void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
 	    if (dimID != 0) return;
-	    if (!ModVariables.Overworld_Minerals_Generation) return;
+	    if (!ModVariables.OW_Minerals_Gen) return;
 	
 	    WorldGenMinable gen = new WorldGenMinable(block.getDefaultState(), 8, STONE_MATCH);
 	    BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();

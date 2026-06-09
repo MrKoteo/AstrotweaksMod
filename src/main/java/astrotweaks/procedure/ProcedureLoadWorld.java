@@ -10,11 +10,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.Entity;
 
 import java.util.Map;
 
 import astrotweaks.ElementsAstrotweaksMod;
-
 import astrotweaks.AstrotweaksModVariables;
 
 @ElementsAstrotweaksMod.ModElement.Tag
@@ -23,61 +23,50 @@ public class ProcedureLoadWorld extends ElementsAstrotweaksMod.ModElement {
 		super(instance, 317);
 	}
 
+	// Lightweight ICommandSender implementation that delegates to a world/server
+	private static class SimpleCommandSender implements ICommandSender {
+		private final World world;
+		SimpleCommandSender(World world) { this.world = world; }
+
+		@Override public String getName() { return ""; }
+		@Override public boolean canUseCommand(int perm, String cmd) { return true; }
+		@Override public World getEntityWorld() { return world; }
+		@Override public MinecraftServer getServer() { return world.getMinecraftServer(); }
+		@Override public boolean sendCommandFeedback() { return false; }
+		@Override public BlockPos getPosition() { return BlockPos.ORIGIN; }
+		@Override public Vec3d getPositionVector() { return Vec3d.ZERO; }
+		//@Override public Entity getCommandSenderEntity() { return null; } // optional for 1.12
+	}
+
+	// Helper: run a command on server if available
+	private static void runCommand(World world, String command) {
+		if (world == null || world.isRemote) return;
+		MinecraftServer server = world.getMinecraftServer();
+		if (server == null) return;
+		server.getCommandManager().executeCommand(new SimpleCommandSender(world), command);
+	}
+
 	public static void executeProcedure(Map<String, Object> dependencies) {
-		if (dependencies.get("world") == null) {
+		Object w = dependencies.get("world");
+		if (!(w instanceof World)) {
 			System.err.println("Failed to load dependency world for procedure LoadWorld!");
 			return;
 		}
-		World world = (World) dependencies.get("world");
-		if ((AstrotweaksModVariables.AstroTech_Environment)) {
-			if (!world.isRemote && world.getMinecraftServer() != null) {
-				world.getMinecraftServer().getCommandManager().executeCommand(new ICommandSender() {
-					@Override
-					public String getName() {
-						return "";
-					}
+		World world = (World) w;
+		if (!AstrotweaksModVariables.AstroTech_Environment) return;
 
-					@Override
-					public boolean canUseCommand(int permission, String command) {
-						return true;
-					}
-
-					@Override
-					public World getEntityWorld() {
-						return world;
-					}
-
-					@Override
-					public MinecraftServer getServer() {
-						return world.getMinecraftServer();
-					}
-
-					@Override
-					public boolean sendCommandFeedback() {
-						return false;
-					}
-
-					@Override
-					public BlockPos getPosition() {
-						return new BlockPos((int) 0, (int) 0, (int) 0);
-					}
-
-					@Override
-					public Vec3d getPositionVector() {
-						return new Vec3d(0, 0, 0);
-					}
-				}, "scoreboard objectives add deathCountX deathCount \u0421\u043C\u0435\u0440\u0442\u0438");
-			}
-		}
+		// desired commands
+		runCommand(world, "scoreboard objectives add deathCountX deathCount \u0421\u043C\u0435\u0440\u0442\u0438");
+		runCommand(world, "gamerule randomTickSpeed 2");
 	}
 
 	@SubscribeEvent
 	public void onWorldLoad(WorldEvent.Load event) {
 		World world = event.getWorld();
-		java.util.HashMap<String, Object> dependencies = new java.util.HashMap<>();
-		dependencies.put("world", world);
-		dependencies.put("event", event);
-		this.executeProcedure(dependencies);
+		java.util.HashMap<String, Object> deps = new java.util.HashMap<>();
+		deps.put("world", world);
+		deps.put("event", event);
+		executeProcedure(deps);
 	}
 
 	@Override

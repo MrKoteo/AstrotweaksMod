@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "astrotweaks:blocks/bush_6"
+    "layer0": "astrotweaks:blocks/ibush_6"
   }
 }

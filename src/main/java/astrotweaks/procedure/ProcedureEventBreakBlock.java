@@ -25,12 +25,9 @@ import java.util.Random;
 import java.util.Map;
 
 import astrotweaks.item.*;
-//import astrotweaks.item.ItemCordageVine;
 import astrotweaks.world.DepthsDim;
 
 import astrotweaks.ElementsAstrotweaksMod;
-
-
 
 
 @ElementsAstrotweaksMod.ModElement.Tag
@@ -43,7 +40,7 @@ public final class ProcedureEventBreakBlock extends ElementsAstrotweaksMod.ModEl
 	  ei.setPickupDelay(10);
 	  world.spawnEntity(ei);
 	}
-	public static void executeProcedure(World world, int x, int y, int z, Entity entity, BlockEvent.BreakEvent event) {
+	public static void exect(World world, int x, int y, int z, Entity entity, BlockEvent.BreakEvent event) {
 		if (world == null || world.isRemote) return;
 
 		Random rand = world.rand;
@@ -107,7 +104,6 @@ public final class ProcedureEventBreakBlock extends ElementsAstrotweaksMod.ModEl
 
 
 
-		
 		if (dim == CAVERN_DIM_ID && block == Blocks.MAGMA) {
 			double chance = 0;
 			chance = rand.nextDouble();
@@ -125,7 +121,7 @@ public final class ProcedureEventBreakBlock extends ElementsAstrotweaksMod.ModEl
 	@SubscribeEvent
 	public void onBlockBreak(BlockEvent.BreakEvent event) {
 		BlockPos pos = event.getPos();
-		executeProcedure(event.getWorld(), pos.getX(), pos.getY(), pos.getZ(), event.getPlayer(), event);
+		exect(event.getWorld(), pos.getX(), pos.getY(), pos.getZ(), event.getPlayer(), event);
 	}
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {

@@ -36,7 +36,6 @@ public class ItemQProton extends ElementsAstrotweaksMod.ModElement {
 	}
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
-			maxStackSize = 64;
 			setUnlocalizedName("q_proton");
 			setRegistryName("q_proton");
 			setCreativeTab(TabATIntegration.tab);

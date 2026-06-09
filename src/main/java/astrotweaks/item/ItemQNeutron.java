@@ -36,7 +36,6 @@ public class ItemQNeutron extends ElementsAstrotweaksMod.ModElement {
 	}
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
-			maxStackSize = 64;
 			setUnlocalizedName("q_neutron");
 			setRegistryName("q_neutron");
 			setCreativeTab(TabATIntegration.tab);

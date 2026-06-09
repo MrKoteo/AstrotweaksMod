@@ -88,7 +88,7 @@ public class BlockGroundRock1 extends ElementsAstrotweaksMod.ModElement {
 	public static class BlockCustom extends Block {
 		public static final PropertyDirection FACING = BlockHorizontal.FACING;
 		public BlockCustom() {
-			super(Material.CLAY);
+			super(Material.CLOTH);
 			setUnlocalizedName("ground_rock_1");
 			setSoundType(SoundType.STONE);
 			setHardness(0F);
