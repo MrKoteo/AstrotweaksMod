@@ -46,29 +46,21 @@ public class ProcedureLoadWorld extends ElementsAstrotweaksMod.ModElement {
 		server.getCommandManager().executeCommand(new SimpleCommandSender(world), command);
 	}
 
-	public static void executeProcedure(Map<String, Object> dependencies) {
-		Object w = dependencies.get("world");
-		if (!(w instanceof World)) {
-			System.err.println("Failed to load dependency world for procedure LoadWorld!");
-			return;
-		}
-		World world = (World) w;
-		if (!AstrotweaksModVariables.AstroTech_Environment) return;
+	public static void exect(World world, WorldEvent.Load event) {
+		//if (!AstrotweaksModVariables.AstroTech_Environment && !AstrotweaksModVariables.Marked) return;
 
 		// desired commands
 		runCommand(world, "scoreboard objectives add deathCountX deathCount \u0421\u043C\u0435\u0440\u0442\u0438");
 		runCommand(world, "gamerule randomTickSpeed 2");
+		AstrotweaksModVariables.MapVariables.get(world).Marked = true;
 	}
-
 	@SubscribeEvent
 	public void onWorldLoad(WorldEvent.Load event) {
 		World world = event.getWorld();
-		java.util.HashMap<String, Object> deps = new java.util.HashMap<>();
-		deps.put("world", world);
-		deps.put("event", event);
-		executeProcedure(deps);
+		if (AstrotweaksModVariables.AstroTech_Environment && !AstrotweaksModVariables.MapVariables.get(world).Marked) {exect(world, event); }
+		//
+		//exect(world, event);
 	}
-
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(this);

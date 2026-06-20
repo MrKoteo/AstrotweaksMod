@@ -31,7 +31,7 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Retention;
 
-import astrotweaks.gui.GuiQAGUI;
+//import astrotweaks.gui.GuiQAGUI;
 import astrotweaks.gui.GuiMTGUI;
 import astrotweaks.ark.ArkGUI;
 //import astrotweaks.gui.QTPSupGUI;
@@ -90,8 +90,8 @@ public class Handler extends ElementsAstrotweaksMod.ModElement{
 		public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 			if (id == GuiMTGUI.GUIID)
 				return new GuiMTGUI.GuiContainerMod(world, x, y, z, player);
-			if (id == GuiQAGUI.GUIID)
-				return new GuiQAGUI.GuiContainerMod(world, x, y, z, player);
+			//if (id == GuiQAGUI.GUIID)
+			//	return new GuiQAGUI.GuiContainerMod(world, x, y, z, player);
 			if (id == ArkGUI.GUIID)
             	return null;
 			//if (id == QTPSupGUI.GUIID)
@@ -103,8 +103,8 @@ public class Handler extends ElementsAstrotweaksMod.ModElement{
 		public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 			if (id == GuiMTGUI.GUIID)
 				return new GuiMTGUI.GuiWindow(world, x, y, z, player);
-			if (id == GuiQAGUI.GUIID)
-				return new GuiQAGUI.GuiWindow(world, x, y, z, player);
+			//if (id == GuiQAGUI.GUIID)
+			//	return new GuiQAGUI.GuiWindow(world, x, y, z, player);
 			if (id == ArkGUI.GUIID)
                 return new ArkGUI.GuiWindow(world, x, y, z, player);
 			//if (id == QTPSupGUI.GUIID)

@@ -23,6 +23,7 @@ public class AstrotweaksModVariables {
 	public static class MapVariables extends WorldSavedData {
 		public static final String DATA_NAME = "astrotweaks_mapvars";
 		public boolean showDeaths = false;
+		public boolean Marked = false;
 		public MapVariables() {
 			super(DATA_NAME);
 		}
@@ -34,11 +35,13 @@ public class AstrotweaksModVariables {
 		@Override
 		public void readFromNBT(NBTTagCompound nbt) {
 			showDeaths = nbt.getBoolean("showDeaths");
+			Marked = nbt.getBoolean("Marked");
 		}
 
 		@Override
 		public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 			nbt.setBoolean("showDeaths", showDeaths);
+			nbt.setBoolean("Marked", Marked);
 			return nbt;
 		}
 

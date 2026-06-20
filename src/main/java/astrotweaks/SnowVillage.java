@@ -23,32 +23,25 @@ import java.util.List;
 //import astrotweaks.ModVariables;
 //import astrotweaks.ElementsAstrotweaksMod;
 
-//@ElementsAstrotweaksMod.ModElement.Tag
-public final class SnowVillage/* extends ElementsAstrotweaksMod.ModElement */{
+public final class SnowVillage {
     public static final ArrayList<Biome> coldBiomes = new ArrayList<>();
 
     public SnowVillage() {}
 
-    //@Override
     public void preInit(FMLPreInitializationEvent event) {
-    	//System.out.println("abobba 2");
-    	//if (ModVariables.Enable_SnowVillages) {
-          coldBiomes.add(Biomes.ICE_PLAINS);
-          coldBiomes.add(Biomes.COLD_BEACH);
-          coldBiomes.add(Biomes.COLD_TAIGA);
-
-          List<Biome> villageBiomes = new ArrayList<>(MapGenVillage.VILLAGE_SPAWN_BIOMES);
-          villageBiomes.addAll(coldBiomes);
-          MapGenVillage.VILLAGE_SPAWN_BIOMES = villageBiomes;
-
-          MinecraftForge.TERRAIN_GEN_BUS.register(new VillageMaterialHandler());
-    	//}
+		coldBiomes.add(Biomes.ICE_PLAINS);
+		coldBiomes.add(Biomes.COLD_BEACH);
+		coldBiomes.add(Biomes.COLD_TAIGA);
+		
+		List<Biome> villageBiomes = new ArrayList<>(MapGenVillage.VILLAGE_SPAWN_BIOMES);
+		villageBiomes.addAll(coldBiomes);
+		MapGenVillage.VILLAGE_SPAWN_BIOMES = villageBiomes;
+		
+		MinecraftForge.TERRAIN_GEN_BUS.register(new VillageMaterialHandler());
     }
     public static class VillageMaterialHandler {
         @SubscribeEvent
         public void getVillageBlockID(BiomeEvent.GetVillageBlockID event) {
-        	//if (!ModVariables.Enable_SnowVillages) return;
-        	
             if (SnowVillage.coldBiomes.contains(event.getBiome())) {
                 IBlockState original = event.getOriginal();
                 Block block = original.getBlock();

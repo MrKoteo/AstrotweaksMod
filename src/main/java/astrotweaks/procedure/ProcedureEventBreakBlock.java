@@ -1,9 +1,10 @@
 package astrotweaks.procedure;
 
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
 
 import net.minecraft.world.World;
 import net.minecraft.util.math.BlockPos;
@@ -28,12 +29,13 @@ import astrotweaks.item.*;
 import astrotweaks.world.DepthsDim;
 
 import astrotweaks.ElementsAstrotweaksMod;
+import astrotweaks.ModVariables;
 
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public final class ProcedureEventBreakBlock extends ElementsAstrotweaksMod.ModElement {
+@Mod.EventBusSubscriber(modid = "astrotweaks")
+public final class ProcedureEventBreakBlock/* extends ElementsAstrotweaksMod.ModElement */{
     private static final int CAVERN_DIM_ID = DepthsDim.DIMID;
-	public ProcedureEventBreakBlock(ElementsAstrotweaksMod instance) { super(instance, 340); }
+	public ProcedureEventBreakBlock(/*ElementsAstrotweaksMod instance*/) {/* super(instance, 340); */}
 	private static void spawnItem(World world, int x, int y, int z, ItemStack stack) {
 	  if (world == null || stack == null || stack.isEmpty() || world.isRemote) return;
 	  EntityItem ei = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, stack);
@@ -50,36 +52,43 @@ public final class ProcedureEventBreakBlock extends ElementsAstrotweaksMod.ModEl
 		BlockPos pos = new BlockPos(x, y, z);
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
-		Material mat = state.getMaterial();
+		//Material mat = state.getMaterial();
 
 		//ItemStack held = (entity instanceof EntityLivingBase) ? ((EntityLivingBase) entity).getHeldItemMainhand() : ItemStack.EMPTY;
 		//boolean notShears = !(held.getItem() == new ItemStack(Items.SHEARS, 1).getItem());
-		ItemStack held = entity instanceof EntityLivingBase ? ((EntityLivingBase)entity).getHeldItemMainhand() : ItemStack.EMPTY;
-		boolean notShears = held.getItem() != Items.SHEARS;
+
 		
 		boolean notCreativeMode = true;
 		if (entity instanceof EntityPlayer) notCreativeMode = !((EntityPlayer)entity).capabilities.isCreativeMode;
 		//net.minecraft.block.Block block = world.getBlockState(pos).getBlock();
 
-		int dim = world.provider.getDimension();
+		//int dim = world.provider.getDimension();
 
 		//boolean isTallGrassVariant = block == Blocks.TALLGRASS.getStateFromMeta(1).getBlock() || block == Blocks.DOUBLE_PLANT.getStateFromMeta(2).getBlock();
-		boolean isTallGrassVariant = block == Blocks.TALLGRASS && state.getValue(BlockTallGrass.TYPE) == BlockTallGrass.EnumType.GRASS;
+		
 
-		if (notCreativeMode) {
-		if (isTallGrassVariant && notShears) {
+		
+
+		if (notCreativeMode && ModVariables.Extra_Drops_All) {
+		boolean isTallGrassVariant = block == Blocks.TALLGRASS && state.getValue(BlockTallGrass.TYPE) == BlockTallGrass.EnumType.GRASS;
+		IBlockState AIR = Blocks.AIR.getDefaultState();
+
+		ItemStack held = entity instanceof EntityLivingBase ? ((EntityLivingBase)entity).getHeldItemMainhand() : ItemStack.EMPTY;
+		boolean notShears = held.getItem() != Items.SHEARS;
+		
+		if (isTallGrassVariant && notShears && ModVariables.Extra_Drops_Grass) {
 			if (rng1 < 0.14) {
 				spawnItem(world, x, y, z, new ItemStack(ItemPlantFiber.block, 1));
 			}
 			if (rng1 < 0.02 && rand.nextDouble() < 0.51) {
 				RNM = rand.nextDouble();
-				if (RNM < 0.25) {	spawnItem(world, x, y, z, new ItemStack(Items.POISONOUS_POTATO, 1));} 
-				else if (RNM< 0.39){spawnItem(world, x, y, z, new ItemStack(Items.CARROT, 			1));} 
-				else if (RNM< 0.52){spawnItem(world, x, y, z, new ItemStack(Items.POTATO, 			1));} 
-				else if (RNM< 0.77){spawnItem(world, x, y, z, new ItemStack(Items.WHEAT,			1));} 
-				else if (RNM< 0.86){spawnItem(world, x, y, z, new ItemStack(Items.BEETROOT, 		1));} 
-				else if (RNM< 0.93){spawnItem(world, x, y, z, new ItemStack(Blocks.BROWN_MUSHROOM,	1));} 
-				else if (RNM< 0.98){spawnItem(world, x, y, z, new ItemStack(Blocks.RED_MUSHROOM,	1));} 
+				if (RNM < 0.24) {	spawnItem(world, x, y, z, new ItemStack(Items.POISONOUS_POTATO, 1));} 
+				else if (RNM< 0.38){spawnItem(world, x, y, z, new ItemStack(Items.CARROT, 			1));} 
+				else if (RNM< 0.51){spawnItem(world, x, y, z, new ItemStack(Items.POTATO, 			1));} 
+				else if (RNM< 0.76){spawnItem(world, x, y, z, new ItemStack(Items.WHEAT,			1));} 
+				else if (RNM< 0.85){spawnItem(world, x, y, z, new ItemStack(Items.BEETROOT, 		1));} 
+				else if (RNM< 0.92){spawnItem(world, x, y, z, new ItemStack(Blocks.BROWN_MUSHROOM,	1));} 
+				else if (RNM< 0.97){spawnItem(world, x, y, z, new ItemStack(Blocks.RED_MUSHROOM,	1));} 
 				else {				spawnItem(world, x, y, z, new ItemStack(Blocks.TALLGRASS, 		1, 1));}
 			}
 		} else if (block == Blocks.VINE && notShears) {
@@ -88,15 +97,15 @@ public final class ProcedureEventBreakBlock extends ElementsAstrotweaksMod.ModEl
 			}
 		} else if (block == Blocks.DIRT || block == Blocks.GRASS) {
 			if (rand.nextDouble() < 0.035) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockState(pos, AIR);
 				spawnItem(world, x, y, z, new ItemStack(ItemRock.block, 1));
 			}
 			if (rand.nextDouble() < 0.015) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockState(pos, AIR);
 				spawnItem(world, x, y, z, new ItemStack(ItemRockFlat.block, 1));
 			}
 			if (rand.nextDouble() < 0.008) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockState(pos, AIR);
 				spawnItem(world, x, y, z, new ItemStack(Items.FLINT, 1));
 			}
 		}
@@ -104,7 +113,7 @@ public final class ProcedureEventBreakBlock extends ElementsAstrotweaksMod.ModEl
 
 
 
-		if (dim == CAVERN_DIM_ID && block == Blocks.MAGMA) {
+		if (world.provider.getDimension() == CAVERN_DIM_ID && block == Blocks.MAGMA) {
 			double chance = 0;
 			chance = rand.nextDouble();
 			if (((chance) < 0.2)) {
@@ -123,8 +132,8 @@ public final class ProcedureEventBreakBlock extends ElementsAstrotweaksMod.ModEl
 		BlockPos pos = event.getPos();
 		exect(event.getWorld(), pos.getX(), pos.getY(), pos.getZ(), event.getPlayer(), event);
 	}
-	@Override
-	public void preInit(FMLPreInitializationEvent event) {
-		MinecraftForge.EVENT_BUS.register(this);
-	}
+	//@Override
+	//public void preInit(FMLPreInitializationEvent event) {
+	//	MinecraftForge.EVENT_BUS.register(this);
+	//}
 }

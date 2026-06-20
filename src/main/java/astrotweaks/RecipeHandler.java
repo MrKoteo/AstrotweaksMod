@@ -23,28 +23,28 @@ public class RecipeHandler {
 	// Set (immutable)
 	public static final Set<String> RECIPES = Collections.unmodifiableSet(new LinkedHashSet<>(Arrays.asList(
 
-"S 000,010,000;0=avaritia:resource:7;1=minecraft:dye:11;RES=minecraft:record_13",
-"S 000,010,000;0=avaritia:resource:7;1=minecraft:dye:0;RES=minecraft:record_11",
-"S 000,010,000;0=avaritia:resource:7;1=minecraft:dye:10;RES=minecraft:record_cat",
-"S 000,010,000;0=avaritia:resource:7;1=minecraft:dye:14;RES=minecraft:record_blocks",
-"S 000,010,000;0=avaritia:resource:7;1=minecraft:dye:6;RES=minecraft:record_far",
-"S 000,010,000;0=avaritia:resource:7;1=minecraft:dye:1;RES=minecraft:record_chirp",
-"S 000,010,000;0=avaritia:resource:7;1=minecraft:dye:5;RES=minecraft:record_mall",
-"S 000,010,000;0=avaritia:resource:7;1=minecraft:dye:13;RES=minecraft:record_mellohi",
-"S 000,010,000;0=avaritia:resource:7;1=minecraft:dye:12;RES=minecraft:record_wait",
-"S 000,010,000;0=avaritia:resource:7;1=minecraft:dye:2;RES=minecraft:record_ward",
-"S 000,010,000;0=avaritia:resource:7;1=minecraft:dye:15;RES=minecraft:record_strad",
+"S 000,010,000;0=avaritia:resource:7;1=ore:dyeYellow;RES=minecraft:record_13",
+"S 000,010,000;0=avaritia:resource:7;1=ore:dyeBlack;RES=minecraft:record_11",
+"S 000,010,000;0=avaritia:resource:7;1=ore:dyeLime;RES=minecraft:record_cat",
+"S 000,010,000;0=avaritia:resource:7;1=ore:dyeOrange;RES=minecraft:record_blocks",
+"S 000,010,000;0=avaritia:resource:7;1=ore:dyeCyan;RES=minecraft:record_far",
+"S 000,010,000;0=avaritia:resource:7;1=ore:dyeRed;RES=minecraft:record_chirp",
+"S 000,010,000;0=avaritia:resource:7;1=ore:dyePurple;RES=minecraft:record_mall",
+"S 000,010,000;0=avaritia:resource:7;1=ore:dyeMagenta;RES=minecraft:record_mellohi",
+"S 000,010,000;0=avaritia:resource:7;1=ore:dyeLightBlue;RES=minecraft:record_wait",
+"S 000,010,000;0=avaritia:resource:7;1=ore:dyeGreen;RES=minecraft:record_ward",
+"S 000,010,000;0=avaritia:resource:7;1=ore:dyeWhite;RES=minecraft:record_strad",
 "S 000,010,000;0=avaritia:resource:7;1=minecraft:coal; RES=minecraft:record_stal",
 
 "S 000,010,000;0=astrotweaks:strange_matter;1=minecraft:ender_pearl;RES=astrotweaks:strange_orb",
 
-"S 202,121,202;0=minecraft:dye;1=minecraft:dye:11;2=ore:ingotIron;RES=astrotweaks:hazard_zone_tape.4",
-"S 202,121,202;0=minecraft:dye:1;1=minecraft:dye:15;2=ore:ingotIron;RES=astrotweaks:hazard_tape.4",
-"S 202,121,202;0=minecraft:dye:13;1=minecraft:dye:11;2=ore:ingotIron;RES=astrotweaks:radiation_hazard_tape.4",
-"S 202,121,202;0=minecraft:dye;1=minecraft:dye:15;2=ore:ingotIron;RES=astrotweaks:aisle_cleaning_tape.4",
-"S 202,121,202;0=minecraft:dye:10;1=minecraft:dye:15;2=ore:ingotIron;RES=astrotweaks:safety_zone_tape.4",
-"S 202,121,202;0=minecraft:dye:4;1=minecraft:dye:15;2=ore:ingotIron;RES=astrotweaks:dont_walk_tape.4",
-"S 202,121,202;0=minecraft:dye:14;1=minecraft:dye:15;2=ore:ingotIron;RES=astrotweaks:technical_works_tape.4",
+"S 202,121,202;0=ore:dyeBlack;1=ore:dyeYellow;2=ore:ingotIron;RES=astrotweaks:hazard_zone_tape.4",
+"S 202,121,202;0=ore:dyeRed;1=ore:dyeWhite;2=ore:ingotIron;RES=astrotweaks:hazard_tape.4",
+"S 202,121,202;0=ore:dyeMagenta;1=ore:dyeYellow;2=ore:ingotIron;RES=astrotweaks:radiation_hazard_tape.4",
+"S 202,121,202;0=ore:dyeBlack;1=ore:dyeWhite;2=ore:ingotIron;RES=astrotweaks:aisle_cleaning_tape.4",
+"S 202,121,202;0=ore:dyeLime;1=ore:dyeWhite;2=ore:ingotIron;RES=astrotweaks:safety_zone_tape.4",
+"S 202,121,202;0=ore:dyeBlue;1=ore:dyeWhite;2=ore:ingotIron;RES=astrotweaks:dont_walk_tape.4",
+"S 202,121,202;0=ore:dyeOrange;1=ore:dyeWhite;2=ore:ingotIron;RES=astrotweaks:technical_works_tape.4",
 
 // misc
 
@@ -66,7 +66,10 @@ public class RecipeHandler {
 "# astrotweaks:red_mushrooms;RES=minecraft:red_mushroom.4",
 "# minecraft:beetroot.2;RES=minecraft:beetroot_seeds.2",
 
+
+"# astrotweaks:spoiled_drink;RES=minecraft:glass_bottle",
 "# astrotweaks:spoiled_carrot_on_stick;RES=minecraft:fishing_rod",
+"# astrotweaks:spoiled_dish;RES=minecraft:bowl",
 "# minecraft:carrot_on_a_stick;RES=minecraft:fishing_rod",
 
 
@@ -100,7 +103,7 @@ public class RecipeHandler {
 
 "# astrotweaks:mine;minecraft:rail;RES=astrotweaks:rail_mine",
 "S , 0 ,010;0=ore:plateIron;1=astrotweaks:fexplosive;RES=astrotweaks:mine",
-"S  0 ,010,232;0=ore:plateIron;1=astrotweaks:fexplosive;2=ore:ingotIron;3=minecraft:tnt;RES=astrotweaks:heavy_mine",
+"S 40 ,010,232;0=ore:plateIron;1=astrotweaks:fexplosive;2=ore:ingotIron;3=minecraft:tnt;4=minecraft:air;RES=astrotweaks:heavy_mine",
 
 
 "# ic2:crafting.2;RES=astrotweaks:rubber_lump",
@@ -118,7 +121,7 @@ public class RecipeHandler {
 "S 002, 1 , 1 ;0=astrotweaks:rock_flat;1=minecraft:stick;2=ore:twine;RES=minecraft:stone_hoe",
 
 
-"S 0 0, 0 ,0 0;0=minecraft:iron_nugget;RES=astrotweaks:chain_canvas",
+"S 0 0, 0 ,0 0;0=ore:nuggetIron;RES=astrotweaks:chain_canvas",
 "S 000,0 0,   ;0=astrotweaks:chain_canvas;RES=minecraft:chainmail_helmet",
 "S 0 0,000,000;0=astrotweaks:chain_canvas;RES=minecraft:chainmail_chestplate",
 "S 000,0 0,0 0;0=astrotweaks:chain_canvas;RES=minecraft:chainmail_leggings",
@@ -154,7 +157,10 @@ public class RecipeHandler {
 "S 0 ,1 ,1 ;   0=ore:ingotBrass;1=minecraft:stick;RES=astrotweaks:brass_shovel",
 "S 00 , 1 , 1 ;0=ore:ingotBrass;1=minecraft:stick;RES=astrotweaks:brass_hoe",
 
-
+"S 000,0 0,;0=galacticraftcore:item_basic_moon:2;RES=astrotweaks:sapphire_helmet",
+"S 0 0,000,000;0=galacticraftcore:item_basic_moon:2;RES=astrotweaks:sapphire_chestplate",
+"S 000,0 0,0 0;0=galacticraftcore:item_basic_moon:2;RES=astrotweaks:sapphire_leggings",
+"S ,0 0,0 0;0=galacticraftcore:item_basic_moon:2;RES=astrotweaks:sapphire_boots",
 
 
 
@@ -218,50 +224,46 @@ public class RecipeHandler {
 
 
 "# alchemistry:ingot:14;RES=galacticraftcore:basic_item:2",
-"S 000,0 0,;0=galacticraftcore:item_basic_moon:2;RES=minecraft:sapphire_helmet",
-"S 0 0,000,000;0=galacticraftcore:item_basic_moon:2;RES=minecraft:sapphire_chestplate",
-"S 000,0 0,0 0;0=galacticraftcore:item_basic_moon:2;RES=minecraft:sapphire_leggings",
-"S ,0 0,0 0;0=galacticraftcore:item_basic_moon:2;RES=minecraft:sapphire_boots",
 "S 010,121,010;0=minecraft:glowstone_dust;1=minecraft:magma_cream;2=minecraft:blaze_powder;RES=thermalfoundation:material:2051",
 "S 010,121,010;0=minecraft:snow;1=minecraft:packed_ice;2=minecraft:blaze_powder;RES=thermalfoundation:material:2049",
 "S 010,121,010;0=minecraft:magma;1=minecraft:magma_cream;2=minecraft:obsidian;RES=thermalfoundation:material:2053",
 
 
-"S 000,121,121;0=minecraft:iron_block;1=astrotweaks:iron_stick;2=ore:plateIron;RES=astrotweaks:money_table",
-"S 000,121,101;0=minecraft:iron_block;1=minecraft:iron_ingot;2=minecraft:anvil;RES=astrotweaks:money_table",
+"S 000,121,121;0=ore:blockIron;1=astrotweaks:iron_stick;2=ore:plateIron;RES=astrotweaks:money_table",
+"S 000,121,101;0=ore:blockIron;1=ore:ingotIron;2=minecraft:anvil;RES=astrotweaks:money_table",
 
 
 // Plant dublication
 
-"# minecraft:yellow_flower;minecraft:dye:15;RES=minecraft:yellow_flower.2",
-"# minecraft:red_flower;minecraft:dye:15;RES=minecraft:red_flower.2",
-"# minecraft:red_flower:1;minecraft:dye:15;RES=minecraft:red_flower:1.2",
-"# minecraft:red_flower:2;minecraft:dye:15;RES=minecraft:red_flower:2.2",
-"# minecraft:red_flower:3;minecraft:dye:15;RES=minecraft:red_flower:3.2",
-"# minecraft:red_flower:4;minecraft:dye:15;RES=minecraft:red_flower:4.2",
-"# minecraft:red_flower:5;minecraft:dye:15;RES=minecraft:red_flower:5.2",
-"# minecraft:red_flower:6;minecraft:dye:15;RES=minecraft:red_flower:6.2",
-"# minecraft:red_flower:7;minecraft:dye:15;RES=minecraft:red_flower:7.2",
-"# minecraft:red_flower:8;minecraft:dye:15;RES=minecraft:red_flower:8.2",
-"# minecraft:double_plant;minecraft:dye:15;RES=minecraft:double_plant.2",
-"# minecraft:double_plant:1;minecraft:dye:15;RES=minecraft:double_plant:1.2",
-"# minecraft:double_plant:2;minecraft:dye:15;RES=minecraft:double_plant:2.2",
-"# minecraft:double_plant:3;minecraft:dye:15;RES=minecraft:double_plant:3.2",
-"# minecraft:double_plant:4;minecraft:dye:15;RES=minecraft:double_plant:4.2",
-"# minecraft:double_plant:5;minecraft:dye:15;RES=minecraft:double_plant:5.2",
-"# minecraft:tallgrass:1;minecraft:dye:15;RES=minecraft:tallgrass:1.2",
-"# minecraft:tallgrass:2;minecraft:dye:15;RES=minecraft:tallgrass:2.2",
-"# minecraft:waterlily;minecraft:dye:15;RES=minecraft:waterlily.2",
-"# minecraft:vine;minecraft:dye:15;RES=minecraft:vine.2",
+"# minecraft:yellow_flower;ore:bonemeal;RES=minecraft:yellow_flower.2",
+"# minecraft:red_flower;ore:bonemeal;RES=minecraft:red_flower.2",
+"# minecraft:red_flower:1;ore:bonemeal;RES=minecraft:red_flower:1.2",
+"# minecraft:red_flower:2;ore:bonemeal;RES=minecraft:red_flower:2.2",
+"# minecraft:red_flower:3;ore:bonemeal;RES=minecraft:red_flower:3.2",
+"# minecraft:red_flower:4;ore:bonemeal;RES=minecraft:red_flower:4.2",
+"# minecraft:red_flower:5;ore:bonemeal;RES=minecraft:red_flower:5.2",
+"# minecraft:red_flower:6;ore:bonemeal;RES=minecraft:red_flower:6.2",
+"# minecraft:red_flower:7;ore:bonemeal;RES=minecraft:red_flower:7.2",
+"# minecraft:red_flower:8;ore:bonemeal;RES=minecraft:red_flower:8.2",
+"# minecraft:double_plant;ore:bonemeal;RES=minecraft:double_plant.2",
+"# minecraft:double_plant:1;ore:bonemeal;RES=minecraft:double_plant:1.2",
+"# minecraft:double_plant:2;ore:bonemeal;RES=minecraft:double_plant:2.2",
+"# minecraft:double_plant:3;ore:bonemeal;RES=minecraft:double_plant:3.2",
+"# minecraft:double_plant:4;ore:bonemeal;RES=minecraft:double_plant:4.2",
+"# minecraft:double_plant:5;ore:bonemeal;RES=minecraft:double_plant:5.2",
+"# minecraft:tallgrass:1;ore:bonemeal;RES=minecraft:tallgrass:1.2",
+"# minecraft:tallgrass:2;ore:bonemeal;RES=minecraft:tallgrass:2.2",
+"# minecraft:waterlily;ore:bonemeal;RES=minecraft:waterlily.2",
+"# minecraft:vine;ore:bonemeal;RES=minecraft:vine.2",
 
-"# astrotweaks:bush_1;minecraft:dye:15;RES=astrotweaks:bush_1.2",
-"# astrotweaks:bush_2;minecraft:dye:15;RES=astrotweaks:bush_2.2",
-"# astrotweaks:bush_3;minecraft:dye:15;RES=astrotweaks:bush_3.2",
-"# astrotweaks:bush_4;minecraft:dye:15;RES=astrotweaks:bush_4.2",
-"# astrotweaks:bush_5;minecraft:dye:15;RES=astrotweaks:bush_5.2",
-"# astrotweaks:bush_6;minecraft:dye:15;RES=astrotweaks:bush_6.2",
-"# astrotweaks:bush_7;minecraft:dye:15;RES=astrotweaks:bush_7.2",
-"# astrotweaks:fern_1;minecraft:dye:15;RES=astrotweaks:fern_1.2",
+"# astrotweaks:bush_1;ore:bonemeal;RES=astrotweaks:bush_1.2",
+"# astrotweaks:bush_2;ore:bonemeal;RES=astrotweaks:bush_2.2",
+"# astrotweaks:bush_3;ore:bonemeal;RES=astrotweaks:bush_3.2",
+"# astrotweaks:bush_4;ore:bonemeal;RES=astrotweaks:bush_4.2",
+"# astrotweaks:bush_5;ore:bonemeal;RES=astrotweaks:bush_5.2",
+"# astrotweaks:bush_6;ore:bonemeal;RES=astrotweaks:bush_6.2",
+"# astrotweaks:bush_7;ore:bonemeal;RES=astrotweaks:bush_7.2",
+"# astrotweaks:fern_1;ore:bonemeal;RES=astrotweaks:fern_1.2",
 
 
 // Planks from logs + saw

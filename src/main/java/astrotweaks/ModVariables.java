@@ -21,14 +21,23 @@ import java.util.*;
 public class ModVariables {
 	public ModVariables() {}
 
-	public static boolean Remove_METS_engineer = false;
+	public static int GG_MIN_DELAY_TICK = 600 * 20; // 10 minutes
+	public static int GG_MAX_DELAY_TICK = 1800 * 20; // 30 minutes
+	public static int GG_MAX_OPER_PER_TICK = 3;
+	public static int GG_Density = 15; // blocks in area
+	public static boolean GG_ENABLED = true;
+	public static BitSet GGBlacklist;
 
+	public static boolean Remove_METS_engineer = false;
+	public static boolean Rem_Gravestone_Note = true;
 
 	public static boolean Enable_RealisticBreak = false;
 	public static double ExplosionDamageMult = 1.5D;
 
 	public static boolean QM_is_fully_unbreakable = true;
 	public static boolean Better_Smelting = true;
+	public static boolean Extra_Drops_Grass = true;
+	public static boolean Extra_Drops_All = true;
 
 	public static boolean Raw_Meat_Negative_Effects = true;
 
@@ -37,7 +46,7 @@ public class ModVariables {
 	//public static boolean Enable_BirchVillages = true;
 
 	public static boolean Enable_Ground_Elements = true;
-	public static double Stick_Gen_Attempts = 1.9D;
+	public static double Stick_Gen_Attempts = 2.0D;
 	public static double Rock_Gen_Attempts = 0.4D;
 	public static int Stick_Gen_Min_Y = 60;
 	public static int Stick_Gen_Max_Y = 125;
@@ -79,6 +88,9 @@ public class ModVariables {
 	    return Collections.unmodifiableSet(set);
 	}
 
+	//public static Set<Biome> GGAllowed = createGGBiomes();
+
+
 	public static List<ItemStack> MEAT_LIST;
 
 	//##################################################
@@ -101,7 +113,6 @@ public class ModVariables {
 		}
 
         String[] mEntries = {
-            "galacticraftcore:food:6",
             "minecraft:fish:1",
             "minecraft:fish:2"
         };
@@ -123,5 +134,51 @@ public class ModVariables {
         MEAT_LIST = Collections.unmodifiableList(items);
 
 		//public static volatile Set<Block> DIRT_LIKE = Collections.emptySet();
+	}
+
+	public void postInit() {
+
+		/*
+	    ResourceLocation[] names = new ResourceLocation[] {
+	        new ResourceLocation("desert"), new ResourceLocation("frozen_ocean"), new ResourceLocation("frozen_river"), new ResourceLocation("ice_flats"),
+	        new ResourceLocation("ice_mountains"), new ResourceLocation("mushroom_island"), new ResourceLocation("mushroom_island_shore"), new ResourceLocation("desert_hills"),
+	        new ResourceLocation("cold_beach"), new ResourceLocation("taiga_cold"), new ResourceLocation("taiga_cold_hills"), new ResourceLocation("mesa"),
+	        new ResourceLocation("mesa_rock"), new ResourceLocation("mesa_clear_rock"), new ResourceLocation("mutated_desert"), new ResourceLocation("mutated_ice_flats"),
+	        new ResourceLocation("mutated_mesa"), new ResourceLocation("mutated_mesa_rock"), new ResourceLocation("mutated_mesa_clear_rock")
+	    };
+	
+	    Set<Biome> set = new HashSet<>(names.length);
+	    for (ResourceLocation rl : names) {
+	        Biome b = Biome.REGISTRY.getObject(rl);
+	        if (b != null) set.add(b);
+	    }
+	    GGBlacklist = Collections.unmodifiableSet(set);
+	    */
+		String[] names = new String[] {
+		    "desert","frozen_ocean","frozen_river","ice_flats","ice_mountains",
+		    "mushroom_island","mushroom_island_shore","desert_hills","cold_beach",
+		    "taiga_cold","taiga_cold_hills","mesa","mesa_rock","mesa_clear_rock",
+		    "mutated_desert","mutated_ice_flats","mutated_mesa","mutated_mesa_rock","mutated_mesa_clear_rock"
+		};
+		
+		int maxId = 0;
+		// Find MAX ID in registry (BitSet size)
+		for (int i = 0; i < Biome.REGISTRY.getKeys().size(); i++) {
+		    maxId = Math.max(maxId, Biome.REGISTRY.getKeys().size());
+		}
+		BitSet biomeBlacklistBits = new BitSet(maxId + 1);
+		for (String s : names) {
+		    ResourceLocation rl = new ResourceLocation(s);
+		    Biome b = Biome.REGISTRY.getObject(rl);
+		    if (b != null) {
+		        int id = Biome.REGISTRY.getIDForObject(b);
+		        if (id >= 0) biomeBlacklistBits.set(id);
+		    }
+		}
+
+		GGBlacklist = biomeBlacklistBits;
+	
+
+	
 	}
 }

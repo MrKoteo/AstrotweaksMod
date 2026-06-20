@@ -175,16 +175,7 @@ public class BlockMoneyTable extends ElementsAstrotweaksMod.ModElement {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
-			/*
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				ProcedureMTInitProc.executeProcedure($_dependencies);
-			}*/
+
 			if (entity instanceof EntityPlayer) ((EntityPlayer) entity).openGui(AstrotweaksMod.instance, GuiMTGUI.GUIID, world, x, y, z);
 
 			return true;

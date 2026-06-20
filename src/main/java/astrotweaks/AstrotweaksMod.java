@@ -57,7 +57,7 @@ import java.util.function.Supplier;
 @Mod(modid = AstrotweaksMod.MODID, version = AstrotweaksMod.VERSION)
 public class AstrotweaksMod {
 	public static final String MODID = "astrotweaks";
-	public static final String VERSION = "b-5.2";
+	public static final String VERSION = "b-5.4";
 	public static final SimpleNetworkWrapper PACKET_HANDLER = NetworkRegistry.INSTANCE.newSimpleChannel("astrotweaks:a");
 	@SidedProxy(clientSide = "astrotweaks.ClientProxyAstrotweaksMod", serverSide = "astrotweaks.ServerProxyAstrotweaksMod")
 	public static IProxyAstrotweaksMod proxy;
@@ -144,6 +144,7 @@ public class AstrotweaksMod {
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit(event);
 
+		modVariables.postInit();
 
 		
 

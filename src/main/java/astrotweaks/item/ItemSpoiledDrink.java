@@ -24,11 +24,11 @@ import astrotweaks.procedure.ProcedureSpoiledFoodEaten;
 import astrotweaks.ElementsAstrotweaksMod;
 
 @ElementsAstrotweaksMod.ModElement.Tag
-public class ItemSpoiledSoup extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:spoiled_dish")
+public class ItemSpoiledDrink extends ElementsAstrotweaksMod.ModElement {
+	@GameRegistry.ObjectHolder("astrotweaks:spoiled_drink")
 	public static final Item block = null;
-	public ItemSpoiledSoup(ElementsAstrotweaksMod instance) {
-		super(instance, 291);
+	public ItemSpoiledDrink(ElementsAstrotweaksMod instance) {
+		super(instance, 447);
 	}
 
 	@Override
@@ -39,13 +39,13 @@ public class ItemSpoiledSoup extends ElementsAstrotweaksMod.ModElement {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(block, 0, new ModelResourceLocation("astrotweaks:spoiled_dish", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(block, 0, new ModelResourceLocation("astrotweaks:spoiled_drink", "inventory"));
 	}
 	public static class ItemFoodCustom extends ItemFood {
 		public ItemFoodCustom() {
-			super(1, 1f, false);
-			setUnlocalizedName("spoiled_dish");
-			setRegistryName("spoiled_dish");
+			super(1, 0f, false);
+			setUnlocalizedName("spoiled_drink");
+			setRegistryName("spoiled_drink");
 			setCreativeTab(CreativeTabs.FOOD);
 			setMaxStackSize(16);
 		}
@@ -57,7 +57,7 @@ public class ItemSpoiledSoup extends ElementsAstrotweaksMod.ModElement {
 
 		@Override
 		public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-			return EnumAction.EAT;
+			return EnumAction.DRINK;
 		}
 
 		@Override

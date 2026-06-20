@@ -45,7 +45,6 @@ import java.util.ArrayList;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Retention;
 
-import astrotweaks.gui.GuiQAGUI;
 import astrotweaks.gui.GuiMTGUI;
 
 public class ElementsAstrotweaksMod implements IFuelHandler, IWorldGenerator {
@@ -130,8 +129,6 @@ public class ElementsAstrotweaksMod implements IFuelHandler, IWorldGenerator {
 		public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 			if (id == GuiMTGUI.GUIID)
 				return new GuiMTGUI.GuiContainerMod(world, x, y, z, player);
-			if (id == GuiQAGUI.GUIID)
-				return new GuiQAGUI.GuiContainerMod(world, x, y, z, player);
 			return null;
 		}
 
@@ -139,8 +136,6 @@ public class ElementsAstrotweaksMod implements IFuelHandler, IWorldGenerator {
 		public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 			if (id == GuiMTGUI.GUIID)
 				return new GuiMTGUI.GuiWindow(world, x, y, z, player);
-			if (id == GuiQAGUI.GUIID)
-				return new GuiQAGUI.GuiWindow(world, x, y, z, player);
 			return null;
 		}
 	}

@@ -1,6 +1,7 @@
 package astrotweaks.procedure;
 
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -33,10 +34,11 @@ import astrotweaks.item.ItemFlintShard;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ProcedureRclickBlock extends ElementsAstrotweaksMod.ModElement {
-    public ProcedureRclickBlock(ElementsAstrotweaksMod instance) {
-        super(instance, 326);
+//@ElementsAstrotweaksMod.ModElement.Tag
+@Mod.EventBusSubscriber(modid = "astrotweaks")
+public class ProcedureRclickBlock/* extends ElementsAstrotweaksMod.ModElement */{
+    public ProcedureRclickBlock(/*ElementsAstrotweaksMod instance*/) {
+        //super(instance, 326);
     }
 	private static final List<Rule> RULES = buildRules();
 	private interface Condition { boolean matches(Context ctx); }
@@ -164,8 +166,8 @@ public class ProcedureRclickBlock extends ElementsAstrotweaksMod.ModElement {
 
         this.exect(entity, world, i, j, k);
     }
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(this);
-    }
+    //@Override
+    //public void preInit(FMLPreInitializationEvent event) {
+    //    MinecraftForge.EVENT_BUS.register(this);
+    //}
 }

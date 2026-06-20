@@ -63,7 +63,6 @@ public class LoadConfig {
 			ModVariables.Rock_Gen_Max_Y = safeGetInt(config, "Rock_Gen_Max_Y", "generation", ModVariables.Rock_Gen_Max_Y, 1, 255, "Maximum Y level for rock generation (1-255)");
 
 
-
 			ModVariables.ExplosionDamageMult = safeGetDouble(config, "Explosion_Damage_Multiplier", "misc", ModVariables.ExplosionDamageMult, 0.0, 100.0, "Explosive damage modifier. (DAMAGE * Multiplier)");
 			ModVariables.Extra_Fuels = safeGetBoolean(config, "Register_Extra_Fuels", "misc", ModVariables.Extra_Fuels, "Should to register more fuels for furnace? (y/n)");
 			ModVariables.Better_Smelting = safeGetBoolean(config, "Better_Smelting", "misc", ModVariables.Better_Smelting, "Enable more smelting recipes? (y/n)");
@@ -72,10 +71,18 @@ public class LoadConfig {
 			AstrotweaksModVariables.Food_Negative_Effects = safeGetBoolean(config, "Food_Negative_Effects", "misc", AstrotweaksModVariables.Food_Negative_Effects, "Will poisonous food have more violent effects? (y/n)");
 			ModVariables.Raw_Meat_Negative_Effects = safeGetBoolean(config, "Raw_Meat_Negative_Effects", "misc", ModVariables.Raw_Meat_Negative_Effects, "Will raw meat be less edible? (y/n)");
 			ModVariables.doRegisterMinedBlocks = safeGetBoolean(config, "doRegisterMinedBlocks", "misc", ModVariables.doRegisterMinedBlocks, "Register mined(trapped) blocks? (y/n)");
+			ModVariables.Extra_Drops_Grass = safeGetBoolean(config, "Extra_Drops_Grass", "misc", ModVariables.Extra_Drops_Grass, "Should process additional drops from grass? (y/n)");
+			ModVariables.Extra_Drops_All = safeGetBoolean(config, "Extra_Drops_All", "misc", ModVariables.Extra_Drops_All, "Should extra drops be processed in general? (y/n)");
 
 			AstrotweaksModVariables.Enable_Depths_Dimension = safeGetBoolean(config, "Enable_Depths_Dimension", "world", true, "Should register Depths dimension? (y/n)");
 			AstrotweaksModVariables.Enable_Depths_Dim_Bedrock_TP = safeGetBoolean(config, "Enable_Depths_Dim_Bedrock_TP", "world", true, "Allow access to the Depths via Bedrock? (y/n)");
 
+			ModVariables.GG_ENABLED = safeGetBoolean(config, "GG_ENABLED", "world", true, "Enable Grass growth? (y/n)");
+			ModVariables.GG_MIN_DELAY_TICK = safeGetInt(config, "Grass_Growth_MIN_Delay", "world", ModVariables.GG_MIN_DELAY_TICK, 10, 1728000, "Minimum delay (ticks) for grass regrowth (10-1728000)");
+			ModVariables.GG_MAX_DELAY_TICK = safeGetInt(config, "Grass_Growth_MAX_Delay", "world", ModVariables.GG_MAX_DELAY_TICK, 10, 1728000, "Maximum delay (ticks) for grass regrowth (10-1728000)");
+			ModVariables.GG_MAX_OPER_PER_TICK = safeGetInt(config, "GG_MAX_PER_TICK", "world", ModVariables.GG_MAX_OPER_PER_TICK, 1, 999, "Maximum operations per tick (1-999)");
+			ModVariables.GG_Density = safeGetInt(config, "Grass_Density", "world", ModVariables.GG_Density, 1, 25, "Maximum grass density (1-25)");
+			
 
 
 			ModVariables.QM_is_fully_unbreakable = safeGetBoolean(config, "QM_is_fully_unbreakable", "Game mechanics", ModVariables.QM_is_fully_unbreakable, "Prohibit the player from breaking the QM_block");
@@ -85,6 +92,7 @@ public class LoadConfig {
 
 
 			ModVariables.Remove_METS_engineer = safeGetBoolean(config, "Remove_METS_engineer", "mods", ModVariables.Remove_METS_engineer, "Remove trades of Engineer villager (MoreElectricTools)");
+			ModVariables.Rem_Gravestone_Note = safeGetBoolean(config, "Remove_Gravestone_Note", "mods", ModVariables.Rem_Gravestone_Note, "Removes a Gravestone paper when dropped by a player");
 
 
 			Set<ResourceLocation> sgb = new HashSet<>();

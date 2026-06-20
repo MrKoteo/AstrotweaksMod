@@ -27,7 +27,7 @@ import astrotweaks.item.ItemGoldCoin;
 import astrotweaks.item.ItemGavel;
 import astrotweaks.item.ItemEluniteCoin;
 import astrotweaks.item.ItemDiamantCoin;
-import astrotweaks.item.ItemCopperPlate;
+//import astrotweaks.item.ItemCopperPlate;
 import astrotweaks.item.ItemCopperCoin;
 import astrotweaks.item.ItemAdamantiumCoin;
 

@@ -46,8 +46,8 @@ public class BiomeCavern extends ElementsAstrotweaksMod.ModElement {
 	            .setWaterColor(0x305080));
 	        setRegistryName("cavern");
 
-	        topBlock = Blocks.STONE.getDefaultState(); // temporarly
-			fillerBlock = Blocks.STONE.getDefaultState();
+	        //topBlock = Blocks.STONE.getDefaultState(); // temporarly
+			//fillerBlock = Blocks.STONE.getDefaultState();
 
 	        // Remove all plants
 	        decorator.treesPerChunk = 0;

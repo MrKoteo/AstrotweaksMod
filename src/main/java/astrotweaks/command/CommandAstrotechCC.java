@@ -1,25 +1,22 @@
-
 package astrotweaks.command;
 
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-
-import net.minecraft.world.World;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.entity.Entity;
-import net.minecraft.command.ICommandSender;
 import net.minecraft.command.ICommand;
-import net.minecraft.command.CommandHandler;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.entity.Entity;
+import net.minecraft.world.World;
 
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 import java.util.HashMap;
+import java.util.stream.IntStream;
+import java.util.stream.Collectors;
 import java.util.Arrays;
-import java.util.ArrayList;
-
-import astrotweaks.procedure.ProcedureAstroTechCP;
 
 import astrotweaks.ElementsAstrotweaksMod;
+import astrotweaks.procedure.ProcedureAstroTechCP;
 
 @ElementsAstrotweaksMod.ModElement.Tag
 public class CommandAstrotechCC extends ElementsAstrotweaksMod.ModElement {
@@ -31,64 +28,27 @@ public class CommandAstrotechCC extends ElementsAstrotweaksMod.ModElement {
 	public void serverLoad(FMLServerStartingEvent event) {
 		event.registerServerCommand(new CommandHandler());
 	}
+
 	public static class CommandHandler implements ICommand {
-		@Override
-		public int compareTo(ICommand c) {
-			return getName().compareTo(c.getName());
-		}
+		@Override public String getName() { return "astrotech"; }
+		@Override public String getUsage(ICommandSender sender) { return "/astrotech [args]"; }
+		@Override public List<String> getAliases() { return Arrays.asList(); }
+		@Override public boolean checkPermission(MinecraftServer server, ICommandSender sender) { return true; }
+		@Override public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) { return Arrays.asList(); }
+		@Override public boolean isUsernameIndex(String[] args, int index) { return index == 1; } // idx 1 - target player
+		@Override public int compareTo(ICommand o) { return getName().compareTo(o.getName()); }
 
 		@Override
-		public boolean checkPermission(MinecraftServer server, ICommandSender var1) {
-			return true;
-		}
-
-		@Override
-		public List getAliases() {
-			return new ArrayList();
-		}
-
-		@Override
-		public List getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
-			return new ArrayList();
-		}
-
-		@Override
-		public boolean isUsernameIndex(String[] string, int index) {
-			return true;
-		}
-
-		@Override
-		public String getName() {
-			return "astrotech";
-		}
-
-		@Override
-		public String getUsage(ICommandSender var1) {
-			return "/astrotech [<arguments>]";
-		}
-
-		@Override
-		public void execute(MinecraftServer server, ICommandSender sender, String[] cmd) {
-			int x = sender.getPosition().getX();
-			int y = sender.getPosition().getY();
-			int z = sender.getPosition().getZ();
+		public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
 			Entity entity = sender.getCommandSenderEntity();
-			if (entity != null) {
-				World world = entity.world;
-				HashMap<String, String> cmdparams = new HashMap<>();
-				int[] index = {0};
-				Arrays.stream(cmd).forEach(param -> {
-					cmdparams.put(Integer.toString(index[0]), param);
-					index[0]++;
-				});
-				{
-					Map<String, Object> $_dependencies = new HashMap<>();
-					$_dependencies.put("entity", entity);
-					$_dependencies.put("cmdparams", cmdparams);
-					$_dependencies.put("world", world);
-					ProcedureAstroTechCP.executeProcedure($_dependencies);
-				}
-			}
+			if (entity == null) return;
+			Map<String, String> cmdparams = IntStream.range(0, args.length).boxed().collect(Collectors.toMap(i -> Integer.toString(i), i -> args[i]));
+
+			Map<String, Object> deps = new HashMap<>();
+			deps.put("entity", entity);
+			deps.put("cmdparams", cmdparams);
+
+			ProcedureAstroTechCP.executeProcedure(deps);
 		}
 	}
 }

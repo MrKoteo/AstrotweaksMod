@@ -63,7 +63,7 @@ public class BlockQmBlock extends ElementsAstrotweaksMod.ModElement {
 			setResistance(1000000F);
 			setLightLevel(1F);
 			//setLightOpacity(255);
-			//setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(TabAstroTweaks.tab);
 			setBlockUnbreakable();
 		}
 		@Override public MapColor getMapColor(IBlockState state, IBlockAccess blockAccess, BlockPos pos) { return MapColor.IRON; }

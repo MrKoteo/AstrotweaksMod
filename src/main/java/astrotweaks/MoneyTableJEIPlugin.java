@@ -17,6 +17,9 @@ import net.minecraftforge.fml.common.Loader;
 import astrotweaks.block.BlockMoneyTable;
 import astrotweaks.gui.GuiMTGUI;
 import astrotweaks.item.*;
+import net.minecraft.init.Blocks;
+
+import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nullable;
 import java.awt.Rectangle;
@@ -35,10 +38,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.Minecraft;
 
 public class MoneyTableJEIPlugin {
-    public static void init() {
-        // empty - ok
-    }
-
+    public static void init() {}
     @JEIPlugin
     public static class Plugin implements IModPlugin {
         @Override
@@ -46,7 +46,6 @@ public class MoneyTableJEIPlugin {
             IGuiHelper guiHelper = registry.getJeiHelpers().getGuiHelper();
             registry.addRecipeCategories(new Category(guiHelper));
         }
-
         @Override
         public void register(IModRegistry registry) {
             registry.addAdvancedGuiHandlers(new GuiHandler[] {new GuiHandler()});
@@ -71,22 +70,19 @@ public class MoneyTableJEIPlugin {
 		        public int getWidth() {
 		            return (int) (originalWidth * scale);
 		        }
-		
 		        @Override
 		        public int getHeight() {
 		            return (int) (originalHeight * scale);
 		        }
-		
 		        @Override
 		        public void draw(Minecraft minecraft, int xOffset, int yOffset) {
 					GlStateManager.disableBlend();
-		        	
 		            GlStateManager.pushMatrix();
 		            GlStateManager.translate(xOffset, yOffset, 0);
 		            GlStateManager.scale(scale, scale, 1.0f);
-		            
+
 		            minecraft.getTextureManager().bindTexture(texture);
-		
+
 		            BufferBuilder buffer = Tessellator.getInstance().getBuffer();
 		            buffer.begin(7, DefaultVertexFormats.POSITION_TEX);
 		            buffer.pos(0, originalHeight, 0).tex(0, 1).endVertex();
@@ -100,27 +96,22 @@ public class MoneyTableJEIPlugin {
 		        }
 		    };
 		}
-
         @Override
         public String getUid() {
             return UID;
         }
-
         @Override
         public String getTitle() {
             return I18n.translateToLocal("JEI.container.money_table");
         }
-
         @Override
         public String getModName() {
             return "AstroTweaks";
         }
-
         @Override
         public IDrawable getBackground() {
             return background;
         }
-
         @Override
         public void setRecipe(IRecipeLayout recipeLayout, RecipeWrapper recipeWrapper, IIngredients ingredients) {
             IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
@@ -195,13 +186,11 @@ public class MoneyTableJEIPlugin {
         public Class<GuiMTGUI.GuiWindow> getGuiContainerClass() {
             return GuiMTGUI.GuiWindow.class;
         }
-
         @Nullable  // + @Nullable for FIX "type mismatch"
         @Override
         public List<Rectangle> getGuiExtraAreas(GuiMTGUI.GuiWindow guiContainer) {
             return Collections.emptyList();
         }
-
         @Nullable  // + @Nullable
         @Override
         public Object getIngredientUnderMouse(GuiMTGUI.GuiWindow guiContainer, int mouseX, int mouseY) {
@@ -237,8 +226,23 @@ public class MoneyTableJEIPlugin {
             recipes.add(new RecipeWrapper(high, low, hammer, 0));
         }
 
-        recipes.add(new RecipeWrapper(new ItemStack(ItemCopperPlate.block), new ItemStack(ItemCopperCoin.block), hammer, 2));
-        
+        //recipes.add(new RecipeWrapper(new ItemStack(ItemCopperPlate.block), new ItemStack(ItemCopperCoin.block), hammer, 2));
+
+		List<ItemStack> ores = OreDictionary.getOres("plateCopper");
+		if (!ores.isEmpty()) {
+		    ItemStack first = ores.get(0);
+		    int meta = first.getMetadata();
+		    ItemStack input;
+		    if (meta == OreDictionary.WILDCARD_VALUE) {
+		        input = first.copy();
+		    } else {
+		        input = new ItemStack(first.getItem(), 1, meta);
+		        if (first.hasTagCompound()) input.setTagCompound(first.getTagCompound().copy());
+		    }
+		    recipes.add(new RecipeWrapper(input, new ItemStack(ItemCopperCoin.block), hammer, 2));
+		} else {
+		    recipes.add(new RecipeWrapper(new ItemStack(Blocks.BARRIER), new ItemStack(ItemCopperCoin.block), hammer, 2));
+		}
         return recipes;
     }
 }
