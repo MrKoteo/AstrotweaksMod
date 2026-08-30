@@ -172,8 +172,8 @@ public class ArkGUI extends ElementsAstrotweaksMod.ModElement {
 	            if (message.buttonID == 0 && parseOk) {
 	                //if (delayTicks > 0) {
 	                // delay with TileEntity (ITickable)
-					if (delayTicks < 1) { delayTicks = 1;}
-					if (!(delayTicks == 1)) { player.sendMessage(new TextComponentString(TextFormatting.AQUA + "Transfer will start in " + delayTicks + " ticks.")); }
+					if (delayTicks < 5) { delayTicks = 5;}
+					if (!(delayTicks == 5)) { player.sendMessage(new TextComponentString(TextFormatting.AQUA + "Transfer will start in " + delayTicks + " ticks.")); }
                     
                     teArk.startDelayedTransfer(player, pos, targetDim, targetX,targetY,targetZ, message.clearMode, message.captureEntities, message.captureItems, delayTicks);
                     

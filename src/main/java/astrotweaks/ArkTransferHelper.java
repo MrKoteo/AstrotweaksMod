@@ -113,10 +113,10 @@ public class ArkTransferHelper {
     public static void performTeleport(EntityPlayerMP player,World world,BlockPos termPos,BlockArk.TileEntityCustom teArk,int targetDim,int targetX,int targetY,int targetZ,
 					boolean clearMode, boolean captureEntities, boolean captureItems) {
 		//////////
-	    System.out.println("[Ark] performTeleport started");
+
 	    BlockPos corePos = findCore(world, termPos);
 	    if (corePos == null) {
-	        player.sendMessage(new TextComponentString(TextFormatting.RED + "Error: Structure is not complete!"));
+	        player.sendMessage(new TextComponentString(TextFormatting.RED + "Error: Invalid structure!"));
 	        return;
 	    }
 	    if (!DimensionManager.isDimensionRegistered(targetDim)) {
@@ -125,13 +125,12 @@ public class ArkTransferHelper {
 	    }
 	    
 		// ########## Checking the suppressor in the source world
-		//world.getChunk(corePos);
 		if (SuppressorManager.isPositionBlocked(world, corePos)) {
 		    player.sendMessage(new TextComponentString(TextFormatting.RED + "Teleportation is prohibited here!"));
 		    return;
 		}
 	    
-        System.out.println("[Ark] 2 ++");
+        //System.out.println("[Ark] 2 ++");
         // 3. Checking the boundaries of the world (taking into account Y+2 for the kernel)
         int coreTargetY = targetY + 2; // Y coord of the core in the new location
         int minY = coreTargetY - 2;
@@ -142,27 +141,21 @@ public class ArkTransferHelper {
             return;
         }
         // Check X,Z boundaries (standard)
-        //if (Math.abs(targetX) > border || Math.abs(targetZ) > border) {
-        //    player.sendMessage(new TextComponentString("Error: X/Z coordinates are out of world!"));
-        //    return;
-        //}
-        //System.out.println("[Ark] 3 ++");
-        System.out.println("[Ark] 3 ++\n[Ark] XYZ bounds OK");
+
         // 4. Get target world
 	    WorldServer targetWorld = player.getServer().getWorld(targetDim);
 	    if (targetWorld == null) {
 	        player.sendMessage(new TextComponentString(TextFormatting.RED + "Error: Failed to get target world!"));
 	        return;
 	    }
-        System.out.println("[Ark] Target world obtained");
-        System.out.println("[Ark] 4 ++");
+        //System.out.println("[Ark] Target world obtained");
+        //System.out.println("[Ark] 4 ++");
         // 5. Defining areas
 	    BlockPos corePosTarget = new BlockPos(targetX, coreTargetY, targetZ);
 	    BlockPos sourceMin = corePos.add(-3, -2, -3);
 	    BlockPos sourceMax = corePos.add(3, 2, 3);
 	    BlockPos targetMin = corePosTarget.add(-3, -2, -3);
 	    BlockPos targetMax = corePosTarget.add(3, 2, 3);
-        System.out.println("[Ark] 5 ++");
 		
 		if (isSuppressorInArea(targetWorld, targetMin, targetMax)) {
 		    player.sendMessage(new TextComponentString("Error: Target area contains a teleport suppressor!"));
@@ -185,8 +178,8 @@ public class ArkTransferHelper {
                 return;
             }
         }
-        System.out.println("[Ark] Target area clear of unbreakable blocks");
-        System.out.println("[Ark] 6 ++");
+        //System.out.println("[Ark] Target area clear of unbreakable blocks");
+
 
         // 7. Save blocks and TileEntity from the source
 	    List<BlockSave> blocksToMove = new ArrayList<>();
@@ -202,7 +195,6 @@ public class ArkTransferHelper {
 	        }
 	        blocksToMove.add(new BlockSave(state, teNBT));
 	    }
-        System.out.println("[Ark] 7 ++");
 
         // 8. Collect entities in the area (except for players)
 	    List<Entity> entitiesInArea = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(sourceMin, sourceMax.add(1, 1, 1)));
@@ -219,7 +211,7 @@ public class ArkTransferHelper {
 	            entitiesToTransfer.add(entity);
 	        }
 	    }
-		System.out.println("[Ark] 8 ++");
+
 		// Loading chunks of the target area
 	    int minChunkX = targetMin.getX() >> 3;
 	    int maxChunkX = targetMax.getX() >> 3;
@@ -230,7 +222,7 @@ public class ArkTransferHelper {
 	            targetWorld.getChunkProvider().provideChunk(cx, cz);
 	        }
 	    }
-		System.out.println("[Ark] target chunks loaded");
+		//System.out.println("[Ark] target chunks loaded");
 
         // 9. Clear the target area (destroy all blocks)
         if (clearMode) {
@@ -244,7 +236,6 @@ public class ArkTransferHelper {
                 targetWorld.destroyBlock(p, false);
             }
         }
-        System.out.println("[Ark] 9 ++");
 
         // 10. Place blocks in the target area
 	    int index = 0;
@@ -280,7 +271,6 @@ public class ArkTransferHelper {
 	            ((WorldServer) targetWorld).getPlayerChunkMap().markBlockForUpdate(p);
 	        }
 		}
-		System.out.println("[Ark] 10 ++");
 
 		// 12. Teleport players
 		int sourceDim = world.provider.getDimension();
@@ -317,7 +307,6 @@ public class ArkTransferHelper {
 		        }
 		    }
 		}
-		System.out.println("[Ark] 12 ++");
 
         // 11. Transfer entities with dimension check
         //int sourceDim = world.provider.getDimension();
@@ -379,7 +368,6 @@ public class ArkTransferHelper {
                 System.out.println("[Ark] Entity transfer failed: " + entity);
             }
         }
-        System.out.println("[Ark] 11 ++");
 
 
         // 13. Remove blocks in the source (replace with air)
@@ -393,7 +381,6 @@ public class ArkTransferHelper {
 
             //world.markBlockRangeForRenderUpdate(sourceMin, sourceMax);
         }
-        System.out.println("[Ark] 13 ++");
 
         // Notify the player
         player.sendMessage(new TextComponentString(TextFormatting.GREEN + "The Ark has been successfully moved!"));
@@ -453,5 +440,4 @@ public class ArkTransferHelper {
 	    }
 	    return false;
 	}
-    
 }

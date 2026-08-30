@@ -8,6 +8,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 
 import net.minecraft.world.World;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.NonNullList;
@@ -18,7 +19,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.nbt.NBTTagCompound;
-//import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.Item;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -34,29 +34,31 @@ import net.minecraft.block.Block;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.WorldServer;
 import net.minecraft.util.ITickable;
+import net.minecraftforge.common.DimensionManager;
 
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 
 import astrotweaks.ark.ArkGUI;
 import astrotweaks.ark.ArkTransferHelper;
 
 import astrotweaks.creativetab.TabAstroTweaks;
-
 import astrotweaks.ElementsAstrotweaksMod;
-
 import astrotweaks.AstrotweaksMod;
+
+import astrotweaks.qts.SuppressorManager;
 
 @ElementsAstrotweaksMod.ModElement.Tag
 public class BlockArk extends ElementsAstrotweaksMod.ModElement {
 	@GameRegistry.ObjectHolder("astrotweaks:ark")
 	public static final Block block = null;
-	public BlockArk(ElementsAstrotweaksMod instance) {super(instance, 719);}
+	public BlockArk(ElementsAstrotweaksMod instance) {super(instance,719);}
 	@Override
 	public void initElements() {
 		elements.blocks.add(() -> new BlockCustom().setRegistryName("ark"));
 		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
 	}
-	@Override
-	public void init(FMLInitializationEvent event) {
+	@Override public void init(FMLInitializationEvent event) {
 		GameRegistry.registerTileEntity(TileEntityCustom.class, "astrotweaks:te_ark");
 	}
 	@SideOnly(Side.CLIENT)
@@ -69,29 +71,22 @@ public class BlockArk extends ElementsAstrotweaksMod.ModElement {
 			super(Material.IRON);
 			setUnlocalizedName("ark");
 			setSoundType(SoundType.METAL);
-			setHarvestLevel("pickaxe", 4);
+			setHarvestLevel("pickaxe",4);
 			setHardness(100F);
 			setResistance(100F);
 			setLightLevel(0.333333333333F);
 			setCreativeTab(TabAstroTweaks.tab);
 		}
-		@Override public EnumPushReaction getMobilityFlag(IBlockState state) {
-			return EnumPushReaction.BLOCK;
-		}
-		@Override public MapColor getMapColor(IBlockState state, IBlockAccess blockAccess, BlockPos pos) {
-			return MapColor.BLACK;
-		}
+		@Override public EnumPushReaction getMobilityFlag(IBlockState state) {return EnumPushReaction.BLOCK;}
+		@Override public MapColor getMapColor(IBlockState state,IBlockAccess blockAccess,BlockPos pos) {return MapColor.BLACK;}
+		@Override public TileEntity createNewTileEntity(World worldIn,int meta) {return new TileEntityCustom();}
 		@Override
-		public TileEntity createNewTileEntity(World worldIn, int meta) {
-			return new TileEntityCustom();
-		}
-		@Override
-		public boolean eventReceived(IBlockState state, World worldIn, BlockPos pos, int eventID, int eventParam) {
+		public boolean eventReceived(IBlockState state,World worldIn,BlockPos pos,int eventID,int eventParam) {
 			super.eventReceived(state, worldIn, pos, eventID, eventParam);
 			TileEntity tileentity = worldIn.getTileEntity(pos);
 			return tileentity == null ? false : tileentity.receiveClientEvent(eventID, eventParam);
 		}
-		@Override public EnumBlockRenderType getRenderType(IBlockState state) { return EnumBlockRenderType.MODEL; }
+		@Override public EnumBlockRenderType getRenderType(IBlockState state) {return EnumBlockRenderType.MODEL;}
 		@Override
 		public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entity, EnumHand hand, EnumFacing direction,
 				float hitX, float hitY, float hitZ) {
@@ -114,7 +109,7 @@ public class BlockArk extends ElementsAstrotweaksMod.ModElement {
 	    private boolean clearMode = true; // true = destroy, false = replace
 	    private boolean captureEntities = true;
 	    private boolean captureItems = true;
-	    private int delayTicks = 0;
+	    private int delayTicks = 5;
 
 	    private int delayTicksLeft = 0;
 	    private boolean transferPending = false;
@@ -189,7 +184,7 @@ public class BlockArk extends ElementsAstrotweaksMod.ModElement {
 	    }
 	    public int getDelayTicks() { return delayTicks; }
 	    public void setDelayTicks(int delay) {
-	        this.delayTicks = Math.min(1728000, Math.max(0, delay)); // limit
+	        this.delayTicks = Math.min(1728000, Math.max(5, delay)); // limit
 	        markDirty();
 	        if (world != null && !world.isRemote) {
 	            IBlockState state = world.getBlockState(pos);
@@ -197,8 +192,45 @@ public class BlockArk extends ElementsAstrotweaksMod.ModElement {
 	        }
 	    }
 		/////
-	    public void startDelayedTransfer(EntityPlayerMP player, BlockPos termPos, int dim, int x, int y, int z,boolean clearMode, 
-	    			boolean captureEntities, boolean captureItems, int delay) {
+	    public void startDelayedTransfer(EntityPlayerMP player,BlockPos termPos,int dim,int x,int y,int z,boolean clearMode,boolean captureEntities,boolean captureItems,int delay) {
+		    BlockPos corePos = ArkTransferHelper.findCore(world, termPos);
+		    if (corePos == null) {
+		        player.sendMessage(new TextComponentString(TextFormatting.RED + "ERROR: invalid structure"));
+		        return;
+		    }
+		    if (!DimensionManager.isDimensionRegistered(dim)) {
+		        player.sendMessage(new TextComponentString(TextFormatting.RED + "ERROR: dim " + dim + " does not exist"));
+		        return;
+		    }
+		    WorldServer targetWorld = player.getServer().getWorld(dim);
+		    if (targetWorld == null) {
+		        player.sendMessage(new TextComponentString(TextFormatting.RED + "ERROR: failed to get target world"));
+		        return;
+		    }
+
+		    // this's like in performTeleport
+		    int coreTargetY = y + 2;
+		    BlockPos corePosTarget = new BlockPos(x, coreTargetY, z);
+		    BlockPos targetMin = corePosTarget.add(-3, -2, -3);
+		    BlockPos targetMax = corePosTarget.add(3, 2, 3);
+		
+		    int minY = coreTargetY - 2;
+		    int maxY = coreTargetY + 2;
+		    final int border = 29999996;
+		    if ((minY < 3 || maxY > 253) || (Math.abs(x) > border || Math.abs(z) > border)) {
+		        return;
+		    }
+
+		    int minChunkX = targetMin.getX() >> 2;
+		    int maxChunkX = targetMax.getX() >> 2;
+		    int minChunkZ = targetMin.getZ() >> 2;
+		    int maxChunkZ = targetMax.getZ() >> 2;
+		    for (int cx = minChunkX; cx <= maxChunkX; cx++) {
+		        for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
+		            targetWorld.getChunkProvider().provideChunk(cx, cz);
+		        }
+		    }
+
 	        this.delayTicksLeft = delay;
 	        this.transferPending = true;
 	        this.pendingDim = dim;
@@ -212,8 +244,6 @@ public class BlockArk extends ElementsAstrotweaksMod.ModElement {
 	        this.triggeringPlayer = player;
 	        markDirty();
 	    }
-
-//////////
 	    @Override
 	    public void readFromNBT(NBTTagCompound compound) {
 	        super.readFromNBT(compound);
@@ -227,7 +257,7 @@ public class BlockArk extends ElementsAstrotweaksMod.ModElement {
 	        if (compound.hasKey("captureEntities")) this.captureEntities = compound.getBoolean("captureEntities");
 	        if (compound.hasKey("captureItems")) this.captureItems = compound.getBoolean("captureItems");
 	        if (compound.hasKey("delayTicks")) this.delayTicks = compound.getInteger("delayTicks");
-	
+
 	        delayTicksLeft = compound.getInteger("delayTicksLeft");
 	        transferPending = compound.getBoolean("transferPending");
 	        pendingDim = compound.getInteger("pendingDim");
@@ -238,8 +268,7 @@ public class BlockArk extends ElementsAstrotweaksMod.ModElement {
 	        pendingCaptureEntities = compound.getBoolean("pendingCaptureEntities");
 	        pendingCaptureItems = compound.getBoolean("pendingCaptureItems");
 	        if (compound.hasKey("terminalPosX")) {
-	            terminalPos = new BlockPos(compound.getInteger("terminalPosX"),
-	        			compound.getInteger("terminalPosY"), compound.getInteger("terminalPosZ"));
+	            terminalPos = new BlockPos(compound.getInteger("terminalPosX"), compound.getInteger("terminalPosY"), compound.getInteger("terminalPosZ"));
 	        }
 	    }
 		@Override
@@ -269,7 +298,6 @@ public class BlockArk extends ElementsAstrotweaksMod.ModElement {
 	            compound.setInteger("terminalPosY", terminalPos.getY());
 	            compound.setInteger("terminalPosZ", terminalPos.getZ());
 	        }
-
 		    return compound;
 		}
 		@Override
@@ -313,14 +341,12 @@ public class BlockArk extends ElementsAstrotweaksMod.ModElement {
 	                    return;
 	                }
 	                // execute
-	                ArkTransferHelper.performTeleport(triggeringPlayer, world, terminalPos, this,
-	                        pendingDim, pendingX, pendingY, pendingZ,
+	                ArkTransferHelper.performTeleport(triggeringPlayer, world, terminalPos, this, pendingDim, pendingX, pendingY, pendingZ,
 	                        pendingClearMode, pendingCaptureEntities, pendingCaptureItems);
 	                triggeringPlayer = null;
 	            }
 	            markDirty();
 	        }
 	    }
-		
 	}
 }

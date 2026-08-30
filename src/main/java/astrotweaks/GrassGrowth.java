@@ -89,13 +89,13 @@ public class GrassGrowth {
 	    return scheduledTimes.computeIfAbsent(dim, k -> new ConcurrentHashMap<>());
 	}
 
-    private static void addToQueue(int dim, ScheduledChunk chunk) {
-        if (chunk == null) {
-            //System.err.println("[GrassGrowth] Attempted to add null to queue for dim " + dim);
-            return;
-        }
-        getQueue(dim).add(chunk);
-    }
+	private static void addToQueue(int dim, ScheduledChunk chunk) {
+	    if (chunk == null) return;
+	    PriorityQueue<ScheduledChunk> q = getQueue(dim);
+	    synchronized (q) {
+	        q.add(chunk);
+	    }
+	}
     // Remove all nulls from the queue (call before processing)
     //private static void cleanQueue(int dim) {
     //    PriorityQueue<ScheduledChunk> queue = getQueue(dim);
@@ -158,17 +158,20 @@ public class GrassGrowth {
         long currentTick = world.getTotalWorldTime();
 
         int processed = 0;
-        while (!queue.isEmpty() && processed < MAX_OPER_PER_TICK) {
-            //ScheduledChunk scheduled = queue.peek();
-            //if (scheduled.scheduledTime > currentTick) {
-            //    break; // next chunk not due yet
-            //}
-            //queue.poll(); // remove from queue
+        while (processed < MAX_OPER_PER_TICK) {
+		    ScheduledChunk scheduled;
+		    synchronized (queue) {
+		        if (queue.isEmpty() || processed >= MAX_OPER_PER_TICK) break;
+		        scheduled = queue.peek();
+		        if (scheduled == null) { queue.poll(); continue; }
+		        if (scheduled.scheduledTime > currentTick) break;
+		        queue.poll(); // remove from queue
+		    }
 
-			ScheduledChunk scheduled = queue.peek();
-			if (scheduled == null) continue;
-			if (scheduled.scheduledTime > currentTick) break;
-			queue.poll();
+			//ScheduledChunk scheduled = queue.peek();
+			//if (scheduled == null) continue;
+			//if (scheduled.scheduledTime > currentTick) break;
+			//queue.poll(); // remove from queue
 
             long key = scheduled.chunkKey;
             Long actualTime = times.get(key);
@@ -186,7 +189,6 @@ public class GrassGrowth {
 			ChunkPos pos = new ChunkPos(cx, cz);
             Chunk chunk = world.getChunkFromChunkCoords(pos.x, pos.z);
 			if (chunk == null || !chunk.isLoaded()) continue;
-
             // Perform growth logic
             try {
                 performGrowth(world, chunk);
@@ -198,12 +200,10 @@ public class GrassGrowth {
 		    long delay = MIN_DELAY_TICKS + ThreadLocalRandom.current().nextInt(MAX_DELAY_TICKS - MIN_DELAY_TICKS + 1);
 		    long newScheduled = currentTick + delay;
 		    times.put(key, newScheduled);
-		    queue.add(new ScheduledChunk(key, dim, newScheduled));
-
-            processed++;
+		    synchronized (queue) { queue.add(new ScheduledChunk(key, dim, newScheduled)); }
+		    processed++;
         }
     }
-
     // -------- Main growth algorithm --------
     private static void performGrowth(World world, Chunk chunk) {
 	    final int baseX = chunk.x * 16;
@@ -220,7 +220,6 @@ public class GrassGrowth {
 	        mcheck.setPos(x + ox[i], 64, z + oz[i]);
 	        if (!world.isBlockLoaded(mcheck)) return;
 	    }
-
         // 1. Check biome before any block scanning (must be allowed)
 	    BlockPos.MutableBlockPos mpos = new BlockPos.MutableBlockPos(x, 64, z);
 	    Biome biome = world.getBiome(mpos);
@@ -259,7 +258,6 @@ public class GrassGrowth {
 		            break;
 		        }
 		    }
-
 		    IBlockState probeState = state;
 		    if (probeState.getBlock().isFullCube(probeState)) encounteredSolidInUpScan = true;
 		    else if (probeState.getLightOpacity(world, probe) > 0) encounteredSolidInUpScan = true;
@@ -286,7 +284,6 @@ public class GrassGrowth {
 		        }
 		    }
 		}
-	    
 	    if (grassPos == null) return;
 
 		// 3. Look for tallgrass in a 5x3x5 cube
@@ -309,13 +306,11 @@ public class GrassGrowth {
 	        world.setBlockState(above, Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS), 2);
 	    }
 	}
-
     // -------- Biome whitelist check (uses your ModVariables.GGAllowed) --------
 	private static boolean isBiomeInBlacklist(Biome biome) {
         int id = Biome.REGISTRY.getIDForObject(biome);
         return id >= 0 && BIOME_BLACKLIST.get(id);
 	}
-
     // -------- Cleanup on world load (avoid stale data across sessions) --------
     @SubscribeEvent
     public static void onWorldLoad(WorldEvent.Load event) {

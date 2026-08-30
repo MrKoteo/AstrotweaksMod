@@ -12,7 +12,7 @@ import net.minecraft.block.Block;
 
 
 
-@Mod.EventBusSubscriber(modid = "astrotweaks", value = Side.CLIENT)
+@Mod.EventBusSubscriber(modid="astrotweaks",value=Side.CLIENT)
 public class ClientEventHandler {
     static final Block[] GRASS_COLOR_BLOCKS = new Block[] {
         BlockBush1.block,

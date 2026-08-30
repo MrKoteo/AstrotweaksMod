@@ -20,8 +20,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 
-import astrotweaks.qts.BlockQTPSupressor;
-import astrotweaks.qts.SuppressorManager;
+//import astrotweaks.qts.BlockQTPSupressor;
+//import astrotweaks.qts.SuppressorManager;
 
 
 @Mod.EventBusSubscriber
@@ -34,37 +34,27 @@ public class SuppressorEventHandler {
 	    BlockPos to = new BlockPos(event.getTargetX(), event.getTargetY(), event.getTargetZ());
 	    if (SuppressorManager.isTeleportationBlocked(w, from, to)) {
 	        event.setCanceled(true);
-
 	        if (e instanceof EntityPlayerMP) {
-	            EntityPlayerMP player = (EntityPlayerMP) e;
-	            act_msg(player);
+	            act_msg((EntityPlayerMP) e);
 	        }
 	    }
 	}
-
     @SubscribeEvent
     public static void onTravelToDimension(EntityTravelToDimensionEvent event) {
 		MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
 		if (server == null) return;
-
 	    Entity e = event.getEntity();
 	    World w = e.world;
 	    BlockPos from = e.getPosition();
 	    if (SuppressorManager.isPositionBlocked(w, from)) {
 	        event.setCanceled(true);
 	        if (e instanceof EntityPlayerMP) {
-	            EntityPlayerMP player = (EntityPlayerMP) e;
-	            //player.sendMessage(new TextComponentString(TextFormatting.RED + "Moving between dimensions is prohibited here!"));
-	            //player.connection.sendPacket(new SPacketChat(new TextComponentString(TextFormatting.RED + "Moving between dimensions is prohibited here!"), ChatType.GAME_INFO));
-	        	sendMessage("Moving between dimensions is prohibited here!", player);
+	            sendMessage("Moving between dimensions is prohibited here!", (EntityPlayerMP) e);
 	        }
 	        return;
 	    }
         int targetDim = event.getDimension();
-        WorldServer targetWorld = null;
-
-        targetWorld = server.getWorld(targetDim);
-
+        WorldServer targetWorld = server.getWorld(targetDim);
         if (targetWorld == null) {
             event.setCanceled(true);
         }
@@ -80,7 +70,6 @@ public class SuppressorEventHandler {
 
         ICommandSender sender = event.getSender();
 
-
         // If the sender is in the zone, we block it
 	    if (sender instanceof Entity) {
 	        Entity es = (Entity) sender;
@@ -94,10 +83,10 @@ public class SuppressorEventHandler {
         String[] args = event.getParameters();
         try {
             // Scenarios:
-            // /tp x y z
+            // /tp coords
             // /tp <player>
             // /tp <targetPlayer> <destPlayer>
-            // /tp <player> x y z
+            // /tp <player> coords
             if (args.length == 3) {
                 // coords: check target coords in the sender's world (if the sender is an Entity)
                 if (sender instanceof Entity) {
@@ -142,30 +131,23 @@ public class SuppressorEventHandler {
                 }
             }
         } catch (NumberFormatException ignore) {
-            // if the parsing failed, we don't block it here (ignore)
+            // if parsing failed, we don't block it here (ignore)
         }
     }
 	private static void sendMessage(String mes, ICommandSender sender) {
-	    TextComponentString msg = new TextComponentString(TextFormatting.RED + mes);
 	    if (sender instanceof EntityPlayerMP) {
-	        ((EntityPlayerMP) sender).connection.sendPacket(new SPacketChat(msg, ChatType.GAME_INFO));
+	        ((EntityPlayerMP) sender).connection.sendPacket(new SPacketChat(new TextComponentString(TextFormatting.RED + mes), ChatType.GAME_INFO));
 	    } else {
-	        sender.sendMessage(msg);
+	        sender.sendMessage(new TextComponentString(TextFormatting.RED + mes));
 	    }
 	}
-	private static void sendMessage(String mes, Entity entity) {
-	    if (entity instanceof EntityPlayerMP) {
-	        TextComponentString msg = new TextComponentString(TextFormatting.RED + mes);
-	        ((EntityPlayerMP) entity).connection.sendPacket(new SPacketChat(msg, ChatType.GAME_INFO));
-	    }
+	private static void sendMessage(String mes, EntityPlayerMP player) {
+	    player.connection.sendPacket(new SPacketChat(new TextComponentString(TextFormatting.RED + mes), ChatType.GAME_INFO));
 	}
-
 	private static int parseInt(String s) throws NumberFormatException {
 	    return Integer.parseInt(s);
 	}
 	private static void act_msg(EntityPlayerMP player) {
-	    player.connection.sendPacket(
-	        new SPacketChat(new TextComponentString(TextFormatting.RED + "Teleportation is prohibited here!"), ChatType.GAME_INFO)
-	    );
+	    player.connection.sendPacket(new SPacketChat(new TextComponentString(TextFormatting.RED + "Teleportation is prohibited here!"), ChatType.GAME_INFO));
 	}
 }

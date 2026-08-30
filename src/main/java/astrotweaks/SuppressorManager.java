@@ -8,8 +8,8 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
-import astrotweaks.qts.BlockQTPSupressor;
-import astrotweaks.qts.SuppressorEventHandler;
+//import astrotweaks.qts.BlockQTPSupressor;
+//import astrotweaks.qts.SuppressorEventHandler;
 
 public final class SuppressorManager {
     // For each world: chunk -> a set of suppressor positions covering this chunk
@@ -24,7 +24,6 @@ public final class SuppressorManager {
         posMap.put(pos, range);
         updateChunksForSuppressor(world, pos, range, true);
     }
-
     // Remove suppressor
     public static void removeSuppressor(World world, BlockPos pos) {
         if (world.isRemote) return;
@@ -39,7 +38,6 @@ public final class SuppressorManager {
             }
         }
     }
-
     // Update radius
     public static void updateRange(World world, BlockPos pos, int newRange) {
         if (world.isRemote) return;
@@ -55,23 +53,21 @@ public final class SuppressorManager {
             }
         }
     }
-
     // Check if teleportation from from to to (in the same world) is blocked
     public static boolean isTeleportationBlocked(World world, BlockPos from, BlockPos to) {
         if (world.isRemote) return false;
         return isPositionBlocked(world, from) || isPositionBlocked(world, to);
     }
-
     // Check whether the point is in the area of any suppressor
     public static boolean isPositionBlocked(World world, BlockPos pos) {
         if (world.isRemote) return false;
+        Map<BlockPos, Integer> posMap = worldPosRangeMap.get(world);
+        if (posMap == null) return false;
         Map<ChunkPos, Set<BlockPos>> chunkMap = worldChunkMap.get(world);
         if (chunkMap == null) return false;
         ChunkPos cp = new ChunkPos(pos.getX() >> 4, pos.getZ() >> 4);
         Set<BlockPos> suppressors = chunkMap.get(cp);
         if (suppressors == null) return false;
-        Map<BlockPos, Integer> posMap = worldPosRangeMap.get(world);
-        if (posMap == null) return false;
         for (BlockPos sp : suppressors) {
             Integer range = posMap.get(sp);
             if (range != null && sp.distanceSq(pos) <= (long) range * range) {
@@ -80,7 +76,6 @@ public final class SuppressorManager {
         }
         return false;
     }
-
     // Update the chunk binding for the suppressor (add or remove)
     private static void updateChunksForSuppressor(World world, BlockPos pos, int range, boolean add) {
         if (world.isRemote) return;
