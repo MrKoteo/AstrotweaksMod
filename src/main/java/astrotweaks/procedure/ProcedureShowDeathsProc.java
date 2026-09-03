@@ -6,20 +6,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.command.ICommandSender;
 
-import java.util.Map;
 import java.util.HashMap;
 
-import astrotweaks.ElementsAstrotweaksMod;
 
 import astrotweaks.AstrotweaksModVariables;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ProcedureShowDeathsProc extends ElementsAstrotweaksMod.ModElement {
-	public ProcedureShowDeathsProc(ElementsAstrotweaksMod instance) {
-		super(instance, 397);
-	}
 
-	private static String getParam0(HashMap cmdparams) {
+public class ProcedureShowDeathsProc {
+	public ProcedureShowDeathsProc() {}
+
+	private static String getParam0(HashMap<String, String> cmdparams) {
 		if (cmdparams == null) return "";
 		Object p = cmdparams.get("0");
 		return p instanceof String ? (String) p : "";
@@ -42,14 +38,7 @@ public class ProcedureShowDeathsProc extends ElementsAstrotweaksMod.ModElement {
 		};
 	}
 
-	public static void executeProcedure(Map<String, Object> dependencies) {
-		if (dependencies.get("cmdparams") == null || dependencies.get("world") == null) {
-			System.err.println("Failed to load dependencies!");
-			return;
-		}
-		@SuppressWarnings("unchecked")
-		HashMap cmdparams = (HashMap) dependencies.get("cmdparams");
-		World world = (World) dependencies.get("world");
+	public static void exect(HashMap<String, String> cmdparams, World world) {
 
 		String p0 = getParam0(cmdparams);
 		if ("on".equals(p0) || "1".equals(p0)) {
@@ -65,11 +54,9 @@ public class ProcedureShowDeathsProc extends ElementsAstrotweaksMod.ModElement {
 		if (!world.isRemote && world.getMinecraftServer() != null) {
 			ICommandSender sender = makeSender(world);
 			if (AstrotweaksModVariables.MapVariables.get(world).showDeaths) {
-				world.getMinecraftServer().getCommandManager()
-						.executeCommand(sender, "scoreboard objectives setdisplay sidebar deathCountX");
+				world.getMinecraftServer().getCommandManager().executeCommand(sender, "scoreboard objectives setdisplay sidebar deathCountX");
 			} else {
-				world.getMinecraftServer().getCommandManager()
-						.executeCommand(sender, "scoreboard objectives setdisplay sidebar");
+				world.getMinecraftServer().getCommandManager().executeCommand(sender, "scoreboard objectives setdisplay sidebar");
 			}
 		}
 	}

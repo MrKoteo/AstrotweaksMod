@@ -10,6 +10,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.CommandException;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
@@ -61,7 +62,7 @@ public class CommandRsummon extends ElementsAstrotweaksMod.ModElement {
         @Override
         public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 			if (!sender.canUseCommand(2, getName())) {
-		        sender.sendMessage(new TextComponentString("\u0423\u0020\u0432\u0430\u0441\u0020\u043d\u0435\u0442\u0020\u043f\u0440\u0430\u0432\u0020\u043d\u0430\u0020\u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u0435\u0020\u044d\u0442\u043e\u0439\u0020\u043a\u043e\u043c\u0430\u043d\u0434\u044b\u002e"));
+		        sender.sendMessage(new TextComponentTranslation("command.no_permissions"));
 		        return;
 		    }
             if (args.length < 1) {
@@ -121,6 +122,7 @@ public class CommandRsummon extends ElementsAstrotweaksMod.ModElement {
             }
 
             // Collect dependencies
+            /*
             Map<String, Object> dependencies = new HashMap<>();
             dependencies.put("world", world);
             dependencies.put("entity", entity);
@@ -130,9 +132,11 @@ public class CommandRsummon extends ElementsAstrotweaksMod.ModElement {
             dependencies.put("z", spawnZ);
             dependencies.put("count", count);
             dependencies.put("nbt", nbt);
+            */
 
             // Call procedure
-            ProcedureRsummonProc.executeProcedure(dependencies);
+            //                   executeProcedure(double x, double y, double z, World world, @Optional Entity entity, String 
+            ProcedureRsummonProc.executeProcedure(spawnX, spawnY, spawnZ, world, entity, entityId, count, nbt);
         }
 
         // Helper: Check if string looks like a coordinate (number, ~offset, ^offset)

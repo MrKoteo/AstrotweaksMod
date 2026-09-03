@@ -52,7 +52,6 @@ public class BlockDeepGoldOre extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("pickaxe", 2);
 			setHardness(4.5F);
 			setResistance(10F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

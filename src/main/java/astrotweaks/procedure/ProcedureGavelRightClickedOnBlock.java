@@ -8,39 +8,20 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.block.state.IBlockState;
 
-import java.util.Map;
 import java.util.List;
 
-import astrotweaks.ElementsAstrotweaksMod;
 
 import astrotweaks.recipe.GavelRecipeRegistry;
 import astrotweaks.recipe.GavelRecipe;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ProcedureGavelRightClickedOnBlock extends ElementsAstrotweaksMod.ModElement {
-    public ProcedureGavelRightClickedOnBlock(ElementsAstrotweaksMod instance) {
-        super(instance, 361);
-    }
 
-    public static void executeProcedure(Map<String, Object> dependencies) {
-        String[] keys = {"x", "y", "z", "world", "entity", "itemstack"};
-		for (String key : keys) {
-		    if (dependencies.get(key) == null) {
-		        System.err.println("Failed to load dependency " + key + "!");
-		        return;
-		    }
-		}
+public class ProcedureGavelRightClickedOnBlock {
+    public ProcedureGavelRightClickedOnBlock() {}
 
-        Entity entity = (Entity) dependencies.get("entity");
-        ItemStack itemstack = (ItemStack) dependencies.get("itemstack");
-        int x = (int) dependencies.get("x");
-        int y = (int) dependencies.get("y");
-        int z = (int) dependencies.get("z");
-        World world = (World) dependencies.get("world");
+    public static void executeProcedure(int x, int y, int z, World world, Entity entity, ItemStack itemstack) {
 
         // check mainhand has contain Gavel
-        boolean holdingGavel = ((entity instanceof EntityLivingBase) ? ((EntityLivingBase) entity).getHeldItemMainhand() : ItemStack.EMPTY)
-                .getItem() == new ItemStack(astrotweaks.item.ItemGavel.block, 1).getItem();
+        boolean holdingGavel = ((entity instanceof EntityLivingBase) ? ((EntityLivingBase) entity).getHeldItemMainhand() : ItemStack.EMPTY).getItem() == new ItemStack(astrotweaks.item.ItemGavel.block, 1).getItem();
         if (!holdingGavel) return;
 
         IBlockState state = world.getBlockState(new BlockPos(x, y, z));

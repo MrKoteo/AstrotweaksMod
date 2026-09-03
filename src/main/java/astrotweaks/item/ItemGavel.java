@@ -1,4 +1,5 @@
-package astrotweaks.item;
+
+package astrotweaks.item;
 
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
@@ -23,9 +24,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.block.state.IBlockState;
 
-import java.util.Map;
 import java.util.List;
-import java.util.HashMap;
 
 import com.google.common.collect.Multimap;
 import astrotweaks.procedure.ProcedureGavelRightClickedOnBlock;
@@ -61,11 +60,6 @@ public class ItemGavel extends ElementsAstrotweaksMod.ModElement {
 		}
 
 		@Override
-		public int getItemEnchantability() {
-			return 0;
-		}
-
-		@Override
 		public int getMaxItemUseDuration(ItemStack itemstack) {
 			return 50;
 		}
@@ -79,8 +73,7 @@ public class ItemGavel extends ElementsAstrotweaksMod.ModElement {
 		public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot slot) {
 			Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(slot);
 			if (slot == EntityEquipmentSlot.MAINHAND) {
-				multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
-						new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Item modifier", (double) 1, 0));
+				multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Item modifier", (double) 1, 0));
 				multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Item modifier", -2.4, 0));
 			}
 			return multimap;
@@ -94,22 +87,15 @@ public class ItemGavel extends ElementsAstrotweaksMod.ModElement {
 		}
 
 		@Override
-		public EnumActionResult onItemUseFirst(EntityPlayer entity, World world, BlockPos pos, EnumFacing direction, float hitX, float hitY, float hitZ, EnumHand hand) {
+		public EnumActionResult onItemUseFirst(EntityPlayer entity, World world, BlockPos pos, EnumFacing direction, float hitX, float hitY, float hitZ, EnumHand hand) {
 			EnumActionResult retval = super.onItemUseFirst(entity, world, pos, direction, hitX, hitY, hitZ, hand);
 			ItemStack itemstack = entity.getHeldItem(hand);
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
-				$_dependencies.put("itemstack", itemstack);
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				ProcedureGavelRightClickedOnBlock.executeProcedure($_dependencies);
-			}
+
+			ProcedureGavelRightClickedOnBlock.executeProcedure(x, y, z, world, entity, itemstack);
+
 			return retval;
 		}
 	}

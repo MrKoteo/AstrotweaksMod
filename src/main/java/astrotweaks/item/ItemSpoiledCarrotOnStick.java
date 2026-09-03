@@ -34,26 +34,11 @@ public class ItemSpoiledCarrotOnStick extends ElementsAstrotweaksMod.ModElement 
 	}
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
-			setMaxDamage(0);
 			maxStackSize = 1;
 			setUnlocalizedName("spoiled_carrot_on_stick");
 			setRegistryName("spoiled_carrot_on_stick");
 			setCreativeTab(null);
 		}
 
-		@Override
-		public int getItemEnchantability() {
-			return 0;
-		}
-
-		@Override
-		public int getMaxItemUseDuration(ItemStack itemstack) {
-			return 0;
-		}
-
-		@Override
-		public float getDestroySpeed(ItemStack par1ItemStack, IBlockState par2Block) {
-			return 1F;
-		}
 	}
 }

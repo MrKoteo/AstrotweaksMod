@@ -62,7 +62,6 @@ public class BlockDeepslateBricksSlab extends ElementsAstrotweaksMod.ModElement 
 			setHarvestLevel("pickaxe", 0);
 			setHardness(4.5F);
 			setResistance(16F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 			IBlockState state = this.blockState.getBaseState().withProperty(VARIANT, BlockCustom.Variant.DEFAULT);

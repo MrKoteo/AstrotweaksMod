@@ -1,13 +1,12 @@
 package astrotweaks;
 
-import net.minecraftforge.fml.relauncher.Side;
+
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.common.MinecraftForge;
 
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraft.block.Block;
-import net.minecraft.world.World;
-import net.minecraft.client.Minecraft;
+//import net.minecraft.block.Block;
+//import net.minecraft.world.World;
+
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,15 +20,18 @@ import java.util.*;
 public class ModVariables {
 	public ModVariables() {}
 
-	public static int GG_MIN_DELAY_TICK = 600 * 20; // 10 minutes
-	public static int GG_MAX_DELAY_TICK = 1800 * 20; // 30 minutes
-	public static int GG_MAX_OPER_PER_TICK = 3;
-	public static int GG_Density = 15; // blocks in area
+	public static int GG_MIN_DELAY_TICK = 100;//600 * 20; // 10 minutes
+	public static int GG_MAX_DELAY_TICK = 110;//1800 * 20; // 30 minutes
+	public static int GG_MAX_OPER_PER_TICK = 512;//3;
+	public static int GG_Density = 14; // blocks in area
+	public static int GG_Tall_Density = 9;
 	public static boolean GG_ENABLED = true;
-	public static BitSet GGBlacklist;
+	//public static BitSet GGBlacklist;
 
 	public static boolean Remove_METS_engineer = false;
 	public static boolean Rem_Gravestone_Note = true;
+
+	public static final boolean ServerPingFix = true;
 
 	public static boolean Enable_RealisticBreak = false;
 	public static double ExplosionDamageMult = 1.5D;
@@ -40,6 +42,9 @@ public class ModVariables {
 	public static boolean Extra_Drops_All = true;
 
 	public static boolean Raw_Meat_Negative_Effects = true;
+
+	public static boolean Enable_Depths_Dimension = true;
+	public static boolean Enable_Depths_Dim_Bedrock_TP = true;
 
 	public static boolean Enable_SnowVillages = true;
 	public static boolean Enable_ForestVillages = true;
@@ -61,6 +66,9 @@ public class ModVariables {
 	public static boolean Extra_Fuels = true;
 	public static boolean doRegisterMinedBlocks = true;
 
+	public static boolean Money_Can_Smelt = true;
+	public static boolean Money_Can_Craft = true;
+
 	public static boolean OW_Minerals_Gen = true;
 	public static boolean OW_Ruby_Gen = true;
 	public static boolean OW_Quartz_Gen = true;
@@ -69,7 +77,7 @@ public class ModVariables {
 	/// TEH
 
 	public static final Set<Biome> GEN_DEFAULT_BIOMES = createDefaultBiomes();
-	private static Set<Biome> createDefaultBiomes() {
+	private static final Set<Biome> createDefaultBiomes() {
 	    ResourceLocation[] names = new ResourceLocation[] {
 	        new ResourceLocation("plains"), new ResourceLocation("forest"), new ResourceLocation("taiga"),
 	        new ResourceLocation("swampland"), new ResourceLocation("forest_hills"), new ResourceLocation("taiga_hills"),
@@ -95,9 +103,12 @@ public class ModVariables {
 
 	//##################################################
 
-	public void preInit(FMLPreInitializationEvent event) {
+	public static void preInit(FMLPreInitializationEvent event) {
 	}
-	public void init() {
+	public static void init() {
+
+		
+
         List<ItemStack> items = new ArrayList<>();
 		String[] oreDictNames = {
 		    "listAllmeatraw",
@@ -136,7 +147,7 @@ public class ModVariables {
 		//public static volatile Set<Block> DIRT_LIKE = Collections.emptySet();
 	}
 
-	public void postInit() {
+	public static void postInit() {
 
 		/*
 	    ResourceLocation[] names = new ResourceLocation[] {
@@ -176,7 +187,7 @@ public class ModVariables {
 		    }
 		}
 
-		GGBlacklist = biomeBlacklistBits;
+		//GGBlacklist = biomeBlacklistBits;
 	
 
 	

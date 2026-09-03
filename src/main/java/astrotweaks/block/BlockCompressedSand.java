@@ -51,7 +51,6 @@ public class BlockCompressedSand extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("shovel", 1);
 			setHardness(2.5F);
 			setResistance(6F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

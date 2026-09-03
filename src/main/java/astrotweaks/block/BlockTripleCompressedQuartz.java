@@ -50,7 +50,6 @@ public class BlockTripleCompressedQuartz extends ElementsAstrotweaksMod.ModEleme
 			setHarvestLevel("pickaxe", 3);
 			setHardness(19F);
 			setResistance(45F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

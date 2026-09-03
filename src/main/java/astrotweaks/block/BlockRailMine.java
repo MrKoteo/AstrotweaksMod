@@ -1,4 +1,5 @@
-package astrotweaks.block;
+
+package astrotweaks.block;
 
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
@@ -78,6 +79,7 @@ public class BlockRailMine extends ElementsAstrotweaksMod.ModElement {
 	        if (!world.isRemote) initExp(world, pos);
 	        return true;
 	    }
+
 	    private static void initExp(World world, BlockPos pos) {
 	        //if (world.isRemote) return;
 	        double x = pos.getX() + 0.5;

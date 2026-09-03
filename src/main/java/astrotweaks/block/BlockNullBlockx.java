@@ -47,7 +47,6 @@ public class BlockNullBlockx extends ElementsAstrotweaksMod.ModElement {
 			setSoundType(SoundType.CLOTH);
 			setHardness(0F);
 			setResistance(0F);
-			setLightLevel(0F);
 			setLightOpacity(0);
 			setCreativeTab(null);
 		}

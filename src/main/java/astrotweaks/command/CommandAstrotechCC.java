@@ -6,11 +6,10 @@ import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.entity.Entity;
-import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.stream.IntStream;
 import java.util.stream.Collectors;
 import java.util.Arrays;
@@ -42,13 +41,9 @@ public class CommandAstrotechCC extends ElementsAstrotweaksMod.ModElement {
 		public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
 			Entity entity = sender.getCommandSenderEntity();
 			if (entity == null) return;
-			Map<String, String> cmdparams = IntStream.range(0, args.length).boxed().collect(Collectors.toMap(i -> Integer.toString(i), i -> args[i]));
+			Map<String, Object> cmdparams = IntStream.range(0, args.length).boxed().collect(Collectors.toMap(i -> Integer.toString(i), i -> args[i]));
 
-			Map<String, Object> deps = new HashMap<>();
-			deps.put("entity", entity);
-			deps.put("cmdparams", cmdparams);
-
-			ProcedureAstroTechCP.executeProcedure(deps);
+			ProcedureAstroTechCP.executeProcedure(entity, cmdparams);
 		}
 	}
 }

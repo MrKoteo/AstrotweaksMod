@@ -51,7 +51,6 @@ public class BlockPotatoBlock extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("shovel", 0);
 			setHardness(2F);
 			setResistance(8F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

@@ -16,9 +16,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
-import java.util.Map;
-import java.util.HashMap;
-
 import astrotweaks.procedure.ProcedureSpoiledBreadEaten;
 
 import astrotweaks.ElementsAstrotweaksMod;
@@ -63,14 +60,7 @@ public class ItemSpoiledBread extends ElementsAstrotweaksMod.ModElement {
 		@Override
 		protected void onFoodEaten(ItemStack itemStack, World world, EntityPlayer entity) {
 			super.onFoodEaten(itemStack, world, entity);
-			int x = (int) entity.posX;
-			int y = (int) entity.posY;
-			int z = (int) entity.posZ;
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
-				ProcedureSpoiledBreadEaten.executeProcedure($_dependencies);
-			}
+			ProcedureSpoiledBreadEaten.executeProcedure(entity);
 		}
 	}
 }

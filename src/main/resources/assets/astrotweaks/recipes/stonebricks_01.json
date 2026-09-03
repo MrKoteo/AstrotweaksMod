@@ -1,11 +1,11 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "#",
-        "#"
+        "0",
+        "0"
     ],
     "key": {
-        "#": {
+        "0": {
             "item": "minecraft:stone_slab",
             "data": 4
         }

@@ -1,5 +1,6 @@
 package astrotweaks.procedure;
 
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -13,15 +14,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import astrotweaks.world.DepthsDim;
-import astrotweaks.ElementsAstrotweaksMod;
 import astrotweaks.procedure.ProcedureSwitchDimProc;
 import java.util.HashMap;
-import java.util.Map;
 
-import astrotweaks.AstrotweaksModVariables;
+import astrotweaks.ModVariables;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public final class ProcedureMineDimEnter extends ElementsAstrotweaksMod.ModElement {
+@Mod.EventBusSubscriber(modid = "astrotweaks")
+public final class ProcedureMineDimEnter {
     //private static final int OVERWORLD_ID = 0;
     private static final int CAVERN_DIM_ID = DepthsDim.DIMID;
     private static final int MIN_HEIGHT_OVERWORLD = 4;
@@ -29,13 +28,11 @@ public final class ProcedureMineDimEnter extends ElementsAstrotweaksMod.ModEleme
     private static final int TELEPORT_HEIGHT_OVERWORLD = 5;
     private static final int TELEPORT_HEIGHT_CAVERN = 252;
 
-    public ProcedureMineDimEnter(ElementsAstrotweaksMod instance) {
-        super(instance, 522);
-    }
+    public ProcedureMineDimEnter() {}
 
     @SubscribeEvent
     public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
-    	if (!AstrotweaksModVariables.Enable_Depths_Dim_Bedrock_TP) return;
+    	if (!ModVariables.Enable_Depths_Dim_Bedrock_TP) return;
     	
         EntityPlayer player = event.getEntityPlayer();
         World world = event.getWorld();
@@ -72,14 +69,10 @@ public final class ProcedureMineDimEnter extends ElementsAstrotweaksMod.ModEleme
 		cmdparams.put("3", Integer.toString(targetY));
 		cmdparams.put("4", Integer.toString(pos.getZ()));
 
-		Map<String, Object> deps = new HashMap<>();
-		deps.put("entity", player);         // EntityPlayer (not null)
-		deps.put("cmdparams", cmdparams);
-		deps.put("server", server);         // if Procedure need Server
-		
-		ProcedureSwitchDimProc.executeProcedure(deps, true);
 
-        
+		ProcedureSwitchDimProc.executeProcedure(player, cmdparams, true);
+
+
         // clear target area
         World targetWorld = server.getWorld(targetDim);
         if (targetWorld != null) {
@@ -94,13 +87,6 @@ public final class ProcedureMineDimEnter extends ElementsAstrotweaksMod.ModEleme
         // debug
         System.out.println("Switch dimension: Depths <-> Overworld");
         
-    }
-
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
-    	if (!AstrotweaksModVariables.Enable_Depths_Dim_Bedrock_TP) return;
-    	
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
     private static boolean isHoldingPickaxe(EntityPlayer player) {

@@ -1,4 +1,5 @@
-package astrotweaks.item;
+
+package astrotweaks.item;
 
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
@@ -12,7 +13,6 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.Item;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -33,11 +33,16 @@ public class ItemSapphireArmor extends ElementsAstrotweaksMod.ModElement {
 	@Override
 	public void initElements() {
 		ItemArmor.ArmorMaterial enuma = EnumHelper.addArmorMaterial("SAPPHIRE_", "astrotweaks:sapphire_", 28, new int[]{3, 4, 5, 3}, 20,
-				(net.minecraft.util.SoundEvent) net.minecraft.util.SoundEvent.REGISTRY.getObject(new ResourceLocation("item.armor.equip_diamond")), 0.5f);
-		elements.items.add(() -> new ItemArmor(enuma, 0, EntityEquipmentSlot.HEAD).setUnlocalizedName("sapphire_helmet").setRegistryName("sapphire_helmet"));
-		elements.items.add(() -> new ItemArmor(enuma, 0, EntityEquipmentSlot.CHEST).setUnlocalizedName("sapphire_body").setRegistryName("sapphire_chestplate"));
-		elements.items.add(() -> new ItemArmor(enuma, 0, EntityEquipmentSlot.LEGS).setUnlocalizedName("sapphire_legs").setRegistryName("sapphire_leggings"));
-		elements.items.add(() -> new ItemArmor(enuma, 0, EntityEquipmentSlot.FEET).setUnlocalizedName("sapphire_boots").setRegistryName("sapphire_boots"));
+				(net.minecraft.util.SoundEvent) net.minecraft.util.SoundEvent.REGISTRY.getObject(new ResourceLocation("item.armor.equip_diamond")),
+ 0.5f);
+		elements.items.add(() -> new ItemArmor(enuma, 0, EntityEquipmentSlot.HEAD).setUnlocalizedName("sapphire_helmet")
+.setRegistryName("sapphire_helmet"));
+		elements.items.add(() -> new ItemArmor(enuma, 0, EntityEquipmentSlot.CHEST).setUnlocalizedName("sapphire_body")
+.setRegistryName("sapphire_chestplate"));
+		elements.items.add(() -> new ItemArmor(enuma, 0, EntityEquipmentSlot.LEGS).setUnlocalizedName("sapphire_legs")
+.setRegistryName("sapphire_leggings"));
+		elements.items.add(() -> new ItemArmor(enuma, 0, EntityEquipmentSlot.FEET).setUnlocalizedName("sapphire_boots")
+.setRegistryName("sapphire_boots"));
 	}
 
 	@SideOnly(Side.CLIENT)

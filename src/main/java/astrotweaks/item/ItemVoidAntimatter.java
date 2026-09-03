@@ -56,6 +56,7 @@ public class ItemVoidAntimatter extends ElementsAstrotweaksMod.ModElement {
 		@Override
 		public void onUpdate(ItemStack itemstack, World world, Entity entity, int slot, boolean par5) {
 			super.onUpdate(itemstack, world, entity, slot, par5);
+			if (world.isRemote) return;
 
 			if (!(entity instanceof EntityLivingBase)) return;
 			// Only react for the item instance held in main hand
@@ -64,8 +65,6 @@ public class ItemVoidAntimatter extends ElementsAstrotweaksMod.ModElement {
 			if (main == null || main == ItemStack.EMPTY) return;
 			// Compare item types (not NBT/count)
 			if (main.getItem() != ItemVoidAntimatter.block) return;
-
-			if (world.isRemote) return;
 
 			int id = entity.getEntityId();
 			long now = System.currentTimeMillis();

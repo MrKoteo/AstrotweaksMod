@@ -50,7 +50,6 @@ public class BlockCompressedEndstone extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("pickaxe", 2);
 			setHardness(7F);
 			setResistance(20F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

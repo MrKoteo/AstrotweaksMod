@@ -47,7 +47,6 @@ public class BlockDecoBlockGrid extends ElementsAstrotweaksMod.ModElement {
 			setSoundType(SoundType.METAL);
 			setHardness(2F);
 			setResistance(3F);
-			setLightLevel(0F);
 			setLightOpacity(0);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

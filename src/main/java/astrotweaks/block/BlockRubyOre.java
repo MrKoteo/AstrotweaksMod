@@ -53,24 +53,21 @@ public class BlockRubyOre extends ElementsAstrotweaksMod.ModElement {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation("astrotweaks:ruby_ore", "inventory"));
 	}
 	
+	private static final com.google.common.base.Predicate<IBlockState> STONE_MATCH =
+	    state -> state != null && state.getBlock() == Blocks.STONE;
+
 	@Override
 	public void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
 	    if (dimID != 0) return;
 	    if (!ModVariables.OW_Ruby_Gen) return;
 	
-	    com.google.common.base.Predicate<IBlockState> match = new com.google.common.base.Predicate<IBlockState>() {
-	        @Override
-	        public boolean apply(IBlockState state) {
-	            return state != null && state.getBlock() == Blocks.STONE;
-	        }
-	    };
-	
+	    WorldGenMinable gen = new WorldGenMinable(block.getDefaultState(), 3, STONE_MATCH);
 	    for (int i = 0; i < 7; i++) {
 	        int x = chunkX + random.nextInt(16);
 	        int y = random.nextInt(21) + 3;
 	        int z = chunkZ + random.nextInt(16);
 	
-	        new WorldGenMinable(block.getDefaultState(), 3, match).generate(world, random, new BlockPos(x, y, z));
+	        gen.generate(world, random, new BlockPos(x, y, z));
 	    }
 	}
 	

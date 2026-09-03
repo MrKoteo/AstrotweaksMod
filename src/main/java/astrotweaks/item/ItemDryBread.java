@@ -40,7 +40,7 @@ public class ItemDryBread extends ElementsAstrotweaksMod.ModElement {
 			setUnlocalizedName("dry_bread");
 			setRegistryName("dry_bread");
 			setCreativeTab(CreativeTabs.FOOD);
-			setMaxStackSize(64);
+//			setMaxStackSize(64);
 		}
 
 		@Override

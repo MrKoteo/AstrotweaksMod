@@ -50,7 +50,6 @@ public class BlockCompressedLeadBlock extends ElementsAstrotweaksMod.ModElement 
 			setHarvestLevel("pickaxe", 2);
 			setHardness(10F);
 			setResistance(70F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

@@ -36,7 +36,6 @@ public class ItemElectron extends ElementsAstrotweaksMod.ModElement {
 	}
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
-			maxStackSize = 64;
 			setUnlocalizedName("electron");
 			setRegistryName("electron");
 			setCreativeTab(TabATIntegration.tab);

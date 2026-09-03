@@ -51,7 +51,6 @@ public class BlockAppleBlock extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("shovel", 0);
 			setHardness(2.1999999999999997F);
 			setResistance(6F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

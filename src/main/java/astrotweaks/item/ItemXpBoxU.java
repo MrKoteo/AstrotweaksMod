@@ -16,11 +16,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 
-import java.util.Map;
-import java.util.HashMap;
 
 import astrotweaks.ElementsAstrotweaksMod;
 

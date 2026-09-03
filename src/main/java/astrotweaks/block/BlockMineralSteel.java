@@ -50,7 +50,6 @@ public class BlockMineralSteel extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("pickaxe", 3);
 			setHardness(10F);
 			setResistance(30F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

@@ -50,7 +50,6 @@ public class BlockCompressedGoldBlock extends ElementsAstrotweaksMod.ModElement 
 			setHarvestLevel("pickaxe", 1);
 			setHardness(7F);
 			setResistance(30F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

@@ -1,8 +1,8 @@
-package astrotweaks.command;
+
+package astrotweaks.command;
 
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
-import net.minecraft.world.World;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.entity.Entity;
@@ -13,7 +13,6 @@ import net.minecraft.command.CommandHandler;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 
-import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Arrays;
@@ -72,31 +71,29 @@ public class CommandGm extends ElementsAstrotweaksMod.ModElement {
 		@Override
 		public void execute(MinecraftServer server, ICommandSender sender, String[] cmd) {
 			if (!(sender.getCommandSenderEntity() instanceof EntityPlayer)) {
-			    sender.sendMessage(new TextComponentString("This command only for players!"));
+			    sender.sendMessage(new TextComponentTranslation("command.only_for_players"));
 			    return;
 			}
 			if (!sender.canUseCommand(2, getName())) {
-		        sender.sendMessage(new TextComponentTranslation("command.gm.no_permission"));
+		        sender.sendMessage(new TextComponentTranslation("command.no_permissions"));
 		        return;
 		    }
-			int x = sender.getPosition().getX();
-			int y = sender.getPosition().getY();
-			int z = sender.getPosition().getZ();
+			//int x = sender.getPosition().getX();
+			//int y = sender.getPosition().getY();
+			//int z = sender.getPosition().getZ();
 			Entity entity = sender.getCommandSenderEntity();
 			if (entity != null) {
-				World world = entity.world;
+				//World world = entity.world;
 				HashMap<String, String> cmdparams = new HashMap<>();
 				int[] index = {0};
 				Arrays.stream(cmd).forEach(param -> {
 					cmdparams.put(Integer.toString(index[0]), param);
 					index[0]++;
 				});
-				{
-					Map<String, Object> $_dependencies = new HashMap<>();
-					$_dependencies.put("entity", entity);
-					$_dependencies.put("cmdparams", cmdparams);
-					ProcedureCommandGM.executeProcedure($_dependencies);
-				}
+
+				//if (cmdparams.isEmpty()) return;
+
+				ProcedureCommandGM.executeProcedure(entity, cmdparams);
 			}
 		}
 	}

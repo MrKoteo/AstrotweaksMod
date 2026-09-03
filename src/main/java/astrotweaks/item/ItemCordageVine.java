@@ -36,26 +36,10 @@ public class ItemCordageVine extends ElementsAstrotweaksMod.ModElement {
 	}
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
-			setMaxDamage(0);
-			maxStackSize = 64;
 			setUnlocalizedName("cordage_vine");
 			setRegistryName("cordage_vine");
 			setCreativeTab(TabAstroTweaks.tab);
 		}
 
-		@Override
-		public int getItemEnchantability() {
-			return 0;
-		}
-
-		@Override
-		public int getMaxItemUseDuration(ItemStack itemstack) {
-			return 0;
-		}
-
-		@Override
-		public float getDestroySpeed(ItemStack par1ItemStack, IBlockState par2Block) {
-			return 1F;
-		}
 	}
 }

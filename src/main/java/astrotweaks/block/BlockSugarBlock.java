@@ -51,7 +51,6 @@ public class BlockSugarBlock extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("shovel", 0);
 			setHardness(3F);
 			setResistance(4F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

@@ -50,7 +50,6 @@ public class BlockCompressedRedstoneBlock extends ElementsAstrotweaksMod.ModElem
 			setHarvestLevel("pickaxe", 2);
 			setHardness(6F);
 			setResistance(35F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

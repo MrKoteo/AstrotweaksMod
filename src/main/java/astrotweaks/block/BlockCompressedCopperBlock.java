@@ -50,7 +50,6 @@ public class BlockCompressedCopperBlock extends ElementsAstrotweaksMod.ModElemen
 			setHarvestLevel("pickaxe", 2);
 			setHardness(9F);
 			setResistance(35F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

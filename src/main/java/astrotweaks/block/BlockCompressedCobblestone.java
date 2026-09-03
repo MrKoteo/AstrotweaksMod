@@ -50,7 +50,6 @@ public class BlockCompressedCobblestone extends ElementsAstrotweaksMod.ModElemen
 			setHarvestLevel("pickaxe", 2);
 			setHardness(6F);
 			setResistance(15F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

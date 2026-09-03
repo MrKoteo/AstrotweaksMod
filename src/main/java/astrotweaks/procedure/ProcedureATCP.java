@@ -6,28 +6,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.Entity;
 
-import java.util.Map;
 import java.util.HashMap;
 
 import astrotweaks.item.ItemXpBoxU;
-import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ProcedureATCP extends ElementsAstrotweaksMod.ModElement {
-	public ProcedureATCP(ElementsAstrotweaksMod instance) { super(instance, 634); }
 
-	public static void executeProcedure(Map<String, Object> deps) {
-		String[] keys = {"entity", "cmdparams"};
-		for (String key : keys) {
-		    if (deps.get(key) == null) {
-		        System.err.println("Failed to load dependency " + key + "!");
-		        return;
-		    }
+
+public class ProcedureATCP {
+	public ProcedureATCP() {}
+
+	public static void executeProcedure(Entity entity, HashMap<String, String> params) {
+		if (entity == null || params == null) {
+		    System.err.println("Failed to load dependencies!");
+		    return;
 		}
-		
-		Entity entity = (Entity) deps.get("entity");
-		@SuppressWarnings("unchecked")
-		HashMap<String, String> params = (HashMap<String, String>) deps.get("cmdparams");
 
 		int xpb_count = 0;
 		try { xpb_count = Integer.parseInt(params.getOrDefault("1", "0").trim()); } catch (Exception ignored) {}

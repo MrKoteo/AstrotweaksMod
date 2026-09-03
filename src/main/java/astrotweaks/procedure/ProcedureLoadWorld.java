@@ -10,9 +10,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.Entity;
 
-import java.util.Map;
+
 
 import astrotweaks.ElementsAstrotweaksMod;
 import astrotweaks.AstrotweaksModVariables;
@@ -49,17 +48,18 @@ public class ProcedureLoadWorld extends ElementsAstrotweaksMod.ModElement {
 	public static void exect(World world, WorldEvent.Load event) {
 		//if (!AstrotweaksModVariables.AstroTech_Environment && !AstrotweaksModVariables.Marked) return;
 
+
+
 		// desired commands
 		runCommand(world, "scoreboard objectives add deathCountX deathCount \u0421\u043C\u0435\u0440\u0442\u0438");
 		runCommand(world, "gamerule randomTickSpeed 2");
+
 		AstrotweaksModVariables.MapVariables.get(world).Marked = true;
 	}
 	@SubscribeEvent
 	public void onWorldLoad(WorldEvent.Load event) {
 		World world = event.getWorld();
 		if (AstrotweaksModVariables.AstroTech_Environment && !AstrotweaksModVariables.MapVariables.get(world).Marked) {exect(world, event); }
-		//
-		//exect(world, event);
 	}
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {

@@ -1,4 +1,5 @@
-package astrotweaks.item;
+
+package astrotweaks.item;
 
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
@@ -20,11 +21,9 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.block.state.IBlockState;
 
 import net.minecraft.init.Blocks;
-import net.minecraft.entity.Entity;
 
 import java.util.Map;
 import java.util.HashMap;
-
 
 import astrotweaks.creativetab.TabAstroTweaks;
 
@@ -34,7 +33,9 @@ import astrotweaks.ElementsAstrotweaksMod;
 public class ItemUDestroyerItem extends ElementsAstrotweaksMod.ModElement {
 	@GameRegistry.ObjectHolder("astrotweaks:u_destroyer_item")
 	public static final Item block = null;
-	public ItemUDestroyerItem(ElementsAstrotweaksMod instance) { super(instance, 243); }
+	public ItemUDestroyerItem(ElementsAstrotweaksMod instance) {
+ super(instance, 243);
+ }
 	@Override
 	public void initElements() {
 		elements.items.add(() -> new ItemCustom());

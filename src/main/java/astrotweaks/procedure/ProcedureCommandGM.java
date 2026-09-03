@@ -12,14 +12,7 @@ import net.minecraft.command.ICommandSender;
 import java.util.Map;
 
 public final class ProcedureCommandGM {
-    public static void executeProcedure(Map<String, Object> dependencies) {
-        Entity entity = (Entity) dependencies.get("entity");
-        Map<?, ?> cmdparams = (Map<?, ?>) dependencies.get("cmdparams");
-
-        if (entity == null || cmdparams == null) {
-            System.err.println("Failed to exec command!");
-            return;
-        }
+    public static void executeProcedure(Entity entity, Map<String, String> cmdparams) {
 
         String param = getParam(cmdparams, 0);
         if (param.isEmpty()) return;
@@ -79,7 +72,7 @@ public final class ProcedureCommandGM {
     private static void sendNoPermissionMessage(Entity entity) {
         if (entity.world.isRemote || entity.world.getMinecraftServer() == null) return;
 
-        String command = "tellraw @s [{\"translate\":\"command.gm.no_permission\"}]";
+        String command = "tellraw @s [{\"translate\":\"command.no_permissions\"}]";
 
         entity.world.getMinecraftServer().getCommandManager().executeCommand(new ICommandSender() {
             @Override public String getName() { return ""; }

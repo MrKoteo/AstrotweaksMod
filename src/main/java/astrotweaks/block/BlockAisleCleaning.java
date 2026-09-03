@@ -50,7 +50,6 @@ public class BlockAisleCleaning extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("pickaxe", 1);
 			setHardness(3F);
 			setResistance(25F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

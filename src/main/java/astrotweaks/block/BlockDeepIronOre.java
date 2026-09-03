@@ -53,7 +53,6 @@ public class BlockDeepIronOre extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("pickaxe", 1);
 			setHardness(4.5F);
 			setResistance(10F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

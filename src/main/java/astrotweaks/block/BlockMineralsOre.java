@@ -57,7 +57,6 @@ public class BlockMineralsOre extends ElementsAstrotweaksMod.ModElement {
 	}
 
 	private static final com.google.common.base.Predicate<IBlockState> STONE_MATCH = state -> state != null && state.getBlock() == Blocks.STONE;
-	private static final IBlockState ORE_STATE = null;
 
 	@Override
 	public void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {

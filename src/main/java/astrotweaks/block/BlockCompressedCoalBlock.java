@@ -51,7 +51,6 @@ public class BlockCompressedCoalBlock extends ElementsAstrotweaksMod.ModElement 
 			setHarvestLevel("pickaxe", 1);
 			setHardness(6F);
 			setResistance(15F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

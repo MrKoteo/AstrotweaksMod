@@ -36,7 +36,6 @@ public class ItemDrawing extends ElementsAstrotweaksMod.ModElement {
 	}
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
-			setMaxDamage(0);
 			maxStackSize = 16;
 			setUnlocalizedName("drawing");
 			setRegistryName("drawing");
@@ -44,19 +43,5 @@ public class ItemDrawing extends ElementsAstrotweaksMod.ModElement {
 			setContainerItem(this);
 		}
 
-		@Override
-		public int getItemEnchantability() {
-			return 0;
-		}
-
-		@Override
-		public int getMaxItemUseDuration(ItemStack itemstack) {
-			return 0;
-		}
-
-		@Override
-		public float getDestroySpeed(ItemStack par1ItemStack, IBlockState par2Block) {
-			return 1F;
-		}
 	}
 }

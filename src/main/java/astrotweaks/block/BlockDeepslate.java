@@ -50,7 +50,6 @@ public class BlockDeepslate extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("pickaxe", 0);
 			setHardness(3.5F);
 			setResistance(15F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

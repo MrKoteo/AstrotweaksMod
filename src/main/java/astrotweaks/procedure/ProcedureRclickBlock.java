@@ -17,7 +17,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.Entity;
 
-import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 //import java.util.function.Predicate;
@@ -34,12 +33,11 @@ import astrotweaks.item.ItemFlintShard;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
-//@ElementsAstrotweaksMod.ModElement.Tag
+
 @Mod.EventBusSubscriber(modid = "astrotweaks")
-public class ProcedureRclickBlock/* extends ElementsAstrotweaksMod.ModElement */{
-    public ProcedureRclickBlock(/*ElementsAstrotweaksMod instance*/) {
-        //super(instance, 326);
-    }
+public class ProcedureRclickBlock {
+    public ProcedureRclickBlock() {}
+
 	private static final List<Rule> RULES = buildRules();
 	private interface Condition { boolean matches(Context ctx); }
 	private interface Action { void apply(Context ctx, double rand); }

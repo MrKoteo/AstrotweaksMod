@@ -50,7 +50,6 @@ public class BlockCompressedEmeraldBlock extends ElementsAstrotweaksMod.ModEleme
 			setHarvestLevel("pickaxe", 21);
 			setHardness(11F);
 			setResistance(30F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

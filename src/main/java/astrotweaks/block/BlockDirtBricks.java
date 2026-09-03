@@ -46,7 +46,6 @@ public class BlockDirtBricks extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("shovel", 0);
 			setHardness(0.5F);
 			setResistance(1F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

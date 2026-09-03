@@ -30,7 +30,7 @@ import java.util.HashMap;
 
 import java.io.IOException;
 
-import astrotweaks.procedure.ProcedureMTConvert;
+import astrotweaks.tech.mt.ProcedureMTConvert;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -414,14 +414,7 @@ public class GuiMTGUI extends ElementsAstrotweaksMod.ModElement {
 		if (!world.isBlockLoaded(new BlockPos(x, y, z)))
 			return;
 		if (buttonID == 0) {
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				ProcedureMTConvert.executeProcedure($_dependencies);
-			}
+			ProcedureMTConvert.executeProcedure(x, y, z, world);
 		}
 	}
 

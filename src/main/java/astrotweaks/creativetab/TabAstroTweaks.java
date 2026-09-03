@@ -1,4 +1,5 @@
-package astrotweaks.creativetab;
+
+package astrotweaks.creativetab;
 
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
@@ -11,9 +12,9 @@ import astrotweaks.item.ItemScience;
 import astrotweaks.ElementsAstrotweaksMod;
 
 @ElementsAstrotweaksMod.ModElement.Tag
-public final class TabAstroTweaks extends ElementsAstrotweaksMod.ModElement {
+public class TabAstroTweaks extends ElementsAstrotweaksMod.ModElement {
 	public TabAstroTweaks(ElementsAstrotweaksMod instance) {
-		super(instance, 344);
+		super(instance, -1);
 	}
 
 	@Override
@@ -24,11 +25,13 @@ public final class TabAstroTweaks extends ElementsAstrotweaksMod.ModElement {
 			public ItemStack getTabIconItem() {
 				return new ItemStack(ItemScience.block, (int) (1));
 			}
-			/*
+
+			/*
 			@SideOnly(Side.CLIENT)
 			public boolean hasSearchBar() {
 				return false;
-			}*/
+			}
+			*/
 		};
 	}
 	public static CreativeTabs tab;

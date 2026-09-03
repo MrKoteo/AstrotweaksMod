@@ -112,9 +112,7 @@ public class ElementsAstrotweaksMod implements IFuelHandler, IWorldGenerator {
 	public void onPlayerChangedDimension(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent event) {
 		if (!event.player.world.isRemote) {
 			WorldSavedData worlddata = AstrotweaksModVariables.WorldVariables.get(event.player.world);
-			if (worlddata != null)
-				AstrotweaksMod.PACKET_HANDLER.sendTo(new AstrotweaksModVariables.WorldSavedDataSyncMessage(1, worlddata),
-						(EntityPlayerMP) event.player);
+			if (worlddata != null) AstrotweaksMod.PACKET_HANDLER.sendTo(new AstrotweaksModVariables.WorldSavedDataSyncMessage(1, worlddata), (EntityPlayerMP) event.player);
 		}
 	}
 	private int messageID = 0;
@@ -127,15 +125,13 @@ public class ElementsAstrotweaksMod implements IFuelHandler, IWorldGenerator {
 	public static class GuiHandler implements IGuiHandler {
 		@Override
 		public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-			if (id == GuiMTGUI.GUIID)
-				return new GuiMTGUI.GuiContainerMod(world, x, y, z, player);
+			if (id == GuiMTGUI.GUIID) return new GuiMTGUI.GuiContainerMod(world, x, y, z, player);
 			return null;
 		}
 
 		@Override
 		public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-			if (id == GuiMTGUI.GUIID)
-				return new GuiMTGUI.GuiWindow(world, x, y, z, player);
+			if (id == GuiMTGUI.GUIID) return new GuiMTGUI.GuiWindow(world, x, y, z, player);
 			return null;
 		}
 	}

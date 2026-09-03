@@ -51,7 +51,6 @@ public class BlockMetalFrameBW extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("pickaxe", 1);
 			setHardness(2F);
 			setResistance(10F);
-			setLightLevel(0F);
 			setLightOpacity(0);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

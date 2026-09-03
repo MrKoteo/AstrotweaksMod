@@ -51,7 +51,6 @@ public class BlockBeetrootBlock extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("shovel", 0);
 			setHardness(2.0999999999999996F);
 			setResistance(7F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

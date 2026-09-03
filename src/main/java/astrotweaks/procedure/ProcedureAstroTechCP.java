@@ -13,29 +13,14 @@ import net.minecraft.command.ICommandSender;
 
 import java.util.Map;
 
-import astrotweaks.ElementsAstrotweaksMod;
 import astrotweaks.AstrotweaksModVariables;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ProcedureAstroTechCP extends ElementsAstrotweaksMod.ModElement {
-	public ProcedureAstroTechCP(ElementsAstrotweaksMod instance) {
-		super(instance, 355);
-	}
 
-	public static void executeProcedure(Map<String, Object> dependencies) {
-		if (!(dependencies.get("entity") instanceof Entity)) {
-			System.err.println("Failed to load dependency entity for procedure AstroTechCP!");
-			return;
-		}
-		Object cmdparamsObj = dependencies.get("cmdparams");
-		if (!(cmdparamsObj instanceof Map)) {
-			System.err.println("Failed to load dependency cmdparams for procedure AstroTechCP!");
-			return;
-		}
+public class ProcedureAstroTechCP {
+	public ProcedureAstroTechCP() {}
 
-		Entity sender = (Entity) dependencies.get("entity");
-		@SuppressWarnings("unchecked")
-		Map<String, Object> cmdparams = (Map<String, Object>) cmdparamsObj;
+	public static void executeProcedure(Entity sender, Map<String, Object> cmdparams) {
+		//Map<String, Object> cmdparams = (Map<String, Object>) cmdparamsObj;
 
 		if (!AstrotweaksModVariables.AstroTech_Environment) {
 			sendLocalized(sender, "No modules");

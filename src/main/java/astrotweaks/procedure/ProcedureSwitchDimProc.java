@@ -10,15 +10,14 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.Map;
-import java.util.HashMap;
+//import java.util.HashMap;
 
 import astrotweaks.world.DepthsDim;
 
-import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public final class ProcedureSwitchDimProc extends ElementsAstrotweaksMod.ModElement {
-	public ProcedureSwitchDimProc(ElementsAstrotweaksMod instance) {super(instance, 582);}
+
+public final class ProcedureSwitchDimProc {
+	public ProcedureSwitchDimProc() {}
 
 	private static boolean Slient = false;
 	private static void sendMsg(EntityPlayerMP executor, String msg) {
@@ -26,17 +25,11 @@ public final class ProcedureSwitchDimProc extends ElementsAstrotweaksMod.ModElem
 	    else System.out.println(msg);
 	}
 
-	public static void executeProcedure(Map<String, Object> dependencies, boolean sl) {
-        if (dependencies.get("entity") == null || dependencies.get("cmdparams") == null) {
-            System.err.println("Failed to exec proc!");
-            return;
-        }
-        Slient = sl;
+	public static void executeProcedure(Entity entity, Map<String, String> cmdparams, boolean Slient) {
 
-	    @SuppressWarnings("unchecked")
-		Map<String, String> cmdparams = (Map<String, String>) dependencies.get("cmdparams");
 
-	    Entity entity = (Entity) dependencies.get("entity");
+
+
 	    EntityPlayerMP executor = null;
 	    if (entity instanceof EntityPlayerMP) {
 	        executor = (EntityPlayerMP) entity;
@@ -224,7 +217,8 @@ public final class ProcedureSwitchDimProc extends ElementsAstrotweaksMod.ModElem
 	}
 	// Dimension ID resolution: support for aliases
 	private static Integer resolveDimensionId(String raw) {
-		if (raw == null || raw.isEmpty()) return null;
+		if (raw == null || raw.isEmpty())
+			return null;
 		raw = raw.trim();
 		// specials
 		if (raw.equals("-6000") || raw.equals("-2"))
@@ -247,8 +241,12 @@ public final class ProcedureSwitchDimProc extends ElementsAstrotweaksMod.ModElem
 			this.dim = dimension;
 			this.server = world.getMinecraftServer();
 		}
-		@Override public void placeInPortal(Entity entity, float yawRotation) {}
-		@Override public boolean placeInExistingPortal(Entity entity, float yawRotation) {return true;}
-		@Override public boolean makePortal(Entity entity) {return true;}
+		@Override public void placeInPortal(Entity entity, float yawRotation) {}
+		@Override public boolean placeInExistingPortal(Entity entity, float yawRotation) {
+			return true;
+		}
+		@Override public boolean makePortal(Entity entity) {
+			return true;
+		}
 	}
 }

@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -30,47 +31,62 @@ import net.minecraft.potion.Potion;
 import net.minecraft.item.Item;
 import net.minecraft.block.Block;
 
+
+
 import astrotweaks.procedure.FoodEffectHandler;
 
-import astrotweaks.world.SnowVillage;
-import astrotweaks.world.ForestVillage;
-import astrotweaks.world.DepthsDim;
-import astrotweaks.util.LoadConfig;
+
 import astrotweaks.world.CavernMobModifier;
-import astrotweaks.util.CombinedFuelHandler;
+import astrotweaks.world.GrassGrowth;
+import astrotweaks.recipe.CombinedFuelHandler;
 import astrotweaks.util.Handler;
 
-import astrotweaks.tweaks.RemVillagerTrades;
 
 
 import astrotweaks.world.BushDecorator;
-import astrotweaks.world.RealisticBreak;
+import astrotweaks.gameplay.RealisticBreak;
 
 import astrotweaks.recipe.RecipeHandler;
-import astrotweaks.oredict.UOredictRegistrar;
 
 import astrotweaks.ModVariables;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import java.util.function.Supplier;
 
 
 @Mod(modid = AstrotweaksMod.MODID, version = AstrotweaksMod.VERSION)
 public class AstrotweaksMod {
+
 	public static final String MODID = "astrotweaks";
-	public static final String VERSION = "b-5.4";
+	public static final String VERSION = "b6.0";
+
+
 	public static final SimpleNetworkWrapper PACKET_HANDLER = NetworkRegistry.INSTANCE.newSimpleChannel("astrotweaks:a");
 	@SidedProxy(clientSide = "astrotweaks.ClientProxyAstrotweaksMod", serverSide = "astrotweaks.ServerProxyAstrotweaksMod")
 	public static IProxyAstrotweaksMod proxy;
 	@Mod.Instance(MODID)
 	public static AstrotweaksMod instance;
 	public ElementsAstrotweaksMod elements = new ElementsAstrotweaksMod();
+	// ####################################################################################################
+
+	public AstrotweaksMod() {
+
+		ConfigManager.loadConfig();
+	}
+
+	@Mod.EventHandler
+	public void construction(FMLConstructionEvent event) {
+	}
+
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(this);
 
-		modVariables = new ModVariables();
-        modVariables.preInit(event);
-        
+        astrotweaks.ModVariables.preInit(event);
+
+
+		
+
 		GameRegistry.registerWorldGenerator(elements, 5);
 		GameRegistry.registerFuelHandler(elements);
 
@@ -80,63 +96,51 @@ public class AstrotweaksMod {
 		elements.getElements().forEach(element -> element.preInit(event));
 		proxy.preInit(event);
 
-		if (AstrotweaksModVariables.Enable_Depths_Dimension) {
-			depthsDim = new DepthsDim();
-			depthsDim.preInit(event);
+		if (ModVariables.Enable_Depths_Dimension) {
+			astrotweaks.world.DepthsDim.preInit();
 		}
 
-
-        loadConfig = new LoadConfig();
-        loadConfig.preInit(event);
 
 
 
 		if (ModVariables.Enable_SnowVillages) {
-	        snowVillage = new SnowVillage();
-	        snowVillage.preInit(event);
+	        astrotweaks.world.SnowVillage.preInit();
 		}
 		if (ModVariables.Enable_ForestVillages) {
-			forestVillage = new ForestVillage();
-	        forestVillage.preInit(event);
+	        astrotweaks.world.ForestVillage.preInit();
 		}
-
-
 
 
 
 	}
 
-	private SnowVillage snowVillage;
-	private ForestVillage forestVillage;
-	private DepthsDim depthsDim;
-	private LoadConfig loadConfig;
-	private ModVariables modVariables;
+	//private SnowVillage snowVillage;
+	//private ForestVillage forestVillage;
+	//private DepthsDim depthsDim;
+	//private ConfigManager cfg;
 	private CombinedFuelHandler cfh;
 	private RealisticBreak realBreak;
-	private FoodEffectHandler feh;
-	//private RemVillagerTrades RVT;
 
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 		elements.getElements().forEach(element -> element.init(event));
 		proxy.init(event);
-		modVariables.init();
-		
-		UOredictRegistrar.init(event);
-	
+		astrotweaks.ModVariables.init();
 
-		if (AstrotweaksModVariables.Enable_Depths_Dimension) MinecraftForge.EVENT_BUS.register(new CavernMobModifier());
+		ATCreativeTabs.init();
+
+		astrotweaks.oredict.UOredictRegistrar.init();
+		astrotweaks.oredict.OreDictQuantsT.init();
+		astrotweaks.recipe.RecipeSmeltingAll.init();
+
+
+		if (ModVariables.Enable_Depths_Dimension) MinecraftForge.EVENT_BUS.register(new CavernMobModifier());
 
 		if (ModVariables.Enable_Bushes) {
 			BushDecorator.init();
 			MinecraftForge.TERRAIN_GEN_BUS.register(new BushDecorator());
 		}
-
-		feh = new FoodEffectHandler();
-		feh.init();
-		
-	    
 
 	}
 
@@ -144,9 +148,8 @@ public class AstrotweaksMod {
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit(event);
 
-		modVariables.postInit();
+		astrotweaks.ModVariables.postInit();
 
-		
 
 		if (ModVariables.Extra_Fuels) {
 			cfh = new CombinedFuelHandler();
@@ -157,7 +160,12 @@ public class AstrotweaksMod {
 	        realBreak.postInit(event);
 		}
 		
+
+		GrassGrowth.reloadFromConfig();
+
 	}
+
+
 
 	@Mod.EventHandler
 	public void serverLoad(FMLServerStartingEvent event) {
@@ -184,9 +192,8 @@ public class AstrotweaksMod {
 
 	@Mod.EventHandler
 	public void onLoadComplete(FMLLoadCompleteEvent event) {
-		//System.out.println("MEOWW 1");
 		if (ModVariables.Remove_METS_engineer)
-			RemVillagerTrades.postInit(event);
+			astrotweaks.tweaks.RemVillagerTrades.onLoadComplete();
 	}
 
 

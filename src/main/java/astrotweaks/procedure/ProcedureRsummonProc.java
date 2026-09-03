@@ -9,32 +9,31 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.entity.EntityList;
+import net.minecraft.util.text.translation.I18n;
 
-import astrotweaks.ElementsAstrotweaksMod;
 
-import java.util.Map;
+//import java.util.Map;
 import java.util.Random;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public final class ProcedureRsummonProc extends ElementsAstrotweaksMod.ModElement {
-    public ProcedureRsummonProc(ElementsAstrotweaksMod instance) {
-        super(instance, 553);
-    }
 
-    public static void executeProcedure(Map<String, Object> dependencies) {
+
+public final class ProcedureRsummonProc {
+    public ProcedureRsummonProc() {}
+
+    public static void executeProcedure(double x, double y, double z, World world, Entity entity, String entityId, int count, String nbtStr) {
         // Extract dependencies
-        double x = dependencies.get("x") instanceof Number ? ((Number) dependencies.get("x")).doubleValue() : 0;
-        double y = dependencies.get("y") instanceof Number ? ((Number) dependencies.get("y")).doubleValue() : 0;
-        double z = dependencies.get("z") instanceof Number ? ((Number) dependencies.get("z")).doubleValue() : 0;
-        World world = (World) dependencies.get("world");
-        String entityId = (String) dependencies.get("entity_id");
-        int count = dependencies.get("count") instanceof Number ? ((Number) dependencies.get("count")).intValue() : 1;
-        String nbtStr = (String) dependencies.get("nbt");
+        //double x = dependencies.get("x") instanceof Number ? ((Number) dependencies.get("x")).doubleValue() : 0;
+        //double y = dependencies.get("y") instanceof Number ? ((Number) dependencies.get("y")).doubleValue() : 0;
+        //double z = dependencies.get("z") instanceof Number ? ((Number) dependencies.get("z")).doubleValue() : 0;
+        //World world = (World) dependencies.get("world");
+        //String entityId = (String) dependencies.get("entity_id");
+        //int count = dependencies.get("count") instanceof Number ? ((Number) dependencies.get("count")).intValue() : 1;
+        //String nbtStr = (String) dependencies.get("nbt");
         if (nbtStr == null) nbtStr = "";
 
         EntityPlayer player = null;
-        if (dependencies.containsKey("entity") && dependencies.get("entity") instanceof EntityPlayer) {
-            player = (EntityPlayer) dependencies.get("entity");
+        if (entity instanceof EntityPlayer) {
+            player = (EntityPlayer) entity;
         }
         // Only execute on server side
         if (world.isRemote) return;
@@ -48,7 +47,7 @@ public final class ProcedureRsummonProc extends ElementsAstrotweaksMod.ModElemen
         // Clamp count
         if (count < 1) count = 1;
         if (count > 99) {
-            sendMessage(player, "Exceeded limit! Maximum is 99.", true);
+            sendMessage(player, I18n.translateToLocal("command.rsummon.limit") + "99.", true);
             return;
         }
 
@@ -58,7 +57,7 @@ public final class ProcedureRsummonProc extends ElementsAstrotweaksMod.ModElemen
             try {
                 nbt = JsonToNBT.getTagFromJson(nbtStr);
             } catch (Exception e) {
-                sendMessage(player, "Invalid NBT: " + e.getMessage(), true);
+                sendMessage(player, I18n.translateToLocal("command.invalid_nbt") + e.getMessage(), true);
                 return;
             }
         }
@@ -72,7 +71,7 @@ public final class ProcedureRsummonProc extends ElementsAstrotweaksMod.ModElemen
             // Create entity
             Entity entityToSpawn = EntityList.createEntityByIDFromName(new ResourceLocation(entityId), world);
             if (entityToSpawn == null) {
-                sendMessage(player, "Invalid entity ID: " + entityId, true);
+                sendMessage(player, I18n.translateToLocal("command.invalid_entityid") + entityId, true);
                 return; // Stop if invalid
             }
 

@@ -41,21 +41,9 @@ public class ItemUnstableVoidCore extends ElementsAstrotweaksMod.ModElement {
 	}
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
-			setMaxDamage(0);
-			maxStackSize = 64;
 			setUnlocalizedName("unstable_void_core");
 			setRegistryName("unstable_void_core");
 			setCreativeTab(TabAstroTweaks.tab);
-		}
-
-		@Override
-		public int getItemEnchantability() {
-			return 0;
-		}
-
-		@Override
-		public int getMaxItemUseDuration(ItemStack itemstack) {
-			return 0;
 		}
 
 		@Override

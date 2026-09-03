@@ -1,4 +1,4 @@
-package astrotweaks.world;
+package astrotweaks.world.biome;
 
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -14,7 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import astrotweaks.AstrotweaksModVariables;
+import astrotweaks.ModVariables;
 
 import java.util.Random;
 
@@ -24,11 +24,13 @@ import astrotweaks.ElementsAstrotweaksMod;
 public class BiomeCavern extends ElementsAstrotweaksMod.ModElement {
 	@GameRegistry.ObjectHolder("astrotweaks:cavern")
 	public static final BiomeGenCustom biome = null;
-	public BiomeCavern(ElementsAstrotweaksMod instance) {super(instance, 680);}
+	public BiomeCavern(ElementsAstrotweaksMod instance) {
+		super(instance, 680);
+	}
 
 	@Override
 	public void initElements() {
-		if (!AstrotweaksModVariables.Enable_Depths_Dimension) return;
+		if (!ModVariables.Enable_Depths_Dimension) return;
 
 		elements.biomes.add(() -> new BiomeGenCustom());
 	}

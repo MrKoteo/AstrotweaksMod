@@ -5,22 +5,13 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.Entity;
 
-import java.util.Map;
 
-import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ProcedureSpoiledBreadEaten extends ElementsAstrotweaksMod.ModElement {
-	public ProcedureSpoiledBreadEaten(ElementsAstrotweaksMod instance) {
-		super(instance, 346);
-	}
+public class ProcedureSpoiledBreadEaten {
+	public ProcedureSpoiledBreadEaten() {}
 
-	public static void executeProcedure(Map<String, Object> dependencies) {
-		if (dependencies.get("entity") == null) {
-			System.err.println("Failed to load dependency entity for procedure SpoiledBreadEaten!");
-			return;
-		}
-		Entity entity = (Entity) dependencies.get("entity");
+	public static void executeProcedure(Entity entity) {
+		if (entity == null) return;
 		if (entity instanceof EntityLivingBase)
 			((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.HUNGER, (int) 900, (int) 0, (false), (false)));
 		if ((Math.random() < 0.1)) {

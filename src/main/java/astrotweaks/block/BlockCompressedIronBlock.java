@@ -50,7 +50,6 @@ public class BlockCompressedIronBlock extends ElementsAstrotweaksMod.ModElement 
 			setHarvestLevel("pickaxe", 2);
 			setHardness(8F);
 			setResistance(40F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}

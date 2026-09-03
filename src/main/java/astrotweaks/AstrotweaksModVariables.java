@@ -15,11 +15,10 @@ public class AstrotweaksModVariables {
 	public static boolean EnableProgressionSystem = false;
 	public static boolean AstroTech_Environment = false;
 	public static boolean Overworld_Quartz_Gen = true;
-	public static boolean Money_Can_Smelt = true;
-	public static boolean Money_Can_Craft = true;
+	//public static boolean Money_Can_Smelt = true;
+	//public static boolean Money_Can_Craft = true;
 	public static boolean Food_Negative_Effects = true;
-	public static boolean Enable_Depths_Dimension = true;
-	public static boolean Enable_Depths_Dim_Bedrock_TP = true;
+
 	public static class MapVariables extends WorldSavedData {
 		public static final String DATA_NAME = "astrotweaks_mapvars";
 		public boolean showDeaths = false;

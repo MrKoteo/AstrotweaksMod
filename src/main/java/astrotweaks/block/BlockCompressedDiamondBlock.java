@@ -50,7 +50,6 @@ public class BlockCompressedDiamondBlock extends ElementsAstrotweaksMod.ModEleme
 			setHarvestLevel("pickaxe", 3);
 			setHardness(13F);
 			setResistance(50F);
-			setLightLevel(0F);
 			setLightOpacity(255);
 			setCreativeTab(TabAstroTweaks.tab);
 		}
