@@ -22,6 +22,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.gui.GuiButton;
 
 import java.util.function.Supplier;
@@ -37,7 +38,7 @@ import astrotweaks.AstrotweaksMod;
 @ElementsAstrotweaksMod.ModElement.Tag
 public class MTGUI extends ElementsAstrotweaksMod.ModElement {
 	public static int GUIID = 4;
-	public static HashMap guistate = new HashMap();
+	//public static HashMap guistate = new HashMap();
 	public MTGUI(ElementsAstrotweaksMod instance) {
 		super(instance, 319);
 	}
@@ -45,7 +46,6 @@ public class MTGUI extends ElementsAstrotweaksMod.ModElement {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		elements.addNetworkMessage(GUIButtonPressedMessageHandler.class, GUIButtonPressedMessage.class, Side.SERVER);
-		elements.addNetworkMessage(GUISlotChangedMessageHandler.class, GUISlotChangedMessage.class, Side.SERVER);
 	}
 	public static class GuiContainerMod extends Container implements Supplier<Map<Integer, Slot>> {
 		private IInventory internal;
@@ -56,31 +56,21 @@ public class MTGUI extends ElementsAstrotweaksMod.ModElement {
 		public GuiContainerMod(World world, int x, int y, int z, EntityPlayer player) {
 			this.world = world;
 			this.entity = player;
-			this.x = x;
-			this.y = y;
-			this.z = z;
+			this.x = x; this.y = y; this.z = z;
+
 			this.internal = new InventoryBasic("", true, 5);
 			TileEntity ent = world.getTileEntity(new BlockPos(x, y, z));
 			if (ent instanceof IInventory)
 				this.internal = (IInventory) ent;
 			this.customSlots.put(3, this.addSlotToContainer(new Slot(internal, 3, 106, 37) {
-				@Override
-				public boolean isItemValid(ItemStack stack) {
-					return false;
-				}
+				@Override public boolean isItemValid(ItemStack stack) { return false; }
 			}));
-			this.customSlots.put(0, this.addSlotToContainer(new Slot(internal, 0, 54, 10) {
-			}));
+			this.customSlots.put(0, this.addSlotToContainer(new Slot(internal, 0, 54, 10) {}));
 			this.customSlots.put(1, this.addSlotToContainer(new Slot(internal, 1, 106, 10) {
-				@Override
-				public boolean isItemValid(ItemStack stack) {
-					return false;
-				}
+				@Override public boolean isItemValid(ItemStack stack) { return false; }
 			}));
-			this.customSlots.put(4, this.addSlotToContainer(new Slot(internal, 4, 21, 62) {
-			}));
-			this.customSlots.put(2, this.addSlotToContainer(new Slot(internal, 2, 54, 37) {
-			}));
+			this.customSlots.put(4, this.addSlotToContainer(new Slot(internal, 4, 21, 62) {}));
+			this.customSlots.put(2, this.addSlotToContainer(new Slot(internal, 2, 54, 37) {}));
 			int si;
 			int sj;
 			for (si = 0; si < 3; ++si)
@@ -93,12 +83,10 @@ public class MTGUI extends ElementsAstrotweaksMod.ModElement {
 		public Map<Integer, Slot> get() {
 			return customSlots;
 		}
-
 		@Override
 		public boolean canInteractWith(EntityPlayer player) {
 			return internal.isUsableByPlayer(player);
 		}
-
 		@Override
 		public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
 			ItemStack itemstack = ItemStack.EMPTY;
@@ -107,17 +95,17 @@ public class MTGUI extends ElementsAstrotweaksMod.ModElement {
 				ItemStack itemstack1 = slot.getStack();
 				itemstack = itemstack1.copy();
 				if (index < 5) {
-					if (!this.mergeItemStack(itemstack1, 5, this.inventorySlots.size(), true)) {
+					if (!super.mergeItemStack(itemstack1, 5, this.inventorySlots.size(), true)) {
 						return ItemStack.EMPTY;
 					}
 					slot.onSlotChange(itemstack1, itemstack);
-				} else if (!this.mergeItemStack(itemstack1, 0, 5, false)) {
+				} else if (!super.mergeItemStack(itemstack1, 0, 5, false)) {
 					if (index < 5 + 27) {
-						if (!this.mergeItemStack(itemstack1, 5 + 27, this.inventorySlots.size(), true)) {
+						if (!super.mergeItemStack(itemstack1, 5 + 27, this.inventorySlots.size(), true)) {
 							return ItemStack.EMPTY;
 						}
 					} else {
-						if (!this.mergeItemStack(itemstack1, 5, 5 + 27, false)) {
+						if (!super.mergeItemStack(itemstack1, 5, 5 + 27, false)) {
 							return ItemStack.EMPTY;
 						}
 					}
@@ -137,95 +125,10 @@ public class MTGUI extends ElementsAstrotweaksMod.ModElement {
 		}
 
 		@Override
-		protected boolean mergeItemStack(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection) {
-			boolean flag = false;
-			int i = startIndex;
-			if (reverseDirection) {
-				i = endIndex - 1;
-			}
-			if (stack.isStackable()) {
-				while (!stack.isEmpty()) {
-					if (reverseDirection) {
-						if (i < startIndex) {
-							break;
-						}
-					} else if (i >= endIndex) {
-						break;
-					}
-					Slot slot = this.inventorySlots.get(i);
-					ItemStack itemstack = slot.getStack();
-					if (slot.isItemValid(itemstack) && !itemstack.isEmpty() && itemstack.getItem() == stack.getItem()
-							&& (!stack.getHasSubtypes() || stack.getMetadata() == itemstack.getMetadata())
-							&& ItemStack.areItemStackTagsEqual(stack, itemstack)) {
-						int j = itemstack.getCount() + stack.getCount();
-						int maxSize = Math.min(slot.getSlotStackLimit(), stack.getMaxStackSize());
-						if (j <= maxSize) {
-							stack.setCount(0);
-							itemstack.setCount(j);
-							slot.putStack(itemstack);
-							flag = true;
-						} else if (itemstack.getCount() < maxSize) {
-							stack.shrink(maxSize - itemstack.getCount());
-							itemstack.setCount(maxSize);
-							slot.putStack(itemstack);
-							flag = true;
-						}
-					}
-					if (reverseDirection) {
-						--i;
-					} else {
-						++i;
-					}
-				}
-			}
-			if (!stack.isEmpty()) {
-				if (reverseDirection) {
-					i = endIndex - 1;
-				} else {
-					i = startIndex;
-				}
-				while (true) {
-					if (reverseDirection) {
-						if (i < startIndex) {
-							break;
-						}
-					} else if (i >= endIndex) {
-						break;
-					}
-					Slot slot1 = this.inventorySlots.get(i);
-					ItemStack itemstack1 = slot1.getStack();
-					if (itemstack1.isEmpty() && slot1.isItemValid(stack)) {
-						if (stack.getCount() > slot1.getSlotStackLimit()) {
-							slot1.putStack(stack.splitStack(slot1.getSlotStackLimit()));
-						} else {
-							slot1.putStack(stack.splitStack(stack.getCount()));
-						}
-						slot1.onSlotChanged();
-						flag = true;
-						break;
-					}
-					if (reverseDirection) {
-						--i;
-					} else {
-						++i;
-					}
-				}
-			}
-			return flag;
-		}
-
-		@Override
 		public void onContainerClosed(EntityPlayer playerIn) {
 			super.onContainerClosed(playerIn);
 			if ((internal instanceof InventoryBasic) && (playerIn instanceof EntityPlayerMP)) {
 				this.clearContainer(playerIn, playerIn.world, internal);
-			}
-		}
-
-		private void slotChanged(int slotid, int ctype, int meta) {
-			if (this.world != null && this.world.isRemote) {
-				AstrotweaksMod.PACKET_HANDLER.sendToServer(new GUISlotChangedMessage(slotid, x, y, z, ctype, meta));
-				handleSlotAction(entity, slotid, ctype, meta, x, y, z);
 			}
 		}
 	}
@@ -259,36 +162,19 @@ public class MTGUI extends ElementsAstrotweaksMod.ModElement {
 			int k = (this.width - this.xSize) / 2;
 			int l = (this.height - this.ySize) / 2;
 			this.drawModalRectWithCustomSizedTexture(k, l, 0, 0, this.xSize, this.ySize, this.xSize, this.ySize);
-			zLevel = 100.0F;
 			this.mc.renderEngine.bindTexture(new ResourceLocation("astrotweaks:textures/mtjei.png"));
 			this.drawModalRectWithCustomSizedTexture(this.guiLeft + 0, this.guiTop + 0, 0, 0, 178, 90, 178, 90);
 		}
 
-		@Override
-		public void updateScreen() {
-			super.updateScreen();
-		}
-
-		@Override
-		protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-			super.mouseClicked(mouseX, mouseY, mouseButton);
-		}
-
-		@Override
-		protected void keyTyped(char typedChar, int keyCode) throws IOException {
-			super.keyTyped(typedChar, keyCode);
-		}
-
-		@Override
-		protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		}
-
+		//@Override public void updateScreen() { super.updateScreen(); }
+		//@Override protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException { super.mouseClicked(mouseX, mouseY, mouseButton); }
+		@Override protected void keyTyped(char typedChar, int keyCode) throws IOException { super.keyTyped(typedChar, keyCode); }
+		@Override protected void drawGuiContainerForegroundLayer(int par1, int par2) {}
 		@Override
 		public void onGuiClosed() {
 			super.onGuiClosed();
 			Keyboard.enableRepeatEvents(false);
 		}
-
 		@Override
 		public void initGui() {
 			super.initGui();
@@ -296,19 +182,14 @@ public class MTGUI extends ElementsAstrotweaksMod.ModElement {
 			this.guiTop = (this.height - 166) / 2;
 			Keyboard.enableRepeatEvents(true);
 			this.buttonList.clear();
-			this.buttonList.add(new GuiButton(0, this.guiLeft + 58, this.guiTop + 59, 60, 20, "Convert"));
+			this.buttonList.add(new GuiButton(0, this.guiLeft + 56, this.guiTop + 59, 64, 20, I18n.format("mt.convert")));
 		}
-
 		@Override
 		protected void actionPerformed(GuiButton button) {
 			AstrotweaksMod.PACKET_HANDLER.sendToServer(new GUIButtonPressedMessage(button.id, x, y, z));
-			handleButtonAction(entity, button.id, x, y, z);
+			//handleButtonAction(entity, button.id, x, y, z);
 		}
-
-		@Override
-		public boolean doesGuiPauseGame() {
-			return false;
-		}
+		@Override public boolean doesGuiPauseGame() { return false; }
 	}
 
 	public static class GUIButtonPressedMessageHandler implements IMessageHandler<GUIButtonPressedMessage, IMessage> {
@@ -326,27 +207,9 @@ public class MTGUI extends ElementsAstrotweaksMod.ModElement {
 		}
 	}
 
-	public static class GUISlotChangedMessageHandler implements IMessageHandler<GUISlotChangedMessage, IMessage> {
-		@Override
-		public IMessage onMessage(GUISlotChangedMessage message, MessageContext context) {
-			EntityPlayerMP entity = context.getServerHandler().player;
-			entity.getServerWorld().addScheduledTask(() -> {
-				int slotID = message.slotID;
-				int changeType = message.changeType;
-				int meta = message.meta;
-				int x = message.x;
-				int y = message.y;
-				int z = message.z;
-				handleSlotAction(entity, slotID, changeType, meta, x, y, z);
-			});
-			return null;
-		}
-	}
-
 	public static class GUIButtonPressedMessage implements IMessage {
 		int buttonID, x, y, z;
-		public GUIButtonPressedMessage() {
-		}
+		public GUIButtonPressedMessage() {}
 
 		public GUIButtonPressedMessage(int buttonID, int x, int y, int z) {
 			this.buttonID = buttonID;
@@ -362,7 +225,6 @@ public class MTGUI extends ElementsAstrotweaksMod.ModElement {
 			buf.writeInt(y);
 			buf.writeInt(z);
 		}
-
 		@Override
 		public void fromBytes(io.netty.buffer.ByteBuf buf) {
 			buttonID = buf.readInt();
@@ -372,54 +234,13 @@ public class MTGUI extends ElementsAstrotweaksMod.ModElement {
 		}
 	}
 
-	public static class GUISlotChangedMessage implements IMessage {
-		int slotID, x, y, z, changeType, meta;
-		public GUISlotChangedMessage() {
-		}
-
-		public GUISlotChangedMessage(int slotID, int x, int y, int z, int changeType, int meta) {
-			this.slotID = slotID;
-			this.x = x;
-			this.y = y;
-			this.z = z;
-			this.changeType = changeType;
-			this.meta = meta;
-		}
-
-		@Override
-		public void toBytes(io.netty.buffer.ByteBuf buf) {
-			buf.writeInt(slotID);
-			buf.writeInt(x);
-			buf.writeInt(y);
-			buf.writeInt(z);
-			buf.writeInt(changeType);
-			buf.writeInt(meta);
-		}
-
-		@Override
-		public void fromBytes(io.netty.buffer.ByteBuf buf) {
-			slotID = buf.readInt();
-			x = buf.readInt();
-			y = buf.readInt();
-			z = buf.readInt();
-			changeType = buf.readInt();
-			meta = buf.readInt();
-		}
-	}
 	private static void handleButtonAction(EntityPlayer entity, int buttonID, int x, int y, int z) {
 		World world = entity.world;
 		// security measure to prevent arbitrary chunk generation
-		if (!world.isBlockLoaded(new BlockPos(x, y, z)))
-			return;
+		//if (!world.isBlockLoaded(new BlockPos(x, y, z)))
+		//	return;
 		if (buttonID == 0) {
-			ProcedureMTConvert.executeProcedure(x, y, z, world);
+			ProcedureMTConvert.exect(x, y, z, world);
 		}
-	}
-
-	private static void handleSlotAction(EntityPlayer entity, int slotID, int changeType, int meta, int x, int y, int z) {
-		World world = entity.world;
-		// security measure to prevent arbitrary chunk generation
-		if (!world.isBlockLoaded(new BlockPos(x, y, z)))
-			return;
 	}
 }

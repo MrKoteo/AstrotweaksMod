@@ -6,6 +6,9 @@ This is the source code of my mod published on CurseForge
 Это исходный код моего мода, опубликованного на CurseForge
 
 
+---
+
+
 Link: https://www.curseforge.com/minecraft/mc-mods/astrotweaks
 
 

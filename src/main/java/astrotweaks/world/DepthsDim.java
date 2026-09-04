@@ -305,12 +305,12 @@ public class DepthsDim {
 			generateOre(OBSIDIAN, 						deepslateMatcher, world, random, x, z,	 			 7,  4, 29, 40);
 			generateOre(Blocks.STONE.getStateFromMeta(1), deepslateMatcher,world,random, x, z,				18,  3, 80, 95);
 
-			generateOre(BlockDeepDiamondOre.block.getDefaultState(), deepslateMatcher, world, random, x, z, 	 7,  5, 40, 96);
-			generateOre(BlockDeepEmeraldOre.block.getDefaultState(), deepslateMatcher, world, random, x, z, 	 5,  6, 30, 96);
-			generateOre(BlockDeepRedstoneOre.block.getDefaultState(),deepslateMatcher, world, random, x, z, 	 7,  5, 60, 96);
-			generateOre(BlockDeepLapisOre.block.getDefaultState(),	deepslateMatcher, world, random, x, z, 	 7,  5, 50, 96);
-			generateOre(BlockDeepIronOre.block.getDefaultState(),	deepslateMatcher, world, random, x, z, 	 11, 6, 60, 96);
-			generateOre(BlockDeepGoldOre.block.getDefaultState(),	deepslateMatcher, world, random, x, z, 	 9,  6, 30, 96);
+			generateOre(ATBlocks.DEEP_DIAMOND_ORE.getDefaultState(), deepslateMatcher, world, random, x, z, 	 7,  5, 40, 96);
+			generateOre(ATBlocks.DEEP_EMERALD_ORE.getDefaultState(), deepslateMatcher, world, random, x, z, 	 5,  6, 30, 96);
+			generateOre(ATBlocks.DEEP_REDSTONE_ORE.getDefaultState(),deepslateMatcher, world, random, x, z, 	 7,  5, 60, 96);
+			generateOre(ATBlocks.DEEP_LAPIS_ORE.getDefaultState(),	deepslateMatcher, world, random, x, z, 	 7,  5, 50, 96);
+			generateOre(ATBlocks.DEEP_IRON_ORE.getDefaultState(),	deepslateMatcher, world, random, x, z, 	 11, 6, 60, 96);
+			generateOre(ATBlocks.DEEP_GOLD_ORE.getDefaultState(),	deepslateMatcher, world, random, x, z, 	 9,  6, 30, 96);
 
 			generateOre(BlockDeepMinerals.block.getDefaultState(),	deepslateMatcher, world, random, x, z, 	 7,  8, 26, 64);
 
@@ -484,25 +484,25 @@ public class DepthsDim {
 				default:		return (float)Math.PI / (float) 3;
 			}
 		}
-		private float getBranchSizeMultiplier(HeightZone zone, Random rand) { // size of branches relative of Main; 0.5 = branch size /2 relof Main, 1.0 = tot zhe razmer
+		private float getBranchSizeMultiplier(HeightZone zone, Random rand) { // размер веток относительно Главной; 0.5 = размер /2 относительно Main, 1.0 = тот же размер
 			switch (zone) {
 				case SPAGHETTI: return 0.08F;// + rand.nextFloat() * 0.2F;
 				case MEDIUM:	return 0.4F + rand.nextFloat() * 0.4F;  // 0.4-0.8
 				case HALLS:	 	return 0.7F + rand.nextFloat() * 0.3F;  // 0.7-1.0 (thin branches)
 				default:		return 0.6F + rand.nextFloat() * 0.4F;  // 0.5-1.0
 			}
-		}
-		private double getBranchOffset(HeightZone zone) { // Max offset point of start new branch relative of Main cave;	+ = branches far of main, - = near from main
+		} 
+		private double getBranchOffset(HeightZone zone) { // Максимальное смещение точки начала новой вести относительно Главной пещеры;	+ = ветки далеко от Main, - = близко
 			switch (zone) {
-				case SPAGHETTI: return 13.0;  // Near to the main branch
+				case SPAGHETTI: return 14.0;  // Near to the main branch
 				case FLAT:	  	return 9.0;
 				case MEDIUM:	return 15.0;
 				case HALLS:	 	return 10.0; // Far from the main branch
 				default:		return 6.0;
 			}
-		}
-		private double getVerticalOffset(HeightZone zone) { // max vertical branch offset relative of Main point; + = branches can start most upper/down, - = branches at one level;
-			switch (zone) { // raspredelenie po visote
+		} 
+		private double getVerticalOffset(HeightZone zone) { // Макс. вертикальное смещение ветки относительно Главной точки;  + = етки могут начинаться гораздо выше/ниже, - = ветки на одном уровне;
+			switch (zone) { // распределение по высоте
 				case LAVA:	  	return 12.0; // LARGE vertical offset
 				case SPAGHETTI: return 15.0;  // SMALL vertical offset
 				case MEDIUM:	return 15.0;
@@ -510,10 +510,10 @@ public class DepthsDim {
 				default:		return 10.0;
 			}
 		}
-		private float getBranchLengthMultiplier(HeightZone zone, Random rand) { // mnozhitel dlini^ vetki otnositelno Main
+		private float getBranchLengthMultiplier(HeightZone zone, Random rand) { // множетель длины ветки относительно Main
 			switch (zone) {
 				case SPAGHETTI: return 0.7F + rand.nextFloat() * 1.0F;  // 0.6-1.7
-				case HALLS:	 	return 0.3F + rand.nextFloat() * 0.3F;  // 0.3-0.6 (short branches)
+				case HALLS:	 	return 0.3F + rand.nextFloat() * 0.3F;  // 0.3-0.6 (короткие ветки)
 				default:		return 0.5F + rand.nextFloat() * 0.6F;  // 0.5-1.1
 			}
 		}
@@ -532,7 +532,7 @@ public class DepthsDim {
 	    @Override
 	    protected boolean canReplaceBlock(IBlockState state, IBlockState upState) {
 	        // allow replace obsidian
-	        if (state.getBlock() == Blocks.OBSIDIAN || state.getBlock() == BlockDeepslate.block) {
+	        if (state.getBlock() == Blocks.OBSIDIAN || state.getBlock() == ATBlocks.DEEPSLATE) {
 	            return true;
 	        }
 	        return super.canReplaceBlock(state, upState);

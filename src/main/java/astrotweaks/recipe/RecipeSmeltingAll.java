@@ -20,51 +20,51 @@ public class RecipeSmeltingAll {
 	public RecipeSmeltingAll() {}
 
 	public static void init() {
-		GameRegistry.addSmelting(new ItemStack(BlockRubyOre.block, (int) (1)), new ItemStack(ATItems.RUBY, (int) (1)), 1F);
-		GameRegistry.addSmelting(new ItemStack(ATItems.CORDAGE_VINE, (int) (1)), new ItemStack(ATItems.CORDAGE_FIBER, (int) (1)), 0.1F);
-		GameRegistry.addSmelting(new ItemStack(BlockCompressedSand.block, (int) (1)), new ItemStack(Blocks.QUARTZ_BLOCK, (int) (1), 0), 0.5F);
+		GameRegistry.addSmelting(new ItemStack(BlockRubyOre.block, 1), new ItemStack(ATItems.RUBY, 1), 1F);
+		GameRegistry.addSmelting(new ItemStack(ATItems.CORDAGE_VINE, 1), new ItemStack(ATItems.CORDAGE_FIBER, 1), 0.1F);
+		GameRegistry.addSmelting(new ItemStack(ATBlocks.COMPRESSED_SAND, 1), new ItemStack(Blocks.QUARTZ_BLOCK, 1, 0), 0.5F);
 
-		GameRegistry.addSmelting(new ItemStack(Items.FISH, (int) (1), 2), new ItemStack(ItemCoockedTropicalFish.block, (int) (1)), 0.6F);
-		GameRegistry.addSmelting(new ItemStack(Items.FISH, (int) (1), 3), new ItemStack(ItemCoockedPufferfish.block, (int) (1)), 1.5F);
+		GameRegistry.addSmelting(new ItemStack(Items.FISH, 1, 2), new ItemStack(ItemCoockedTropicalFish.block, 1), 0.6F);
+		GameRegistry.addSmelting(new ItemStack(Items.FISH, 1, 3), new ItemStack(ItemCoockedPufferfish.block, 1), 1.5F);
 
-		GameRegistry.addSmelting(new ItemStack(BlockQuartzOreStone.block, (int) (1)), new ItemStack(Items.QUARTZ, (int) (1)), 1F);
-		GameRegistry.addSmelting(new ItemStack(BlockQuartzOreGranite.block, (int) (1)), new ItemStack(Items.QUARTZ, (int) (1)), 1F);
+		GameRegistry.addSmelting(new ItemStack(BlockQuartzOreStone.block, 1), new ItemStack(Items.QUARTZ, 1), 1F);
+		GameRegistry.addSmelting(new ItemStack(BlockQuartzOreGranite.block, 1), new ItemStack(Items.QUARTZ, 1), 1F);
 		
-		GameRegistry.addSmelting(new ItemStack(ATItems.BRASS_DUST, (int) (1)), new ItemStack(ATItems.BRASS_INGOT, (int) (1)), 0F);
+		GameRegistry.addSmelting(new ItemStack(ATItems.BRASS_DUST, 1), new ItemStack(ATItems.BRASS_INGOT, 1), 0F);
 
-		GameRegistry.addSmelting(new ItemStack(ATItems.CLAY_BRICK, (int) (1)), new ItemStack(Items.BRICK, (int) (1)), 0.5F);
-		GameRegistry.addSmelting(new ItemStack(BlockCobbledDeepslate.block, (int) (1)), new ItemStack(BlockDeepslate.block, (int) (1)), 0.5F);
-		GameRegistry.addSmelting(new ItemStack(BlockDeepslate.block, (int) (1)), new ItemStack(BlockDeepslateTiles.block, (int) (1)), 0.5F);
+		GameRegistry.addSmelting(new ItemStack(ATItems.CLAY_BRICK, 1), new ItemStack(Items.BRICK, 1), 0.5F);
+		GameRegistry.addSmelting(new ItemStack(ATBlocks.COBBLED_DEEPSLATE, 1), new ItemStack(ATBlocks.DEEPSLATE, 1), 0.5F);
+		GameRegistry.addSmelting(new ItemStack(ATBlocks.DEEPSLATE, 1), new ItemStack(ATBlocks.DEEPSLATE_TILES, 1), 0.5F);
 
 
-		GameRegistry.addSmelting(new ItemStack(ItemSawIron.block, (int) (1)), new ItemStack(Items.IRON_NUGGET, (int) (1)), 0.1F);
-		GameRegistry.addSmelting(new ItemStack(ItemGoldenSaw.block, (int) (1)), new ItemStack(Items.GOLD_NUGGET, (int) (1)), 0.1F);
+		GameRegistry.addSmelting(new ItemStack(ItemSawIron.block, 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
+		GameRegistry.addSmelting(new ItemStack(ItemGoldenSaw.block, 1), new ItemStack(Items.GOLD_NUGGET, 1), 0.1F);
 
 		if (ModVariables.Better_Smelting) {
-			GameRegistry.addSmelting(new ItemStack(Items.SHEARS, (int) (1)), new ItemStack(Items.IRON_NUGGET, (int) (1)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Items.BUCKET, (int) (1)), new ItemStack(Items.IRON_NUGGET, (int) (1)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE), (int) (1)), new ItemStack(Items.IRON_NUGGET, (int) (1)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Items.COMPASS, (int) (1)), new ItemStack(Items.IRON_NUGGET, (int) (1)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Items.IRON_HORSE_ARMOR, (int) (1)), new ItemStack(Items.IRON_NUGGET, (int) (1)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Items.MINECART, (int) (1)), new ItemStack(Items.IRON_INGOT, (int) (1)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.IRON_BARS), (int) (1)), new ItemStack(Items.IRON_NUGGET, (int) (1)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Items.CAULDRON, (int) (1)), new ItemStack(Items.IRON_NUGGET, (int) (3)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.HOPPER), (int) (1)), new ItemStack(Items.IRON_NUGGET, (int) (3)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Items.IRON_DOOR, (int) (1)), new ItemStack(Items.IRON_INGOT, (int) (1)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.IRON_TRAPDOOR), (int) (1)), new ItemStack(Items.IRON_INGOT, (int) (1)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.RAIL), (int) (1)), new ItemStack(Items.IRON_NUGGET, (int) (1)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.DETECTOR_RAIL), (int) (1)), new ItemStack(Items.IRON_NUGGET, (int) (1)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.ACTIVATOR_RAIL), (int) (1)), new ItemStack(Items.IRON_NUGGET, (int) (1)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.TRIPWIRE_HOOK), (int) (1)), new ItemStack(Items.IRON_NUGGET, (int) (1)), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Items.SHEARS, 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Items.BUCKET, 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE), 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Items.COMPASS, 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Items.IRON_HORSE_ARMOR, 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Items.MINECART, 1), new ItemStack(Items.IRON_INGOT, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.IRON_BARS), 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Items.CAULDRON, 1), new ItemStack(Items.IRON_NUGGET, (int) (3)), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.HOPPER), 1), new ItemStack(Items.IRON_NUGGET, (int) (3)), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Items.IRON_DOOR, 1), new ItemStack(Items.IRON_INGOT, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.IRON_TRAPDOOR), 1), new ItemStack(Items.IRON_INGOT, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.RAIL), 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.DETECTOR_RAIL), 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.ACTIVATOR_RAIL), 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.TRIPWIRE_HOOK), 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
 
 			
-			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE), (int) (1)), new ItemStack(Items.GOLD_NUGGET, (int) (1)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.GOLDEN_RAIL), (int) (1)), new ItemStack(Items.GOLD_NUGGET, (int) (1)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Items.GOLDEN_HORSE_ARMOR, (int) (1)), new ItemStack(Items.GOLD_NUGGET, (int) (1)), 0.1F);
-			GameRegistry.addSmelting(new ItemStack(Items.CLOCK, (int) (1)), new ItemStack(Items.GOLD_NUGGET, (int) (1)), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE), 1), new ItemStack(Items.GOLD_NUGGET, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(Blocks.GOLDEN_RAIL), 1), new ItemStack(Items.GOLD_NUGGET, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Items.GOLDEN_HORSE_ARMOR, 1), new ItemStack(Items.GOLD_NUGGET, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(Items.CLOCK, 1), new ItemStack(Items.GOLD_NUGGET, 1), 0.1F);
 
 
-			GameRegistry.addSmelting(new ItemStack(ItemGavel.block, (int) (1)), new ItemStack(Items.IRON_NUGGET, (int) (1)), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(ItemGavel.block, 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
 		}
 
 

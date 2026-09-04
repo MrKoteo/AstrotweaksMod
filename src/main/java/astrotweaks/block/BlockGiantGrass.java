@@ -150,14 +150,12 @@ public class BlockGiantGrass extends ElementsAstrotweaksMod.ModElement {
 			IBlockState middleState = getDefaultState().withProperty(PART, Part.MIDDLE);
 			IBlockState upperState = getDefaultState().withProperty(PART, Part.UPPER);
 
-			// Флаг 2 — обновить состояние и отправить его клиенту,
-			// но не запускать лишние neighbor updates во время создания стебля
 			world.setBlockState(pos.up(), middleState, 2);
 			world.setBlockState(pos.up(2), upperState, 2);
         }
 
         /**
-         * Удаляем все три сегмента, если игрок ломает любой из них.
+         * Удаляем всё, если ломается любой сегмент
          */
         @Override
         public void breakBlock(World world, BlockPos pos, IBlockState state) {

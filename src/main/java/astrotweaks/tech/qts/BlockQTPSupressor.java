@@ -38,12 +38,15 @@ import net.minecraft.util.math.ChunkPos;
 import astrotweaks.creativetab.ATCreativeTabs;
 
 
-
+import astrotweaks.ModVariables;
 import astrotweaks.AstrotweaksMod;
 import astrotweaks.ElementsAstrotweaksMod;
 
 @ElementsAstrotweaksMod.ModElement.Tag
 public class BlockQTPSupressor extends ElementsAstrotweaksMod.ModElement {
+
+	private static final int Max_Range = ModVariables.QTS_Max_Range;
+
 	@GameRegistry.ObjectHolder("astrotweaks:qtp_supressor")
 	public static final Block block = null;
 	public BlockQTPSupressor(ElementsAstrotweaksMod instance) {super(instance,727);}
@@ -132,16 +135,17 @@ public class BlockQTPSupressor extends ElementsAstrotweaksMod.ModElement {
 			super.onBlockClicked(world, pos, player);
 		}
 		private static int calc_lmod(int currentRange) {
-				if (currentRange > 991) return 32;
-				int lmod = 32;
-				if 		(currentRange < 16)  lmod = 1;
-				else if (currentRange < 32)  lmod = 2;
-				else if (currentRange < 128) lmod = 4;
-				else if (currentRange < 256) lmod = 8;
-				else if (currentRange < 512) lmod = 16;
-				//else lmod = 32;
-				return lmod;
-			}
+			if (currentRange > Max_Range) return Max_Range;
+			if (currentRange > 991) return 32;
+			int lmod = 32;
+			if 		(currentRange < 16)  lmod = 1;
+			else if (currentRange < 32)  lmod = 2;
+			else if (currentRange < 128) lmod = 4;
+			else if (currentRange < 256) lmod = 8;
+			else if (currentRange < 512) lmod = 16;
+			//else lmod = 32;
+			return lmod;
+		}
 	}
 
 	public static class TileEntityCustom extends TileEntity/* implements ITickable */{

@@ -44,19 +44,22 @@ info.line4=A short guide is available in the dedicated quests section.
 info.line5=
 info.empty=
 qts.change_range=Suppressor range set to %s blocks
-qts.no_tp=Teleportation is prohibited here!
-qts.no_tp_target=Teleportation to the target area is prohibited!
-qts.no_changedim=Moving between dimensions is prohibited here!
-qts.tp_interrupted=Teleportation has been interrupted!
-ark.err.coords=Error: coordinates must be numbers!
-ark.err.structure=Error: Invalid structure!
-ark.err.dim=Error: Dimension %s does not exist!
-ark.err.aow=Error: Target position are out of world!
-ark.err.target_world=Error: Failed to get target world!
-ark.err.unbreakable_target=Error: There is an Unbreakable block in target area ( %s )!
-ark.delayed_start=Transfer will start in %s ticks.
+qts.no_tp=§cTeleportation is prohibited here!
+qts.no_tp_target=§cTeleportation to the target area is prohibited!
+qts.no_changedim=§cMoving between dimensions is prohibited here!
+qts.tp_interrupted=§cTeleportation has been interrupted!
+ark.err.coords=§cError: coordinates must be numbers!
+ark.err.structure=§cError: Invalid structure!
+ark.err.dim=§cError: Dimension %s does not exist!
+ark.err.aow=§cError: Target position are out of world!
+ark.err.target_world=§cError: Failed to get target world!
+ark.err.unbreakable_target=§cError: There is an Unbreakable block in target area ( %s )!
+ark.delayed_start=§bTransfer will start in %s ticks.
 ark.interface=Dimensional Ark Interface
-ark.success=The Ark has been successfully moved!
+ark.send=SEND
+ark.success=§aThe Ark has been successfully moved!
+mt.convert=Convert
+
 
 
 
@@ -198,7 +201,7 @@ item.philistine_badge.name=Philistine Badge
 item.phoenix_badge.name=Phoenix Badge
 item.planet_badge.name=Planet Badge
 item.plant_fiber.name=Plant fiber
-item.plant_fiber.tooltip=Drops from grass
+item.plant_fiber.tooltip=§bDrops from grass
 item.platinum_coin.name=Platinum coin
 item.power_unit_x.name=Power Unit X
 item.processor_tier_1.name=CPU

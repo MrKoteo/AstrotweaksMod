@@ -7,6 +7,8 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -33,14 +35,14 @@ public final class ATItems {
     public static final Item GOLD_COIN = createItem( "gold_coin", "gold_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, (stack, world, tooltip, flag) -> tooltip.add("100 coins \u00A4") );
     public static final Item COPPER_COIN = createItem( "copper_coin", "copper_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, (stack, world, tooltip, flag) -> tooltip.add("10 coins \u00A4") );
     public static final Item SILVER_COIN = createItem( "silver_coin", "silver_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, (stack, world, tooltip, flag) -> tooltip.add("500 coins \u00A4") );
-    public static final Item STONE_COIN = createItem( "stone_coin", "stone_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, null );
-    public static final Item WOOD_COIN = createItem( "wood_coin", "wood_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, null );
-    public static final Item DIAMANT_COIN = createItem( "diamant_coin", "diamant_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, null );
-    public static final Item ADAMANTIUM_COIN = createItem( "adamantium_coin", "adamantium_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, null );
-    public static final Item ELUNITE_COIN = createItem( "elunite_coin", "elunite_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, null );
-    public static final Item MYTHRIL_COIN = createItem( "mythril_coin", "mythril_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, null );
-    public static final Item PALLADIUM_COIN = createItem( "palladium_coin", "palladium_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, null );
-    public static final Item UNI_COIN = createItem( "uni_coin", "uni_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, null );
+    public static final Item STONE_COIN = createItem( "stone_coin", "stone_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, (stack, world, tooltip, flag) -> tooltip.add("0.1 coins \u00A4") );
+    public static final Item WOOD_COIN = createItem( "wood_coin", "wood_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, (stack, world, tooltip, flag) -> tooltip.add("0.01 coins \u00A4") );
+    public static final Item DIAMANT_COIN = createItem( "diamant_coin", "diamant_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, (stack, world, tooltip, flag) -> tooltip.add("10,000 coins \u00A4") );
+    public static final Item ADAMANTIUM_COIN = createItem( "adamantium_coin", "adamantium_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, (stack, world, tooltip, flag) -> tooltip.add("100,000,000 coins \u00A4") );
+    public static final Item ELUNITE_COIN = createItem( "elunite_coin", "elunite_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, (stack, world, tooltip, flag) -> tooltip.add("1,000,000 coins \u00A4") );
+    public static final Item MYTHRIL_COIN = createItem( "mythril_coin", "mythril_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, (stack, world, tooltip, flag) -> tooltip.add("10,000,000 coins \u00A4") );
+    public static final Item PALLADIUM_COIN = createItem( "palladium_coin", "palladium_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, (stack, world, tooltip, flag) -> tooltip.add("100,000 coins \u00A4") );
+    public static final Item UNI_COIN = createItem( "uni_coin", "uni_coin", ATCreativeTabs.ASTRO_TWEAKS_CT, 50, (stack, world, tooltip, flag) -> tooltip.add("1,000,000,000 coins \u00A4") );
     public static final Item QUAD_ABGD_QUANT = createItem( "quad_abgd_quant", "quad_abgd_quant", ATCreativeTabs.AT_INTEGRATION_CT, 64, null );
     public static final Item ADVANCED_WIRELESS_MODULE = createItem( "advanced_wireless_module", "advanced_wireless_module", ATCreativeTabs.ASTRO_TWEAKS_CT, 64, null );
     public static final Item ALUMINIUM_STICK = createItem( "aluminium_stick", "aluminium_stick", ATCreativeTabs.ASTRO_TWEAKS_CT, 64, null );
@@ -203,6 +205,7 @@ public final class ATItems {
     public static final Item QUANTUM_BADGE = createItem( "quantum_bagde", "quantum_bagde", ATCreativeTabs.ASTRO_TWEAKS_CT, 1, null );  
     
     public static final Item SCIENCE = createItem( "science", "science", ATCreativeTabs.ASTRO_TWEAKS_CT, 1, (stack, world, tooltip, flag) -> tooltip.add("Under development") );  
+    public static final Item PLANT_FIBER = createItem( "plant_fiber", "plant_fiber", ATCreativeTabs.ASTRO_TWEAKS_CT, 64, (stack, world, tooltip, flag) -> tooltip.add(new TextComponentTranslation("item.plant_fiber.tooltip").getFormattedText()) );  
 
 
 
@@ -213,7 +216,7 @@ public final class ATItems {
 
 
 
-WOOD_COIN,STONE_COIN,COPPER_COIN,SILVER_COIN,GOLD_COIN,PLATINUM_COIN,DIAMANT_COIN,MYTHRIL_COIN,PALLADIUM_COIN,ELUNITE_COIN,ADAMANTIUM_COIN,UNI_COIN,
+WOOD_COIN,STONE_COIN,COPPER_COIN,SILVER_COIN,GOLD_COIN,PLATINUM_COIN,DIAMANT_COIN,PALLADIUM_COIN,ELUNITE_COIN,MYTHRIL_COIN,ADAMANTIUM_COIN,UNI_COIN,
 
 
 
@@ -221,7 +224,7 @@ ALUMINIUM_X,BRASS_X,BRONZE_X,COPPER_X,CARBON_X,COBALT_X,DIAMOND_X,ELECTRUM_X,EME
 ALUMINIUM_STICK,BRASS_STICK,BRONZE_STICK,CARBON_STICK,COBALT_STICK,COPPER_STICK,DIAMOND_STICK,ELECTRUM_STICK,EMERALD_STICK,GOLD_STICK,IRIDIUM_STICK,IRON_STICK,METEORIC_STICK,NICKEL_STICK,RUBY_STICK,
 SILVER_STICK,STEEL_STICK,TIN_STICK,TITANIUM_STICK,URANIUM_STICK,
 
-CORDAGE_FIBER,CORDAGE_VINE,ROCK,ROCK_FLAT,BONE_SHARD,FLINT_SHARD,DIAMOND_SHARD,CLAY_BRICK,STONE_BRICK,REDSTONE_BRICK, 
+PLANT_FIBER,CORDAGE_FIBER,CORDAGE_VINE,ROCK,ROCK_FLAT,BONE_SHARD,FLINT_SHARD,DIAMOND_SHARD,CLAY_BRICK,STONE_BRICK,REDSTONE_BRICK, 
 CEMENT_DUST,
 
 RUBY_DUST,RUBY,

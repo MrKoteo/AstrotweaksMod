@@ -7,8 +7,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraft.block.Block;
 
-import javax.management.RuntimeErrorException;
-
 import astrotweaks.block.BlockBush1;
 //import astrotweaks.block.BlockBush2;
 import astrotweaks.block.BlockBush6;
@@ -38,12 +36,12 @@ public class ClientEventHandler {
         );
         event.getBlockColors().registerBlockColorHandler(
             (state, world, pos, tintIndex) -> {
-                try {
+                if (world != null && pos != null) {
                     return BiomeColorHelper.getGrassColorAtPos(world, pos);
-                } catch(RuntimeException e) {
-                    e.printStackTrace();
-                    System.out.println("сука краш");
                 }
+                //    e.printStackTrace();
+                //    System.out.println("сука краш");
+                //}
                 return 0x94C774;
             },
             BlockGiantGrass.block

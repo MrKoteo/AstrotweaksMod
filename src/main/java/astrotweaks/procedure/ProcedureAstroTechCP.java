@@ -13,7 +13,7 @@ import net.minecraft.command.ICommandSender;
 
 import java.util.Map;
 
-import astrotweaks.AstrotweaksModVariables;
+import astrotweaks.ModVariables;
 
 
 public class ProcedureAstroTechCP {
@@ -22,7 +22,7 @@ public class ProcedureAstroTechCP {
 	public static void executeProcedure(Entity sender, Map<String, Object> cmdparams) {
 		//Map<String, Object> cmdparams = (Map<String, Object>) cmdparamsObj;
 
-		if (!AstrotweaksModVariables.AstroTech_Environment) {
+		if (!ModVariables.AstroTech_Environment) {
 			sendLocalized(sender, "No modules");
 			return;
 		}

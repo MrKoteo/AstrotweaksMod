@@ -73,7 +73,7 @@ public final class ProcedureEventBreakBlock {
 		
 		if (isTallGrassVariant && notShears && ModVariables.Extra_Drops_Grass) {
 			if (rng1 < 0.14) {
-				spawnItem(world, x, y, z, new ItemStack(ItemPlantFiber.block, 1));
+				spawnItem(world, x, y, z, new ItemStack(ATItems.PLANT_FIBER, 1));
 			}
 			if (rng1 < 0.02 && rand.nextDouble() < 0.51) {
 				RNM = rand.nextDouble();

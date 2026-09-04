@@ -165,7 +165,7 @@ public class BlockMoneyTable extends ElementsAstrotweaksMod.ModElement {
 			int y = pos.getY();
 			int z = pos.getZ();
 			if (world.isBlockIndirectlyGettingPowered(new BlockPos(x, y, z)) > 0) {
-				ProcedureMTConvert.executeProcedure(x, y, z, world);
+				ProcedureMTConvert.exect(x, y, z, world);
 			}
 		}
 		@Override
@@ -246,9 +246,9 @@ public class BlockMoneyTable extends ElementsAstrotweaksMod.ModElement {
 			return 200;
 		}
 		@Override
- public String getGuiID() {
- return "astrotweaks:money_table";
- }
+		public String getGuiID() {
+			return "astrotweaks:money_table";
+		}
 		@Override
 		public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
 			return new MTGUI.GuiContainerMod(this.getWorld(), this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), playerIn);

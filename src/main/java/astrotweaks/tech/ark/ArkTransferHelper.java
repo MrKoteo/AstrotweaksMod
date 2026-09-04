@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextFormatting;
@@ -113,17 +114,17 @@ public class ArkTransferHelper {
 
 	    BlockPos corePos = findCore(world, termPos);
 	    if (corePos == null) {
-	        player.sendMessage(new TextComponentTranslation(TextFormatting.RED + "ark.err.structure"));
+	        player.sendMessage(new TextComponentTranslation("ark.err.structure"));
 	        return;
 	    }
 	    if (!DimensionManager.isDimensionRegistered(targetDim)) {
-	        player.sendMessage(new TextComponentTranslation(TextFormatting.RED + "ark.err.dim", targetDim));
+	        player.sendMessage(new TextComponentTranslation("ark.err.dim", targetDim));
 	        return;
 	    }
 	    
 		// ########## Checking the suppressor in the source world
 		if (SuppressorManager.isPositionBlocked(world, corePos)) {
-		    player.sendMessage(new TextComponentTranslation(TextFormatting.RED + "qts.no_tp"));
+		    player.sendMessage(new TextComponentTranslation("qts.no_tp"));
 		    return;
 		}
 
@@ -133,7 +134,7 @@ public class ArkTransferHelper {
         int maxY = coreTargetY + 2;
         final int border = 29999996;
         if ((minY < 3 || maxY > 253) || (Math.abs(targetX) > border || Math.abs(targetZ) > border)) {
-            player.sendMessage(new TextComponentTranslation(TextFormatting.RED + "ark.err.aow"));
+            player.sendMessage(new TextComponentTranslation("ark.err.aow"));
             return;
         }
         // Check X,Z boundaries (standard)
@@ -141,7 +142,7 @@ public class ArkTransferHelper {
         // 4. Get target world
 	    WorldServer targetWorld = player.getServer().getWorld(targetDim);
 	    if (targetWorld == null) {
-	        player.sendMessage(new TextComponentTranslation(TextFormatting.RED + "ark.err.target_world"));
+	        player.sendMessage(new TextComponentTranslation("ark.err.target_world"));
 	        return;
 	    }
 
@@ -160,7 +161,7 @@ public class ArkTransferHelper {
 		// ########## Checking the suppressor in the target world (after receiving targetWorld and corePosTarget)
 		//targetWorld.getChunk(corePosTarget);
 		if (SuppressorManager.isPositionBlocked(targetWorld, corePosTarget)) {
-		    player.sendMessage(new TextComponentTranslation(TextFormatting.RED + "qts.no_tp_target"));
+		    player.sendMessage(new TextComponentTranslation("qts.no_tp_target"));
 		    return;
 		}
 
@@ -169,7 +170,7 @@ public class ArkTransferHelper {
             IBlockState state = targetWorld.getBlockState(p);
             if (state.getBlockHardness(targetWorld, p) < 0) { // hardness < 0 => unbreakable
             	System.out.println("[Ark] ERROR: Unbreakable block at " + p);
-                player.sendMessage(new TextComponentTranslation(TextFormatting.RED + "ark.err.unbreakable_target",  state.getBlock().getLocalizedName()));
+                player.sendMessage(new TextComponentTranslation("ark.err.unbreakable_target",  state.getBlock().getLocalizedName()));
                 return;
             }
         }
@@ -372,7 +373,7 @@ public class ArkTransferHelper {
         }
 
         // Notify the player
-        player.sendMessage(new TextComponentTranslation(TextFormatting.GREEN + "ark.success"));
+        player.sendMessage(new TextComponentTranslation("ark.success"));
 
     }
 

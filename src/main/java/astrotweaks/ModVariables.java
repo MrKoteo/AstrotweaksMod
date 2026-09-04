@@ -19,6 +19,10 @@ import java.util.*;
 
 public class ModVariables {
 	public ModVariables() {}
+	public static boolean EnableProgressionSystem = false;
+	public static boolean AstroTech_Environment = false;
+
+
 	//								   МИНУТ * сек * тик
 	public static int GG_MIN_DELAY_TICK = 5 * 60 * 20; // 5 minutes
 	public static int GG_MAX_DELAY_TICK = 15 * 60 * 20; // 15 minutes
@@ -42,6 +46,7 @@ public class ModVariables {
 	public static boolean Extra_Drops_All = true;
 
 	public static boolean Raw_Meat_Negative_Effects = true;
+	public static boolean Food_Negative_Effects = true;
 
 	public static boolean Enable_Depths_Dimension = true;
 	public static boolean Enable_Depths_Dim_Bedrock_TP = true;
@@ -68,10 +73,14 @@ public class ModVariables {
 
 	public static boolean Money_Can_Smelt = true;
 	public static boolean Money_Can_Craft = true;
+	public static boolean Money_Can_Conversion = true;
+	public static int Money_ConvCount = 10;
 
 	public static boolean OW_Minerals_Gen = true;
 	public static boolean OW_Ruby_Gen = true;
 	public static boolean OW_Quartz_Gen = true;
+
+	public static int QTS_Max_Range = 8192;
 
 
 	/// TEH

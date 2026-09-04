@@ -31,6 +31,11 @@ public class ProcedureMTConvert {
     private static final Random RAND = new Random();
 
     private static final boolean Money_Can_Craft = ModVariables.Money_Can_Craft;
+    private static final boolean Money_Can_Conversion = ModVariables.Money_Can_Conversion;
+
+    private static final int ConvCount = ModVariables.Money_ConvCount;
+
+
 
     public ProcedureMTConvert() {}
 
@@ -47,6 +52,7 @@ public class ProcedureMTConvert {
     // Ensure the maps are filled when items are already registered -> avoid "null" keys
     private static void ensureMapsInitialized() {
         if (mapsInitialized) return;
+        if (!Money_Can_Conversion) return;
         UPGRADE_MAP.put(ATItems.COPPER_COIN, ATItems.SILVER_COIN);
         UPGRADE_MAP.put(ATItems.SILVER_COIN, ATItems.GOLD_COIN);
         UPGRADE_MAP.put(ATItems.GOLD_COIN, ATItems.PLATINUM_COIN);
@@ -122,7 +128,7 @@ public class ProcedureMTConvert {
             }
         }
     }
-    public static void executeProcedure(int x, int y, int z, World world) {
+    public static void exect(int x, int y, int z, World world) {
 
         BlockPos pos = new BlockPos(x, y, z);
 
@@ -141,7 +147,6 @@ public class ProcedureMTConvert {
 		} else if (canProcessDowngrade(te) && processDowngradeConversion(te)) {
 		    did = true;
 		}
-
 		if (did) damageGavel(te, 4);
     }
 
@@ -153,7 +158,6 @@ public class ProcedureMTConvert {
 	    COPPER_PLATE_ORES = ores == null ? Collections.emptyList() : new ArrayList<>(ores);
 	}
 
-
     private static boolean canProcessUpgrade(TileEntity te) {
         //ItemStack slot0Stack = safeGetSlotItemStack(world, pos, 0);
 
@@ -161,7 +165,7 @@ public class ProcedureMTConvert {
 		ItemStack slot1Stack = safeGetSlotItemStack(te, 1);
 		if (slot0Stack.isEmpty()) return false;
 
-        if (isCopperPlate(slot0Stack)) { // check for CopperPlate
+        if (isCopperPlate(slot0Stack) && Money_Can_Craft) { // check for CopperPlate
             if (slot1Stack.isEmpty()) return true;
             if (slot1Stack.getItem() != ATItems.COPPER_COIN) return false;
             return slot1Stack.getCount() + 1 <= slot1Stack.getMaxStackSize();
@@ -171,9 +175,7 @@ public class ProcedureMTConvert {
 	    Item outputItem = UPGRADE_MAP.get(inputItem);
 	    if (outputItem == null) return false;
 
-        int required = 10;
-        if (slot0Stack.getCount() < required) return false;
-
+        if (slot0Stack.getCount() < ConvCount) return false;
 
         if (slot1Stack.isEmpty()) return true;
         if (slot1Stack.getItem() != outputItem) return false;
@@ -183,7 +185,7 @@ public class ProcedureMTConvert {
         ItemStack slot0Stack = safeGetSlotItemStack(te, 0);
         if (slot0Stack.isEmpty()) return false;
 
-		if (isCopperPlate(slot0Stack)) {
+		if (isCopperPlate(slot0Stack) && Money_Can_Craft) {
             // rem 1 copper plate
             decreaseSlot(te, 0, 1);
             
@@ -200,8 +202,8 @@ public class ProcedureMTConvert {
         Item outputItem = UPGRADE_MAP.get(inputItem);
         if (outputItem == null) return false;
 
-        int removeCount = 10;
-        decreaseSlot(te, 0, removeCount);
+
+        decreaseSlot(te, 0, ConvCount);
 
         ItemStack outStack = safeGetSlotItemStack(te, 1);
         int newCount = (outStack.isEmpty() ? 0 : outStack.getCount()) + 1;
@@ -214,7 +216,6 @@ public class ProcedureMTConvert {
 		} else {
 		    setSlotItem(te, 1, new ItemStack(outputItem, newCount));
 		}
-
         return true;
     }
 
@@ -230,7 +231,7 @@ public class ProcedureMTConvert {
         //ItemStack slot3Stack = safeGetSlotItemStack(world, pos, 3);
         if (slot3Stack.isEmpty()) return true;
         if (slot3Stack.getItem() != outputItem) return false;
-        return slot3Stack.getCount() + 10 <= slot3Stack.getMaxStackSize();
+        return slot3Stack.getCount() + ConvCount <= slot3Stack.getMaxStackSize();
     }
     private static boolean processDowngradeConversion(TileEntity te) {
         ItemStack slot2Stack = safeGetSlotItemStack(te, 2);
@@ -242,7 +243,7 @@ public class ProcedureMTConvert {
         decreaseSlot(te, 2, 1);
 
         ItemStack outStack = safeGetSlotItemStack(te, 3);
-        int newCount = (outStack.isEmpty() ? 0 : outStack.getCount()) + 10;
+        int newCount = (outStack.isEmpty() ? 0 : outStack.getCount()) + ConvCount;
         int max = (outStack.isEmpty() ? outputItem.getItemStackLimit(new ItemStack(outputItem, 1)) : outStack.getMaxStackSize());
         if (newCount > max) newCount = max;
         //setSlotItem(te, 3, new ItemStack(outputItem, newCount));
@@ -252,7 +253,6 @@ public class ProcedureMTConvert {
 		} else {
 		    setSlotItem(te, 3, new ItemStack(outputItem, newCount));
 		}
-
         return true;
     }
 }

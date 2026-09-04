@@ -44,8 +44,8 @@ public class ConfigManager {
 			config.load();
 
 			// Boolean with safe fallback
-			AstrotweaksModVariables.AstroTech_Environment = safeGetBoolean(config, "AstroTech_Environment", "Astro_Tech", false, "AstroTech Environment (y/n)");
-			AstrotweaksModVariables.EnableProgressionSystem = safeGetBoolean(config, "EnableProgressionSystem", "Astro_Tech", false, "Enable Progression System (y/n)");
+			ModVariables.AstroTech_Environment = safeGetBoolean(config, "AstroTech_Environment", "Astro_Tech", false, "AstroTech Environment (y/n)");
+			ModVariables.EnableProgressionSystem = safeGetBoolean(config, "EnableProgressionSystem", "Astro_Tech", false, "Enable Progression System (y/n)");
 
 			ModVariables.Enable_SnowVillages = safeGetBoolean(config, "Enable_SnowVillages", "generation", ModVariables.Enable_SnowVillages, "Enable Snow Villages generation (y/n)");
 			ModVariables.Enable_ForestVillages = safeGetBoolean(config, "Enable_ForestVillages", "generation", ModVariables.Enable_ForestVillages, "Enable Forest Villages generation (y/n)");
@@ -81,11 +81,15 @@ public class ConfigManager {
 			ModVariables.Better_Smelting = safeGetBoolean(config, "Better_Smelting", "misc", ModVariables.Better_Smelting, "Enable more smelting recipes? (y/n)");
 			ModVariables.Money_Can_Smelt = safeGetBoolean(config, "Money_Can_Smelt", "misc", ModVariables.Money_Can_Smelt, "Can coins be melted down (y/n)");
 			ModVariables.Money_Can_Craft = safeGetBoolean(config, "Money_Can_Craft", "misc", ModVariables.Money_Can_Craft, "Can copper coins be crafted at the MoneyTable from a copper plate (y/n)");
-			AstrotweaksModVariables.Food_Negative_Effects = safeGetBoolean(config, "Food_Negative_Effects", "misc", AstrotweaksModVariables.Food_Negative_Effects, "Will poisonous food have more violent effects? (y/n)");
+			ModVariables.Food_Negative_Effects = safeGetBoolean(config, "Food_Negative_Effects", "misc", ModVariables.Food_Negative_Effects, "Will poisonous food have more violent effects? (y/n)");
 			ModVariables.Raw_Meat_Negative_Effects = safeGetBoolean(config, "Raw_Meat_Negative_Effects", "misc", ModVariables.Raw_Meat_Negative_Effects, "Will raw meat be less edible? (y/n)");
 			ModVariables.doRegisterMinedBlocks = safeGetBoolean(config, "doRegisterMinedBlocks", "misc", ModVariables.doRegisterMinedBlocks, "Register mined(trapped) blocks? (y/n)");
 			ModVariables.Extra_Drops_Grass = safeGetBoolean(config, "Extra_Drops_Grass", "misc", ModVariables.Extra_Drops_Grass, "Should process additional drops from grass? (y/n)");
 			ModVariables.Extra_Drops_All = safeGetBoolean(config, "Extra_Drops_All", "misc", ModVariables.Extra_Drops_All, "Should extra drops be processed in general? (y/n)");
+			ModVariables.QTS_Max_Range = safeGetInt(config, "QTS_Max_Range", "misc", ModVariables.QTS_Max_Range, 1, 16384, "Maximum range of Quantum TP Supressor (1-16384)");
+			ModVariables.Money_Can_Conversion = safeGetBoolean(config, "Money_Can_Conversion", "misc", ModVariables.Money_Can_Conversion, "Can coins be converted in Money Table? (y/n)");
+			ModVariables.Money_ConvCount = safeGetInt(config, "Money_ConvCount", "misc", ModVariables.Money_ConvCount, 1, 50, "Maximum number of coins that can be processed at one conv (1-50)");
+
 
 			ModVariables.Enable_Depths_Dimension = safeGetBoolean(config, "Enable_Depths_Dimension", "world", ModVariables.Enable_Depths_Dimension, "Should register Depths dimension? (y/n)");
 			ModVariables.Enable_Depths_Dim_Bedrock_TP = safeGetBoolean(config, "Enable_Depths_Dim_Bedrock_TP", "world", ModVariables.Enable_Depths_Dim_Bedrock_TP, "Allow access to the Depths via Bedrock? (y/n)");
@@ -106,6 +110,18 @@ public class ConfigManager {
 
 			ModVariables.Remove_METS_engineer = safeGetBoolean(config, "Remove_METS_engineer", "mods", ModVariables.Remove_METS_engineer, "Remove trades of Engineer villager (MoreElectricTools)");
 			ModVariables.Rem_Gravestone_Note = safeGetBoolean(config, "Remove_Gravestone_Note", "mods", ModVariables.Rem_Gravestone_Note, "Removes a Gravestone paper when dropped by a player");
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 			Set<ResourceLocation> sgb = new HashSet<>();

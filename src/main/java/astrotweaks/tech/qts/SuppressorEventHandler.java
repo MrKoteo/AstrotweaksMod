@@ -174,6 +174,6 @@ public class SuppressorEventHandler {
 	    return Integer.parseInt(s);
 	}
 	private static void act_msg(EntityPlayerMP player) {
-	    player.connection.sendPacket(new SPacketChat(new TextComponentTranslation(TextFormatting.RED + "qts.no_tp"), ChatType.GAME_INFO));
+	    player.connection.sendPacket(new SPacketChat(new TextComponentTranslation("qts.no_tp"), ChatType.GAME_INFO));
 	}
 }

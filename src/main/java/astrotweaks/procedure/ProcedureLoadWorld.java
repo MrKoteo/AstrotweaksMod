@@ -15,6 +15,7 @@ import net.minecraft.command.ICommandSender;
 
 import astrotweaks.ElementsAstrotweaksMod;
 import astrotweaks.AstrotweaksModVariables;
+import astrotweaks.ModVariables;
 
 @ElementsAstrotweaksMod.ModElement.Tag
 public class ProcedureLoadWorld extends ElementsAstrotweaksMod.ModElement {
@@ -59,7 +60,7 @@ public class ProcedureLoadWorld extends ElementsAstrotweaksMod.ModElement {
 	@SubscribeEvent
 	public void onWorldLoad(WorldEvent.Load event) {
 		World world = event.getWorld();
-		if (AstrotweaksModVariables.AstroTech_Environment && !AstrotweaksModVariables.MapVariables.get(world).Marked) {exect(world, event); }
+		if (ModVariables.AstroTech_Environment && !AstrotweaksModVariables.MapVariables.get(world).Marked) {exect(world, event); }
 	}
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {

@@ -30,6 +30,7 @@ import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.Block;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.WorldServer;
 import net.minecraft.util.ITickable;
@@ -114,6 +115,10 @@ public class BlockArk extends ElementsAstrotweaksMod.ModElement {
 	    private BlockPos terminalPos; // BlockArk pos
 	    private EntityPlayerMP triggeringPlayer;
 
+		private final int border = 29999996;
+		private final int max_delay = 1728000;
+
+
 	    // getters & setters
 	    public int getTargetDim() { return targetDim; }
 		public void setTargetDim(int dim) {
@@ -180,7 +185,7 @@ public class BlockArk extends ElementsAstrotweaksMod.ModElement {
 	    }
 	    public int getDelayTicks() { return delayTicks; }
 	    public void setDelayTicks(int delay) {
-	        this.delayTicks = Math.min(1728000, Math.max(5, delay)); // limit
+	        this.delayTicks = Math.min(max_delay, Math.max(5, delay)); // limit
 	        markDirty();
 	        if (world != null && !world.isRemote) {
 	            IBlockState state = world.getBlockState(pos);
@@ -191,16 +196,16 @@ public class BlockArk extends ElementsAstrotweaksMod.ModElement {
 	    public void startDelayedTransfer(EntityPlayerMP player,BlockPos termPos,int dim,int x,int y,int z,boolean clearMode,boolean captureEntities,boolean captureItems,int delay) {
 		    BlockPos corePos = ArkTransferHelper.findCore(world, termPos);
 		    if (corePos == null) {
-		        player.sendMessage(new TextComponentTranslation(TextFormatting.RED + "ark.err.structure"));
+		        player.sendMessage(new TextComponentTranslation("ark.err.structure").setStyle(new Style().setColor(TextFormatting.RED)));
 		        return;
 		    }
 		    if (!DimensionManager.isDimensionRegistered(dim)) {
-		        player.sendMessage(new TextComponentTranslation(TextFormatting.RED + "ark.err.dim", dim));
+		        player.sendMessage(new TextComponentTranslation("ark.err.dim", dim).setStyle(new Style().setColor(TextFormatting.RED)));
 		        return;
 		    }
 		    WorldServer targetWorld = player.getServer().getWorld(dim);
 		    if (targetWorld == null) {
-		        player.sendMessage(new TextComponentTranslation(TextFormatting.RED + "ark.err.target_world"));
+		        player.sendMessage(new TextComponentTranslation("ark.err.target_world").setStyle(new Style().setColor(TextFormatting.RED)));
 		        return;
 		    }
 
@@ -212,7 +217,6 @@ public class BlockArk extends ElementsAstrotweaksMod.ModElement {
 		
 		    int minY = coreTargetY - 2;
 		    int maxY = coreTargetY + 2;
-		    final int border = 29999996;
 		    if ((minY < 3 || maxY > 253) || (Math.abs(x) > border || Math.abs(z) > border)) {
 		        return;
 		    }

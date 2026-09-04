@@ -12,12 +12,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.client.Minecraft;
 
 public class AstrotweaksModVariables {
-	public static boolean EnableProgressionSystem = false;
-	public static boolean AstroTech_Environment = false;
-	public static boolean Overworld_Quartz_Gen = true;
-	//public static boolean Money_Can_Smelt = true;
-	//public static boolean Money_Can_Craft = true;
-	public static boolean Food_Negative_Effects = true;
+
+	//public static boolean Food_Negative_Effects = true;
 
 	public static class MapVariables extends WorldSavedData {
 		public static final String DATA_NAME = "astrotweaks_mapvars";

@@ -20,6 +20,7 @@ import net.minecraft.client.gui.GuiScreen;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.WorldServer;
@@ -131,7 +132,7 @@ public class ArkGUI extends ElementsAstrotweaksMod.ModElement {
 	            } catch (NumberFormatException e) {
 	                parseOk = false;
 	                if (message.buttonID == 0) {
-	                    player.sendMessage(new TextComponentTranslation(TextFormatting.RED + "ark.invalid_coords"));
+	                    player.sendMessage(new TextComponentTranslation("ark.invalid_coords"));
 	                }
 	            }
 	
@@ -216,7 +217,15 @@ public class ArkGUI extends ElementsAstrotweaksMod.ModElement {
 	        TW_Z.drawTextBox();
 	        delayField.drawTextBox();
 	        // Draw the title
-	        fontRenderer.drawString(I18n.format("ark.interface"), k + 40, l + 5, 0x8020FF);
+	        fontRenderer.drawString(I18n.format("ark.interface"), k + 35, l + 5, 0x8020FF);
+
+			// Добавить подсказки рядом с полями вввода
+
+			fontRenderer.drawString("DimID", k + 60, l + 22, 0xEEEEEE);
+			fontRenderer.drawString("X", k + 60, l + 46, 0xEEEEEE);
+			fontRenderer.drawString("Y", k + 60, l + 70, 0xEEEEEE);
+			fontRenderer.drawString("Z", k + 60, l + 94, 0xEEEEEE);
+			fontRenderer.drawString("Delay", k + 60, l + 118,0xEEEEEE);
 	    }
 	    @Override
 	    public void updateScreen() {
@@ -259,45 +268,46 @@ public class ArkGUI extends ElementsAstrotweaksMod.ModElement {
 	        Keyboard.enableRepeatEvents(true);
 	        buttonList.clear();
 		
-		    if (teArk != null) {
-		        clearMode = teArk.getClearMode();
-		        captureEntities = teArk.getCaptureEntities();
-		        captureItems = teArk.getCaptureItems();
+			// ну типа TE всегда определён
+		    //if (teArk != null) {
+			clearMode = teArk.getClearMode();
+			captureEntities = teArk.getCaptureEntities();
+			captureItems = teArk.getCaptureItems();
 		        //delayTicks = teArk.getDelayTicks();
-		    }
+		    //}
 
-		    TargetDimID = new GuiTextField(0, fontRenderer, k + 14, l + 20, 45, 12);
-		    TargetDimID.setMaxStringLength(8);
+		    TargetDimID = new GuiTextField(0, fontRenderer, k + 11, l + 20, 45, 12);
+		    TargetDimID.setMaxStringLength(9);
 		    TargetDimID.setText(teArk != null ? String.valueOf(teArk.getTargetDim()) : "0");
 
-		    TW_X = new GuiTextField(1, fontRenderer, k + 14, l + 44, 45, 12);
+		    TW_X = new GuiTextField(1, fontRenderer, k + 11, l + 44, 45, 12);
 		    TW_X.setMaxStringLength(8);
 		    TW_X.setText(teArk != null ? String.valueOf(teArk.getTargetX()) : "0");
 
-		    TW_Y = new GuiTextField(2, fontRenderer, k + 14, l + 68, 45, 12);
+		    TW_Y = new GuiTextField(2, fontRenderer, k + 11, l + 68, 45, 12);
 		    TW_Y.setMaxStringLength(8);
 		    TW_Y.setText(teArk != null ? String.valueOf(teArk.getTargetY()) : "65");
 
-		    TW_Z = new GuiTextField(3, fontRenderer, k + 14, l + 92, 45, 12);
+		    TW_Z = new GuiTextField(3, fontRenderer, k + 11, l + 92, 45, 12);
 		    TW_Z.setMaxStringLength(8);
 		    TW_Z.setText(teArk != null ? String.valueOf(teArk.getTargetZ()) : "0");
 
-		    btnClearMode = new GuiButton(1, k + 90, l + 20, 48, 18, getClearModeText());
+		    btnClearMode = new GuiButton(1, k + 90, l + 20, 50, 18, getClearModeText());
 		    buttonList.add(btnClearMode);
 
-		    btnCaptureEntities = new GuiButton(2, k + 90, l + 44, 48, 18, getCaptureEntitiesText());
+		    btnCaptureEntities = new GuiButton(2, k + 90, l + 44, 50, 18, getCaptureEntitiesText());
 		    buttonList.add(btnCaptureEntities);
 
-		    btnCaptureItems = new GuiButton(3, k + 90, l + 68, 48, 18, getCaptureItemsText());
+		    btnCaptureItems = new GuiButton(3, k + 90, l + 68, 50, 18, getCaptureItemsText());
 		    buttonList.add(btnCaptureItems);
 		
-		    delayField = new GuiTextField(4, fontRenderer, k + 14, l + 116, 45, 12);
+		    delayField = new GuiTextField(4, fontRenderer, k + 11, l + 116, 45, 12);
 		    delayField.setMaxStringLength(6);
-		    delayField.setText(teArk != null ? String.valueOf(teArk.getDelayTicks()) : "0");
+		    delayField.setText(teArk != null ? String.valueOf(teArk.getDelayTicks()) : "5");
 
 			updateButtonsDisplay();
 
-	        buttonList.add(new GuiButton(0, k + 150, l + 55, 36, 20, "SEND"));
+	        buttonList.add(new GuiButton(0, k + 150, l + 58, 36, 20, I18n.format("ark.send")));
 	    }
 
 	    private String getClearModeText() {
@@ -321,7 +331,6 @@ public class ArkGUI extends ElementsAstrotweaksMod.ModElement {
 		    if (btnCaptureEntities != null) btnCaptureEntities.displayString = getCaptureEntitiesText();
 		    if (btnCaptureItems != null) btnCaptureItems.displayString = getCaptureItemsText();
 		}
-
 	    @Override
 	    protected void actionPerformed(GuiButton button) throws IOException {
 	        if (button.id == 0) { // SEND

@@ -42,7 +42,7 @@ public class CombinedFuelHandler {
 
         new FuelEntry(Item.getItemFromBlock(Blocks.DOUBLE_PLANT), 40),
         new FuelEntry(Items.FEATHER, 20),
-        new FuelEntry(ItemPlantFiber.block, 40),
+        new FuelEntry(ATItems.PLANT_FIBER, 40),
         new FuelEntry(ATItems.CORDAGE_FIBER, 60),
         new FuelEntry(ATItems.DRAWING, 60),
         new FuelEntry(Items.STRING, 20),

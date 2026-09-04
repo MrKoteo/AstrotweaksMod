@@ -124,19 +124,6 @@ public class BlockGroundRock1 extends ElementsAstrotweaksMod.ModElement {
 
 		@Override
 		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-			/*
-			switch ((EnumFacing) state.getValue(BlockHorizontal.FACING)) {
-				case SOUTH :
-				default :
-					return new AxisAlignedBB(0.875, 0, 0.875, 0.375, 0.25, 0.375);
-				case NORTH :
-					return new AxisAlignedBB(0.125, 0, 0.125, 0.625, 0.25, 0.625);
-				case EAST :
-					return new AxisAlignedBB(0.875, 0, 0.125, 0.375, 0.25, 0.625);
-				case WEST :
-					return new AxisAlignedBB(0.125, 0, 0.875, 0.625, 0.25, 0.375);
-			}
-*/
 			return new AxisAlignedBB(0.3125, 0.0, 0.3125, 0.6875, 0.250, 0.6875);
 		}
 

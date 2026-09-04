@@ -108,14 +108,14 @@ public class UOredictRegistrar {
 		OreDictionary.registerOre("banner", new ItemStack(Items.BANNER, 1, 15));
 	}
 	private static void OreBlocks() {
-		OreDictionary.registerOre("blockRuby", new ItemStack(BlockRubyBlock.block, 1));
-		OreDictionary.registerOre("blockBrass", new ItemStack(BlockBrassBlock.block, 1));
-		OreDictionary.registerOre("blockMineralSteel", new ItemStack(BlockMineralSteel.block, 1));
+		OreDictionary.registerOre("blockRuby", new ItemStack(ATBlocks.RUBY_BLOCK, 1));
+		OreDictionary.registerOre("blockBrass", new ItemStack(ATBlocks.BRASS_BLOCK, 1));
+		OreDictionary.registerOre("blockMineralSteel", new ItemStack(ATBlocks.MINERAL_STEEL, 1));
 
-		OreDictionary.registerOre("stone", new ItemStack(BlockDeepslate.block, 1));
-		OreDictionary.registerOre("cobblestone", new ItemStack(BlockCobbledDeepslate.block, 1));
-		OreDictionary.registerOre("dirt", new ItemStack(BlockDirtBricks.block, 1));
-		OreDictionary.registerOre("blockNetherStar", new ItemStack(BlockNetherstarBlock.block, 1));
+		OreDictionary.registerOre("stone", new ItemStack(ATBlocks.DEEPSLATE, 1));
+		OreDictionary.registerOre("cobblestone", new ItemStack(ATBlocks.COBBLED_DEEPSLATE, 1));
+		OreDictionary.registerOre("dirt", new ItemStack(ATBlocks.DIRT_BRICKS, 1));
+		OreDictionary.registerOre("blockNetherStar", new ItemStack(ATBlocks.NETHERSTAR_BLOCK, 1));
 
 		OreDictionary.registerOre("hardenedClay", new ItemStack(Blocks.HARDENED_CLAY, 1));
 		OreDictionary.registerOre("hardenedClay", new ItemStack(Blocks.STAINED_HARDENED_CLAY, 1));
