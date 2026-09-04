@@ -20,8 +20,8 @@ public class RecipeSmeltingAll {
 	public RecipeSmeltingAll() {}
 
 	public static void init() {
-		GameRegistry.addSmelting(new ItemStack(BlockRubyOre.block, (int) (1)), new ItemStack(ItemRuby.block, (int) (1)), 1F);
-		GameRegistry.addSmelting(new ItemStack(ItemCordageVine.block, (int) (1)), new ItemStack(ItemCordageFiber.block, (int) (1)), 0.1F);
+		GameRegistry.addSmelting(new ItemStack(BlockRubyOre.block, (int) (1)), new ItemStack(ATItems.RUBY, (int) (1)), 1F);
+		GameRegistry.addSmelting(new ItemStack(ATItems.CORDAGE_VINE, (int) (1)), new ItemStack(ATItems.CORDAGE_FIBER, (int) (1)), 0.1F);
 		GameRegistry.addSmelting(new ItemStack(BlockCompressedSand.block, (int) (1)), new ItemStack(Blocks.QUARTZ_BLOCK, (int) (1), 0), 0.5F);
 
 		GameRegistry.addSmelting(new ItemStack(Items.FISH, (int) (1), 2), new ItemStack(ItemCoockedTropicalFish.block, (int) (1)), 0.6F);
@@ -30,9 +30,9 @@ public class RecipeSmeltingAll {
 		GameRegistry.addSmelting(new ItemStack(BlockQuartzOreStone.block, (int) (1)), new ItemStack(Items.QUARTZ, (int) (1)), 1F);
 		GameRegistry.addSmelting(new ItemStack(BlockQuartzOreGranite.block, (int) (1)), new ItemStack(Items.QUARTZ, (int) (1)), 1F);
 		
-		GameRegistry.addSmelting(new ItemStack(ItemBrassDust.block, (int) (1)), new ItemStack(ItemBrassIngot.block, (int) (1)), 0F);
+		GameRegistry.addSmelting(new ItemStack(ATItems.BRASS_DUST, (int) (1)), new ItemStack(ATItems.BRASS_INGOT, (int) (1)), 0F);
 
-		GameRegistry.addSmelting(new ItemStack(ItemClayBrick.block, (int) (1)), new ItemStack(Items.BRICK, (int) (1)), 0.5F);
+		GameRegistry.addSmelting(new ItemStack(ATItems.CLAY_BRICK, (int) (1)), new ItemStack(Items.BRICK, (int) (1)), 0.5F);
 		GameRegistry.addSmelting(new ItemStack(BlockCobbledDeepslate.block, (int) (1)), new ItemStack(BlockDeepslate.block, (int) (1)), 0.5F);
 		GameRegistry.addSmelting(new ItemStack(BlockDeepslate.block, (int) (1)), new ItemStack(BlockDeepslateTiles.block, (int) (1)), 0.5F);
 
@@ -77,7 +77,7 @@ public class RecipeSmeltingAll {
             }
 
             if (!output.isEmpty()) {
-                GameRegistry.addSmelting(new ItemStack(ItemCopperCoin.block, 1), output, 0F);
+                GameRegistry.addSmelting(new ItemStack(ATItems.COPPER_COIN, 1), output, 0F);
             }
 		}
 	}

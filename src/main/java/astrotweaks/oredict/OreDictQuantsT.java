@@ -15,7 +15,7 @@ public class OreDictQuantsT {
         registerQuantItems("singleQuant",
             ItemAlphaQuant.block, ItemBetaQuant.block, ItemGammaQuant.block, ItemDeltaQuant.block,
             ItemStrangeQuant.block,
-            ItemNullQuant.block
+            ATItems.NULL_QUANT
         );
 
         //registerQuantItems("doubleQuant",
@@ -23,19 +23,19 @@ public class OreDictQuantsT {
 
         registerQuantItems("tripleQuant",
 
-			ItemTripleABGQuant.block,
-            ItemTripleABDQuant.block,
-            ItemTripleAGDQuant.block,
-			ItemTripleBGDQuant.block
+			ATItems.TRIPLE_ABD_QUANT,
+            ATItems.TRIPLE_ABG_QUANT,
+            ATItems.TRIPLE_AGD_QUANT,
+			ATItems.TRIPLE_BGD_QUANT
         );
 
         registerQuantItems("quadQuant",
 
-            ItemQuadABGDQuant.block,
-            ItemQuadAAAAQuant.block,
-            ItemQuadBBBBQuant.block,
-            ItemQuadGGGGQuant.block,
-            ItemQuadDDDDQuant.block
+            ATItems.QUAD_AAAA_QUANT,
+            ATItems.QUAD_ABGD_QUANT,
+            ATItems.QUAD_BBBB_QUANT,
+            ATItems.QUAD_GGGG_QUANT,
+            ATItems.QUAD_DDDD_QUANT
         );
     }
 

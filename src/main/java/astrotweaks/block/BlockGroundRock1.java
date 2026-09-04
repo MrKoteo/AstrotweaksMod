@@ -1,4 +1,5 @@
-package astrotweaks.block;
+
+package astrotweaks.block;
 
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
@@ -49,8 +50,9 @@ import javax.annotation.Nullable;
 
 import java.util.Random;
 
-import astrotweaks.item.ItemRock;
-import astrotweaks.AstrotweaksModVariables;
+import astrotweaks.item.ATItems;
+
+import astrotweaks.AstrotweaksModVariables;
 import astrotweaks.ModVariables;
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -133,7 +135,8 @@ public class BlockGroundRock1 extends ElementsAstrotweaksMod.ModElement {
 					return new AxisAlignedBB(0.875, 0, 0.125, 0.375, 0.25, 0.625);
 				case WEST :
 					return new AxisAlignedBB(0.125, 0, 0.875, 0.625, 0.25, 0.375);
-			}*/
+			}
+*/
 			return new AxisAlignedBB(0.3125, 0.0, 0.3125, 0.6875, 0.250, 0.6875);
 		}
 
@@ -195,7 +198,7 @@ public class BlockGroundRock1 extends ElementsAstrotweaksMod.ModElement {
 		
 		@Override
 		public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		    drops.add(new ItemStack(ItemRock.block, (int) (1)));
+		    drops.add(new ItemStack(ATItems.ROCK, (int) (1)));
 		}
 
 		/*
@@ -245,7 +248,7 @@ public class BlockGroundRock1 extends ElementsAstrotweaksMod.ModElement {
 				&& ((world.getBlockState(new BlockPos((int) x, (int) (y - 1), (int) z))).getBlock() == Blocks.AIR.getDefaultState().getBlock()))) {
 				world.setBlockToAir(new BlockPos((int) x, (int) y, (int) z));
 
-					EntityItem entityToSpawn = new EntityItem(world, (x + 0.5), (y + 0.5), (z + 0.5), new ItemStack(ItemRock.block, (int) (1)));
+					EntityItem entityToSpawn = new EntityItem(world, (x + 0.5), (y + 0.5), (z + 0.5), new ItemStack(ATItems.ROCK, (int) (1)));
 					entityToSpawn.setPickupDelay(10);
 					world.spawnEntity(entityToSpawn);
 
@@ -267,7 +270,7 @@ public class BlockGroundRock1 extends ElementsAstrotweaksMod.ModElement {
 			
 			world.setBlockToAir(new BlockPos((int) x, (int) y, (int) z));
 			if (!world.isRemote) {
-				EntityItem entityToSpawn = new EntityItem(world, (x + 0.5), (y + 0.5), (z + 0.5), new ItemStack(ItemRock.block, (int) (1)));
+				EntityItem entityToSpawn = new EntityItem(world, (x + 0.5), (y + 0.5), (z + 0.5), new ItemStack(ATItems.ROCK, (int) (1)));
 				entityToSpawn.setPickupDelay(10);
 				world.spawnEntity(entityToSpawn);
 			}

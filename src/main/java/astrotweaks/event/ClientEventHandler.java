@@ -7,6 +7,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraft.block.Block;
 
+import javax.management.RuntimeErrorException;
+
 import astrotweaks.block.BlockBush1;
 //import astrotweaks.block.BlockBush2;
 import astrotweaks.block.BlockBush6;
@@ -20,8 +22,7 @@ public class ClientEventHandler {
     static final Block[] GRASS_COLOR_BLOCKS = new Block[] {
         BlockBush1.block,
         //BlockBush2.block,
-        BlockBush6.block,
-        BlockGiantGrass.block
+        BlockBush6.block
     };
 
     @SubscribeEvent
@@ -35,6 +36,18 @@ public class ClientEventHandler {
             },
             GRASS_COLOR_BLOCKS // varargs array
         );
+        event.getBlockColors().registerBlockColorHandler(
+            (state, world, pos, tintIndex) -> {
+                try {
+                    return BiomeColorHelper.getGrassColorAtPos(world, pos);
+                } catch(RuntimeException e) {
+                    e.printStackTrace();
+                    System.out.println("сука краш");
+                }
+                return 0x94C774;
+            },
+            BlockGiantGrass.block
+        );
     }
 
     @SubscribeEvent
@@ -42,7 +55,7 @@ public class ClientEventHandler {
         event.getItemColors().registerItemColorHandler(
             (stack, tintIndex) -> {
                 // Для инвентаря используем цвет по умолчанию (например, зелёный)
-                return 0x93C673;
+                return 0x94C774;
             },
             BlockGiantGrass.block
         );

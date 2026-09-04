@@ -200,18 +200,19 @@ public class MoneyTableJEIPlugin {
         ItemStack hammer = new ItemStack(ItemGavel.block);
 
         ItemStack[][] coinPairs = {
-                {new ItemStack(ItemWoodCoin.block), new ItemStack(ItemStoneCoin.block)},
-                {new ItemStack(ItemStoneCoin.block), new ItemStack(ItemCopperCoin.block)},
-                {new ItemStack(ItemCopperCoin.block), new ItemStack(ItemSilverCoin.block)},
-                {new ItemStack(ItemSilverCoin.block), new ItemStack(ItemGoldCoin.block)},
-                {new ItemStack(ItemGoldCoin.block), new ItemStack(ItemPlatinumCoin.block)},
-                {new ItemStack(ItemPlatinumCoin.block), new ItemStack(ItemDiamantCoin.block)},
-                {new ItemStack(ItemDiamantCoin.block), new ItemStack(ItemPalladiumCoin.block)},
-                {new ItemStack(ItemPalladiumCoin.block), new ItemStack(ItemEluniteCoin.block)},
-                {new ItemStack(ItemEluniteCoin.block), new ItemStack(ItemMythrilCoin.block)},
-                {new ItemStack(ItemMythrilCoin.block), new ItemStack(ItemAdamantiumCoin.block)},
-                {new ItemStack(ItemAdamantiumCoin.block), new ItemStack(ItemUniCoin.block)}
+                {new ItemStack(ATItems.WOOD_COIN), new ItemStack(ATItems.STONE_COIN)},
+                {new ItemStack(ATItems.STONE_COIN), new ItemStack(ATItems.COPPER_COIN)},
+                {new ItemStack(ATItems.COPPER_COIN), new ItemStack(ATItems.SILVER_COIN)},
+                {new ItemStack(ATItems.SILVER_COIN), new ItemStack(ATItems.GOLD_COIN)},
+                {new ItemStack(ATItems.GOLD_COIN), new ItemStack(ATItems.PLATINUM_COIN)},
+                {new ItemStack(ATItems.PLATINUM_COIN), new ItemStack(ATItems.DIAMANT_COIN)},
+                {new ItemStack(ATItems.DIAMANT_COIN), new ItemStack(ATItems.PALLADIUM_COIN)},
+                {new ItemStack(ATItems.PALLADIUM_COIN), new ItemStack(ATItems.ELUNITE_COIN)},
+                {new ItemStack(ATItems.ELUNITE_COIN), new ItemStack(ATItems.MYTHRIL_COIN)},
+                {new ItemStack(ATItems.MYTHRIL_COIN), new ItemStack(ATItems.ADAMANTIUM_COIN)},
+                {new ItemStack(ATItems.ADAMANTIUM_COIN), new ItemStack(ATItems.UNI_COIN)}
         };
+
 
 		//recipes.add(new RecipeWrapper(new ItemStack(ItemCopperPlate.block), new ItemStack(ItemCopperCoin.block), hammer, false));
 		
@@ -236,9 +237,9 @@ public class MoneyTableJEIPlugin {
 		        input = new ItemStack(first.getItem(), 1, meta);
 		        if (first.hasTagCompound()) input.setTagCompound(first.getTagCompound().copy());
 		    }
-		    recipes.add(new RecipeWrapper(input, new ItemStack(ItemCopperCoin.block), hammer, 2));
+		    recipes.add(new RecipeWrapper(input, new ItemStack(ATItems.COPPER_COIN), hammer, 2));
 		} else {
-		    recipes.add(new RecipeWrapper(new ItemStack(Blocks.BARRIER), new ItemStack(ItemCopperCoin.block), hammer, 2));
+		    recipes.add(new RecipeWrapper(new ItemStack(Blocks.BARRIER), new ItemStack(ATItems.COPPER_COIN), hammer, 2));
 		}
         return recipes;
     }

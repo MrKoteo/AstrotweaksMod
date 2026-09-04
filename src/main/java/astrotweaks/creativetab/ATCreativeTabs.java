@@ -1,6 +1,5 @@
 package astrotweaks.creativetab;
 
-import astrotweaks.item.ItemScience;
 import astrotweaks.item.ItemStrangeQuant;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -15,7 +14,7 @@ public final class ATCreativeTabs {
             @Override
             @SideOnly(Side.CLIENT)
             public ItemStack getTabIconItem() {
-                return new ItemStack(ItemScience.block, (int) (1));
+                return new ItemStack(astrotweaks.item.ATItems.SCIENCE, 1);
             }
             /*
             @SideOnly(Side.CLIENT)
@@ -29,7 +28,7 @@ public final class ATCreativeTabs {
 			@SideOnly(Side.CLIENT)
 			@Override
 			public ItemStack getTabIconItem() {
-				return new ItemStack(ItemStrangeQuant.block, (int) (1));
+				return new ItemStack(ItemStrangeQuant.block, 1);
 			}
 			/*
 			@SideOnly(Side.CLIENT)

@@ -43,8 +43,8 @@ public class CombinedFuelHandler {
         new FuelEntry(Item.getItemFromBlock(Blocks.DOUBLE_PLANT), 40),
         new FuelEntry(Items.FEATHER, 20),
         new FuelEntry(ItemPlantFiber.block, 40),
-        new FuelEntry(ItemCordageFiber.block, 60),
-        new FuelEntry(ItemDrawing.block, 60),
+        new FuelEntry(ATItems.CORDAGE_FIBER, 60),
+        new FuelEntry(ATItems.DRAWING, 60),
         new FuelEntry(Items.STRING, 20),
         new FuelEntry(Items.LEATHER, 50),
         new FuelEntry(Items.RABBIT_HIDE, 40),
@@ -58,7 +58,7 @@ public class CombinedFuelHandler {
         new FuelEntry(Items.NAME_TAG, 40),
         new FuelEntry(Items.ARROW, 30),
         new FuelEntry(Items.TIPPED_ARROW, 30),
-        new FuelEntry(ItemScheme.block, 100),
+        new FuelEntry(ATItems.SCHEME, 100),
         new FuelEntry(Item.getItemFromBlock(Blocks.DEADBUSH), 100),
         new FuelEntry(Items.PAINTING, 100),
         new FuelEntry(Items.ITEM_FRAME, 100),
@@ -92,14 +92,14 @@ public class CombinedFuelHandler {
 		new FuelEntry(Item.getItemFromBlock(BlockBush7.block), 40),
 		new FuelEntry(Item.getItemFromBlock(BlockFern1.block), 20),
 	
-        new FuelEntry(ItemStickBundle.block, 800),
-        new FuelEntry(ItemSomeBlazeRods.block, 19200),
-        new FuelEntry(ItemSomePaper.block, 320),
-        new FuelEntry(ItemSomeBooks.block, 800),
-        new FuelEntry(ItemSomeFeathers.block, 160),
-        new FuelEntry(ItemSomeLeather.block, 400),
-        new FuelEntry(ItemSomeArrows.block, 240),
-        new FuelEntry(ItemSomeStrings.block, 160)
+        new FuelEntry(ATItems.STICK_BUNDLE, 800),
+        new FuelEntry(ATItems.SOME_BLAZE_RODS, 19200),
+        new FuelEntry(ATItems.SOME_PAPER, 320),
+        new FuelEntry(ATItems.SOME_BOOKS, 800),
+        new FuelEntry(ATItems.SOME_FEATHERS, 160),
+        new FuelEntry(ATItems.SOME_LEATHER, 400),
+        new FuelEntry(ATItems.SOME_ARROWS, 240),
+        new FuelEntry(ATItems.SOME_STRINGS, 160)
     };
 
     @SubscribeEvent

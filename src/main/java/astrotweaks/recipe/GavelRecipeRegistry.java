@@ -33,9 +33,9 @@ public class GavelRecipeRegistry {
         register(GavelRecipe.of(
             Blocks.STONE, 0,
             new ItemStack[] {
-                new ItemStack(astrotweaks.item.ItemStoneBrick.block, 1, 0), // 2 with 100% chance
-                new ItemStack(astrotweaks.item.ItemStoneBrick.block, 1, 0), // 1 with 50%
-                new ItemStack(astrotweaks.item.ItemStoneBrick.block, 1, 0)  // 1 with 20%
+                new ItemStack(astrotweaks.item.ATItems.STONE_BRICK, 1, 0), // 2 with 100% chance
+                new ItemStack(astrotweaks.item.ATItems.STONE_BRICK, 1, 0), // 1 with 50%
+                new ItemStack(astrotweaks.item.ATItems.STONE_BRICK, 1, 0)  // 1 with 20%
             },
             new float[] { 1.0f, 0.5f, 0.2f }
         ));
@@ -43,7 +43,7 @@ public class GavelRecipeRegistry {
         //  (stonebrick, meta 0) -> 4 stone_brick (100%)
         register(GavelRecipe.of(
             Blocks.STONEBRICK, 0,
-            new ItemStack[] { new ItemStack(astrotweaks.item.ItemStoneBrick.block, 4, 0) },
+            new ItemStack[] { new ItemStack(astrotweaks.item.ATItems.STONE_BRICK, 4, 0) },
             new float[] { 1.0f }
         ));
     }

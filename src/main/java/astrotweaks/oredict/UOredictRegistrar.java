@@ -36,30 +36,31 @@ public class UOredictRegistrar {
 	private static void OreItems() {
 		OreDictionary.registerOre("bonemeal", new ItemStack(Items.DYE, 1, 15));
 		
-		OreDictionary.registerOre("rock", new ItemStack(ItemRock.block, 1));
-		OreDictionary.registerOre("rock", new ItemStack(ItemRockFlat.block, 1));
-		OreDictionary.registerOre("rockFlat", new ItemStack(ItemRockFlat.block, 1));
-		OreDictionary.registerOre("brickStone", new ItemStack(ItemStoneBrick.block, 1));
-		OreDictionary.registerOre("ingotStone", new ItemStack(ItemStoneBrick.block, 1));
-		OreDictionary.registerOre("ingotBrickStone", new ItemStack(ItemStoneBrick.block, 1));
-		OreDictionary.registerOre("brickClay", new ItemStack(ItemClayBrick.block, 1));
-		OreDictionary.registerOre("ingotClay", new ItemStack(ItemClayBrick.block, 1));
-		OreDictionary.registerOre("ingotBrickClay", new ItemStack(ItemClayBrick.block, 1));
-		OreDictionary.registerOre("discSilicon", new ItemStack(ItemSiliconDisc.block, 1));
-		OreDictionary.registerOre("twine", new ItemStack(ItemCordageFiber.block, 1));
-		
-		OreDictionary.registerOre("singularity", new ItemStack(ItemNeutroniumsingularity.block, 1));
-		OreDictionary.registerOre("singularityNeutronium", new ItemStack(ItemNeutroniumsingularity.block, 1));
-		
-		OreDictionary.registerOre("singularity", new ItemStack(ItemInfinitySingularity.block, 1));
-		OreDictionary.registerOre("singularityInfinity", new ItemStack(ItemInfinitySingularity.block, 1));
+		OreDictionary.registerOre("rock", new ItemStack(ATItems.ROCK, 1));
+		OreDictionary.registerOre("rock", new ItemStack(ATItems.ROCK_FLAT, 1));
+		OreDictionary.registerOre("rockFlat", new ItemStack(ATItems.ROCK_FLAT, 1));
+		OreDictionary.registerOre("brickStone", new ItemStack(ATItems.STONE_BRICK, 1));
+		OreDictionary.registerOre("ingotStone", new ItemStack(ATItems.STONE_BRICK, 1));
+		OreDictionary.registerOre("ingotBrickStone", new ItemStack(ATItems.STONE_BRICK, 1));
+		OreDictionary.registerOre("brickClay", new ItemStack(ATItems.CLAY_BRICK, 1));
+		OreDictionary.registerOre("ingotClay", new ItemStack(ATItems.CLAY_BRICK, 1));
+		OreDictionary.registerOre("ingotBrickClay", new ItemStack(ATItems.CLAY_BRICK, 1));
+		OreDictionary.registerOre("discSilicon", new ItemStack(ATItems.SILICON_DISC, 1));
+        OreDictionary.registerOre("twine", new ItemStack(ATItems.CORDAGE_FIBER, 1));
+        
+        OreDictionary.registerOre("singularity", new ItemStack(ATItems.NEUTRONIUM_SINGULARITY, 1));
+        OreDictionary.registerOre("singularityNeutronium", new ItemStack(ATItems.NEUTRONIUM_SINGULARITY, 1));
+        
+        OreDictionary.registerOre("singularity", new ItemStack(ATItems.INFINITY_SINGULARITY, 1));
+        OreDictionary.registerOre("singularityInfinity", new ItemStack(ATItems.INFINITY_SINGULARITY, 1));
 
-		OreDictionary.registerOre("shardFlint", new ItemStack(ItemFlintShard.block, 1));
-		OreDictionary.registerOre("shard", new ItemStack(ItemFlintShard.block, 1));
-		OreDictionary.registerOre("shardBone", new ItemStack(ItemBoneShard.block, 1));
-		OreDictionary.registerOre("shard", new ItemStack(ItemBoneShard.block, 1));
-		OreDictionary.registerOre("shardDiamond", new ItemStack(ItemDiamondShard.block, 1));
-		OreDictionary.registerOre("shard", new ItemStack(ItemDiamondShard.block, 1));
+
+        OreDictionary.registerOre("shardFlint", new ItemStack(ATItems.FLINT_SHARD, 1));
+        OreDictionary.registerOre("shard", new ItemStack(ATItems.FLINT_SHARD, 1));
+        OreDictionary.registerOre("shardBone", new ItemStack(ATItems.BONE_SHARD, 1));
+        OreDictionary.registerOre("shard", new ItemStack(ATItems.BONE_SHARD, 1));
+        OreDictionary.registerOre("shardDiamond", new ItemStack(ATItems.DIAMOND_SHARD, 1));
+        OreDictionary.registerOre("shard", new ItemStack(ATItems.DIAMOND_SHARD, 1));
 
 		OreDictionary.registerOre("toolSaw", new ItemStack(ItemSawIron.block, 1));
 		OreDictionary.registerOre("toolSaw", new ItemStack(ItemSawDiamond.block, 1));
@@ -69,8 +70,8 @@ public class UOredictRegistrar {
 		OreDictionary.registerOre("toolSaw", new ItemStack(ItemTinSaw.block, 1));
 		OreDictionary.registerOre("toolSaw", new ItemStack(ItemSteelSaw.block, 1));
 
-		OreDictionary.registerOre("wireGold", new ItemStack(ItemInductanceCoil1.block, 1));
-		OreDictionary.registerOre("wireCopper", new ItemStack(ItemInductanceCoil2.block, 1));
+		OreDictionary.registerOre("wireGold", new ItemStack(ATItems.COPPER_COIL, 1));
+		OreDictionary.registerOre("wireCopper", new ItemStack(ATItems.GOLDEN_COIL, 1));
 
 		OreDictionary.registerOre("listAllmeatraw", new ItemStack(Items.PORKCHOP, 1));
 		OreDictionary.registerOre("listAllmeatraw", new ItemStack(Items.BEEF, 1));
@@ -259,23 +260,23 @@ public class UOredictRegistrar {
 		//OreDictionary.registerOre("cobblestoneSlab", new ItemStack(BlockCobbledDeepslateSlab.block, 1));
 	}
 	private static void OreGems() {
-		OreDictionary.registerOre("gemRuby", new ItemStack(ItemRuby.block, 1));
+        OreDictionary.registerOre("gemRuby", new ItemStack(ATItems.RUBY, 1));
 	}
 	private static void OreDusts() {
-		OreDictionary.registerOre("dustRuby", new ItemStack(ItemRubyDust.block, 1));
-		OreDictionary.registerOre("dustCement", new ItemStack(ItemCementDust.block, 1));
-		OreDictionary.registerOre("dustBrass", new ItemStack(ItemBrassDust.block, 1));
-		OreDictionary.registerOre("dustMineralSteel", new ItemStack(ItemMineralSteelDust.block, 1));
+        OreDictionary.registerOre("dustRuby", new ItemStack(ATItems.RUBY_DUST, 1));
+        OreDictionary.registerOre("dustCement", new ItemStack(ATItems.CEMENT_DUST, 1));
+        OreDictionary.registerOre("dustBrass", new ItemStack(ATItems.BRASS_DUST, 1));
+        OreDictionary.registerOre("dustMineralSteel", new ItemStack(ATItems.MINERAL_STEEL_DUST, 1));
 	}
 	private static void OrePlates() {
 
 	}
-	private static void OreNuggets() {
-		OreDictionary.registerOre("nuggetBrass", new ItemStack(ItemBrassNugget.block, 1));
-	}
-	private static void OreIngots() {
-		OreDictionary.registerOre("ingotBrass", new ItemStack(ItemBrassIngot.block, 1));
-		OreDictionary.registerOre("ingotMineralSteel", new ItemStack(ItemMineralSteelIngot.block, 1));
+    private static void OreNuggets() {
+        OreDictionary.registerOre("nuggetBrass", new ItemStack(ATItems.BRASS_NUGGET, 1));
+    }
+    private static void OreIngots() {
+        OreDictionary.registerOre("ingotBrass", new ItemStack(ATItems.BRASS_INGOT, 1));
+        OreDictionary.registerOre("ingotMineralSteel", new ItemStack(ATItems.MINERAL_STEEL_INGOT, 1));
 	}
 	private static void OreOres() {
 		OreDictionary.registerOre("oreRuby", new ItemStack(BlockRubyOre.block, 1));
@@ -284,25 +285,26 @@ public class UOredictRegistrar {
 	}
 	///
 	private static void OreRods() {
-		OreDictionary.registerOre("rodIron", new ItemStack(ItemIronStick.block, 1));
-		OreDictionary.registerOre("rodGold", new ItemStack(ItemGoldStick.block, 1));
-		OreDictionary.registerOre("rodCopper", new ItemStack(ItemCopperStick.block, 1));
-		OreDictionary.registerOre("rodTin", new ItemStack(ItemTinStick.block, 1));
-		OreDictionary.registerOre("rodBronze", new ItemStack(ItemBronzeStick.block, 1));
-		OreDictionary.registerOre("rodDiamond", new ItemStack(ItemDiamondStick.block, 1));
-	    OreDictionary.registerOre("rodAluminium", new ItemStack(ItemAluminiumStick.block, 1));
-	    OreDictionary.registerOre("rodTitanium", new ItemStack(ItemTitaniumStick.block, 1));
-	    OreDictionary.registerOre("rodNickel", new ItemStack(ItemNickelStick.block, 1));
-	    OreDictionary.registerOre("rodCobalt", new ItemStack(ItemCobaltStick.block, 1));
-	    OreDictionary.registerOre("rodMeteoricIron", new ItemStack(ItemMeteoricStick.block, 1));
-	    OreDictionary.registerOre("rodElectrum", new ItemStack(ItemElectrumStick.block, 1));
-	    OreDictionary.registerOre("rodEmerald", new ItemStack(ItemEmeraldStick.block, 1));
-	    OreDictionary.registerOre("rodRuby", new ItemStack(ItemRubyStick.block, 1));
-	    OreDictionary.registerOre("rodSteel", new ItemStack(ItemSteelStick.block, 1));
-	    OreDictionary.registerOre("rodIridium", new ItemStack(ItemIridiumStick.block, 1));
-	    OreDictionary.registerOre("rodSilver", new ItemStack(ItemSilverStick.block, 1));
-	    OreDictionary.registerOre("rodUranium", new ItemStack(ItemUraniumStick.block, 1));
-	    OreDictionary.registerOre("rodBrass", new ItemStack(ItemBrassStick.block, 1));
-		OreDictionary.registerOre("rodCarbon", new ItemStack(ItemCarbonStick.block, 1));
+		OreDictionary.registerOre("rodIron", new ItemStack(ATItems.IRON_STICK, 1));
+        OreDictionary.registerOre("rodGold", new ItemStack(ATItems.GOLD_STICK, 1));
+        OreDictionary.registerOre("rodCopper", new ItemStack(ATItems.COPPER_STICK, 1));
+        OreDictionary.registerOre("rodTin", new ItemStack(ATItems.TIN_STICK, 1));
+        OreDictionary.registerOre("rodBronze", new ItemStack(ATItems.BRONZE_STICK, 1));
+        OreDictionary.registerOre("rodDiamond", new ItemStack(ATItems.DIAMOND_STICK, 1));
+        OreDictionary.registerOre("rodAluminium", new ItemStack(ATItems.ALUMINIUM_STICK, 1));
+        OreDictionary.registerOre("rodTitanium", new ItemStack(ATItems.TITANIUM_STICK, 1));
+        OreDictionary.registerOre("rodNickel", new ItemStack(ATItems.NICKEL_STICK, 1));
+        OreDictionary.registerOre("rodCobalt", new ItemStack(ATItems.COBALT_STICK, 1));
+        OreDictionary.registerOre("rodMeteoricIron", new ItemStack(ATItems.METEORIC_STICK, 1));
+        OreDictionary.registerOre("rodElectrum", new ItemStack(ATItems.ELECTRUM_STICK, 1));
+        OreDictionary.registerOre("rodEmerald", new ItemStack(ATItems.EMERALD_STICK, 1));
+        OreDictionary.registerOre("rodRuby", new ItemStack(ATItems.RUBY_STICK, 1));
+        OreDictionary.registerOre("rodSteel", new ItemStack(ATItems.STEEL_STICK, 1));
+        OreDictionary.registerOre("rodIridium", new ItemStack(ATItems.IRIDIUM_STICK, 1));
+        OreDictionary.registerOre("rodSilver", new ItemStack(ATItems.SILVER_STICK, 1));
+        OreDictionary.registerOre("rodUranium", new ItemStack(ATItems.URANIUM_STICK, 1));
+        OreDictionary.registerOre("rodBrass", new ItemStack(ATItems.BRASS_STICK, 1));
+        OreDictionary.registerOre("rodCarbon", new ItemStack(ATItems.CARBON_STICK, 1));
+
 	}
 }

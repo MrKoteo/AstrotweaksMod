@@ -16,19 +16,9 @@ import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
 
-import astrotweaks.item.ItemWoodCoin;
-import astrotweaks.item.ItemUniCoin;
-import astrotweaks.item.ItemStoneCoin;
-import astrotweaks.item.ItemSilverCoin;
-import astrotweaks.item.ItemPlatinumCoin;
-import astrotweaks.item.ItemPalladiumCoin;
-import astrotweaks.item.ItemMythrilCoin;
-import astrotweaks.item.ItemGoldCoin;
+import astrotweaks.item.ATItems;
 import astrotweaks.item.ItemGavel;
-import astrotweaks.item.ItemEluniteCoin;
-import astrotweaks.item.ItemDiamantCoin;
-import astrotweaks.item.ItemCopperCoin;
-import astrotweaks.item.ItemAdamantiumCoin;
+
 
 import astrotweaks.ModVariables;
 
@@ -57,30 +47,31 @@ public class ProcedureMTConvert {
     // Ensure the maps are filled when items are already registered -> avoid "null" keys
     private static void ensureMapsInitialized() {
         if (mapsInitialized) return;
-        UPGRADE_MAP.put(ItemCopperCoin.block, ItemSilverCoin.block);
-        UPGRADE_MAP.put(ItemSilverCoin.block, ItemGoldCoin.block);
-        UPGRADE_MAP.put(ItemGoldCoin.block, ItemPlatinumCoin.block);
-        UPGRADE_MAP.put(ItemPlatinumCoin.block, ItemDiamantCoin.block);
-        UPGRADE_MAP.put(ItemDiamantCoin.block, ItemPalladiumCoin.block);
-        UPGRADE_MAP.put(ItemPalladiumCoin.block, ItemEluniteCoin.block);
-        UPGRADE_MAP.put(ItemEluniteCoin.block, ItemMythrilCoin.block);
-        UPGRADE_MAP.put(ItemMythrilCoin.block, ItemAdamantiumCoin.block);
-        UPGRADE_MAP.put(ItemAdamantiumCoin.block, ItemUniCoin.block);
-        UPGRADE_MAP.put(ItemWoodCoin.block, ItemStoneCoin.block);
-        UPGRADE_MAP.put(ItemStoneCoin.block, ItemCopperCoin.block);
+        UPGRADE_MAP.put(ATItems.COPPER_COIN, ATItems.SILVER_COIN);
+        UPGRADE_MAP.put(ATItems.SILVER_COIN, ATItems.GOLD_COIN);
+        UPGRADE_MAP.put(ATItems.GOLD_COIN, ATItems.PLATINUM_COIN);
+        UPGRADE_MAP.put(ATItems.PLATINUM_COIN, ATItems.DIAMANT_COIN);
+        UPGRADE_MAP.put(ATItems.DIAMANT_COIN, ATItems.PALLADIUM_COIN);
+        UPGRADE_MAP.put(ATItems.PALLADIUM_COIN, ATItems.ELUNITE_COIN);
+        UPGRADE_MAP.put(ATItems.ELUNITE_COIN, ATItems.MYTHRIL_COIN);
+        UPGRADE_MAP.put(ATItems.MYTHRIL_COIN, ATItems.ADAMANTIUM_COIN);
+        UPGRADE_MAP.put(ATItems.ADAMANTIUM_COIN, ATItems.UNI_COIN);
+        UPGRADE_MAP.put(ATItems.WOOD_COIN, ATItems.STONE_COIN);
+        UPGRADE_MAP.put(ATItems.STONE_COIN, ATItems.COPPER_COIN);
 
 
-        DOWNGRADE_MAP.put(ItemSilverCoin.block, ItemCopperCoin.block);
-        DOWNGRADE_MAP.put(ItemGoldCoin.block, ItemSilverCoin.block);
-        DOWNGRADE_MAP.put(ItemPlatinumCoin.block, ItemGoldCoin.block);
-        DOWNGRADE_MAP.put(ItemDiamantCoin.block, ItemPlatinumCoin.block);
-        DOWNGRADE_MAP.put(ItemPalladiumCoin.block, ItemDiamantCoin.block);
-        DOWNGRADE_MAP.put(ItemEluniteCoin.block, ItemPalladiumCoin.block);
-        DOWNGRADE_MAP.put(ItemMythrilCoin.block, ItemEluniteCoin.block);
-        DOWNGRADE_MAP.put(ItemAdamantiumCoin.block, ItemMythrilCoin.block);
-        DOWNGRADE_MAP.put(ItemUniCoin.block, ItemAdamantiumCoin.block);
-        DOWNGRADE_MAP.put(ItemStoneCoin.block, ItemWoodCoin.block);
-        DOWNGRADE_MAP.put(ItemCopperCoin.block, ItemStoneCoin.block);
+        DOWNGRADE_MAP.put(ATItems.SILVER_COIN, ATItems.COPPER_COIN);
+        DOWNGRADE_MAP.put(ATItems.GOLD_COIN, ATItems.SILVER_COIN);
+        DOWNGRADE_MAP.put(ATItems.PLATINUM_COIN, ATItems.GOLD_COIN);
+        DOWNGRADE_MAP.put(ATItems.DIAMANT_COIN, ATItems.PLATINUM_COIN);
+        DOWNGRADE_MAP.put(ATItems.PALLADIUM_COIN, ATItems.DIAMANT_COIN);
+        DOWNGRADE_MAP.put(ATItems.ELUNITE_COIN, ATItems.PALLADIUM_COIN);
+        DOWNGRADE_MAP.put(ATItems.MYTHRIL_COIN, ATItems.ELUNITE_COIN);
+        DOWNGRADE_MAP.put(ATItems.ADAMANTIUM_COIN, ATItems.MYTHRIL_COIN);
+        DOWNGRADE_MAP.put(ATItems.UNI_COIN, ATItems.ADAMANTIUM_COIN);
+        DOWNGRADE_MAP.put(ATItems.STONE_COIN, ATItems.WOOD_COIN);
+        DOWNGRADE_MAP.put(ATItems.COPPER_COIN, ATItems.STONE_COIN);
+
 
         mapsInitialized = true;
     }
@@ -172,7 +163,7 @@ public class ProcedureMTConvert {
 
         if (isCopperPlate(slot0Stack)) { // check for CopperPlate
             if (slot1Stack.isEmpty()) return true;
-            if (slot1Stack.getItem() != ItemCopperCoin.block) return false;
+            if (slot1Stack.getItem() != ATItems.COPPER_COIN) return false;
             return slot1Stack.getCount() + 1 <= slot1Stack.getMaxStackSize();
         }
 
@@ -199,9 +190,9 @@ public class ProcedureMTConvert {
             // add 1 copper coin
             ItemStack outStack = safeGetSlotItemStack(te, 1);
             int newCount = (outStack.isEmpty() ? 0 : outStack.getCount()) + 1;
-            int max = new ItemStack(ItemCopperCoin.block).getMaxStackSize();
+            int max = new ItemStack(ATItems.COPPER_COIN).getMaxStackSize();
             if (newCount > max) newCount = max;
-            setSlotItem(te, 1, new ItemStack(ItemCopperCoin.block, newCount));
+            setSlotItem(te, 1, new ItemStack(ATItems.COPPER_COIN, newCount));
             return true;
         }
         

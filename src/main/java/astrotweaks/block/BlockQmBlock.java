@@ -70,9 +70,9 @@ public class BlockQmBlock extends ElementsAstrotweaksMod.ModElement {
 			setBlockUnbreakable();
 		}
 		@Override
- public MapColor getMapColor(IBlockState state, IBlockAccess blockAccess, BlockPos pos) {
- return MapColor.IRON;
- }
+		public MapColor getMapColor(IBlockState state, IBlockAccess blockAccess, BlockPos pos) {
+			return MapColor.IRON;
+		}
 		@Override
 	    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
 	    	if (ModVariables.QM_is_fully_unbreakable) {
@@ -93,8 +93,7 @@ public class BlockQmBlock extends ElementsAstrotweaksMod.ModElement {
 		}
 
 		@Override
-		public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entity, EnumHand hand, EnumFacing direction,
- float hitX, float hitY, float hitZ) {
+		public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entity, EnumHand hand, EnumFacing direction, float hitX, float hitY, float hitZ) {
 			super.onBlockActivated(world, pos, state, entity, hand, direction, hitX, hitY, hitZ);
 			int x = pos.getX();
 			int y = pos.getY();

@@ -88,16 +88,16 @@ public final class ProcedureEventBreakBlock {
 			}
 		} else if (block == Blocks.VINE && notShears) {
 			if (rand.nextDouble() < 0.25) {
-				spawnItem(world, x, y, z, new ItemStack(ItemCordageVine.block, 1));
+				spawnItem(world, x, y, z, new ItemStack(ATItems.CORDAGE_VINE, 1));
 			}
 		} else if (block == Blocks.DIRT || block == Blocks.GRASS) {
 			if (rand.nextDouble() < 0.035) {
 				world.setBlockState(pos, AIR);
-				spawnItem(world, x, y, z, new ItemStack(ItemRock.block, 1));
+				spawnItem(world, x, y, z, new ItemStack(ATItems.ROCK, 1));
 			}
 			if (rand.nextDouble() < 0.015) {
 				world.setBlockState(pos, AIR);
-				spawnItem(world, x, y, z, new ItemStack(ItemRockFlat.block, 1));
+				spawnItem(world, x, y, z, new ItemStack(ATItems.ROCK_FLAT, 1));
 			}
 			if (rand.nextDouble() < 0.008) {
 				world.setBlockState(pos, AIR);

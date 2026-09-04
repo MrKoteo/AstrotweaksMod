@@ -1,4 +1,5 @@
-package astrotweaks.block;
+
+package astrotweaks.block;
 
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
@@ -26,10 +27,11 @@ import net.minecraft.block.Block;
 
 import java.util.Random;
 
-import astrotweaks.item.ItemRuby;
+import astrotweaks.item.ATItems;
 
 import astrotweaks.creativetab.ATCreativeTabs;
-import astrotweaks.ModVariables;
+
+import astrotweaks.ModVariables;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -89,7 +91,7 @@ public class BlockRubyOre extends ElementsAstrotweaksMod.ModElement {
 
 		@Override
 		public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-			drops.add(new ItemStack(ItemRuby.block, (int) (1)));
+			drops.add(new ItemStack(ATItems.RUBY, (int) (1)));
 		}
 	}
 }

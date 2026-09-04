@@ -33,7 +33,7 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.material.Material;
+//import net.minecraft.block.material.Material;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.Entity;
 

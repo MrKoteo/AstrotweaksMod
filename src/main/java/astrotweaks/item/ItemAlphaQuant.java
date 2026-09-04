@@ -46,7 +46,7 @@ public class ItemAlphaQuant extends ElementsAstrotweaksMod.ModElement {
 		@Override
 		public void onUpdate(ItemStack itemstack, World world, Entity entity, int slot, boolean par5) {
 			super.onUpdate(itemstack, world, entity, slot, par5);
-			ProcedureSQInvTick.executeProcedure(entity, itemstack);
+			ProcedureSQInvTick.exect(entity, itemstack);
 		}
 	}
 }

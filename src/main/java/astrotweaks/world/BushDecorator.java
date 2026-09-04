@@ -33,7 +33,7 @@ import astrotweaks.block.BlockFern1;
 
 
 
-public final class BushDecorator {
+public class BushDecorator {
 	private static List<BushEntry> BUSHES = new ArrayList<>();
 	private static Map<Biome, List<BushEntry>> BUSH_MAP;
 
@@ -151,9 +151,11 @@ public final class BushDecorator {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onDecorate(DecorateBiomeEvent.Decorate event) {
         if (event.getType() != DecorateBiomeEvent.Decorate.EventType.FLOWERS) return;
+
         World world = event.getWorld();
         Random rand = event.getRand();
-        BlockPos chunkPos = event.getPlacementPos();
+        BlockPos chunkPos = event.getPos(); // getPos важно, иначе координаты чанка получаются неправильно и происходит NPE краш
+        //if (chunkPos == null) { return; } // Это всегда будет Null, если получать chunkPos через getPlacementPos()
         Biome currentBiome = world.getBiome(chunkPos);
 
         List<BushEntry> entries = BUSH_MAP.get(currentBiome);

@@ -59,7 +59,7 @@ public class ItemSpoiledFishPufferfish1 extends ElementsAstrotweaksMod.ModElemen
 		@Override
 		protected void onFoodEaten(ItemStack itemStack, World world, EntityPlayer entity) {
 			super.onFoodEaten(itemStack, world, entity);
-			ProcedureSpoiledFoodEaten.executeProcedure(entity);
+			ProcedureSpoiledFoodEaten.exect(entity);
 		}
 	}
 }

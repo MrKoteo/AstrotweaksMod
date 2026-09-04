@@ -23,12 +23,7 @@ import java.util.ArrayList;
 //import java.util.function.BiConsumer;
 import java.util.concurrent.ThreadLocalRandom;
 
-import astrotweaks.item.ItemRockFlat;
-import astrotweaks.item.ItemRock;
-import astrotweaks.item.ItemCordageVine;
-import astrotweaks.item.ItemCordageFiber;
-import astrotweaks.item.ItemBoneShard;
-import astrotweaks.item.ItemFlintShard;
+import astrotweaks.item.ATItems;
 
 
 import astrotweaks.ElementsAstrotweaksMod;
@@ -86,27 +81,27 @@ public class ProcedureRclickBlock {
 
         // Vine -> fiber: if holding vine (main or off) and block is magma/fire/lava above or dimension == -1
 		rules.add(new Rule(ctx -> {
-		    boolean holdingVine = ctx.mainHand.getItem() == ItemCordageVine.block || ctx.offHand.getItem() == ItemCordageVine.block;
+		    boolean holdingVine = ctx.mainHand.getItem() == ATItems.CORDAGE_VINE || ctx.offHand.getItem() == ATItems.CORDAGE_VINE;
 		    boolean hotBelow = ctx.blockAt == Blocks.MAGMA || ctx.blockAt == Blocks.FIRE;
 		    boolean hotAbove = ctx.blockAbove == Blocks.FLOWING_LAVA || ctx.blockAbove == Blocks.LAVA;
 		    boolean inNether = ctx.entity.dimension == -1;
 		    return holdingVine && (hotBelow || hotAbove || inNether);
 		}, (ctx, r) -> {
-            ctx.removeOneMatching(ItemCordageVine.block);
-            ctx.giveToPlayer(new ItemStack(ItemCordageFiber.block, 1));
+            ctx.removeOneMatching(ATItems.CORDAGE_VINE);
+            ctx.giveToPlayer(new ItemStack(ATItems.CORDAGE_FIBER, 1));
         }));
 
         // Rock -> flat rock (stone/cobble/various stone metas/obsidian)
 		rules.add(new Rule(ctx -> {
-		    boolean holdingRock = ctx.mainHand.getItem() == ItemRock.block;
+		    boolean holdingRock = ctx.mainHand.getItem() == ATItems.ROCK;
 		    boolean blockOk = ctx.blockAt == Blocks.STONE || ctx.blockAt == Blocks.COBBLESTONE || ctx.blockAt == Blocks.OBSIDIAN;
 		    return holdingRock && blockOk;
 		}, (ctx, r) -> {
             if (r > 0.75) {
-                ctx.removeOneMatching(ItemRock.block);
-                if (r > 0.8) ctx.spawnItemStack(new ItemStack(ItemRockFlat.block, 1));
-                if (r > 0.95) ctx.spawnItemStack(new ItemStack(ItemRockFlat.block, 1));
-                if (r < 0.04) ctx.spawnItemStack(new ItemStack(ItemFlintShard.block, 1));
+                ctx.removeOneMatching(ATItems.ROCK);
+                if (r > 0.8) ctx.spawnItemStack(new ItemStack(ATItems.ROCK_FLAT, 1));
+                if (r > 0.95) ctx.spawnItemStack(new ItemStack(ATItems.ROCK_FLAT, 1));
+                if (r < 0.04) ctx.spawnItemStack(new ItemStack(ATItems.FLINT_SHARD, 1));
             }
         }));
 
@@ -119,9 +114,9 @@ public class ProcedureRclickBlock {
         }, (ctx, r) -> {
             if (r > 0.9) {
                 ctx.removeOneMatching(Items.BONE);
-                ctx.spawnItemStack(new ItemStack(ItemBoneShard.block, 1));
-                if (r < 0.95) ctx.spawnItemStack(new ItemStack(ItemBoneShard.block, 1));
-                if (r < 0.35) ctx.spawnItemStack(new ItemStack(ItemBoneShard.block, 1));
+                ctx.spawnItemStack(new ItemStack(ATItems.BONE_SHARD, 1));
+                if (r < 0.95) ctx.spawnItemStack(new ItemStack(ATItems.BONE_SHARD, 1));
+                if (r < 0.35) ctx.spawnItemStack(new ItemStack(ATItems.BONE_SHARD, 1));
             }
         }));
 
@@ -133,9 +128,9 @@ public class ProcedureRclickBlock {
         }, (ctx, r) -> {
             if (r > 0.9) {
                 ctx.removeOneMatching(Items.FLINT);
-                ctx.spawnItemStack(new ItemStack(ItemFlintShard.block, 1));
-                if (r < 0.75) ctx.spawnItemStack(new ItemStack(ItemFlintShard.block, 1));
-                if (r < 0.33) ctx.spawnItemStack(new ItemStack(ItemFlintShard.block, 1));
+                ctx.spawnItemStack(new ItemStack(ATItems.FLINT_SHARD, 1));
+                if (r < 0.75) ctx.spawnItemStack(new ItemStack(ATItems.FLINT_SHARD, 1));
+                if (r < 0.33) ctx.spawnItemStack(new ItemStack(ATItems.FLINT_SHARD, 1));
             }
         }));
         return rules;

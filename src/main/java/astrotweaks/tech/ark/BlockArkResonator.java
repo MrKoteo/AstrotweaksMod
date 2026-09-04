@@ -1,5 +1,5 @@
 
-package astrotweaks.block;
+package astrotweaks.tech.ark;
 
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;

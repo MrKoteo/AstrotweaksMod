@@ -60,7 +60,7 @@ public class ItemSpoiledDrink extends ElementsAstrotweaksMod.ModElement {
 		@Override
 		protected void onFoodEaten(ItemStack itemStack, World world, EntityPlayer entity) {
 			super.onFoodEaten(itemStack, world, entity);
-			ProcedureSpoiledFoodEaten.executeProcedure(entity);
+			ProcedureSpoiledFoodEaten.exect(entity);
 		}
 	}
 }
