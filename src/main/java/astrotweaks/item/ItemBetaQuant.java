@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
 import astrotweaks.procedure.ProcedureSQInvTick;
 
-import astrotweaks.creativetab.TabATIntegration;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -41,7 +41,7 @@ public class ItemBetaQuant extends ElementsAstrotweaksMod.ModElement {
 		public ItemCustom() {
 			setUnlocalizedName("beta_quant");
 			setRegistryName("beta_quant");
-			setCreativeTab(TabATIntegration.tab);
+			setCreativeTab(ATCreativeTabs.AT_INTEGRATION_CT);
 		}
 
 		@Override

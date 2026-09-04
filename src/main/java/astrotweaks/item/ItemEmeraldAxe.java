@@ -21,7 +21,7 @@ import net.minecraft.block.Block;
 import java.util.Set;
 import java.util.HashMap;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 

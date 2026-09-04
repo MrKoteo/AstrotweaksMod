@@ -10,7 +10,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 import astrotweaks.ModVariables;
 
-
 import java.lang.reflect.Field;
 import java.util.List;
 

@@ -18,7 +18,7 @@ import java.util.List;
 
 import astrotweaks.procedure.ProcedureSQInvTick;
 
-import astrotweaks.creativetab.TabATIntegration;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -44,7 +44,7 @@ public class ItemYAntiQuant extends ElementsAstrotweaksMod.ModElement {
 		public ItemCustom() {
 			setUnlocalizedName("y_anti_quant");
 			setRegistryName("y_anti_quant");
-			setCreativeTab(TabATIntegration.tab);
+			setCreativeTab(ATCreativeTabs.AT_INTEGRATION_CT);
 		}
 
 		@Override

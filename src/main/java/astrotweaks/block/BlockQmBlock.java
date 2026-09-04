@@ -1,4 +1,5 @@
-package astrotweaks.block;
+
+package astrotweaks.block;
 
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
@@ -34,7 +35,7 @@ import java.util.HashMap;
 
 import astrotweaks.ModVariables;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -42,7 +43,9 @@ import astrotweaks.ElementsAstrotweaksMod;
 public class BlockQmBlock extends ElementsAstrotweaksMod.ModElement {
 	@GameRegistry.ObjectHolder("astrotweaks:qm_block")
 	public static final Block block = null;
-	public BlockQmBlock(ElementsAstrotweaksMod instance) { super(instance, 259); }
+	public BlockQmBlock(ElementsAstrotweaksMod instance) {
+ super(instance, 259);
+ }
 	@Override
 	public void initElements() {
 		elements.blocks.add(() -> new BlockCustom().setRegistryName("qm_block"));
@@ -63,10 +66,13 @@ public class BlockQmBlock extends ElementsAstrotweaksMod.ModElement {
 			setResistance(1000000F);
 			setLightLevel(1F);
 			//setLightOpacity(255);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 			setBlockUnbreakable();
 		}
-		@Override public MapColor getMapColor(IBlockState state, IBlockAccess blockAccess, BlockPos pos) { return MapColor.IRON; }
+		@Override
+ public MapColor getMapColor(IBlockState state, IBlockAccess blockAccess, BlockPos pos) {
+ return MapColor.IRON;
+ }
 		@Override
 	    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
 	    	if (ModVariables.QM_is_fully_unbreakable) {
@@ -87,7 +93,8 @@ public class BlockQmBlock extends ElementsAstrotweaksMod.ModElement {
 		}
 
 		@Override
-		public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entity, EnumHand hand, EnumFacing direction, float hitX, float hitY, float hitZ) {
+		public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entity, EnumHand hand, EnumFacing direction,
+ float hitX, float hitY, float hitZ) {
 			super.onBlockActivated(world, pos, state, entity, hand, direction, hitX, hitY, hitZ);
 			int x = pos.getX();
 			int y = pos.getY();

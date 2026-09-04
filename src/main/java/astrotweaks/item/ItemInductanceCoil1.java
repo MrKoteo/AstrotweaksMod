@@ -12,11 +12,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.block.state.IBlockState;
 
 import java.util.List;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -42,7 +41,7 @@ public class ItemInductanceCoil1 extends ElementsAstrotweaksMod.ModElement {
 		public ItemCustom() {
 			setUnlocalizedName("copper_coil");
 			setRegistryName("copper_coil");
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 
 		@Override

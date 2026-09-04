@@ -11,7 +11,8 @@
 
 # changes your game mode
 /gm 0 | 1 | 2 | 3
-/gm s | c | a | se/x
+/gm s | c | a | se
+/x
 
 # summons multiple entities
 /rsummon <entity_id> [x y z] [count] {nbt}
@@ -24,7 +25,7 @@
 # show/hide  scoredoard with Deaths Count
 /deaths
 
-# print current variables values (from config)
-/atdebug
+# get or set variable value from main variables class (ModVariables)
+/atv get|set <variable_name>
 
 

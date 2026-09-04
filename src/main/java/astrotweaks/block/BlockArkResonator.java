@@ -1,4 +1,5 @@
-package astrotweaks.block;
+
+package astrotweaks.block;
 
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
@@ -15,7 +16,7 @@ import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.Block;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -46,8 +47,10 @@ public class BlockArkResonator extends ElementsAstrotweaksMod.ModElement {
 			setHardness(100F);
 			setResistance(100F);
 			setLightLevel(0.066666666667F);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
-		@Override public EnumPushReaction getMobilityFlag(IBlockState state) { return EnumPushReaction.BLOCK; }
+		@Override public EnumPushReaction getMobilityFlag(IBlockState state) {
+		return EnumPushReaction.BLOCK;
+		}
 	}
 }

@@ -23,7 +23,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.AxisAlignedBB;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -55,7 +55,7 @@ public class BlockUKillerBlock extends ElementsAstrotweaksMod.ModElement {
 			setSoundType(SoundType.METAL);
 			setHardness(1000F);
 			setResistance(1000F);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 			setBlockUnbreakable();
 		}
 		@Override

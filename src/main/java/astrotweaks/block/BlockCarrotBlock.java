@@ -19,7 +19,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.Block;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -52,7 +52,7 @@ public class BlockCarrotBlock extends ElementsAstrotweaksMod.ModElement {
 			setHardness(2.3F);
 			setResistance(6.5F);
 			setLightOpacity(255);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 
 		@Override

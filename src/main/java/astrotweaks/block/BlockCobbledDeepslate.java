@@ -14,7 +14,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.Block;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -47,7 +47,7 @@ public class BlockCobbledDeepslate extends ElementsAstrotweaksMod.ModElement {
 			setHardness(3.5F);
 			setResistance(12F);
 			setLightOpacity(255);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 	}
 }

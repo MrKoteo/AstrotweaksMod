@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-// или astrotweaks.init.ModBlocks
+// import astrotweaks.init.ModBlocks
 
 public final class ATCreativeTabs {
     public static final CreativeTabs ASTRO_TWEAKS_CT =

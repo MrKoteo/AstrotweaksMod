@@ -10,7 +10,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraft.item.Item;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
-import astrotweaks.creativetab.TabATIntegration;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -36,7 +36,7 @@ public class ItemTripleABGQuant extends ElementsAstrotweaksMod.ModElement {
 		public ItemCustom() {
 			setUnlocalizedName("triple_abg_quant");
 			setRegistryName("triple_abg_quant");
-			setCreativeTab(TabATIntegration.tab);
+			setCreativeTab(ATCreativeTabs.AT_INTEGRATION_CT);
 		}
 
 	}

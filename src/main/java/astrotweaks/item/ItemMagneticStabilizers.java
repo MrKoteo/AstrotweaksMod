@@ -10,7 +10,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraft.item.Item;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -36,7 +36,7 @@ public class ItemMagneticStabilizers extends ElementsAstrotweaksMod.ModElement {
 		public ItemCustom() {
 			setUnlocalizedName("magnetic_stabilizers");
 			setRegistryName("magnetic_stabilizers");
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 
 	}

@@ -22,17 +22,11 @@ import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.Block;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 import astrotweaks.ElementsAstrotweaksMod;
 
 import astrotweaks.util.DropHandler;
 import astrotweaks.util.DropHandler.DropEntry;
-import net.minecraft.init.Items;
-
-
-import java.util.Random;
-import java.util.List;
-import java.util.ArrayList;
 
 @ElementsAstrotweaksMod.ModElement.Tag
 public class BlockDeepRichMinerals extends ElementsAstrotweaksMod.ModElement {
@@ -110,9 +104,7 @@ public class BlockDeepRichMinerals extends ElementsAstrotweaksMod.ModElement {
             setHarvestLevel("pickaxe", 3);
             setHardness(60F);
             setResistance(50F);
-            //setLightLevel(0F);
-            //setLightOpacity(255);
-            setCreativeTab(TabAstroTweaks.tab);
+            setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
         }
         @Override public EnumPushReaction getMobilityFlag(IBlockState state) {return EnumPushReaction.IGNORE;}
 

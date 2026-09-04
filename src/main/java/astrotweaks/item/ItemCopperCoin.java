@@ -16,7 +16,7 @@ import net.minecraft.block.state.IBlockState;
 
 import java.util.List;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -43,7 +43,7 @@ public class ItemCopperCoin extends ElementsAstrotweaksMod.ModElement {
 			maxStackSize = 50;
 			setUnlocalizedName("copper_coin");
 			setRegistryName("copper_coin");
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 
 		@Override

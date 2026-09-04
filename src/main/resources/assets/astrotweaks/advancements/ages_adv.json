@@ -5,13 +5,12 @@
       "item": "astrotweaks:science"
     },
     "title": {
-      "translate": "advancements.ages_adv.title"
+      "translate": "adv.ages_adv.title"
     },
     "description": {
-      "translate": "advancements.ages_adv.descr"
+      "translate": "adv.ages_adv.descr"
     },
     "frame": "task",
-    "show_toast": true,
     "announce_to_chat": false,
     "hidden": false
   },

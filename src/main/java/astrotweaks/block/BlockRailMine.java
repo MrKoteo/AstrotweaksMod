@@ -24,7 +24,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraft.world.Explosion;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -55,7 +55,7 @@ public class BlockRailMine extends ElementsAstrotweaksMod.ModElement {
 	        setSoundType(SoundType.METAL);
 	        setHardness(0.7F);
 	        setResistance(3.5F);
-	        setCreativeTab(TabAstroTweaks.tab);
+	        setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 	    }
 	
 	    @Override
@@ -63,7 +63,6 @@ public class BlockRailMine extends ElementsAstrotweaksMod.ModElement {
 	        if (world.isRemote) return;
             cart.setDead();
             initExp(world, pos);
-
 	    }
 	    
 		//@Override public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
@@ -90,16 +89,11 @@ public class BlockRailMine extends ElementsAstrotweaksMod.ModElement {
 	        world.createExplosion(null, x, y, z, 2.2F, true);
 	    }
 
-
-	
 	    @SideOnly(Side.CLIENT)
 	    @Override
 	    public BlockRenderLayer getBlockLayer() {
 	        return BlockRenderLayer.CUTOUT_MIPPED;
 	    }
-	    @Override
-	    public boolean isOpaqueCube(IBlockState state) {
-	        return false;
-	    }
+	    @Override public boolean isOpaqueCube(IBlockState state) { return false; }
 	}
 }

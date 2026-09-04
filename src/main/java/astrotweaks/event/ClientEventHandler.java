@@ -27,9 +27,9 @@ public class ClientEventHandler {
     @SubscribeEvent
     public static void onBlockColors(ColorHandlerEvent.Block event) {
         event.getBlockColors().registerBlockColorHandler(
-            (state, worldIn, pos, tintIndex) -> {
-                if (worldIn != null && pos != null) {
-                    return BiomeColorHelper.getGrassColorAtPos(worldIn, pos);
+            (state, world, pos, tintIndex) -> {
+                if (world != null && pos != null) {
+                    return BiomeColorHelper.getGrassColorAtPos(world, pos);
                 }
                 return 0x367A25;
             },

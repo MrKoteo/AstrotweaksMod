@@ -19,7 +19,7 @@ import net.minecraft.block.Block;
 
 import java.util.Set;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -34,7 +34,7 @@ public class ItemCrystalAxe extends ElementsAstrotweaksMod.ModElement {
 	@Override
 	public void initElements() {
 		elements.items.add(() -> new ItemToolCustom() {
-		}.setUnlocalizedName("crystal_axe").setRegistryName("crystal_axe").setCreativeTab(TabAstroTweaks.tab));
+		}.setUnlocalizedName("crystal_axe").setRegistryName("crystal_axe").setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT));
 	}
 
 	@SideOnly(Side.CLIENT)

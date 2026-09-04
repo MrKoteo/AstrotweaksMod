@@ -4,13 +4,12 @@
       "item": "astrotweaks:money_table"
     },
     "title": {
-      "translate": "advancements.money.title"
+      "translate": "adv.money.title"
     },
     "description": {
-      "translate": "advancements.money.descr"
+      "translate": "adv.money.descr"
     },
     "frame": "task",
-    "show_toast": true,
     "announce_to_chat": false,
     "hidden": false
   },

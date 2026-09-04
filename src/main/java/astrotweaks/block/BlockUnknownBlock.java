@@ -27,12 +27,9 @@ import net.minecraft.block.Block;
 
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.entity.Entity;
 import net.minecraft.command.ICommandSender;
 
 import java.util.Random;
-import java.util.Map;
-import java.util.HashMap;
 
 
 import astrotweaks.ElementsAstrotweaksMod;
@@ -83,7 +80,8 @@ public class BlockUnknownBlock extends ElementsAstrotweaksMod.ModElement {
 		@Override
 		public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
 			return true;
-		}*/
+		}
+*/
 		@Override
 		public boolean isFullCube(IBlockState state) {
 			return false;

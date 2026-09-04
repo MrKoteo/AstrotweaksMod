@@ -34,7 +34,7 @@ import astrotweaks.util.DropHandler;
 import astrotweaks.util.DropHandler.DropEntry;
 import net.minecraft.init.Items;
 
-//import astrotweaks.creativetab.TabAstroTweaks;
+//import astrotweaks.creativetab.ATCreativeTabs;
 import astrotweaks.ElementsAstrotweaksMod;
 
 @ElementsAstrotweaksMod.ModElement.Tag

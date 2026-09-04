@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 import com.google.common.collect.Multimap;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -53,7 +53,7 @@ public class ItemNeutroniumSword extends ElementsAstrotweaksMod.ModElement {
 				ret.put("sword", 6);
 				return ret.keySet();
 			}
-		}.setUnlocalizedName("neutronium_sword").setRegistryName("neutronium_sword").setCreativeTab(TabAstroTweaks.tab));
+		}.setUnlocalizedName("neutronium_sword").setRegistryName("neutronium_sword").setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT));
 	}
 
 	@SideOnly(Side.CLIENT)

@@ -1,4 +1,5 @@
-package astrotweaks.block;
+
+package astrotweaks.block;
 
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
@@ -27,10 +28,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.Block;
 
-import java.util.Map;
-import java.util.HashMap;
-
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -62,7 +60,7 @@ public class BlockFexplosive extends ElementsAstrotweaksMod.ModElement {
 	        setSoundType(SoundType.PLANT);
 	        setHardness(1F);
 	        setResistance(0F);
-	        setCreativeTab(TabAstroTweaks.tab);
+	        setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 	        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 	    }
 	

@@ -19,10 +19,10 @@ import java.util.*;
 
 public class ModVariables {
 	public ModVariables() {}
-
-	public static int GG_MIN_DELAY_TICK = 100;//600 * 20; // 10 minutes
-	public static int GG_MAX_DELAY_TICK = 110;//1800 * 20; // 30 minutes
-	public static int GG_MAX_OPER_PER_TICK = 512;//3;
+	//								   МИНУТ * сек * тик
+	public static int GG_MIN_DELAY_TICK = 5 * 60 * 20; // 5 minutes
+	public static int GG_MAX_DELAY_TICK = 15 * 60 * 20; // 15 minutes
+	public static int GG_MAX_OPER_PER_TICK = 16;
 	public static int GG_Density = 14; // blocks in area
 	public static int GG_Tall_Density = 9;
 	public static boolean GG_ENABLED = true;

@@ -28,7 +28,7 @@ import java.util.List;
 
 import com.google.common.collect.Multimap;
 import astrotweaks.procedure.ProcedureGavelRightClickedOnBlock;
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 import astrotweaks.ElementsAstrotweaksMod;
 
 @ElementsAstrotweaksMod.ModElement.Tag
@@ -55,7 +55,7 @@ public class ItemGavel extends ElementsAstrotweaksMod.ModElement {
 			maxStackSize = 1;
 			setUnlocalizedName("gavel");
 			setRegistryName("gavel");
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 			setContainerItem(this);
 		}
 

@@ -16,7 +16,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.Block;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -48,7 +48,7 @@ public class BlockDecoBlockGrid extends ElementsAstrotweaksMod.ModElement {
 			setHardness(2F);
 			setResistance(3F);
 			setLightOpacity(0);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 
 		@SideOnly(Side.CLIENT)

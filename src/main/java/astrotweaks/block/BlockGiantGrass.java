@@ -1,7 +1,7 @@
 package astrotweaks.block;
 
 import astrotweaks.ElementsAstrotweaksMod;
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 import astrotweaks.util.DropHandler;
 import astrotweaks.util.DropHandler.DropEntry;
 import net.minecraft.block.Block;
@@ -14,7 +14,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+//import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -41,16 +41,13 @@ public class BlockGiantGrass extends ElementsAstrotweaksMod.ModElement {
     public BlockGiantGrass(ElementsAstrotweaksMod instance) {
         super(instance, 1121);
     }
-
     @Override
     public void initElements() {
         elements.blocks.add(() -> new BlockCustom().setRegistryName("giant_grass"));
         elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
     }
-
     @SideOnly(Side.CLIENT)
-    @Override
-    public void registerModels(ModelRegistryEvent event) {
+    @Override public void registerModels(ModelRegistryEvent event) {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation("astrotweaks:giant_grass", "inventory"));
     }
 
@@ -64,7 +61,7 @@ public class BlockGiantGrass extends ElementsAstrotweaksMod.ModElement {
             setHardness(0.0F);
             setResistance(0.0F);
             setLightOpacity(0);
-            setCreativeTab(TabAstroTweaks.tab);
+            setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
             setTickRandomly(true);
 
             setDefaultState(blockState.getBaseState().withProperty(PART, Part.LOWER)
@@ -78,57 +75,32 @@ public class BlockGiantGrass extends ElementsAstrotweaksMod.ModElement {
         // array of possible drops
         private static final DropEntry[] DE_TABLE = new DropEntry[] {
             new DropEntry("minecraft:wheat_seeds",    1, 8.0),
-			new DropEntry("minecraft:tallgrass",    1, 2.0, 2),
+			new DropEntry("minecraft:tallgrass",    1, 2.0, 1),
             new DropEntry("none",    			1, 90.0)
         };
 		private static final DropHandler DE_DROP_TABLE = new DropHandler(DE_TABLE);
 		@Override public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		    World w = (world instanceof World) ? (World) world : null;
-		    int rolls = 3;
+		    int rolls = 2;
 		    DE_DROP_TABLE.generateDrops(drops, w, rolls);
 		}
 
-
-        @Override
-        public boolean isOpaqueCube(IBlockState state) {
-            return false;
-        }
-        @Override
-        public boolean isFullCube(IBlockState state) {
-            return false;
-        }
-        @Override
-        public boolean isPassable(IBlockAccess world, BlockPos pos) {
-            return true;
-        }
-        @Override
-        public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-            return NULL_AABB;
-        }
-
-		@Override
-		public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-			return FULL_BLOCK_AABB;
-		}
-
-        @Override
+        @Override public boolean isOpaqueCube(IBlockState state) { return false; }
+        @Override public boolean isFullCube(IBlockState state) { return false; }
+        @Override public boolean isPassable(IBlockAccess world, BlockPos pos) { return true; }
+        @Override public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) { return NULL_AABB; }
+		@Override public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) { return FULL_BLOCK_AABB; }
         @SideOnly(Side.CLIENT)
-        public net.minecraft.util.BlockRenderLayer getBlockLayer() {
+		@Override public net.minecraft.util.BlockRenderLayer getBlockLayer() {
             return net.minecraft.util.BlockRenderLayer.CUTOUT;
         }
-
-        @Override
-        public MapColor getMapColor(IBlockState state, IBlockAccess world, BlockPos pos) {
-            return MapColor.GRASS;
-        }
-
+        @Override public MapColor getMapColor(IBlockState state, IBlockAccess world, BlockPos pos) { return MapColor.GRASS; }
         @Override
         public boolean canPlaceBlockAt(World world, BlockPos pos) {
             BlockPos middle = pos.up();
             BlockPos upper = pos.up(2);
             return super.canPlaceBlockAt(world, pos) && world.getBlockState(middle).getMaterial().isReplaceable() && world.getBlockState(upper).getMaterial().isReplaceable();
         }
-
         @Override
         public IBlockState getStateFromMeta(int meta) {
             Part part;
@@ -165,10 +137,7 @@ public class BlockGiantGrass extends ElementsAstrotweaksMod.ModElement {
 
         @Override
         protected net.minecraft.block.state.BlockStateContainer createBlockState() {
-            return new net.minecraft.block.state.BlockStateContainer(
-                    this,
-                    PART
-            );
+            return new net.minecraft.block.state.BlockStateContainer(this, PART);
         }
 
         /**
@@ -177,7 +146,7 @@ public class BlockGiantGrass extends ElementsAstrotweaksMod.ModElement {
         @Override
         public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, net.minecraft.entity.EntityLivingBase placer, net.minecraft.item.ItemStack stack) {
 			if (world.isRemote) return;
-				
+
 			IBlockState middleState = getDefaultState().withProperty(PART, Part.MIDDLE);
 			IBlockState upperState = getDefaultState().withProperty(PART, Part.UPPER);
 
@@ -185,7 +154,6 @@ public class BlockGiantGrass extends ElementsAstrotweaksMod.ModElement {
 			// но не запускать лишние neighbor updates во время создания стебля
 			world.setBlockState(pos.up(), middleState, 2);
 			world.setBlockState(pos.up(2), upperState, 2);
-			
         }
 
         /**
@@ -250,30 +218,23 @@ public class BlockGiantGrass extends ElementsAstrotweaksMod.ModElement {
 		}
 
 
-
-		
-
         @Override
         public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing face) {
             return BlockFaceShape.UNDEFINED;
         }
-
-        @Override
-        public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
-            return EnumPlantType.Plains;
-        }
-
+		@Override
+		public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
+			return EnumPlantType.Plains;
+		}
         @Override
         public IBlockState getPlant(IBlockAccess world, BlockPos pos) {
             return world.getBlockState(pos);
         }
-
-        @Override
-        public Item getItemDropped(IBlockState state, java.util.Random random, int fortune) {
-            // Предмет выпадает только при разрушении нижней части
-            return state.getValue(PART) == Part.LOWER ? Item.getItemFromBlock(this) : null;
-        }
-
+        //@Override
+        //public Item getItemDropped(IBlockState state, java.util.Random random, int fortune) {
+        //    // Предмет выпадает только при разрушении нижней части
+        //    return state.getValue(PART) == Part.LOWER ? Item.getItemFromBlock(this) : null;
+        //}
         public enum Part implements IStringSerializable {
             LOWER("lower"),
             MIDDLE("middle"),
@@ -285,10 +246,7 @@ public class BlockGiantGrass extends ElementsAstrotweaksMod.ModElement {
                 this.name = name;
             }
 
-            @Override
-            public String getName() {
-                return name;
-            }
+            @Override public String getName() { return name; }
         }
     }
 }

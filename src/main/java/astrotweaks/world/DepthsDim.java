@@ -10,7 +10,6 @@ import net.minecraft.world.gen.layer.GenLayerZoom;
 import net.minecraft.world.gen.layer.GenLayerVoronoiZoom;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
-import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.Chunk;
@@ -22,8 +21,8 @@ import net.minecraft.world.WorldEntitySpawner;
 import net.minecraft.world.World;
 import net.minecraft.world.DimensionType;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.ChunkPos;
+//import net.minecraft.util.math.MathHelper;
+//import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.ReportedException;
@@ -41,10 +40,10 @@ import net.minecraft.entity.Entity;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.MapGenCaves;
-import net.minecraft.world.gen.MapGenRavine;
+//import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.pattern.BlockMatcher;
-import net.minecraft.world.gen.NoiseGeneratorOctaves;
+//import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
@@ -55,20 +54,15 @@ import java.util.List;
 import astrotweaks.block.*;
 
 
-import astrotweaks.ModVariables;
-
 
 public class DepthsDim {
 	public static int DIMID = -6000;
-	public static final boolean NETHER_TYPE = false;
 	public static DimensionType dtype;
-	public DepthsDim() {
-	}
+	public DepthsDim() {}
 
 	public static void preInit() {
-		//if (!AstrotweaksModVariables.Enable_Depths_Dimension) return;
 		if (DimensionManager.isDimensionRegistered(DIMID)) {
-			DIMID = DimensionManager.getNextFreeDimId();
+			final int DIMID = DimensionManager.getNextFreeDimId();
 			System.err.println("Dimension ID for DepthsDim is already registered. Fallback to ID: " + DIMID);
 		}
 		dtype = DimensionType.register("depths", "_depths", DIMID, WorldProviderMod.class, true); // check
@@ -78,7 +72,6 @@ public class DepthsDim {
 	public static class WorldProviderMod extends WorldProvider { // this's cavern
 		@SubscribeEvent
 		public void init() {
-			//if (!AstrotweaksModVariables.Enable_Depths_Dimension) return;
 			this.biomeProvider = new BiomeProviderCustom(this.world.getSeed());
 			this.nether = false; // false, because this isn't nether
 			this.hasSkyLight = false; // No naturally light
@@ -87,12 +80,9 @@ public class DepthsDim {
 		@Override public void updateWeather() {}
 		@Override public boolean canDoLightning(net.minecraft.world.chunk.Chunk chunk) {return false;}
 		@Override public boolean canDoRainSnowIce(net.minecraft.world.chunk.Chunk chunk) {return false;}
-		@Override public DimensionType getDimensionType() {return dtype;}
+		@Override public DimensionType getDimensionType() { return dtype; }
 		@SideOnly(Side.CLIENT)
-		@Override
-		public Vec3d getFogColor(float par1, float par2) {
-			return new Vec3d(0.0f, 0.0f, 0.0f);
-		}
+		@Override public Vec3d getFogColor(float par1, float par2) { return new Vec3d(0.0f, 0.0f, 0.0f); }
 		@SideOnly(Side.CLIENT)
 		@Override public Vec3d getSkyColor(Entity cameraEntity, float partialTicks) { return new Vec3d(0.0D, 0.0D, 0.0D); /* dark sky */ }
 		@SideOnly(Side.CLIENT)
@@ -175,11 +165,11 @@ public class DepthsDim {
 			//this.genRavines.generate(this.world, x, z, chunkprimer);
 			this.genCustomCaves.generate(this.world, x, z, chunkprimer);
 
-			// All air blocks < X height will be replace to Lava
+			// Все блоки воздуха ниже Y высоты будут заменены на лаву
 			for (int y = 0; y < SEALEVEL; y++) {
 				for (int localX = 0; localX < 16; localX++) {
 					for (int localZ = 0; localZ < 16; localZ++) {
-						if (chunkprimer.getBlockState(localX, y, localZ).getBlock() == Blocks.AIR) {
+						if (chunkprimer.getBlockState(localX, y, localZ) == AIR) {
 							chunkprimer.setBlockState(localX, y, localZ, FLUID);
 						}
 					}
@@ -259,7 +249,7 @@ public class DepthsDim {
 			int j = z * 16;
 			BlockPos blockpos = new BlockPos(i, 0, j);
 			Biome biome = this.world.getBiome(blockpos.add(16, 0, 16));
-			ChunkPos chunkpos = new ChunkPos(x, z);
+			//ChunkPos chunkpos = new ChunkPos(x, z);
 
 			// ORE GEN - !!!!!
 			// Generate ores at all heights
@@ -285,10 +275,11 @@ public class DepthsDim {
 		}
 
 		private void generateOres(World world, Random random, int x, int z) {
-			Block stoneBlock = STONE.getBlock();
-			Block deepslateB = DEEPSLATE.getBlock();
-			BlockMatcher stoneMatcher = BlockMatcher.forBlock(stoneBlock);
-			BlockMatcher deepslateMatcher = BlockMatcher.forBlock(deepslateB);
+			//Block stoneBlock = STONE.getBlock();
+			//Block deepslateB = DEEPSLATE.getBlock();
+			BlockMatcher stoneMatcher = BlockMatcher.forBlock(STONE.getBlock());
+			BlockMatcher deepslateMatcher = BlockMatcher.forBlock(DEEPSLATE.getBlock());
+			BlockMatcher obsidianMatcher = BlockMatcher.forBlock(OBSIDIAN.getBlock());
 
 			//			Block							Matcher			worldID	Random	X	Z	VeinSize	GenChance	MinY	MaxY
 			generateOre(Blocks.COAL_ORE.getDefaultState(), stoneMatcher, world, random, x, z, 	30, 20, 128, 252);
@@ -307,10 +298,11 @@ public class DepthsDim {
 			generateOre(BlockRubyOre.block.getDefaultState(), stoneMatcher,world,random, x, z,  	 4,  7,  99, 252);
 			generateOre(BlockQuartzOreStone.block.getDefaultState(),stoneMatcher,world,random,x,z,13,  6, 150, 252);
 			generateOre(BlockMineralsOre.block.getDefaultState(),stoneMatcher,world,random,x,z,	10, 25,  99, 252);
+			generateOre(DEEPSLATE, 								stoneMatcher,world,random,x,z,	7, 7,  99, 252);
 
 			// deepslate
 			generateOre(Blocks.MAGMA.getDefaultState(), deepslateMatcher, world, random, x, z, 				20,  9, 26, 50);
-			generateOre(Blocks.OBSIDIAN.getDefaultState(), deepslateMatcher, world, random, x, z,	 			 7,  4, 29, 40);
+			generateOre(OBSIDIAN, 						deepslateMatcher, world, random, x, z,	 			 7,  4, 29, 40);
 			generateOre(Blocks.STONE.getStateFromMeta(1), deepslateMatcher,world,random, x, z,				18,  3, 80, 95);
 
 			generateOre(BlockDeepDiamondOre.block.getDefaultState(), deepslateMatcher, world, random, x, z, 	 7,  5, 40, 96);
@@ -323,16 +315,11 @@ public class DepthsDim {
 			generateOre(BlockDeepMinerals.block.getDefaultState(),	deepslateMatcher, world, random, x, z, 	 7,  8, 26, 64);
 
 			// obsidian
-			generateOre(BlockDeepRichMinerals.block.getDefaultState(),BlockMatcher.forBlock(OBSIDIAN.getBlock()),world,random,x,z,	6, 30, 1, 28);
+			generateOre(BlockDeepRichMinerals.block.getDefaultState(),obsidianMatcher,world,random,x,z,	6, 30, 1, 28);
 		}
 		private void generateOre(IBlockState ore, BlockMatcher matcher, World world, Random random, int x, int z, int veinSize, int chances, int minHeight, int maxHeight) {
 			if (maxHeight < minHeight) {
-				int i = minHeight;
-				minHeight = maxHeight;
-				maxHeight = i;
-			} else if (maxHeight == minHeight) {
-				if (minHeight < 254) { maxHeight++; } 
-				else { minHeight--; }
+				minHeight = maxHeight - (maxHeight - minHeight);
 			}
 			WorldGenMinable gen = new WorldGenMinable(ore, veinSize, matcher);
 			for (int chance = 0; chance < chances; chance++) {
@@ -351,13 +338,13 @@ public class DepthsDim {
 
 	/////
 	public static class CustomCaveGen extends MapGenCaves {
-		private static final int CHUNK_SKIP_CHANCE = 19; // 1/28 chunks = ~3.6% (was 25)
+		private static final int CHUNK_SKIP_CHANCE = 19; // 1:19
 		private final NoiseGeneratorPerlin caveNoise;
-		private final float[] caveSizeCache = new float[256];
+		//private final float[] caveSizeCache = new float[256];
 		private final Random caveRand = new Random();
 		public CustomCaveGen() {
 			super();
-			this.caveNoise = new NoiseGeneratorPerlin(new Random(0L), 4);
+			this.caveNoise = new NoiseGeneratorPerlin(new Random(0L), 3);
 		}
 
 		@Override
@@ -368,7 +355,7 @@ public class DepthsDim {
 			Random rand = this.caveRand;
 			rand.setSeed(seed);
 			// Chance to skip iteration; 1 chance in `CHUNK_SKIP_CHANCE` per chunk
-			if (rand.nextInt(CHUNK_SKIP_CHANCE) != 0) return;
+			if (rand.nextInt(CHUNK_SKIP_CHANCE) != 0) return; // 1:19
 
 			// Increased the frequency of caves - now they generate almost always
 			int caveCount = 3 + rand.nextInt(3); // 3-5 systems
@@ -380,7 +367,7 @@ public class DepthsDim {
 		}
 
 		private void generateCaveSystem(Random rand, int chunkX, int chunkZ, ChunkPrimer primer, double startX, double startZ) {
-			// Clearer height distribution with different weights
+			// Разные пещеры на разных высотах
 			int heightType = rand.nextInt(100);
 			double startY;
 			HeightZone zone;
@@ -457,17 +444,17 @@ public class DepthsDim {
 				default:		return 0.0F;
 			}
 		}
-		private int getLengthForZone(HeightZone zone, Random rand) { // Lenght of one chain
+		private int getLengthForZone(HeightZone zone, Random rand) { // Длина одной ветви
 			switch (zone) {
 				case LAVA:	  	return 80 + rand.nextInt(120);   // 80-200
-				case SPAGHETTI: return 170 + rand.nextInt(170);  // 170-340 (longer!)
+				case SPAGHETTI: return 170 + rand.nextInt(180);  // 170-350 (longer!)
 				case FLAT:	  	return 60 + rand.nextInt(120);	// 60-180
 				case MEDIUM:	return 50 + rand.nextInt(110);	// 50-160
 				case HALLS:	 	return 40 + rand.nextInt(90);	// 40-130 (shorter but wider)
 				default:		return 100;
 			}
 		}
-		private double getVerticalScaleForZone(HeightZone zone, Random rand, double y) { // Otnoshenie Vertical osi k Horizontal
+		private double getVerticalScaleForZone(HeightZone zone, Random rand, double y) { // Отношения ертикального размера к горизонтальному
 			switch (zone) {
 				case LAVA: 		return 0.5 + rand.nextDouble() * 1.5;  // Very flat
 				case SPAGHETTI: return 0.9 + rand.nextDouble()  * 0.3;   // Almost round
@@ -477,7 +464,7 @@ public class DepthsDim {
 				default:		return 1.0;
 			}
 		}
-		private int getBranchCountForZone(HeightZone zone, Random rand) { // Count of branches
+		private int getBranchCountForZone(HeightZone zone, Random rand) { // Количесто веток
 			switch (zone) {
 				case LAVA:	  	return rand.nextInt(3);		  // 0-2 branches
 				case SPAGHETTI: return 2 + rand.nextInt(4);	  // 2-5 branches (many!)
@@ -487,10 +474,10 @@ public class DepthsDim {
 				default:		return 2;
 			}
 		}
-		private float getYawSpreadForZone(HeightZone zone) { // Stepen' otklonenia v storony;  + = bol'she vilanie, - = bolee prami^e caves
+		private float getYawSpreadForZone(HeightZone zone) { // Степень отклонения в стороны;  + = большее виляние, - = более прямые пещеры
 			switch (zone) {
 				case LAVA:	  	return (float)Math.PI / (float) 7;	   // Wide spread
-				case SPAGHETTI: return (float)Math.PI / (float) 1.1;	//  Small spread
+				case SPAGHETTI: return (float)Math.PI / (float) 1.2;	//  Small spread
 				case FLAT:	  	return (float)Math.PI / (float) 2.0;	 
 				case MEDIUM:	return (float)Math.PI / (float) 2.5; 	// Average spread
 				case HALLS:	 	return (float)Math.PI / (float) 7;
@@ -499,7 +486,7 @@ public class DepthsDim {
 		}
 		private float getBranchSizeMultiplier(HeightZone zone, Random rand) { // size of branches relative of Main; 0.5 = branch size /2 relof Main, 1.0 = tot zhe razmer
 			switch (zone) {
-				case SPAGHETTI: return 0.1F;// + rand.nextFloat() * 0.2F;  // 0.7-1.0
+				case SPAGHETTI: return 0.08F;// + rand.nextFloat() * 0.2F;
 				case MEDIUM:	return 0.4F + rand.nextFloat() * 0.4F;  // 0.4-0.8
 				case HALLS:	 	return 0.7F + rand.nextFloat() * 0.3F;  // 0.7-1.0 (thin branches)
 				default:		return 0.6F + rand.nextFloat() * 0.4F;  // 0.5-1.0
@@ -534,15 +521,14 @@ public class DepthsDim {
 		//##############################
 		@Override
 		protected void addTunnel(long seed, int chunkX, int chunkZ, ChunkPrimer primer, double posX, double posY, double posZ, float caveSize, 
-				float caveAngle, float cavePitch, int startStep, int maxSteps, double verticalScale) {
+					float caveAngle, float cavePitch, int startStep, int maxSteps, double verticalScale) {
 
 			if (maxSteps < 20) maxSteps = 20;
 			// Height limit
 			if (posY > 250) posY = 250;
-			if (posY < 7) posY = 7;
+			if (posY < 8) posY = 8;
 			super.addTunnel(seed, chunkX, chunkZ, primer, posX, posY, posZ, caveSize, caveAngle, cavePitch, startStep, maxSteps, verticalScale);
 		}
-		// #
 	    @Override
 	    protected boolean canReplaceBlock(IBlockState state, IBlockState upState) {
 	        // allow replace obsidian
@@ -551,7 +537,6 @@ public class DepthsDim {
 	        }
 	        return super.canReplaceBlock(state, upState);
 	    }
-		
 	}
 
 	public static class GenLayerBiomesCustom extends GenLayer {
@@ -594,16 +579,13 @@ public class DepthsDim {
 		public BiomeProviderCustom(World world) { this(world.getSeed()); }
 		@Override public void cleanupCache() { this.biomeCache.cleanupCache(); }
 		@Override public Biome getBiome(BlockPos pos) { return this.getBiome(pos, null); }
-		@Override
-		public Biome getBiome(BlockPos pos, Biome defaultBiome) {
+		@Override public Biome getBiome(BlockPos pos, Biome defaultBiome) {
 			return this.biomeCache.getBiome(pos.getX(), pos.getZ(), defaultBiome);
 		}
-		@Override
-		public Biome[] getBiomes(Biome[] oldBiomeList, int x, int z, int width, int depth) {
+		@Override public Biome[] getBiomes(Biome[] oldBiomeList, int x, int z, int width, int depth) {
 			return this.getBiomes(oldBiomeList, x, z, width, depth, true);
 		}
-		@Override
-		public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height) {
+		@Override public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height) {
 			IntCache.resetIntCache();
 			if (biomes == null || biomes.length < width * height) {
 				biomes = new Biome[width * height];

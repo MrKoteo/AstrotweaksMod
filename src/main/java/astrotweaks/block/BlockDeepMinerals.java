@@ -21,7 +21,7 @@ import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.Block;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 import astrotweaks.ElementsAstrotweaksMod;
 
 import java.util.Random;
@@ -75,7 +75,7 @@ public class BlockDeepMinerals extends ElementsAstrotweaksMod.ModElement {
             setHarvestLevel("pickaxe", 3);
             setHardness(7.5F);
             setResistance(20F);
-            setCreativeTab(TabAstroTweaks.tab);
+            setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
         }
         @Override public EnumPushReaction getMobilityFlag(IBlockState state) { return EnumPushReaction.IGNORE; }
 

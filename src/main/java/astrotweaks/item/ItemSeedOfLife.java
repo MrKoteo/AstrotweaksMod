@@ -16,7 +16,7 @@ import net.minecraft.block.state.IBlockState;
 
 import java.util.List;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -42,7 +42,7 @@ public class ItemSeedOfLife extends ElementsAstrotweaksMod.ModElement {
 		public ItemCustom() {
 			setUnlocalizedName("seed_of_life");
 			setRegistryName("seed_of_life");
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 
 		@Override

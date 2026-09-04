@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import java.util.Set;
 import java.util.HashMap;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -36,7 +36,7 @@ public class ItemCrystalHoe extends ElementsAstrotweaksMod.ModElement {
 				ret.put("hoe", 4);
 				return ret.keySet();
 			}
-		}.setUnlocalizedName("crystal_hoe").setRegistryName("crystal_hoe").setCreativeTab(TabAstroTweaks.tab));
+		}.setUnlocalizedName("crystal_hoe").setRegistryName("crystal_hoe").setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT));
 	}
 
 	@SideOnly(Side.CLIENT)

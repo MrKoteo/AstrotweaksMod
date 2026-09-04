@@ -18,7 +18,7 @@ import net.minecraft.util.NonNullList;
 
 import java.util.List;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -73,7 +73,7 @@ public class ItemProcessors extends ElementsAstrotweaksMod.ModElement {
 				setHasSubtypes(true);
 				setUnlocalizedName(regName);
 				setRegistryName(regName);
-				setCreativeTab(TabAstroTweaks.tab);
+				setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 			}
 
 			@Override

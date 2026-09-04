@@ -26,7 +26,7 @@ import astrotweaks.recipe.GavelRecipeRegistry;
 
 import net.minecraftforge.fml.common.Mod.EventHandler;
 
-import astrotweaks.gui.GuiMTGUI;
+import astrotweaks.tech.mt.MTGUI;
 import astrotweaks.tech.ark.ArkGUI;
 //import astrotweaks.tech.qts.QTPSupGUI;
 
@@ -68,8 +68,8 @@ public class Handler extends ElementsAstrotweaksMod.ModElement{
     public static class GuiHandler implements IGuiHandler {
 		@Override
 		public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-			if (id == GuiMTGUI.GUIID)
-				return new GuiMTGUI.GuiContainerMod(world, x, y, z, player);
+			if (id == MTGUI.GUIID)
+				return new MTGUI.GuiContainerMod(world, x, y, z, player);
 			if (id == ArkGUI.GUIID)
             	return null;
 			//if (id == QTPSupGUI.GUIID)
@@ -79,8 +79,8 @@ public class Handler extends ElementsAstrotweaksMod.ModElement{
 
 		@Override
 		public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-			if (id == GuiMTGUI.GUIID)
-				return new GuiMTGUI.GuiWindow(world, x, y, z, player);
+			if (id == MTGUI.GUIID)
+				return new MTGUI.GuiWindow(world, x, y, z, player);
 			if (id == ArkGUI.GUIID)
                 return new ArkGUI.GuiWindow(world, x, y, z, player);
 			//if (id == QTPSupGUI.GUIID)

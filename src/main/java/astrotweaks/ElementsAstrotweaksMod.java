@@ -17,7 +17,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.discovery.ASMDataTable;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import net.minecraftforge.fml.common.IFuelHandler;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 
@@ -35,6 +34,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.block.Block;
 
 import java.util.function.Supplier;
+
+import astrotweaks.tech.mt.MTGUI;
+
 import java.util.Random;
 import java.util.Map;
 import java.util.List;
@@ -45,9 +47,7 @@ import java.util.ArrayList;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Retention;
 
-import astrotweaks.gui.GuiMTGUI;
-
-public class ElementsAstrotweaksMod implements IFuelHandler, IWorldGenerator {
+public class ElementsAstrotweaksMod implements IWorldGenerator {
 	public final List<ModElement> elements = new ArrayList<>();
 	public final List<Supplier<Block>> blocks = new ArrayList<>();
 	public final List<Supplier<Item>> items = new ArrayList<>();
@@ -84,6 +84,7 @@ public class ElementsAstrotweaksMod implements IFuelHandler, IWorldGenerator {
 		elements.forEach(element -> element.generateWorld(random, chunkX * 16, chunkZ * 16, world, world.provider.getDimension(), cg, cp));
 	}
 
+	/*
 	@Override
 	public int getBurnTime(ItemStack fuel) {
 		for (ModElement element : elements) {
@@ -93,6 +94,7 @@ public class ElementsAstrotweaksMod implements IFuelHandler, IWorldGenerator {
 		}
 		return 0;
 	}
+	*/
 
 	@SubscribeEvent
 	public void onPlayerLoggedIn(net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent event) {
@@ -125,13 +127,13 @@ public class ElementsAstrotweaksMod implements IFuelHandler, IWorldGenerator {
 	public static class GuiHandler implements IGuiHandler {
 		@Override
 		public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-			if (id == GuiMTGUI.GUIID) return new GuiMTGUI.GuiContainerMod(world, x, y, z, player);
+			if (id == MTGUI.GUIID) return new MTGUI.GuiContainerMod(world, x, y, z, player);
 			return null;
 		}
 
 		@Override
 		public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-			if (id == GuiMTGUI.GUIID) return new GuiMTGUI.GuiWindow(world, x, y, z, player);
+			if (id == MTGUI.GUIID) return new MTGUI.GuiWindow(world, x, y, z, player);
 			return null;
 		}
 	}

@@ -20,7 +20,7 @@ import net.minecraft.util.text.TextFormatting;
 
 import java.util.List;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -48,7 +48,7 @@ public class ItemPlantFiber extends ElementsAstrotweaksMod.ModElement {
 			//maxStackSize = 64;
 			setUnlocalizedName("plant_fiber");
 			setRegistryName("plant_fiber");
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 		/*
 		@Override

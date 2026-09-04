@@ -27,7 +27,7 @@ import net.minecraft.block.Block;
 
 import java.util.Random;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -64,7 +64,7 @@ public class BlockCobbledDeepslateSlab extends ElementsAstrotweaksMod.ModElement
 			setResistance(12F);
 			//setLightLevel(0F);
 			//setLightOpacity(255);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 			IBlockState state = this.blockState.getBaseState().withProperty(VARIANT, BlockCustom.Variant.DEFAULT);
 			if (!this.isDouble())
 				state = state.withProperty(BlockSlab.HALF, EnumBlockHalf.BOTTOM);

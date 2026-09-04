@@ -17,7 +17,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.Block;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -49,7 +49,7 @@ public class BlockBrassBlock extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("pickaxe", 1);
 			setHardness(5F);
 			setResistance(20F);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 
 		@Override

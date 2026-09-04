@@ -28,7 +28,7 @@ import java.util.Random;
 
 import astrotweaks.item.ItemRuby;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 import astrotweaks.ModVariables;
 
 import astrotweaks.ElementsAstrotweaksMod;
@@ -79,7 +79,7 @@ public class BlockRubyOre extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("pickaxe", 2);
 			setHardness(5F);
 			setResistance(15F);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 
 		@Override

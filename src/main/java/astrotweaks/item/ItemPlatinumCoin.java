@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
 import java.util.List;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -42,7 +42,7 @@ public class ItemPlatinumCoin extends ElementsAstrotweaksMod.ModElement {
 			maxStackSize = 50;
 			setUnlocalizedName("platinum_coin");
 			setRegistryName("platinum_coin");
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 
 		@Override

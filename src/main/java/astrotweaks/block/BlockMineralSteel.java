@@ -18,7 +18,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.Block;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -50,8 +50,7 @@ public class BlockMineralSteel extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("pickaxe", 3);
 			setHardness(10F);
 			setResistance(30F);
-			setLightOpacity(255);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 
 		@Override

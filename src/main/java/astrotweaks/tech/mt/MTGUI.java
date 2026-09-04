@@ -1,5 +1,5 @@
 
-package astrotweaks.gui;
+package astrotweaks.tech.mt;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.input.Keyboard;
@@ -30,17 +30,15 @@ import java.util.HashMap;
 
 import java.io.IOException;
 
-import astrotweaks.tech.mt.ProcedureMTConvert;
-
 import astrotweaks.ElementsAstrotweaksMod;
 
 import astrotweaks.AstrotweaksMod;
 
 @ElementsAstrotweaksMod.ModElement.Tag
-public class GuiMTGUI extends ElementsAstrotweaksMod.ModElement {
+public class MTGUI extends ElementsAstrotweaksMod.ModElement {
 	public static int GUIID = 4;
 	public static HashMap guistate = new HashMap();
-	public GuiMTGUI(ElementsAstrotweaksMod instance) {
+	public MTGUI(ElementsAstrotweaksMod instance) {
 		super(instance, 319);
 	}
 

@@ -9,7 +9,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.entity.EntityList;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
+
 
 
 //import java.util.Map;
@@ -47,7 +48,7 @@ public final class ProcedureRsummonProc {
         // Clamp count
         if (count < 1) count = 1;
         if (count > 99) {
-            sendMessage(player, I18n.translateToLocal("command.rsummon.limit") + "99.", true);
+            sendMessage(player, I18n.format("command.rsummon.limit") + "99.", true);
             return;
         }
 
@@ -57,7 +58,7 @@ public final class ProcedureRsummonProc {
             try {
                 nbt = JsonToNBT.getTagFromJson(nbtStr);
             } catch (Exception e) {
-                sendMessage(player, I18n.translateToLocal("command.invalid_nbt") + e.getMessage(), true);
+                sendMessage(player, I18n.format("command.invalid_nbt") + e.getMessage(), true);
                 return;
             }
         }
@@ -71,7 +72,7 @@ public final class ProcedureRsummonProc {
             // Create entity
             Entity entityToSpawn = EntityList.createEntityByIDFromName(new ResourceLocation(entityId), world);
             if (entityToSpawn == null) {
-                sendMessage(player, I18n.translateToLocal("command.invalid_entityid") + entityId, true);
+                sendMessage(player, I18n.format("command.invalid_entityid") + entityId, true);
                 return; // Stop if invalid
             }
 

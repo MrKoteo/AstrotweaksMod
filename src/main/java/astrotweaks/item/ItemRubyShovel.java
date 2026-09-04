@@ -17,8 +17,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import java.util.Set;
 import java.util.HashMap;
 
-import astrotweaks.creativetab.TabAstroTweaks;
-
 import astrotweaks.ElementsAstrotweaksMod;
 
 @ElementsAstrotweaksMod.ModElement.Tag

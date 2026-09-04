@@ -2,7 +2,6 @@ package astrotweaks.block;
 
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -156,7 +155,6 @@ public class MinedBlocks extends ElementsAstrotweaksMod.ModElement {
 	    for (int i = 0; i < tmp.size(); i++) ENTRIES_BY_META[i] = tmp.get(i);
 	}
 
-
     private static final int GROUP_SIZE = 16;
     private final List<Block> groupBlocks = new ArrayList<>();
     private final List<Item> groupItems = new ArrayList<>();
@@ -273,7 +271,7 @@ public class MinedBlocks extends ElementsAstrotweaksMod.ModElement {
     public void registerModels(ModelRegistryEvent event) {
         for (int g = 0; g < groupItems.size(); g++) {
             Item item = groupItems.get(g);
-            Block block = groupBlocks.get(g);
+            //Block block = groupBlocks.get(g);
             int startGlobal = g * GROUP_SIZE;
             int localCount = Math.min(GROUP_SIZE, ENTRIES_BY_META.length - startGlobal);
             for (int local = 0; local < localCount; local++) {

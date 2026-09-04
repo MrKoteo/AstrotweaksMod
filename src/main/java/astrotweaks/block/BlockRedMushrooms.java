@@ -13,7 +13,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.Item;
@@ -24,8 +23,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.Block;
-
-import astrotweaks.creativetab.TabAstroTweaks;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -52,24 +49,11 @@ public class BlockRedMushrooms extends ElementsAstrotweaksMod.ModElement {
 	public static class BlockCustomFlower extends BlockFlower {
 		public BlockCustomFlower() {
 			setSoundType(SoundType.PLANT);
-			//setCreativeTab(TabAstroTweaks.tab);
 			setHardness(0F);
 			setResistance(0F);
-			//setLightLevel(0F);
 			setUnlocalizedName("red_mushrooms");
 			setRegistryName("red_mushrooms");
 		}
-
-		/*
-		@Override
-		public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
-			return 100;
-		}
-
-		@Override
-		public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
-			return 60;
-		}*/
 
 		@Override
 		public Block.EnumOffsetType getOffsetType() {

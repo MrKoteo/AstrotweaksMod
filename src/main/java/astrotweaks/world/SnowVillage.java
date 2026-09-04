@@ -3,7 +3,6 @@ package astrotweaks.world;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.event.terraingen.BiomeEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.init.Biomes;
@@ -19,7 +18,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import java.util.ArrayList;
 import java.util.List;
 
-
+// подписка не нужна
 public final class SnowVillage {
     public static final ArrayList<Biome> coldBiomes = new ArrayList<>();
 

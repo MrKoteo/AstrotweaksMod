@@ -35,7 +35,7 @@ import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraft.util.math.ChunkPos;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 
 
@@ -88,7 +88,7 @@ public class BlockQTPSupressor extends ElementsAstrotweaksMod.ModElement {
 			setHardness(100F);
 			setResistance(100F);
 			setLightLevel(0.333333333333F);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 		@Override public EnumPushReaction getMobilityFlag(IBlockState state) {return EnumPushReaction.BLOCK;}
 		@Override public TileEntity createNewTileEntity(World worldIn, int meta) {return new TileEntityCustom();}

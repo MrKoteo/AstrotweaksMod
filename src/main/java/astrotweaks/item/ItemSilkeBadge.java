@@ -15,13 +15,12 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.block.state.IBlockState;
 
 import java.util.List;
 
 import com.google.common.collect.Multimap;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -48,7 +47,7 @@ public class ItemSilkeBadge extends ElementsAstrotweaksMod.ModElement {
 			maxStackSize = 1;
 			setUnlocalizedName("silke_badge");
 			setRegistryName("silke_badge");
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 			setContainerItem(this);
 		}
 

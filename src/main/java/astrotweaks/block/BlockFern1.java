@@ -37,7 +37,7 @@ import astrotweaks.util.DropHandler;
 import astrotweaks.util.DropHandler.DropEntry;
 import net.minecraft.init.Items;
 
-//import astrotweaks.creativetab.TabAstroTweaks;
+//import astrotweaks.creativetab.ATCreativeTabs;
 import astrotweaks.ElementsAstrotweaksMod;
 
 
@@ -64,7 +64,6 @@ public class BlockFern1 extends ElementsAstrotweaksMod.ModElement {
 	public static class BlockCustomFlower extends BlockBush {
 		public BlockCustomFlower() {
 			setSoundType(SoundType.PLANT);
-			//setCreativeTab(TabAstroTweaks.tab);
 			setHardness(0F);
 			setResistance(0F);
 			setUnlocalizedName("fern_1");

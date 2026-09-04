@@ -38,7 +38,7 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraft.util.text.TextFormatting;
 
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 import astrotweaks.ElementsAstrotweaksMod;
 import astrotweaks.AstrotweaksMod;
 
@@ -71,7 +71,7 @@ public class BlockArk extends ElementsAstrotweaksMod.ModElement {
 			setHardness(100F);
 			setResistance(100F);
 			setLightLevel(0.333333333333F);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 		@Override public EnumPushReaction getMobilityFlag(IBlockState state) { return EnumPushReaction.BLOCK; }
 		@Override public MapColor getMapColor(IBlockState state,IBlockAccess blockAccess,BlockPos pos) { return MapColor.BLACK; }

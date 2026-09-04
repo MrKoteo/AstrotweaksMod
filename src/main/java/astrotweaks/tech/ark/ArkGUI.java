@@ -14,33 +14,22 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import io.netty.buffer.ByteBuf;
 import java.nio.charset.StandardCharsets;
-import java.util.function.Supplier;
-import java.util.Map;
 import java.util.HashMap;
-import java.lang.Runnable;
 import java.io.IOException;
 
 import astrotweaks.ElementsAstrotweaksMod;
@@ -82,7 +71,6 @@ public class ArkGUI extends ElementsAstrotweaksMod.ModElement {
 	        this.clearMode = clearMode;
 	        this.captureEntities = captureEntities;
 	        this.captureItems = captureItems;
-	        //this.delayTicks = delayTicks;
 	    }
 	    @Override
 	    public void toBytes(ByteBuf buf) {
@@ -183,7 +171,6 @@ public class ArkGUI extends ElementsAstrotweaksMod.ModElement {
 	        });
 	        return null;
 	    }
-
 	}
 
 	public static class GuiWindow extends GuiScreen {
@@ -229,7 +216,7 @@ public class ArkGUI extends ElementsAstrotweaksMod.ModElement {
 	        TW_Z.drawTextBox();
 	        delayField.drawTextBox();
 	        // Draw the title
-	        fontRenderer.drawString(I18n.translateToLocal("qts.interface"), k + 40, l + 5, 0x8020FF);
+	        fontRenderer.drawString(I18n.format("ark.interface"), k + 40, l + 5, 0x8020FF);
 	    }
 	    @Override
 	    public void updateScreen() {

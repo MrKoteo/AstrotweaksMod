@@ -88,7 +88,7 @@ public class AstrotweaksMod {
 		
 
 		GameRegistry.registerWorldGenerator(elements, 5);
-		GameRegistry.registerFuelHandler(elements);
+		//GameRegistry.registerFuelHandler(elements);
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new Handler.GuiHandler());
 		elements.preInit(event);
@@ -118,7 +118,6 @@ public class AstrotweaksMod {
 	//private ForestVillage forestVillage;
 	//private DepthsDim depthsDim;
 	//private ConfigManager cfg;
-	private CombinedFuelHandler cfh;
 	private RealisticBreak realBreak;
 
 
@@ -151,10 +150,6 @@ public class AstrotweaksMod {
 		astrotweaks.ModVariables.postInit();
 
 
-		if (ModVariables.Extra_Fuels) {
-			cfh = new CombinedFuelHandler();
-			cfh.postInit(event);
-		}
 		if (ModVariables.Enable_RealisticBreak) {
 			realBreak = new RealisticBreak();
 	        realBreak.postInit(event);

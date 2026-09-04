@@ -153,7 +153,7 @@ public final class BushDecorator {
         if (event.getType() != DecorateBiomeEvent.Decorate.EventType.FLOWERS) return;
         World world = event.getWorld();
         Random rand = event.getRand();
-        BlockPos chunkPos = event.getPos();
+        BlockPos chunkPos = event.getPlacementPos();
         Biome currentBiome = world.getBiome(chunkPos);
 
         List<BushEntry> entries = BUSH_MAP.get(currentBiome);

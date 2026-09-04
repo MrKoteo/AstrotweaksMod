@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import java.util.Set;
 import java.util.HashMap;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -39,7 +39,7 @@ public class ItemNeutroniumShovel extends ElementsAstrotweaksMod.ModElement {
 				ret.put("spade", 6);
 				return ret.keySet();
 			}
-		}.setUnlocalizedName("neutronium_shovel").setRegistryName("neutronium_shovel").setCreativeTab(TabAstroTweaks.tab));
+		}.setUnlocalizedName("neutronium_shovel").setRegistryName("neutronium_shovel").setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT));
 	}
 
 	@SideOnly(Side.CLIENT)

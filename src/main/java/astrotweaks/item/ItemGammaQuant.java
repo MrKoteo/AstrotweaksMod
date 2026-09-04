@@ -12,11 +12,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.block.state.IBlockState;
 
 import astrotweaks.procedure.ProcedureSQInvTick;
 
-import astrotweaks.creativetab.TabATIntegration;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -42,7 +41,7 @@ public class ItemGammaQuant extends ElementsAstrotweaksMod.ModElement {
 		public ItemCustom() {
 			setUnlocalizedName("gamma_quant");
 			setRegistryName("gamma_quant");
-			setCreativeTab(TabATIntegration.tab);
+			setCreativeTab(ATCreativeTabs.AT_INTEGRATION_CT);
 		}
 
 		@Override

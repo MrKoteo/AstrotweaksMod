@@ -71,10 +71,10 @@ public class ItemXpBoxU extends ElementsAstrotweaksMod.ModElement {
 		}
 
 		private static void OpenBox(Entity entity, ItemStack itemstack) {
-			double XpAmount = 0;
+			double XpAmount = 10;
 			boolean Type = false;
 			XpAmount = itemstack.hasTagCompound() ? itemstack.getTagCompound().getDouble("xp") : -1;
-			Type = (itemstack.hasTagCompound() && itemstack.getTagCompound().getBoolean("levels"));
+			Type = itemstack.hasTagCompound() ? itemstack.getTagCompound().getBoolean("levels") : false;
 
 			if (entity instanceof EntityPlayer) {
 				EntityPlayer player = (EntityPlayer) entity;

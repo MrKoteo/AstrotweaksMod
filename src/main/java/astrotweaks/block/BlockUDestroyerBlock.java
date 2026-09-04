@@ -20,12 +20,10 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.Vec3d;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 import astrotweaks.ElementsAstrotweaksMod;
+
 
 @ElementsAstrotweaksMod.ModElement.Tag
 public class BlockUDestroyerBlock extends ElementsAstrotweaksMod.ModElement {
@@ -54,7 +52,7 @@ public class BlockUDestroyerBlock extends ElementsAstrotweaksMod.ModElement {
 			setSoundType(SoundType.METAL);
 			setHardness(1000F);
 			setResistance(1000F);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 			setBlockUnbreakable();
 		}
 		@Override

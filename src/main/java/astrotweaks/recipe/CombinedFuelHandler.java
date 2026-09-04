@@ -5,14 +5,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import astrotweaks.item.*;
+import astrotweaks.ModVariables;
 import astrotweaks.block.*;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.IFuelHandler;
+import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 
 
-public class CombinedFuelHandler implements IFuelHandler {
+@Mod.EventBusSubscriber(modid = "astrotweaks")
+public class CombinedFuelHandler {
 	public CombinedFuelHandler() {}
     private static class FuelEntry {
         final Item item;
@@ -28,10 +30,9 @@ public class CombinedFuelHandler implements IFuelHandler {
             this.meta = meta;
         }
         boolean matches(ItemStack stack) {
-            if (stack == null) return false;
+            if (stack == null || stack.isEmpty()) return false;
             if (stack.getItem() != item) return false;
-            if (meta == null) return true;
-            return stack.getMetadata() == meta;
+            return meta == null || stack.getMetadata() == meta;
         }
     }
 
@@ -101,18 +102,16 @@ public class CombinedFuelHandler implements IFuelHandler {
         new FuelEntry(ItemSomeStrings.block, 160)
     };
 
-    private final FuelEntry[] entries = FUEL_ENTRIES;
+    @SubscribeEvent
+    public static void onFuelBurnTime(FurnaceFuelBurnTimeEvent event) {
+        if (!ModVariables.Extra_Fuels) return;
 
-    public void postInit(FMLPostInitializationEvent event) {
-        GameRegistry.registerFuelHandler(this);
-    }
-
-    @Override
-    public int getBurnTime(ItemStack fuel) {
-        if (fuel == null) return 0;
-        for (FuelEntry e : entries) {
-            if (e.matches(fuel)) return e.burnTime;
+        ItemStack fuel = event.getItemStack();
+        for (FuelEntry entry : FUEL_ENTRIES) {
+            if (entry.matches(fuel)) {
+                event.setBurnTime(entry.burnTime);
+                return;
+            }
         }
-        return 0;
     }
 }

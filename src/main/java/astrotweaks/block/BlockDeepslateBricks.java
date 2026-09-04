@@ -14,7 +14,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.Block;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -46,8 +46,7 @@ public class BlockDeepslateBricks extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("pickaxe", 0);
 			setHardness(4.5F);
 			setResistance(16F);
-			setLightOpacity(255);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 	}
 }

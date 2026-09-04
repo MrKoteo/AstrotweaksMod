@@ -2,24 +2,24 @@
 
 
 # Достижения
-advancements.age_1.descr=каменный век?
-advancements.age_1.title=Древность
-advancements.age_2.descr=именно
-advancements.age_2.title=Средневековье
-advancements.age_3.descr=
-advancements.age_3.title=Индустриальная эпоха
-advancements.age_4.descr=
-advancements.age_4.title=Эпоха Модерна
-advancements.age_5.descr=
-advancements.age_5.title=Информационная эпоха
-advancements.age_6.descr=
-advancements.age_6.title=Космическая Эра
-advancements.age_7.descr=*метатехнологии
-advancements.age_7.title=Будущее...
-advancements.ages_adv.descr=Просто так?
-advancements.ages_adv.title=Наука!
-advancements.money.descr=Открываем свой монетный двор
-advancements.money.title=Деньги!
+adv.age_1.descr=каменный век?
+adv.age_1.title=Древность
+adv.age_2.descr=именно
+adv.age_2.title=Средневековье
+adv.age_3.descr=
+adv.age_3.title=Индустриальная эпоха
+adv.age_4.descr=
+adv.age_4.title=Эпоха Модерна
+adv.age_5.descr=
+adv.age_5.title=Информационная эпоха
+adv.age_6.descr=
+adv.age_6.title=Космическая Эра
+adv.age_7.descr=*метатехнологии
+adv.age_7.title=Будущее...
+adv.ages_adv.descr=Просто так?
+adv.ages_adv.title=Наука!
+adv.money.descr=(Открываем свой монетный двор)
+adv.money.title=Деньги!
 
 
 # Команды
@@ -331,8 +331,8 @@ item.yellow_led.name=Жёлтый светодиод
 
 
 # Вкладки
-itemGroup.tabastro_tweaks=Astro Tweaks
-itemGroup.tabat_integration=AT Integration
+itemGroup.astro_tweaks_ct=Astro Tweaks
+itemGroup.at_integration_ct=AT Integration
 
 
 # JEI
@@ -398,6 +398,7 @@ tile.dont_walk_tape.name=Не ходить!
 tile.double_compressed_quartz.name=Дважды сжатый кварц
 tile.fern_1.name=Папоротник
 tile.fexplosive.name=Взрывчатка
+tile.giant_grass.name=Гигантская трава
 tile.ground_rock_1.name=Камень
 tile.ground_rock_2.name=Плоский камень
 tile.ground_stick.name=Палка

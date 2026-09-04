@@ -19,7 +19,7 @@ import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.Block;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -52,8 +52,7 @@ public class BlockNetherstarBlock extends ElementsAstrotweaksMod.ModElement {
 			setHardness(50F);
 			setResistance(120F);
 			setLightLevel(0.466666666667F);
-			setLightOpacity(255);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 
 		@Override

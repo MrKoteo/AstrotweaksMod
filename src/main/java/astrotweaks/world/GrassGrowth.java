@@ -8,7 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -281,7 +280,7 @@ public class GrassGrowth {
 		    }
 			// Обнаружен твердый объект при сканировании вверх
 		    //IBlockState probeState = state;
-		    if (block.isFullCube(state)) encounteredSolidInUpScan = true;
+		    if (state.isFullCube()) encounteredSolidInUpScan = true;
 		    else if (state.getLightOpacity(world, probe) > 0) encounteredSolidInUpScan = true;
 	    }
 
@@ -302,7 +301,7 @@ public class GrassGrowth {
 		            }
 		        }
 		        //IBlockState probeState = state;
-		        if (block.isFullCube(state) || state.getLightOpacity(world, probe) > 0) {
+		        if (state.isFullCube() || state.getLightOpacity(world, probe) > 0) {
 		            break;
 		        }
 		    }

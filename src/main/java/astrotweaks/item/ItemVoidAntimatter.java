@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 import astrotweaks.ElementsAstrotweaksMod;
 
 @ElementsAstrotweaksMod.ModElement.Tag
@@ -46,7 +46,7 @@ public class ItemVoidAntimatter extends ElementsAstrotweaksMod.ModElement {
 		public ItemCustom() {
 			setUnlocalizedName("void_antimatter");
 			setRegistryName("void_antimatter");
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 		@Override
 		public void addInformation(ItemStack itemstack, World world, List<String> tooltip, ITooltipFlag flag) {

@@ -42,10 +42,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.Block;
-
-
-import astrotweaks.gui.GuiMTGUI;
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.AstrotweaksMod;
 import astrotweaks.ElementsAstrotweaksMod;
@@ -83,7 +80,7 @@ public class BlockMoneyTable extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("pickaxe", 1);
 			setHardness(5F);
 			setResistance(15F);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 			this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		}
 		@Override
@@ -179,7 +176,7 @@ public class BlockMoneyTable extends ElementsAstrotweaksMod.ModElement {
 			int y = pos.getY();
 			int z = pos.getZ();
 
-			if (entity instanceof EntityPlayer) ((EntityPlayer) entity).openGui(AstrotweaksMod.instance, GuiMTGUI.GUIID, world, x, y, z);
+			if (entity instanceof EntityPlayer) ((EntityPlayer) entity).openGui(AstrotweaksMod.instance, MTGUI.GUIID, world, x, y, z);
 
 			return true;
 		}
@@ -254,7 +251,7 @@ public class BlockMoneyTable extends ElementsAstrotweaksMod.ModElement {
  }
 		@Override
 		public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-			return new GuiMTGUI.GuiContainerMod(this.getWorld(), this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), playerIn);
+			return new MTGUI.GuiContainerMod(this.getWorld(), this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), playerIn);
 		}
 		@Override
 		protected NonNullList<ItemStack> getItems() {

@@ -20,7 +20,7 @@ import net.minecraft.block.state.IBlockState;
 
 import com.google.common.collect.Multimap;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -35,7 +35,7 @@ public class ItemCrystalMultitool extends ElementsAstrotweaksMod.ModElement {
 	@Override
 	public void initElements() {
 		elements.items.add(() -> new ItemToolCustom() {
-		}.setUnlocalizedName("crystal_multitool").setRegistryName("crystal_multitool").setCreativeTab(TabAstroTweaks.tab));
+		}.setUnlocalizedName("crystal_multitool").setRegistryName("crystal_multitool").setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT));
 	}
 
 	@SideOnly(Side.CLIENT)

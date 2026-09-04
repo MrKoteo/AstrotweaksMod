@@ -2,24 +2,24 @@
 
 
 # Advancements
-advancements.age_1.descr=stone age?
-advancements.age_1.title=Antiquity
-advancements.age_2.descr=yeah
-advancements.age_2.title=Medieval
-advancements.age_3.descr=?
-advancements.age_3.title=Industrial Age
-advancements.age_4.descr=
-advancements.age_4.title=Modern Age
-advancements.age_5.descr=
-advancements.age_5.title=Info Age
-advancements.age_6.descr=
-advancements.age_6.title=Space Age
-advancements.age_7.descr=*metatech
-advancements.age_7.title=Future...
-advancements.ages_adv.descr=Just like that?
-advancements.ages_adv.title=Science!
-advancements.money.descr=(opening our own mint)
-advancements.money.title=Money!
+adv.age_1.descr=stone age?
+adv.age_1.title=Antiquity
+adv.age_2.descr=yeah
+adv.age_2.title=Medieval
+adv.age_3.descr=?
+adv.age_3.title=Industrial Age
+adv.age_4.descr=
+adv.age_4.title=Modern Age
+adv.age_5.descr=
+adv.age_5.title=Info Age
+adv.age_6.descr=
+adv.age_6.title=Space Age
+adv.age_7.descr=*metatech
+adv.age_7.title=Future...
+adv.ages_adv.descr=Just like that?
+adv.ages_adv.title=Science!
+adv.money.descr=(opening our own mint)
+adv.money.title=Money!
 
 
 # Commands
@@ -398,6 +398,7 @@ tile.dont_walk_tape.name=Don't walk
 tile.double_compressed_quartz.name=Double compressed quartz
 tile.fern_1.name=Fern
 tile.fexplosive.name=Explosive
+tile.giant_grass.name=Giant grass
 tile.ground_rock_1.name=Ground Rock
 tile.ground_rock_2.name=Flat Rock
 tile.ground_stick.name=Ground Stick

@@ -33,7 +33,7 @@ import astrotweaks.util.DropHandler;
 import astrotweaks.util.DropHandler.DropEntry;
 
 import astrotweaks.ModVariables;
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -84,7 +84,7 @@ public class BlockMineralsOre extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("pickaxe", 2);
 			setHardness(2F);
 			setResistance(10F);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
         private static final DropEntry[] DE_TABLE = new DropEntry[] {
             new DropEntry("oreIron",      1, 11.0),

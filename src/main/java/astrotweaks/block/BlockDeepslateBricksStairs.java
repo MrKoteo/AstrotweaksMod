@@ -15,7 +15,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.Block;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -48,7 +48,7 @@ public class BlockDeepslateBricksStairs extends ElementsAstrotweaksMod.ModElemen
 			setHardness(4.5F);
 			setResistance(16F);
 			setLightOpacity(255);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 	}
 }

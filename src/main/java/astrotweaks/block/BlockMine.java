@@ -26,7 +26,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 import net.minecraft.world.Explosion;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -58,7 +58,7 @@ public class BlockMine extends ElementsAstrotweaksMod.ModElement {
 			setHardness(1F);
 			setResistance(5F);
 			setLightOpacity(0);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 
 		@SideOnly(Side.CLIENT)

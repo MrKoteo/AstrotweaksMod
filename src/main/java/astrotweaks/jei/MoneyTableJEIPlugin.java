@@ -12,9 +12,9 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import astrotweaks.tech.mt.BlockMoneyTable;
-import astrotweaks.gui.GuiMTGUI;
+import astrotweaks.tech.mt.MTGUI;
 import astrotweaks.item.*;
 import net.minecraft.init.Blocks;
 
@@ -47,7 +47,7 @@ public class MoneyTableJEIPlugin {
         public void register(IModRegistry registry) {
             registry.addAdvancedGuiHandlers(new GuiHandler[] {new GuiHandler()});
             registry.addRecipes(getAllRecipes(), Category.UID);
-            registry.addRecipeClickArea(GuiMTGUI.GuiWindow.class, 76, 10, 24, 16, Category.UID);
+            registry.addRecipeClickArea(MTGUI.GuiWindow.class, 76, 10, 24, 16, Category.UID);
             registry.addRecipeCatalyst(new ItemStack(BlockMoneyTable.block), Category.UID);
         }
     }
@@ -99,7 +99,7 @@ public class MoneyTableJEIPlugin {
         }
         @Override
         public String getTitle() {
-            return I18n.translateToLocal("JEI.container.money_table");
+            return I18n.format("JEI.container.money_table");
         }
         @Override
         public String getModName() {
@@ -141,7 +141,7 @@ public class MoneyTableJEIPlugin {
 
             guiItemStacks.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
                 if (slotIndex == 4) {
-                    tooltip.add(I18n.translateToLocal("JEI.tooltip.consumes_durability"));
+                    tooltip.add(I18n.format("JEI.tooltip.consumes_durability"));
                 }
             });
         }
@@ -178,19 +178,19 @@ public class MoneyTableJEIPlugin {
         }
     }
 
-    public static class GuiHandler implements IAdvancedGuiHandler<GuiMTGUI.GuiWindow> {
+    public static class GuiHandler implements IAdvancedGuiHandler<MTGUI.GuiWindow> {
         @Override
-        public Class<GuiMTGUI.GuiWindow> getGuiContainerClass() {
-            return GuiMTGUI.GuiWindow.class;
+        public Class<MTGUI.GuiWindow> getGuiContainerClass() {
+            return MTGUI.GuiWindow.class;
         }
         @Nullable  // + @Nullable for FIX "type mismatch"
         @Override
-        public List<Rectangle> getGuiExtraAreas(GuiMTGUI.GuiWindow guiContainer) {
+        public List<Rectangle> getGuiExtraAreas(MTGUI.GuiWindow guiContainer) {
             return Collections.emptyList();
         }
         @Nullable  // + @Nullable
         @Override
-        public Object getIngredientUnderMouse(GuiMTGUI.GuiWindow guiContainer, int mouseX, int mouseY) {
+        public Object getIngredientUnderMouse(MTGUI.GuiWindow guiContainer, int mouseX, int mouseY) {
             return null;
         }
     }

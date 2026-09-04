@@ -29,7 +29,7 @@ import java.util.function.Predicate;
 
 import java.util.Random;
 
-import astrotweaks.creativetab.TabAstroTweaks;
+import astrotweaks.creativetab.ATCreativeTabs;
 import astrotweaks.ModVariables;
 
 import astrotweaks.ElementsAstrotweaksMod;
@@ -83,7 +83,7 @@ public class BlockQuartzOreStone extends ElementsAstrotweaksMod.ModElement {
 			setHarvestLevel("pickaxe", 1);
 			setHardness(5F);
 			setResistance(15F);
-			setCreativeTab(TabAstroTweaks.tab);
+			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 
 		@Override

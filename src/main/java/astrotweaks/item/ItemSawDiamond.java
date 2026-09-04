@@ -19,9 +19,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.Block;
 
-import java.util.Set;
-
 import astrotweaks.ElementsAstrotweaksMod;
+
 
 @ElementsAstrotweaksMod.ModElement.Tag
 public class ItemSawDiamond extends ElementsAstrotweaksMod.ModElement {

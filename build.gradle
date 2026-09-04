@@ -13,7 +13,7 @@ apply plugin: 'eclipse'
 
 
 version = 'b6.0'
-group = project.findProperty('group') ?: 'meow.astrotweaks'
+group = project.findProperty('group') ?: 'astrotweaks'
 archivesBaseName = '[1.12.2] AstroTweaks'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)

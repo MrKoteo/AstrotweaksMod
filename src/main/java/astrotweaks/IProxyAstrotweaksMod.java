@@ -7,10 +7,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 public interface IProxyAstrotweaksMod {
 	void preInit(FMLPreInitializationEvent event);
-
 	void init(FMLInitializationEvent event);
-
 	void postInit(FMLPostInitializationEvent event);
-
 	void serverLoad(FMLServerStartingEvent event);
 }
