@@ -19,26 +19,8 @@ import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockCobbledDeepslateStairs extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:cobbled_deepslate_stairs")
-	public static final Block block = null;
-	public BlockCobbledDeepslateStairs(ElementsAstrotweaksMod instance) {
-		super(instance, 250);
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new BlockCustom().setRegistryName("cobbled_deepslate_stairs"));
-		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0,
-				new ModelResourceLocation("astrotweaks:cobbled_deepslate_stairs", "inventory"));
-	}
+public class BlockCobbledDeepslateStairs {
+	public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "cobbled_deepslate_stairs");
 	public static class BlockCustom extends BlockStairs {
 		public BlockCustom() {
 			super(new Block(Material.ROCK).getDefaultState());

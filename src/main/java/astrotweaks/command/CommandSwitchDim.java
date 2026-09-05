@@ -1,7 +1,5 @@
 package astrotweaks.command;
 
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.entity.Entity;
@@ -15,19 +13,8 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 import astrotweaks.procedure.ProcedureSwitchDimProc;
-import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class CommandSwitchDim extends ElementsAstrotweaksMod.ModElement {
-	public CommandSwitchDim(ElementsAstrotweaksMod instance) {
-		super(instance, 612);
-	}
-
-	@Override
-	public void serverLoad(FMLServerStartingEvent event) {
-		event.registerServerCommand(new CommandHandler());
-	}
-
+public class CommandSwitchDim {
 	public static class CommandHandler implements ICommand {
 		@Override
 		public int compareTo(ICommand c) {

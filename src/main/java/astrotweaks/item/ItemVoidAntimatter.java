@@ -1,20 +1,14 @@
 package astrotweaks.item;
 
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.init.Blocks;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
@@ -24,28 +18,15 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import astrotweaks.creativetab.ATCreativeTabs;
-import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ItemVoidAntimatter extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:void_antimatter")
-	public static final Item block = null;
-	public ItemVoidAntimatter(ElementsAstrotweaksMod instance) { super(instance, 74); }
+public final class ItemVoidAntimatter {
+	public static final Item VOID_ANTIMATTER = new ItemVoidAntimatter.ItemCustom().setRegistryName("astrotweaks", "void_antimatter").setUnlocalizedName("void_antimatter");
 
 	// Timer for limit max execs per sec (thread-safe)
 	private static final Map<Integer, Long> lastUseMs = new ConcurrentHashMap<>();
-	@Override public void initElements() { elements.items.add(() -> new ItemCustom()); }
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(block, 0, new ModelResourceLocation("astrotweaks:void_antimatter", "inventory"));
-	}
-
+	private ItemVoidAntimatter() {}
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
-			setUnlocalizedName("void_antimatter");
-			setRegistryName("void_antimatter");
 			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 		@Override
@@ -64,7 +45,7 @@ public class ItemVoidAntimatter extends ElementsAstrotweaksMod.ModElement {
 			ItemStack main = living.getHeldItemMainhand();
 			if (main == null || main == ItemStack.EMPTY) return;
 			// Compare item types (not NBT/count)
-			if (main.getItem() != ItemVoidAntimatter.block) return;
+			if (main.getItem() != ItemVoidAntimatter.VOID_ANTIMATTER) return;
 
 			int id = entity.getEntityId();
 			long now = System.currentTimeMillis();
@@ -78,17 +59,17 @@ public class ItemVoidAntimatter extends ElementsAstrotweaksMod.ModElement {
 
 		// Remove held antimatter items and create explosion at entity position (server-side)
 		private static void AMExplode(EntityLivingBase entity, World world) {
-			boolean mainIsVoid = entity.getHeldItemMainhand() != null && entity.getHeldItemMainhand().getItem() == ItemVoidAntimatter.block;
-			boolean offIsVoid = entity.getHeldItemOffhand() != null && entity.getHeldItemOffhand().getItem() == ItemVoidAntimatter.block;
+			boolean mainIsVoid = entity.getHeldItemMainhand() != null && entity.getHeldItemMainhand().getItem() == ItemVoidAntimatter.VOID_ANTIMATTER;
+			boolean offIsVoid = entity.getHeldItemOffhand() != null && entity.getHeldItemOffhand().getItem() == ItemVoidAntimatter.VOID_ANTIMATTER;
 
 			// If both hands hold the item -> clear both; else clear main only
-			if (offIsVoid && mainIsVoid) {
-				// Clear offhand
-				entity.setHeldItem(EnumHand.OFF_HAND, new ItemStack(Blocks.AIR));
-				// Clear mainhand
-				entity.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(Blocks.AIR));
-			} else if (mainIsVoid) {
-				entity.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(Blocks.AIR));
+			if (mainIsVoid) {
+				entity.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
+			} else if (offIsVoid) {
+				entity.setHeldItem(EnumHand.OFF_HAND, ItemStack.EMPTY);
+			} else if (offIsVoid && mainIsVoid) {
+				entity.setHeldItem(EnumHand.OFF_HAND, ItemStack.EMPTY);
+				entity.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
 			} else {
 				return;
 			}
@@ -97,11 +78,25 @@ public class ItemVoidAntimatter extends ElementsAstrotweaksMod.ModElement {
 				((EntityPlayerMP) entity).inventory.markDirty();
 			}
 			// Explosion at entity integer coordinates, power 13, causes block damage
-			int x = (int) Math.floor(entity.posX);
-			int y = (int) Math.floor(entity.posY);
-			int z = (int) Math.floor(entity.posZ);
-			if (!world.isRemote) {
-				world.createExplosion(null, x, y, z, 13.0f, true);
+			double x = Math.floor(entity.posX);
+			double y = Math.floor(entity.posY);
+			double z = Math.floor(entity.posZ);
+
+
+
+			world.createExplosion(null, x, y, z, 13.4F, true);
+			//Explosion explosion1 = new Explosion(world,null,x, y, z,13.3F,false,true);
+			//explosion1.doExplosionA();
+			//explosion1.doExplosionB(true);
+
+			Explosion explosion2 = new Explosion(world,null,x, y, z,20F,false,false);
+			explosion2.doExplosionA();
+
+			if (entity instanceof EntityPlayerMP) {
+				entity.attackEntityFrom(
+					DamageSource.causeExplosionDamage(explosion2),
+					100.0F
+				);
 			}
 		}
 	}

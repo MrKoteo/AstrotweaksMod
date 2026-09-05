@@ -29,26 +29,8 @@ import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockBrownMushrooms extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:brown_mushrooms")
-	public static final Block block = null;
-	public BlockBrownMushrooms(ElementsAstrotweaksMod instance) {
-		super(instance, 236);
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new BlockCustomFlower());
-		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0,
-				new ModelResourceLocation("astrotweaks:brown_mushrooms", "inventory"));
-	}
+public class BlockBrownMushrooms {
+	public static final Block block = new BlockCustomFlower();
 	public static class BlockCustomFlower extends BlockFlower {
 		public BlockCustomFlower() {
 			setSoundType(SoundType.PLANT);
@@ -57,7 +39,7 @@ public class BlockBrownMushrooms extends ElementsAstrotweaksMod.ModElement {
 			setResistance(0F);
 			//setLightLevel(0F);
 			setUnlocalizedName("brown_mushrooms");
-			setRegistryName("brown_mushrooms");
+			setRegistryName("astrotweaks", "brown_mushrooms");
 		}
 
 		/*

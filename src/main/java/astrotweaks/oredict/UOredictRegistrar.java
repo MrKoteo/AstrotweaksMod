@@ -62,13 +62,13 @@ public class UOredictRegistrar {
         OreDictionary.registerOre("shardDiamond", new ItemStack(ATItems.DIAMOND_SHARD, 1));
         OreDictionary.registerOre("shard", new ItemStack(ATItems.DIAMOND_SHARD, 1));
 
-		OreDictionary.registerOre("toolSaw", new ItemStack(ItemSawIron.block, 1));
-		OreDictionary.registerOre("toolSaw", new ItemStack(ItemSawDiamond.block, 1));
-		OreDictionary.registerOre("toolSaw", new ItemStack(ItemGoldenSaw.block, 1));
-		OreDictionary.registerOre("toolSaw", new ItemStack(ItemCopperSaw.block, 1));
-		OreDictionary.registerOre("toolSaw", new ItemStack(ItemBronzeSaw.block, 1));
-		OreDictionary.registerOre("toolSaw", new ItemStack(ItemTinSaw.block, 1));
-		OreDictionary.registerOre("toolSaw", new ItemStack(ItemSteelSaw.block, 1));
+		OreDictionary.registerOre("toolSaw", new ItemStack(ItemSawIron.IRON_SAW, 1));
+		OreDictionary.registerOre("toolSaw", new ItemStack(ItemSawDiamond.DIAMOND_SAW, 1));
+		OreDictionary.registerOre("toolSaw", new ItemStack(ItemGoldenSaw.GOLDEN_SAW, 1));
+		OreDictionary.registerOre("toolSaw", new ItemStack(ItemCopperSaw.COPPER_SAW, 1));
+		OreDictionary.registerOre("toolSaw", new ItemStack(ItemBronzeSaw.BRONZE_SAW, 1));
+		OreDictionary.registerOre("toolSaw", new ItemStack(ItemTinSaw.TIN_SAW, 1));
+		OreDictionary.registerOre("toolSaw", new ItemStack(ItemSteelSaw.STEEL_SAW, 1));
 
 		OreDictionary.registerOre("wireGold", new ItemStack(ATItems.COPPER_COIL, 1));
 		OreDictionary.registerOre("wireCopper", new ItemStack(ATItems.GOLDEN_COIL, 1));
@@ -84,11 +84,11 @@ public class UOredictRegistrar {
 		OreDictionary.registerOre("listAllfishraw", new ItemStack(Items.FISH, 1, 2));
 
 		OreDictionary.registerOre("listAllfishcooked", new ItemStack(Items.COOKED_FISH, 1));
-		OreDictionary.registerOre("listAllfishcooked", new ItemStack(ItemCoockedTropicalFish.block, 1));
-		OreDictionary.registerOre("listAllfishcooked", new ItemStack(ItemCoockedTropicalFish.block, 1, 1));
-		OreDictionary.registerOre("itemCookedFish", new ItemStack(ItemCoockedTropicalFish.block, 1));
+		OreDictionary.registerOre("listAllfishcooked", new ItemStack(ItemCoockedTropicalFish.TROPICAL_FISH, 1));
+		OreDictionary.registerOre("listAllfishcooked", new ItemStack(ItemCoockedTropicalFish.TROPICAL_FISH, 1, 1));
+		OreDictionary.registerOre("itemCookedFish", new ItemStack(ItemCoockedTropicalFish.TROPICAL_FISH, 1));
 
-		OreDictionary.registerOre("listAllmilk", new ItemStack(ItemMilkBottle.block, 1));
+		OreDictionary.registerOre("listAllmilk", new ItemStack(ItemMilkBottle.MILK_BOTTLE, 1));
 
 		OreDictionary.registerOre("banner", new ItemStack(Items.BANNER, 1));
 		OreDictionary.registerOre("banner", new ItemStack(Items.BANNER, 1, 1));

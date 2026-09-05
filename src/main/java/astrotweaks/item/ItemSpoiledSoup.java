@@ -1,11 +1,4 @@
-
 package astrotweaks.item;
-
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 
 import net.minecraft.world.World;
 import net.minecraft.item.ItemStack;
@@ -14,35 +7,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.EnumAction;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
 import astrotweaks.procedure.ProcedureSpoiledFoodEaten;
 
-import astrotweaks.ElementsAstrotweaksMod;
-
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ItemSpoiledSoup extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:spoiled_dish")
-	public static final Item block = null;
-	public ItemSpoiledSoup(ElementsAstrotweaksMod instance) {
-		super(instance, 291);
-	}
-
-	@Override
-	public void initElements() {
-		elements.items.add(() -> new ItemFoodCustom());
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(block, 0, new ModelResourceLocation("astrotweaks:spoiled_dish", "inventory"));
-	}
+public final class ItemSpoiledSoup {
+	public static final Item SPOILED_SOUP = new ItemSpoiledSoup.ItemFoodCustom().setRegistryName("astrotweaks", "spoiled_dish").setUnlocalizedName("spoiled_dish");
+	private ItemSpoiledSoup() {}
 	public static class ItemFoodCustom extends ItemFood {
 		public ItemFoodCustom() {
 			super(1, 1f, false);
-			setUnlocalizedName("spoiled_dish");
-			setRegistryName("spoiled_dish");
 			setCreativeTab(CreativeTabs.FOOD);
 			setMaxStackSize(16);
 		}

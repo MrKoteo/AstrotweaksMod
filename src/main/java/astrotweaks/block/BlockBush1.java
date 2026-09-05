@@ -37,31 +37,15 @@ import net.minecraft.init.Items;
 //import astrotweaks.creativetab.ATCreativeTabs;
 import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockBush1 extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:bush_1")
-	public static final Block block = null;
-	public BlockBush1(ElementsAstrotweaksMod instance) {
-		super(instance, 726);
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new BlockCustomFlower());
-		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
-	}
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation("astrotweaks:bush_1", "inventory"));
-	}
+public class BlockBush1 {
+	public static final Block block = new BlockCustomFlower();
 	public static class BlockCustomFlower extends BlockBush {
 		public BlockCustomFlower() {
 			setSoundType(SoundType.PLANT);
 			setHardness(0F);
 			setResistance(0F);
 			setUnlocalizedName("bush_1");
-			setRegistryName("bush_1");
+			setRegistryName("astrotweaks", "bush_1");
 		}
 		@Override
 		public boolean isReplaceable(IBlockAccess blockAccess, BlockPos pos) {

@@ -24,8 +24,8 @@ public class RecipeSmeltingAll {
 		GameRegistry.addSmelting(new ItemStack(ATItems.CORDAGE_VINE, 1), new ItemStack(ATItems.CORDAGE_FIBER, 1), 0.1F);
 		GameRegistry.addSmelting(new ItemStack(ATBlocks.COMPRESSED_SAND, 1), new ItemStack(Blocks.QUARTZ_BLOCK, 1, 0), 0.5F);
 
-		GameRegistry.addSmelting(new ItemStack(Items.FISH, 1, 2), new ItemStack(ItemCoockedTropicalFish.block, 1), 0.6F);
-		GameRegistry.addSmelting(new ItemStack(Items.FISH, 1, 3), new ItemStack(ItemCoockedPufferfish.block, 1), 1.5F);
+		GameRegistry.addSmelting(new ItemStack(Items.FISH, 1, 2), new ItemStack(ItemCoockedTropicalFish.TROPICAL_FISH, 1), 0.6F);
+		GameRegistry.addSmelting(new ItemStack(Items.FISH, 1, 3), new ItemStack(ItemCoockedPufferfish.PUFFERFISH, 1), 1.5F);
 
 		GameRegistry.addSmelting(new ItemStack(BlockQuartzOreStone.block, 1), new ItemStack(Items.QUARTZ, 1), 1F);
 		GameRegistry.addSmelting(new ItemStack(BlockQuartzOreGranite.block, 1), new ItemStack(Items.QUARTZ, 1), 1F);
@@ -37,8 +37,8 @@ public class RecipeSmeltingAll {
 		GameRegistry.addSmelting(new ItemStack(ATBlocks.DEEPSLATE, 1), new ItemStack(ATBlocks.DEEPSLATE_TILES, 1), 0.5F);
 
 
-		GameRegistry.addSmelting(new ItemStack(ItemSawIron.block, 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
-		GameRegistry.addSmelting(new ItemStack(ItemGoldenSaw.block, 1), new ItemStack(Items.GOLD_NUGGET, 1), 0.1F);
+		GameRegistry.addSmelting(new ItemStack(ItemSawIron.IRON_SAW, 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
+		GameRegistry.addSmelting(new ItemStack(ItemGoldenSaw.GOLDEN_SAW, 1), new ItemStack(Items.GOLD_NUGGET, 1), 0.1F);
 
 		if (ModVariables.Better_Smelting) {
 			GameRegistry.addSmelting(new ItemStack(Items.SHEARS, 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
@@ -64,7 +64,7 @@ public class RecipeSmeltingAll {
 			GameRegistry.addSmelting(new ItemStack(Items.CLOCK, 1), new ItemStack(Items.GOLD_NUGGET, 1), 0.1F);
 
 
-			GameRegistry.addSmelting(new ItemStack(ItemGavel.block, 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
+			GameRegistry.addSmelting(new ItemStack(ItemGavel.GAVEL, 1), new ItemStack(Items.IRON_NUGGET, 1), 0.1F);
 		}
 
 

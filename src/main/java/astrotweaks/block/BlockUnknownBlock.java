@@ -34,26 +34,8 @@ import java.util.Random;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockUnknownBlock extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:unknown_block")
-	public static final Block block = null;
-	public BlockUnknownBlock(ElementsAstrotweaksMod instance) {
-		super(instance, 91);
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new BlockCustom().setRegistryName("unknown_block"));
-		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0,
-				new ModelResourceLocation("astrotweaks:unknown_block", "inventory"));
-	}
+public class BlockUnknownBlock {
+	public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "unknown_block");
 	public static class BlockCustom extends Block {
 		public BlockCustom() {
 			super(Material.ROCK);

@@ -31,29 +31,9 @@ import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockDeepslateTilesSlab extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:deepslate_tiles_slab")
-	public static final Block block = null;
-	@GameRegistry.ObjectHolder("astrotweaks:deepslate_tiles_slab_double")
-	public static final Block block_slab_double = null;
-	public BlockDeepslateTilesSlab(ElementsAstrotweaksMod instance) {
-		super(instance, 248);
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new BlockCustom().setRegistryName("deepslate_tiles_slab"));
-		elements.blocks.add(() -> new BlockCustom.Double().setRegistryName("deepslate_tiles_slab_double"));
-		elements.items.add(() -> new ItemSlab(block, (BlockSlab) block, (BlockSlab) block_slab_double).setRegistryName(block.getRegistryName()));
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0,
-				new ModelResourceLocation("astrotweaks:deepslate_tiles_slab", "inventory"));
-	}
+public class BlockDeepslateTilesSlab {
+	public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "deepslate_tiles_slab");
+	public static final Block block_slab_double = new BlockCustom.Double().setRegistryName("astrotweaks", "deepslate_tiles_slab_double");
 	public static class BlockCustom extends BlockSlab {
 		public BlockCustom() {
 			super(Material.ROCK);

@@ -25,25 +25,8 @@ import astrotweaks.creativetab.ATCreativeTabs;
 import astrotweaks.ElementsAstrotweaksMod;
 
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockUDestroyerBlock extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:u_destroyer_block")
-	public static final Block block = null;
-
-	public BlockUDestroyerBlock(ElementsAstrotweaksMod instance) {
-		super(instance, 244);
-	}
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new BlockCustom().setRegistryName("u_destroyer_block"));
-		elements.items.add(() -> new ItemBlock(block).setRegistryName("u_destroyer_block"));
-	}
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(net.minecraft.item.Item.getItemFromBlock(block), 0,
-				new ModelResourceLocation("astrotweaks:u_destroyer_block", "inventory"));
-	}
+public class BlockUDestroyerBlock {
+	public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "u_destroyer_block");
 
 	public static class BlockCustom extends Block {
 		public BlockCustom() {

@@ -1,62 +1,28 @@
-
 package astrotweaks.item;
-
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-
-import net.minecraft.world.World;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Item;
-import net.minecraft.entity.Entity;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
 import java.util.List;
 
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import astrotweaks.creativetab.ATCreativeTabs;
 import astrotweaks.procedure.ProcedureSQInvTick;
 
-import astrotweaks.creativetab.ATCreativeTabs;
+public final class ItemStrangeQuant {
+    public static final Item STRANGE_QUANT = new Item() {
+        @Override
+        public void addInformation(ItemStack itemstack, World world, List<String> list, ITooltipFlag flag) {
+            super.addInformation(itemstack, world, list, flag);
+            list.add("???");
+        }
+        @Override
+        public void onUpdate(ItemStack itemstack, World world, Entity entity, int slot, boolean par5) {
+            super.onUpdate(itemstack, world, entity, slot, par5);
+            ProcedureSQInvTick.exect(entity, itemstack);
+        }
+    }.setCreativeTab(ATCreativeTabs.AT_INTEGRATION_CT).setRegistryName("astrotweaks", "strange_quant").setUnlocalizedName("strange_quant");
 
-import astrotweaks.ElementsAstrotweaksMod;
-
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ItemStrangeQuant extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:strange_quant")
-	public static final Item block = null;
-	public ItemStrangeQuant(ElementsAstrotweaksMod instance) {
-		super(instance, 270);
-	}
-
-	@Override
-	public void initElements() {
-		elements.items.add(() -> new ItemCustom());
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(block, 0, new ModelResourceLocation("astrotweaks:strange_quant", "inventory"));
-	}
-	public static class ItemCustom extends Item {
-		public ItemCustom() {
-			setUnlocalizedName("strange_quant");
-			setRegistryName("strange_quant");
-			setCreativeTab(ATCreativeTabs.AT_INTEGRATION_CT);
-		}
-
-		@Override
-		public void addInformation(ItemStack itemstack, World world, List<String> list, ITooltipFlag flag) {
-			super.addInformation(itemstack, world, list, flag);
-			list.add("???");
-		}
-
-		@Override
-		public void onUpdate(ItemStack itemstack, World world, Entity entity, int slot, boolean par5) {
-			super.onUpdate(itemstack, world, entity, slot, par5);
-			ProcedureSQInvTick.exect(entity, itemstack);
-		}
-	}
+    private ItemStrangeQuant() {}
 }

@@ -55,31 +55,10 @@ import astrotweaks.AstrotweaksModVariables;
 import astrotweaks.ModVariables;
 import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockGroundStick extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:ground_stick")
-	public static final Block block = null;
-	public BlockGroundStick(ElementsAstrotweaksMod instance) {
-		super(instance, 551);
-	}
+public class BlockGroundStick {
+	public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "ground_stick");
 
-	@Override
-	public void initElements() {
-		Block customBlock = new BlockCustom().setRegistryName("ground_stick");
-		elements.blocks.add(() -> customBlock);
-		elements.items.add(() -> new ItemBlock(customBlock).setRegistryName(customBlock.getRegistryName()));
-
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0,
-				new ModelResourceLocation("astrotweaks:ground_stick", "inventory"));
-	}
-
-	@Override
-	public void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
+	public static void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
 		if (!ModVariables.Enable_Ground_Elements) return;
 	    if (dimID != 0) return;
 			double sga = ModVariables.Stick_Gen_Attempts;

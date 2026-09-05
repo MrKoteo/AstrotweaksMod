@@ -159,15 +159,9 @@ public class ArkGUI extends ElementsAstrotweaksMod.ModElement {
 	                // delay with TileEntity (ITickable)
 					if (delayTicks < 5) { delayTicks = 5;}
 					if (!(delayTicks == 5)) { player.sendMessage(new TextComponentTranslation(TextFormatting.AQUA + "ark.delayed_start", delayTicks)); }
-                    
+
                     teArk.startDelayedTransfer(player, pos, targetDim, targetX,targetY,targetZ, message.clearMode, message.captureEntities, message.captureItems, delayTicks);
 
-	                //} else {
-	                //    // instant transfer
-	                //    ArkTransferHelper.performTeleport(player, world, pos, teArk,
-	                //            targetDim, targetX, targetY, targetZ,
-	                //            message.clearMode, message.captureEntities, message.captureItems);
-	                //}
 	            }
 	        });
 	        return null;
@@ -217,7 +211,7 @@ public class ArkGUI extends ElementsAstrotweaksMod.ModElement {
 	        TW_Z.drawTextBox();
 	        delayField.drawTextBox();
 	        // Draw the title
-	        fontRenderer.drawString(I18n.format("ark.interface"), k + 35, l + 5, 0x8020FF);
+	        fontRenderer.drawString(I18n.format("ark.interface"), k + 32, l + 5, 0x8020FF);
 
 			// Добавить подсказки рядом с полями вввода
 
@@ -319,13 +313,14 @@ public class ArkGUI extends ElementsAstrotweaksMod.ModElement {
 	    private String getCaptureItemsText() {
 	        return captureItems ? "Items: ON" : "Items: OFF";
 	    }
+		/*
 		private int parseIntSafe(String s, int defaultValue) {
 		    try {
 		        return Integer.parseInt(s);
 		    } catch (NumberFormatException e) {
 		        return defaultValue;
 		    }
-		}
+		}*/
 		private void updateButtonsDisplay() {
 		    if (btnClearMode != null) btnClearMode.displayString = getClearModeText();
 		    if (btnCaptureEntities != null) btnCaptureEntities.displayString = getCaptureEntitiesText();

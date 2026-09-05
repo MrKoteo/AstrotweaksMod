@@ -2,9 +2,6 @@ package astrotweaks.item;
 
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 
 import net.minecraft.world.World;
 import net.minecraft.util.math.BlockPos;
@@ -15,41 +12,19 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 
-
-import astrotweaks.ElementsAstrotweaksMod;
-
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ItemXpBoxU extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:xp_box")
-	public static final Item block = null;
-	public ItemXpBoxU(ElementsAstrotweaksMod instance) {
-		super(instance, 631);
-	}
-	@Override
-	public void initElements() {
-		elements.items.add(() -> new ItemCustom());
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(block, 0, new ModelResourceLocation("astrotweaks:xp_box", "inventory"));
-	}
+public final class ItemXpBoxU {
+	public static final Item XP_BOX = new ItemXpBoxU.ItemCustom().setRegistryName("astrotweaks", "xp_box").setUnlocalizedName("xp_box");
+	private ItemXpBoxU() {}
 	public static class ItemCustom extends Item {
-		public ItemCustom() {
-			setUnlocalizedName("xp_box");
-			setRegistryName("xp_box");
-		}
+		public ItemCustom() {}
 
 		@Override
 		@SideOnly(Side.CLIENT)
 		public boolean hasEffect(ItemStack itemstack) {
 			return true;
 		}
-
 		@Override
 		public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer entity, EnumHand hand) {
 			ItemStack itemstack = entity.getHeldItem(hand);
@@ -73,7 +48,7 @@ public class ItemXpBoxU extends ElementsAstrotweaksMod.ModElement {
 		private static void OpenBox(Entity entity, ItemStack itemstack) {
 			double XpAmount = 10;
 			boolean Type = false;
-			XpAmount = itemstack.hasTagCompound() ? itemstack.getTagCompound().getDouble("xp") : -1;
+			XpAmount = itemstack.hasTagCompound() ? itemstack.getTagCompound().getDouble("xp") : 50;
 			Type = itemstack.hasTagCompound() ? itemstack.getTagCompound().getBoolean("levels") : false;
 
 			if (entity instanceof EntityPlayer) {

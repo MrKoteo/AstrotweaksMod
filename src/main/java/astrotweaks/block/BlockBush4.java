@@ -41,25 +41,8 @@ import net.minecraft.init.Items;
 import astrotweaks.ElementsAstrotweaksMod;
 
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockBush4 extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:bush_4")
-	public static final Block block = null;
-	public BlockBush4(ElementsAstrotweaksMod instance) {
-		super(instance, 734);
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new BlockCustomFlower());
-		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation("astrotweaks:bush_4", "inventory"));
-	}
+public class BlockBush4 {
+	public static final Block block = new BlockCustomFlower();
 
 	public static class BlockCustomFlower extends BlockBush {
 		public BlockCustomFlower() {
@@ -68,7 +51,7 @@ public class BlockBush4 extends ElementsAstrotweaksMod.ModElement {
 			setHardness(0F);
 			setResistance(0F);
 			setUnlocalizedName("bush_4");
-			setRegistryName("bush_4");
+			setRegistryName("astrotweaks", "bush_4");
 		}
 
 		@Override

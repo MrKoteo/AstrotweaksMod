@@ -1,11 +1,4 @@
-
 package astrotweaks.item;
-
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 
 import net.minecraft.world.World;
 import net.minecraft.item.ItemStack;
@@ -14,35 +7,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.EnumAction;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
 import astrotweaks.procedure.ProcedureSpoiledFoodEaten;
 
-import astrotweaks.ElementsAstrotweaksMod;
-
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ItemSpoiledPumpkinPie extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:spoiled_pumpkin_pie")
-	public static final Item block = null;
-	public ItemSpoiledPumpkinPie(ElementsAstrotweaksMod instance) {
-		super(instance, 219);
-	}
-
-	@Override
-	public void initElements() {
-		elements.items.add(() -> new ItemFoodCustom());
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(block, 0, new ModelResourceLocation("astrotweaks:spoiled_pumpkin_pie", "inventory"));
-	}
+public final class ItemSpoiledPumpkinPie {
+	public static final Item SPOILED_PUMPKIN_PIE = new ItemSpoiledPumpkinPie.ItemFoodCustom().setRegistryName("astrotweaks", "spoiled_pumpkin_pie").setUnlocalizedName("spoiled_pumpkin_pie");
+	private ItemSpoiledPumpkinPie() {}
 	public static class ItemFoodCustom extends ItemFood {
 		public ItemFoodCustom() {
 			super(2, 0f, false);
-			setUnlocalizedName("spoiled_pumpkin_pie");
-			setRegistryName("spoiled_pumpkin_pie");
 			setCreativeTab(CreativeTabs.FOOD);
 			setMaxStackSize(64);
 		}

@@ -203,6 +203,7 @@ public final class ATItems {
     public static final Item SPACE_BADGE = createItem( "space_badge", "space_badge", ATCreativeTabs.ASTRO_TWEAKS_CT, 1, null );  
     public static final Item SINGULARITY_BADGE = createItem( "singularity_badge", "singularity_badge", ATCreativeTabs.ASTRO_TWEAKS_CT, 1, null );  
     public static final Item QUANTUM_BADGE = createItem( "quantum_bagde", "quantum_bagde", ATCreativeTabs.ASTRO_TWEAKS_CT, 1, null );  
+    public static final Item PLANET_BADGE = createItem( "planet_badge", "planet_badge", ATCreativeTabs.ASTRO_TWEAKS_CT, 1, null );  
     
     public static final Item SCIENCE = createItem( "science", "science", ATCreativeTabs.ASTRO_TWEAKS_CT, 1, (stack, world, tooltip, flag) -> tooltip.add("Under development") );  
     public static final Item PLANT_FIBER = createItem( "plant_fiber", "plant_fiber", ATCreativeTabs.ASTRO_TWEAKS_CT, 64, (stack, world, tooltip, flag) -> tooltip.add(new TextComponentTranslation("item.plant_fiber.tooltip").getFormattedText()) );  
@@ -264,7 +265,110 @@ NEUTRONIUM_SINGULARITY,INFINITY_SINGULARITY,
 
 LIGHT_OFF,LIGHT_MID,LIGHT_ON,
 SCIENCE,GENETICS,NUCLEAR,SPACE_STATION_ICO,SUBSPACE_ICO,
-SURVIVALIST_BADGE,PHILISTINE_BADGE,ENGENEER_BADGE,MASTER_BADGE,PHOENIX_BADGE,SPACE_BADGE,SINGULARITY_BADGE,QUANTUM_BADGE, 
+SURVIVALIST_BADGE,PHILISTINE_BADGE,ENGENEER_BADGE,MASTER_BADGE,PHOENIX_BADGE,SPACE_BADGE,SINGULARITY_BADGE,QUANTUM_BADGE,PLANET_BADGE, 
+
+// ===== Converted elements =====
+
+// Armor
+ItemBrassArmor.HELMET,
+ItemBrassArmor.CHESTPLATE,
+ItemBrassArmor.LEGGINGS,
+ItemBrassArmor.BOOTS,
+ItemRubyArmor.HELMET,
+ItemRubyArmor.CHESTPLATE,
+ItemRubyArmor.LEGGINGS,
+ItemRubyArmor.BOOTS,
+EmeraldArmorItems.HELMET,
+EmeraldArmorItems.CHESTPLATE,
+EmeraldArmorItems.LEGGINGS,
+EmeraldArmorItems.BOOTS,
+ItemSapphireArmor.HELMET,
+ItemSapphireArmor.CHESTPLATE,
+ItemSapphireArmor.LEGGINGS,
+ItemSapphireArmor.BOOTS,
+
+// Brass tools
+ItemBrassSword.SWORD,
+ItemBrassAxe.AXE,
+ItemBrassPickaxe.PICKAXE,
+ItemBrassShovel.SHOVEL,
+ItemBrassHoe.HOE,
+
+// Ruby tools
+ItemRubySword.SWORD,
+ItemRubyAxe.AXE,
+ItemRubyPickaxe.PICKAXE,
+ItemRubyShovel.SHOVEL,
+ItemRubyHoe.HOE,
+
+// Emerald tools
+ItemEmeraldSword.SWORD,
+ItemEmeraldAxe.AXE,
+ItemEmeraldShovel.SHOVEL,
+ItemEmeraldPickaxe.PICKAXE,
+ItemEmeraldHoe.HOE,
+
+// Crystal tools
+ItemCrystalSword.SWORD,
+ItemCrystalAxe.AXE,
+ItemCrystalPickaxe.PICKAXE,
+ItemCrystalShovel.SHOVEL,
+ItemCrystalHoe.HOE,
+ItemCrystalMultitool.MULTITOOL,
+
+// Neutronium tools
+ItemNeutroniumSword.SWORD,
+ItemNeutroniumAxe.AXE,
+ItemNeutroniumPickaxe.PICKAXE,
+ItemNeutroniumShovel.SHOVEL,
+ItemNeutroniumHoe.HOE,
+ItemNeutroniumMultitool.MULTITOOL,
+
+// Saws
+ItemSawDiamond.DIAMOND_SAW,
+ItemSawIron.IRON_SAW,
+ItemCopperSaw.COPPER_SAW,
+ItemBronzeSaw.BRONZE_SAW,
+ItemGoldenSaw.GOLDEN_SAW,
+ItemSteelSaw.STEEL_SAW,
+ItemTinSaw.TIN_SAW,
+
+// Quants
+ItemAlphaQuant.ALPHA_QUANT,
+ItemBetaQuant.BETA_QUANT,
+ItemGammaQuant.GAMMA_QUANT,
+ItemDeltaQuant.DELTA_QUANT,
+ItemStrangeQuant.STRANGE_QUANT,
+ItemYAntiQuant.Y_ANTI_QUANT,
+
+// Food
+ItemCoockedTropicalFish.TROPICAL_FISH,
+ItemCoockedPufferfish.PUFFERFISH,
+ItemDryBread.DRY_BREAD,
+ItemMilkBottle.MILK_BOTTLE,
+
+// Spoiled food
+ItemSpoiledBread.SPOILED_BREAD,
+ItemSpoiledCarrotOnStick.SPOILED_CARROT_ON_STICK,
+ItemSpoiledDrink.SPOILED_DRINK,
+ItemSpoiledFishX.SPOILED_FISH,
+ItemSpoiledFishPufferfish1.SPOILED_PUFFERFISH,
+ItemSpoiledFoodX.SPOILED_FOOD,
+ItemSpoiledPumpkinPie.SPOILED_PUMPKIN_PIE,
+ItemSpoiledSoup.SPOILED_SOUP,
+ItemSpoiledSpiderEye1.SPOILED_SPIDER_EYE,
+ItemSpoiledVegetablesX.SPOILED_VEGETABLES,
+
+// Misc
+ItemGavel.GAVEL,
+ItemXpBoxU.XP_BOX,
+ItemPowerUnitX.POWER_UNIT_X,
+ItemSilkeBadge.SILKE_BADGE,
+ItemUnstableVoidCore.UNSTABLE_VOID_CORE,
+ItemUDestroyerItem.DESTROYER_ITEM,
+ItemVoidAntimatter.VOID_ANTIMATTER,
+
+
     };
 
     @SubscribeEvent
@@ -285,7 +389,6 @@ SURVIVALIST_BADGE,PHILISTINE_BADGE,ENGENEER_BADGE,MASTER_BADGE,PHOENIX_BADGE,SPA
     }
 
     private static Item createItem(String registryName, String unlocalizedName, CreativeTabs creativeTab, int maxStackSize, TooltipConsumer tooltipConsumer) {
-
         return new ItemWithTooltip(tooltipConsumer)
                 .setRegistryName(MOD_ID, registryName)
                 .setUnlocalizedName(unlocalizedName)

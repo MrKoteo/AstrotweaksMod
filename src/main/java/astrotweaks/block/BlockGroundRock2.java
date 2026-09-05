@@ -61,29 +61,10 @@ import astrotweaks.ModVariables;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockGroundRock2 extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:ground_rock_2")
-	public static final Block block = null;
-	public BlockGroundRock2(ElementsAstrotweaksMod instance) {
-		super(instance, 559);
-	}
+public class BlockGroundRock2 {
+	public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "ground_rock_2");
 
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new BlockCustom().setRegistryName("ground_rock_2"));
-		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0,
-				new ModelResourceLocation("astrotweaks:ground_rock_2", "inventory"));
-	}
-
-	@Override
-	public void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
+	public static void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
 		if (!ModVariables.Enable_Ground_Elements) return;
 	    if (dimID != 0) return;
 			double rga = ModVariables.Rock_Gen_Attempts;

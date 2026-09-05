@@ -27,8 +27,9 @@ public class ModVariables {
 	public static int GG_MIN_DELAY_TICK = 5 * 60 * 20; // 5 minutes
 	public static int GG_MAX_DELAY_TICK = 15 * 60 * 20; // 15 minutes
 	public static int GG_MAX_OPER_PER_TICK = 16;
-	public static int GG_Density = 14; // blocks in area
-	public static int GG_Tall_Density = 9;
+	public static int GG_Density = 17; // blocks in area
+	public static int GG_Tall_Density = 10;
+	public static int GG_Giant_Density = 3;
 	public static boolean GG_ENABLED = true;
 	//public static BitSet GGBlacklist;
 
@@ -83,6 +84,12 @@ public class ModVariables {
 	public static int QTS_Max_Range = 8192;
 
 
+
+
+
+
+	//##################################################
+
 	/// TEH
 
 	public static final Set<Biome> GEN_DEFAULT_BIOMES = createDefaultBiomes();
@@ -112,8 +119,7 @@ public class ModVariables {
 
 	//##################################################
 
-	public static void preInit(FMLPreInitializationEvent event) {
-	}
+	public static void preInit() {}
 	public static void init() {
 
 		

@@ -1,42 +1,15 @@
-
 package astrotweaks.item;
 
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-
 import net.minecraft.item.Item;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
 import astrotweaks.creativetab.ATCreativeTabs;
 
-import astrotweaks.ElementsAstrotweaksMod;
-
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ItemPowerUnitX extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:power_unit_x")
-	public static final Item block = null;
-	public ItemPowerUnitX(ElementsAstrotweaksMod instance) {
-		super(instance, 246);
-	}
-
-	@Override
-	public void initElements() {
-		elements.items.add(() -> new ItemCustom());
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(block, 0, new ModelResourceLocation("astrotweaks:power_unit_x", "inventory"));
-	}
+public final class ItemPowerUnitX {
+	public static final Item POWER_UNIT_X = new ItemPowerUnitX.ItemCustom().setRegistryName("astrotweaks", "power_unit_x").setUnlocalizedName("power_unit_x");
+	private ItemPowerUnitX() {}
 	public static class ItemCustom extends Item {
 		public ItemCustom() {
 			setMaxDamage(7);
-			setUnlocalizedName("power_unit_x");
-			setRegistryName("power_unit_x");
 			setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
 		}
 

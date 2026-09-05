@@ -29,9 +29,9 @@ import astrotweaks.ModVariables;
 
 
 @Mod.EventBusSubscriber(modid = "astrotweaks")
-public final class ProcedureEventBreakBlock {
+public final class EventBreakBlock {
     private static final int CAVERN_DIM_ID = DepthsDim.DIMID;
-	public ProcedureEventBreakBlock() {}
+	public EventBreakBlock() {}
 	private static void spawnItem(World world, int x, int y, int z, ItemStack stack) {
 	  if (world == null || stack == null || stack.isEmpty() || world.isRemote) return;
 	  EntityItem ei = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, stack);

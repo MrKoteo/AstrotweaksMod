@@ -5,6 +5,7 @@ import astrotweaks.item.ATItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.EnumPushReaction;
@@ -17,8 +18,10 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemSlab;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.Mirror;
@@ -26,6 +29,7 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
@@ -39,6 +43,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+
 
 @Mod.EventBusSubscriber(modid = "astrotweaks")
 public class ATBlocks {
@@ -153,7 +159,7 @@ DECO_BLOCK_1,DECO_BLOCK_GRID,METAL_FRAME,
 
 
 
-MINERAL_STEEL,
+MINERAL_STEEL,RUBY_BLOCK,
 
 FEXPLOSIVE,
 NETHERSTAR_BLOCK,
@@ -162,21 +168,46 @@ NULL_BLOCK,
 
 
 
-RUBY_BLOCK
 
 
 
 
+// Ссылки писать ниже:
 
-
-
-
-
-
-
-
-
-
+BlockRubyOre.block,
+BlockMineralsOre.block,
+BlockMine.block,
+BlockCobbledDeepslateSlab.block,
+BlockCobbledDeepslateSlab.block_slab_double,
+BlockCobbledDeepslateStairs.block,
+BlockDeepMinerals.block,
+BlockDeepRichMinerals.block,
+BlockDeepslateBricksSlab.block,
+BlockDeepslateBricksSlab.block_slab_double,
+BlockDeepslateTilesSlab.block,
+BlockDeepslateTilesSlab.block_slab_double,
+BlockBush1.block,
+BlockBush2.block,
+BlockBush3.block,
+BlockBush4.block,
+BlockBush5.block,
+BlockBush6.block,
+BlockBush7.block,
+BlockFern1.block,
+BlockGiantGrass.block,
+BlockGroundRock1.block,
+BlockGroundRock2.block,
+BlockGroundStick.block,
+BlockHeavyMine.block,
+BlockQmBlock.block,
+BlockQuartzOreGranite.block,
+BlockQuartzOreStone.block,
+BlockRailMine.block,
+BlockRedMushrooms.block,
+BlockBrownMushrooms.block,
+BlockUDestroyerBlock.block,
+BlockUKillerBlock.block,
+BlockUnknownBlock.block,
 
 
 
@@ -189,8 +220,16 @@ RUBY_BLOCK
     }
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
-        for (Block block : BLOCKS_TO_REGISTER) {
-            event.getRegistry().register( new ItemBlock(block).setRegistryName(block.getRegistryName()) );
+        for (Block blk : BLOCKS_TO_REGISTER) {
+            if (blk instanceof BlockSlab) {
+                BlockSlab slab = (BlockSlab) blk;
+                if (slab.isDouble()) continue;
+                ResourceLocation rl = blk.getRegistryName();
+                Block doubleSlab = Block.REGISTRY.getObject(new ResourceLocation(rl.getResourceDomain(), rl.getResourcePath() + "_double"));
+                event.getRegistry().register(new ItemSlab(blk, slab, (BlockSlab) doubleSlab).setRegistryName(rl));
+                continue;
+            }
+            event.getRegistry().register( new ItemBlock(blk).setRegistryName(blk.getRegistryName()) );
         }
     }
 
@@ -199,7 +238,9 @@ RUBY_BLOCK
         @SubscribeEvent
         public static void registerModels(ModelRegistryEvent event) {
             for (Block block : BLOCKS_TO_REGISTER) {
-                ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(),"inventory")
+                Item item = Item.getItemFromBlock(block);
+                if (item == Items.AIR) continue;
+                ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(block.getRegistryName(),"inventory")
                 );
             }
         }

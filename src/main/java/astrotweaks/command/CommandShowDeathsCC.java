@@ -1,8 +1,6 @@
 
 package astrotweaks.command;
 
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-
 import net.minecraft.world.World;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.server.MinecraftServer;
@@ -10,8 +8,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.ICommand;
-import net.minecraft.command.CommandHandler;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 
 import java.util.List;
@@ -21,18 +17,7 @@ import java.util.ArrayList;
 
 import astrotweaks.procedure.ProcedureShowDeathsProc;
 
-import astrotweaks.ElementsAstrotweaksMod;
-
-@ElementsAstrotweaksMod.ModElement.Tag
-public class CommandShowDeathsCC extends ElementsAstrotweaksMod.ModElement {
-	public CommandShowDeathsCC(ElementsAstrotweaksMod instance) {
-		super(instance, 420);
-	}
-
-	@Override
-	public void serverLoad(FMLServerStartingEvent event) {
-		event.registerServerCommand(new CommandHandler());
-	}
+public class CommandShowDeathsCC {
 	public static class CommandHandler implements ICommand {
 		@Override
 		public int compareTo(ICommand c) {

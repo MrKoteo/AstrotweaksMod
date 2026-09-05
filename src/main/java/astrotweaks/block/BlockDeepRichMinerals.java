@@ -28,27 +28,8 @@ import astrotweaks.ElementsAstrotweaksMod;
 import astrotweaks.util.DropHandler;
 import astrotweaks.util.DropHandler.DropEntry;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockDeepRichMinerals extends ElementsAstrotweaksMod.ModElement {
-    @GameRegistry.ObjectHolder("astrotweaks:deep_rich_minerals")
-    public static final Block block = null;
-
-    public BlockDeepRichMinerals(ElementsAstrotweaksMod instance) {
-        super(instance, 700);
-    }
-
-    @Override
-    public void initElements() {
-        elements.blocks.add(() -> new BlockCustom().setRegistryName("deep_rich_minerals"));
-        elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void registerModels(ModelRegistryEvent event) {
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0,
-                new ModelResourceLocation("astrotweaks:deep_rich_minerals", "inventory"));
-    }
+public class BlockDeepRichMinerals {
+    public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "deep_rich_minerals");
 
     public static class BlockCustom extends Block {
     	/*

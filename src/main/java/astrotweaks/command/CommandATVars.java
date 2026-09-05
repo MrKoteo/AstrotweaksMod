@@ -1,7 +1,5 @@
 package astrotweaks.command;
 
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.command.ICommandSender;
@@ -13,19 +11,8 @@ import java.util.ArrayList;
 import java.lang.reflect.Field;
 
 import astrotweaks.ModVariables;
-import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class CommandATVars extends ElementsAstrotweaksMod.ModElement {
-	public CommandATVars(ElementsAstrotweaksMod instance) {
-		super(instance, 449);
-	}
-
-	@Override
-	public void serverLoad(FMLServerStartingEvent event) {
-		event.registerServerCommand(new CommandHandler());
-	}
-
+public class CommandATVars {
 	public static class CommandHandler implements ICommand {
 		@Override
 		public int compareTo(ICommand c) {

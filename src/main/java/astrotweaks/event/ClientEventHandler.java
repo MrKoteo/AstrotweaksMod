@@ -42,7 +42,7 @@ public class ClientEventHandler {
                 //    e.printStackTrace();
                 //    System.out.println("сука краш");
                 //}
-                return 0x94C774;
+                return 0xFFFFFF;
             },
             BlockGiantGrass.block
         );

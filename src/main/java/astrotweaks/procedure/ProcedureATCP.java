@@ -26,7 +26,7 @@ public class ProcedureATCP {
 		String p2 = params.getOrDefault("2", "");
 		boolean xpb_mode = "True".equals(p2) || "1".equals(p2) || "true".equals(p2);
 
-		ItemStack current = new ItemStack(ItemXpBoxU.block, 1);
+		ItemStack current = new ItemStack(ItemXpBoxU.XP_BOX, 1);
 		NBTTagCompound tag = current.hasTagCompound() ? current.getTagCompound() : new NBTTagCompound();
 		tag.setDouble("xp", xpb_count);
 		tag.setBoolean("levels", xpb_mode);

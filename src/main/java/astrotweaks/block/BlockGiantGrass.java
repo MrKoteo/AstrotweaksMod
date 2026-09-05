@@ -33,23 +33,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockGiantGrass extends ElementsAstrotweaksMod.ModElement {
+public class BlockGiantGrass {
 
-    @GameRegistry.ObjectHolder("astrotweaks:giant_grass")
-    public static final Block block = null;
-    public BlockGiantGrass(ElementsAstrotweaksMod instance) {
-        super(instance, 1121);
-    }
-    @Override
-    public void initElements() {
-        elements.blocks.add(() -> new BlockCustom().setRegistryName("giant_grass"));
-        elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
-    }
-    @SideOnly(Side.CLIENT)
-    @Override public void registerModels(ModelRegistryEvent event) {
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation("astrotweaks:giant_grass", "inventory"));
-    }
+    public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "giant_grass");
 
     public static class BlockCustom extends BlockBush {
         public static final PropertyEnum<Part> PART = PropertyEnum.create("part", Part.class);
@@ -92,7 +78,7 @@ public class BlockGiantGrass extends ElementsAstrotweaksMod.ModElement {
 		@Override public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) { return FULL_BLOCK_AABB; }
         @SideOnly(Side.CLIENT)
 		@Override public net.minecraft.util.BlockRenderLayer getBlockLayer() {
-            return net.minecraft.util.BlockRenderLayer.CUTOUT;
+            return net.minecraft.util.BlockRenderLayer.TRANSLUCENT;
         }
         @Override public MapColor getMapColor(IBlockState state, IBlockAccess world, BlockPos pos) { return MapColor.GRASS; }
         @Override
@@ -153,6 +139,27 @@ public class BlockGiantGrass extends ElementsAstrotweaksMod.ModElement {
 			world.setBlockState(pos.up(), middleState, 2);
 			world.setBlockState(pos.up(2), upperState, 2);
         }
+        public boolean placeGiantGrass(World world, BlockPos lowerPos) {
+            if (world.isRemote) return false;
+
+            BlockPos middlePos = lowerPos.up();
+            BlockPos upperPos = lowerPos.up(2);
+
+            if (!canPlaceBlockAt(world, lowerPos)) return false;
+            
+
+            IBlockState lowerState = getDefaultState().withProperty(PART, Part.LOWER);
+            IBlockState middleState = getDefaultState().withProperty(PART, Part.MIDDLE);
+            IBlockState upperState = getDefaultState().withProperty(PART, Part.UPPER);
+
+            world.setBlockState(lowerPos, lowerState, 2);
+            world.setBlockState(middlePos, middleState, 2);
+            world.setBlockState(upperPos, upperState, 2);
+
+            return true;
+        }
+
+
 
         /**
          * Удаляем всё, если ломается любой сегмент

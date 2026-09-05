@@ -30,25 +30,8 @@ import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockHeavyMine extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:heavy_mine")
-	public static final Block block = null;
-	public BlockHeavyMine(ElementsAstrotweaksMod instance) {
-		super(instance, 437);
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new BlockCustom().setRegistryName("heavy_mine"));
-		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation("astrotweaks:heavy_mine", "inventory"));
-	}
+public class BlockHeavyMine {
+	public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "heavy_mine");
 	public static class BlockCustom extends BlockFalling {
 		public BlockCustom() {
 			super(Material.CLOTH);

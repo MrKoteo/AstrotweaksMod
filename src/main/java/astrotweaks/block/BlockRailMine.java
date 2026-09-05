@@ -28,26 +28,8 @@ import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockRailMine extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:rail_mine")
-	public static final Block block = null;
-	public BlockRailMine(ElementsAstrotweaksMod instance) {
-		super(instance, 438);
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new BlockCustom().setRegistryName("rail_mine"));
-		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-	    ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation("astrotweaks:rail_mine", "inventory"));
-	}
-	
+public class BlockRailMine {
+	public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "rail_mine");
 	public static class BlockCustom extends BlockRail {
 	    public BlockCustom() {
 	        super();

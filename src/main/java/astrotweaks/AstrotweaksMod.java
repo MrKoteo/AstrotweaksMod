@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fluids.FluidRegistry;
+//import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -24,7 +24,6 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraft.util.ResourceLocation;
-import java.util.UUID;
 
 import net.minecraft.world.biome.Biome;
 import net.minecraft.potion.Potion;
@@ -33,13 +32,12 @@ import net.minecraft.block.Block;
 
 
 
-import astrotweaks.procedure.FoodEffectHandler;
 
+import astrotweaks.tech.qts.SuppressorEventHandler;
 
 import astrotweaks.world.CavernMobModifier;
 import astrotweaks.world.GrassGrowth;
-import astrotweaks.recipe.CombinedFuelHandler;
-import astrotweaks.util.Handler;
+import astrotweaks.gui.GUIHandler;
 
 
 
@@ -52,6 +50,7 @@ import astrotweaks.ModVariables;
 import astrotweaks.creativetab.ATCreativeTabs;
 
 import java.util.function.Supplier;
+
 
 
 @Mod(modid = AstrotweaksMod.MODID, version = AstrotweaksMod.VERSION)
@@ -70,6 +69,7 @@ public class AstrotweaksMod {
 	// ####################################################################################################
 
 	public AstrotweaksMod() {
+		
 
 		ConfigManager.loadConfig();
 	}
@@ -82,7 +82,7 @@ public class AstrotweaksMod {
 	public void preInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(this);
 
-        astrotweaks.ModVariables.preInit(event);
+		astrotweaks.ModVariables.preInit();
 
 
 		
@@ -90,7 +90,7 @@ public class AstrotweaksMod {
 		GameRegistry.registerWorldGenerator(elements, 5);
 		//GameRegistry.registerFuelHandler(elements);
 
-		NetworkRegistry.INSTANCE.registerGuiHandler(this, new Handler.GuiHandler());
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GUIHandler.GuiHandler());
 		elements.preInit(event);
 		MinecraftForge.EVENT_BUS.register(elements);
 		elements.getElements().forEach(element -> element.preInit(event));
@@ -141,6 +141,10 @@ public class AstrotweaksMod {
 			MinecraftForge.TERRAIN_GEN_BUS.register(new BushDecorator());
 		}
 
+		astrotweaks.recipe.GavelRecipeRegistry.initDefaults();
+
+		MinecraftForge.EVENT_BUS.register(new SuppressorEventHandler());
+
 	}
 
 	@Mod.EventHandler
@@ -156,7 +160,7 @@ public class AstrotweaksMod {
 		}
 		
 
-		GrassGrowth.reloadFromConfig();
+		//GrassGrowth.reloadFromConfig();
 
 	}
 
@@ -164,6 +168,7 @@ public class AstrotweaksMod {
 
 	@Mod.EventHandler
 	public void serverLoad(FMLServerStartingEvent event) {
+		astrotweaks.command.ATCommands.init(event);
 		elements.getElements().forEach(element -> element.serverLoad(event));
 		proxy.serverLoad(event);
 	}

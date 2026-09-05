@@ -1,121 +1,89 @@
-
 package astrotweaks.item;
-
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-
-import net.minecraft.world.World;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Item;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.util.NonNullList;
 
 import java.util.List;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import astrotweaks.creativetab.ATCreativeTabs;
 
-import astrotweaks.ElementsAstrotweaksMod;
+@Mod.EventBusSubscriber(modid = "astrotweaks")
+public final class ItemProcessors {
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ItemProcessors extends ElementsAstrotweaksMod.ModElement {
-	private static class ProcessorEntry {
-		final String regName;
-		final String modelBase;
-		final int minMeta;
-		final int maxMeta;
-		final String tooltipPrefix;
-		Item item;
-		ProcessorEntry(String regName, String modelBase, int minMeta, int maxMeta, String tooltipPrefix) {
-			this.regName = regName;
-			this.modelBase = modelBase;
-			this.minMeta = minMeta;
-			this.maxMeta = maxMeta;
-			this.tooltipPrefix = tooltipPrefix;
-		}
-	}
+    public static final int PROCESSOR_TIER_MIN_META = 0;
+    public static final int PROCESSOR_TIER_MAX_META = 9;
+    public static final int QUANTUM_PROCESSOR_MIN_META = 1;
+    public static final int QUANTUM_PROCESSOR_MAX_META = 2;
 
-	private static final ProcessorEntry[] PROCESSOR_DATA = {
-	    new ProcessorEntry("processor_tier", "processor_tier", 0, 9, "Tier: "),
-	    new ProcessorEntry("quantum_processor", "quantum_processor", 1, 2, "Tier: ")
-	};
+    public static final Item PROCESSOR_TIER = createProcessorItem("processor_tier", PROCESSOR_TIER_MIN_META, PROCESSOR_TIER_MAX_META, "Tier: ");
+    public static final Item QUANTUM_PROCESSOR = createProcessorItem("quantum_processor", QUANTUM_PROCESSOR_MIN_META, QUANTUM_PROCESSOR_MAX_META, "Tier: ");
 
-	@GameRegistry.ObjectHolder("astrotweaks:processor_tier")
-	public static final Item processor_tier = null;
-	@GameRegistry.ObjectHolder("astrotweaks:quantum_processor")
-	public static final Item quantum_processor = null;
+    private ItemProcessors() {
+    }
 
-	public ItemProcessors(ElementsAstrotweaksMod instance) {
-		super(instance, 120);
-	}
+    @SubscribeEvent
+    public static void registerItems(RegistryEvent.Register<Item> event) {
+        event.getRegistry().registerAll(PROCESSOR_TIER, QUANTUM_PROCESSOR);
+    }
 
-	@Override
-	public void initElements() {
-		for (ProcessorEntry entry : PROCESSOR_DATA) {
-			Item item = createProcessorItem(entry);
-			entry.item = item;
-			elements.items.add(() -> item);
-		}
-	}
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public static void registerModels(ModelRegistryEvent event) {
+        for (int m = PROCESSOR_TIER_MIN_META; m <= PROCESSOR_TIER_MAX_META; m++) {
+            ModelLoader.setCustomModelResourceLocation(PROCESSOR_TIER, m, new net.minecraft.client.renderer.block.model.ModelResourceLocation("astrotweaks:processor_tier_" + m, "inventory"));
+        }
+        for (int m = QUANTUM_PROCESSOR_MIN_META; m <= QUANTUM_PROCESSOR_MAX_META; m++) {
+            ModelLoader.setCustomModelResourceLocation(QUANTUM_PROCESSOR, m, new net.minecraft.client.renderer.block.model.ModelResourceLocation("astrotweaks:quantum_processor_" + m, "inventory"));
+        }
+    }
 
-	private Item createProcessorItem(final ProcessorEntry entry) {
-		final String regName = entry.regName;
-		final int minMeta = entry.minMeta;
-		final int maxMeta = entry.maxMeta;
-		final String tooltipPrefix = entry.tooltipPrefix;
-		return new Item() {
-			{
-				setHasSubtypes(true);
-				setUnlocalizedName(regName);
-				setRegistryName(regName);
-				setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
-			}
+    private static Item createProcessorItem(final String regName, final int minMeta, final int maxMeta, final String tooltipPrefix) {
+        return new Item() {
+            {
+                setHasSubtypes(true);
+                setUnlocalizedName(regName);
+                setRegistryName("astrotweaks", regName);
+                setCreativeTab(ATCreativeTabs.ASTRO_TWEAKS_CT);
+            }
 
-			@Override
-			public int getMetadata(int damage) {
-				return damage;
-			}
+            @Override
+            public int getMetadata(int damage) {
+                return damage;
+            }
 
-			@Override
-			public String getUnlocalizedName(ItemStack stack) {
-				int meta = stack.getMetadata();
-				if (meta >= minMeta && meta <= maxMeta) return "item." + regName + "_" + meta;
-				return "item." + regName + ".name";
-			}
+            @Override
+            public String getUnlocalizedName(ItemStack stack) {
+                int meta = stack.getMetadata();
+                if (meta >= minMeta && meta <= maxMeta) return "item." + regName + "_" + meta;
+                return "item." + regName + ".name";
+            }
 
-			@Override
-			public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-				if (this.isInCreativeTab(tab)) {
-					for (int m = minMeta; m <= maxMeta; m++) {
-						items.add(new ItemStack(this, 1, m));
-					}
-				}
-			}
+            @Override
+            public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+                if (this.isInCreativeTab(tab)) {
+                    for (int m = minMeta; m <= maxMeta; m++) {
+                        items.add(new ItemStack(this, 1, m));
+                    }
+                }
+            }
 
-			@Override
-			public void addInformation(ItemStack itemstack, World world, List<String> list, ITooltipFlag flag) {
-				super.addInformation(itemstack, world, list, flag);
-				int meta = itemstack.getMetadata();
-				if (meta >= minMeta && meta <= maxMeta) list.add(tooltipPrefix + meta);
-			}
-		};
-	}
-
-	@SideOnly(Side.CLIENT)
-	@SubscribeEvent
-	@Override
-		public void registerModels(ModelRegistryEvent event) {
-		for (ProcessorEntry entry : PROCESSOR_DATA) {
-			Item item = entry.item;
-			if (item == null) continue;
-			for (int m = entry.minMeta; m <= entry.maxMeta; m++) {
-				ModelLoader.setCustomModelResourceLocation(item, m, new ModelResourceLocation("astrotweaks:" + entry.modelBase + "_" + m, "inventory"));
-			}
-		}
-	}
+            @Override
+            public void addInformation(ItemStack itemstack, World world, List<String> list, ITooltipFlag flag) {
+                super.addInformation(itemstack, world, list, flag);
+                int meta = itemstack.getMetadata();
+                if (meta >= minMeta && meta <= maxMeta) list.add(tooltipPrefix + meta);
+            }
+        };
+    }
 }

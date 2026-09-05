@@ -13,8 +13,8 @@ public class OreDictQuantsT {
 
     public static void init() {
         registerQuantItems("singleQuant",
-            ItemAlphaQuant.block, ItemBetaQuant.block, ItemGammaQuant.block, ItemDeltaQuant.block,
-            ItemStrangeQuant.block,
+            ItemAlphaQuant.ALPHA_QUANT, ItemBetaQuant.BETA_QUANT, ItemGammaQuant.GAMMA_QUANT, ItemDeltaQuant.DELTA_QUANT,
+            ItemStrangeQuant.STRANGE_QUANT,
             ATItems.NULL_QUANT
         );
 

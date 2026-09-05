@@ -1,52 +1,20 @@
-
 package astrotweaks.item;
 
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-
-import net.minecraft.world.World;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Item;
 import net.minecraft.entity.Entity;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-
-import astrotweaks.procedure.ProcedureSQInvTick;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import astrotweaks.creativetab.ATCreativeTabs;
+import astrotweaks.procedure.ProcedureSQInvTick;
 
-import astrotweaks.ElementsAstrotweaksMod;
+public final class ItemAlphaQuant {
+    public static final Item ALPHA_QUANT = new Item() {
+        @Override
+        public void onUpdate(ItemStack itemstack, World world, Entity entity, int slot, boolean par5) {
+            super.onUpdate(itemstack, world, entity, slot, par5);
+            ProcedureSQInvTick.exect(entity, itemstack);
+        }
+    }.setCreativeTab(ATCreativeTabs.AT_INTEGRATION_CT).setRegistryName("astrotweaks", "alpha_quant").setUnlocalizedName("alpha_quant");
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ItemAlphaQuant extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:alpha_quant")
-	public static final Item block = null;
-	public ItemAlphaQuant(ElementsAstrotweaksMod instance) {
-		super(instance, 272);
-	}
-
-	@Override
-	public void initElements() {
-		elements.items.add(() -> new ItemCustom());
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(block, 0, new ModelResourceLocation("astrotweaks:alpha_quant", "inventory"));
-	}
-	public static class ItemCustom extends Item {
-		public ItemCustom() {
-			setUnlocalizedName("alpha_quant");
-			setRegistryName("alpha_quant");
-			setCreativeTab(ATCreativeTabs.AT_INTEGRATION_CT);
-		}
-
-		@Override
-		public void onUpdate(ItemStack itemstack, World world, Entity entity, int slot, boolean par5) {
-			super.onUpdate(itemstack, world, entity, slot, par5);
-			ProcedureSQInvTick.exect(entity, itemstack);
-		}
-	}
+    private ItemAlphaQuant() {}
 }

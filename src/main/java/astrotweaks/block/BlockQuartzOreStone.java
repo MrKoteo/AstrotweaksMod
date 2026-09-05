@@ -34,32 +34,13 @@ import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockQuartzOreStone extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:quartz_ore_stone")
-	public static final Block block = null;
-	public BlockQuartzOreStone(ElementsAstrotweaksMod instance) {
-		super(instance, 3);
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new BlockCustom().setRegistryName("quartz_ore_stone"));
-		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0,
-				new ModelResourceLocation("astrotweaks:quartz_ore_stone", "inventory"));
-	}
+public class BlockQuartzOreStone {
+	public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "quartz_ore_stone");
 	
 	private static final com.google.common.base.Predicate<IBlockState> STONE_MATCH =
 	    state -> state != null && state.getBlock() == Blocks.STONE;
 
-	@Override
-	public void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
+	public static void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
 	    if (dimID != 0) return;
 	    if (!ModVariables.OW_Quartz_Gen) return;
 	

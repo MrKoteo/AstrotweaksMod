@@ -28,7 +28,7 @@ public final class ATCreativeTabs {
 			@SideOnly(Side.CLIENT)
 			@Override
 			public ItemStack getTabIconItem() {
-				return new ItemStack(ItemStrangeQuant.block, 1);
+				return new ItemStack(ItemStrangeQuant.STRANGE_QUANT, 1);
 			}
 			/*
 			@SideOnly(Side.CLIENT)

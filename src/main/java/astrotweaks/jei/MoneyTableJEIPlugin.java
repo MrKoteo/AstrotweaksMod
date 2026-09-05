@@ -197,7 +197,7 @@ public class MoneyTableJEIPlugin {
 
     private static List<RecipeWrapper> getAllRecipes() {
         List<RecipeWrapper> recipes = new ArrayList<>();
-        ItemStack hammer = new ItemStack(ItemGavel.block);
+        ItemStack hammer = new ItemStack(ItemGavel.GAVEL);
 
         ItemStack[][] coinPairs = {
                 {new ItemStack(ATItems.WOOD_COIN), new ItemStack(ATItems.STONE_COIN)},

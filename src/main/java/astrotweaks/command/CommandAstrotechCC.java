@@ -1,6 +1,5 @@
 package astrotweaks.command;
 
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
@@ -9,32 +8,20 @@ import net.minecraft.entity.Entity;
 
 import java.util.List;
 import java.util.Map;
-//import java.util.HashMap;
 import java.util.stream.IntStream;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
-import astrotweaks.ElementsAstrotweaksMod;
 import astrotweaks.procedure.ProcedureAstroTechCP;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class CommandAstrotechCC extends ElementsAstrotweaksMod.ModElement {
-	public CommandAstrotechCC(ElementsAstrotweaksMod instance) {
-		super(instance, 325);
-	}
-
-	@Override
-	public void serverLoad(FMLServerStartingEvent event) {
-		event.registerServerCommand(new CommandHandler());
-	}
-
+public class CommandAstrotechCC {
 	public static class CommandHandler implements ICommand {
 		@Override public String getName() { return "astrotech"; }
 		@Override public String getUsage(ICommandSender sender) { return "/astrotech [args]"; }
 		@Override public List<String> getAliases() { return Arrays.asList(); }
 		@Override public boolean checkPermission(MinecraftServer server, ICommandSender sender) { return true; }
 		@Override public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) { return Arrays.asList(); }
-		@Override public boolean isUsernameIndex(String[] args, int index) { return index == 1; } // idx 1 - target player
+		@Override public boolean isUsernameIndex(String[] args, int index) { return index == 1; }
 		@Override public int compareTo(ICommand o) { return getName().compareTo(o.getName()); }
 
 		@Override

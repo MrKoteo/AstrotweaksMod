@@ -9,9 +9,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -110,80 +108,6 @@ public class GrassGrowth {
 	        q.add(chunk);
 	    }
 	}
-	private static boolean isTurfBlock(IBlockState state) {
-		if (state.getBlock() == Blocks.GRASS) {
-			return true;
-		}
-		// Оставлено в соответствии с твоей текущей логикой:
-		// подзол также может быть источником роста.
-		if (state.getBlock() == Blocks.DIRT) {
-			return state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL;
-		}
-		return false;
-	}
-	private static boolean isReplaceableGrassAbove(IBlockState state) {
-		return (state.getBlock() == Blocks.AIR || (state.getBlock() == Blocks.TALLGRASS) && (state.getValue(BlockTallGrass.TYPE) == BlockTallGrass.EnumType.GRASS));
-	}
-
-	private static BlockPos findGrassSurface(World world, int x, int z) {
-		int chunkX = x >> 4;
-		int chunkZ = z >> 4;
-
-		Chunk chunk = world.getChunkFromChunkCoords(chunkX, chunkZ);
-
-		int localX = x & 15;
-		int localZ = z & 15;
-
-		/*
-		* getHeightValue() возвращает Y сразу над верхним блоком
-		* согласно heightmap чанка.
-		*/
-		int y = chunk.getHeightValue(localX, localZ) - 1;
-
-		if (y < 1) {
-			return null;
-		}
-
-		BlockPos.MutableBlockPos pos =
-				new BlockPos.MutableBlockPos(x, y, z);
-
-		/*
-		* Пропускаем неполные блоки над поверхностью:
-		* снег, растения и прочие блоки с нулевой прозрачностью
-		* для heightmap.
-		*/
-		while (y >= 1) {
-			pos.setY(y);
-			IBlockState state = world.getBlockState(pos);
-
-			if (isTurfBlock(state)) {
-				BlockPos candidate = pos.toImmutable();
-				/*
-				* Проверяем именно блок над дёрном.
-				* Для открытой поверхности там должен быть SkyLight 15.
-				*/
-				BlockPos above = candidate.up();
-				if (isReplaceableGrassAbove(world.getBlockState(above)) && world.getLightFor(EnumSkyBlock.SKY, above) == 15) {
-					return candidate;
-				}
-				return null;
-			}
-			/*
-			* Если верхний блок является полноценным непрозрачным блоком,
-			* значит доступной поверхности дёрна в этом столбце нет.
-			*/
-			if (state.isFullCube() || state.getLightOpacity(world, pos) > 0) {
-				return null;
-			}
-			y--;
-		}
-		return null;
-	}
-
-
-
-
-
 
     // -------- Chunk load/unload events --------
     @SubscribeEvent
@@ -273,11 +197,6 @@ public class GrassGrowth {
 		    processed++;
         }
     }
-
-	private static final int[] OFFSET_X = {4, 4, -4, -4};
-	private static final int[] OFFSET_Z = {4, -4, 4, -4};
-
-
     // -------- Main growth algorithm --------
     private static void performGrowth(World world, Chunk chunk) {
 	    final int baseX = chunk.x * 16;
@@ -287,11 +206,11 @@ public class GrassGrowth {
 	    int x = baseX + rnd.nextInt(16);
 	    int z = baseZ + rnd.nextInt(16);
 
-	    //int[] ox = {4, 4, -4, -4};
-	    //int[] oz = {4, -4, 4, -4};
+	    int[] ox = {4, 4, -4, -4};
+	    int[] oz = {4, -4, 4, -4};
 	    BlockPos.MutableBlockPos mcheck = new BlockPos.MutableBlockPos();
 	    for (int i = 0; i < 4; i++) {
-	        mcheck.setPos(x + OFFSET_X[i], 64, z + OFFSET_Z[i]);
+	        mcheck.setPos(x + ox[i], 64, z + oz[i]);
 	        if (!world.isBlockLoaded(mcheck)) return;
 	    }
         // 1. Check biome before any block scanning (must be allowed)
@@ -299,28 +218,63 @@ public class GrassGrowth {
 	    //Biome biome = world.getBiome(mpos);
 	    //if (isBiomeInBlacklist(biome)) return;
 
-	    //final int MID = 64;
-	    //final int MINY = 2;
-	    //final int MAXY = 180;
-	    //BlockPos.MutableBlockPos probe = new BlockPos.MutableBlockPos(x, 64, z);;
+	    final int MID = 64;
+	    final int MINY = 2;
+	    final int MAXY = 180;
+	    BlockPos.MutableBlockPos probe = new BlockPos.MutableBlockPos(x, 64, z);;
 	    IBlockState state;
 		Block block;
-	    //BlockPos grassPos = null;
+	    BlockPos grassPos = null;
 
-		BlockPos grassPos = findGrassSurface(world, x, z);
+		boolean encounteredSolidInUpScan = false;
+	    for (int y = MID; y <= MAXY; y++) {
+			// По сути мы должны заранее гарантировать, что проходим только по разрешённой области
 
+		    probe.setY(y);
+		    state = world.getBlockState(probe);
+			block = state.getBlock();
+		    if (block == Blocks.GRASS) {
+		        grassPos = probe.toImmutable();
+		        break;
+		    }
+		    if (block == Blocks.DIRT) {
+		        BlockDirt.DirtType type = state.getValue(BlockDirt.VARIANT);
+		        if (type == BlockDirt.DirtType.PODZOL) {
+		            grassPos = probe.toImmutable();
+		            break;
+		        }
+		    }
+			// Обнаружен твердый объект при сканировании вверх
+		    //IBlockState probeState = state;
+		    if (state.isFullCube()) encounteredSolidInUpScan = true;
+		    else if (state.getLightOpacity(world, probe) > 0) encounteredSolidInUpScan = true;
+	    }
+
+		if (grassPos == null && !encounteredSolidInUpScan) {
+		    for (int y = MID - 1; y >= MINY; y--) {
+		        probe.setY(y);
+		        state = world.getBlockState(probe);
+				block = state.getBlock();
+		        if (block == Blocks.GRASS) {
+		            grassPos = probe.toImmutable();
+		            break;
+		        }
+		        if (block == Blocks.DIRT) {
+		            BlockDirt.DirtType type = state.getValue(BlockDirt.VARIANT);
+		            if (type == BlockDirt.DirtType.PODZOL) {
+		                grassPos = probe.toImmutable();
+		                break;
+		            }
+		        }
+		        //IBlockState probeState = state;
+		        if (state.isFullCube() || state.getLightOpacity(world, probe) > 0) {
+		            break;
+		        }
+		    }
+		}
 	    if (grassPos == null) return; // это важно, так как grassPos бывает null 
 
-		Biome biome = world.getBiome(grassPos);
-
-		if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)) {
-			return;
-		}
-
-
-
 		// ---- Подсчёт травы в области 5x3x5 ----
-		int turfCount = 0;
 		int tallCount = 0;
 		int doubleCount = 0;
 		int tripleCount = 0;
@@ -333,9 +287,6 @@ public class GrassGrowth {
 					state = world.getBlockState(check);
 					block = state.getBlock();
 
-					if (isTurfBlock(state)) {
-						turfCount++;
-					}
 					// Обычная высокая трава, но не папоротник и не другой вариант
 					if (block == Blocks.TALLGRASS && state.getValue(BlockTallGrass.TYPE) == BlockTallGrass.EnumType.GRASS) {
 						tallCount++;
@@ -351,20 +302,13 @@ public class GrassGrowth {
 				}
 			}
 		}
-		if (turfCount == 0) return;
 		if (tallCount == 0 && doubleCount == 0 && tripleCount == 0) return;
-	    // Установить лимит каждого вида травы
-		if (tallCount >= 6 && doubleCount >= 16 && tripleCount >= 3) return;
-		int Sum = tallCount + doubleCount + tripleCount;
-		// Чтобы трава могла расти на уже заросшей территории до нужного лимита каждого вида
+	    if (tallCount + doubleCount + tripleCount > 24) return;
 
-		// x1 = 24%		-> 6
-		// x2 = 64%		-> 16
-		// x3 = 12%		-> 3
 
 
 		// ---- Попытка поставить обычную траву ----
-		if ((tallCount > 0 || doubleCount > 0 || tripleCount > 0) && tallCount < GRASS_DENSITY && Sum < 25) {
+		if ((tallCount > 0 || doubleCount > 0 || tripleCount > 0) && tallCount <= GRASS_DENSITY) {
 			BlockPos above = grassPos.up();
 			if (world.isAirBlock(above)) {
 				world.setBlockState(above, Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS), 2);
@@ -373,8 +317,7 @@ public class GrassGrowth {
 		}
 
 		// ---- Попытка поставить высокую траву ----
-		boolean doubleGrassQuotaAvailable = doubleCount < TALL_GRASS_DENSITY && (int) (doubleCount * 1.75) < tallCount;
-		if ((tallCount >= GRASS_THRESHOLD  || doubleCount >= 4 || tallCount == GRASS_DENSITY) && doubleGrassQuotaAvailable) {
+		if ((tallCount >= GRASS_THRESHOLD  || doubleCount >= 4 || tallCount == GRASS_DENSITY) && doubleCount < TALL_GRASS_DENSITY) {
 			BlockPos above1 = grassPos.up();
 			BlockPos above2 = grassPos.up(2);
 			if ((world.isAirBlock(above1) || world.getBlockState(above1).getBlock() == Blocks.TALLGRASS) && world.isAirBlock(above2)) {

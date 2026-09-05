@@ -1,16 +1,12 @@
 
 package astrotweaks.command;
 
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.ICommand;
-import net.minecraft.command.CommandHandler;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 
 import java.util.List;
@@ -20,18 +16,7 @@ import java.util.ArrayList;
 
 import astrotweaks.procedure.ProcedureCommandGM;
 
-import astrotweaks.ElementsAstrotweaksMod;
-
-@ElementsAstrotweaksMod.ModElement.Tag
-public class CommandGm extends ElementsAstrotweaksMod.ModElement {
-	public CommandGm(ElementsAstrotweaksMod instance) {
-		super(instance, 583);
-	}
-
-	@Override
-	public void serverLoad(FMLServerStartingEvent event) {
-		event.registerServerCommand(new CommandHandler());
-	}
+public class CommandGm {
 	public static class CommandHandler implements ICommand {
 		@Override
 		public int compareTo(ICommand c) {
@@ -78,20 +63,14 @@ public class CommandGm extends ElementsAstrotweaksMod.ModElement {
 		        sender.sendMessage(new TextComponentTranslation("command.no_permissions"));
 		        return;
 		    }
-			//int x = sender.getPosition().getX();
-			//int y = sender.getPosition().getY();
-			//int z = sender.getPosition().getZ();
 			Entity entity = sender.getCommandSenderEntity();
 			if (entity != null) {
-				//World world = entity.world;
 				HashMap<String, String> cmdparams = new HashMap<>();
 				int[] index = {0};
 				Arrays.stream(cmd).forEach(param -> {
 					cmdparams.put(Integer.toString(index[0]), param);
 					index[0]++;
 				});
-
-				//if (cmdparams.isEmpty()) return;
 
 				ProcedureCommandGM.executeProcedure(entity, cmdparams);
 			}

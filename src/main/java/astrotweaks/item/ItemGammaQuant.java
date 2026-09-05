@@ -1,53 +1,20 @@
-
 package astrotweaks.item;
 
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-
-import net.minecraft.world.World;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Item;
 import net.minecraft.entity.Entity;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import astrotweaks.creativetab.ATCreativeTabs;
 import astrotweaks.procedure.ProcedureSQInvTick;
 
-import astrotweaks.creativetab.ATCreativeTabs;
+public final class ItemGammaQuant {
+    public static final Item GAMMA_QUANT = new Item() {
+        @Override
+        public void onUpdate(ItemStack itemstack, World world, Entity entity, int slot, boolean par5) {
+            super.onUpdate(itemstack, world, entity, slot, par5);
+            ProcedureSQInvTick.exect(entity, itemstack);
+        }
+    }.setCreativeTab(ATCreativeTabs.AT_INTEGRATION_CT).setRegistryName("astrotweaks", "gamma_quant").setUnlocalizedName("gamma_quant");
 
-import astrotweaks.ElementsAstrotweaksMod;
-
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ItemGammaQuant extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:gamma_quant")
-	public static final Item block = null;
-	public ItemGammaQuant(ElementsAstrotweaksMod instance) {
-		super(instance, 274);
-	}
-
-	@Override
-	public void initElements() {
-		elements.items.add(() -> new ItemCustom());
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(block, 0, new ModelResourceLocation("astrotweaks:gamma_quant", "inventory"));
-	}
-	public static class ItemCustom extends Item {
-		public ItemCustom() {
-			setUnlocalizedName("gamma_quant");
-			setRegistryName("gamma_quant");
-			setCreativeTab(ATCreativeTabs.AT_INTEGRATION_CT);
-		}
-
-		@Override
-		public void onUpdate(ItemStack itemstack, World world, Entity entity, int slot, boolean par5) {
-			super.onUpdate(itemstack, world, entity, slot, par5);
-			ProcedureSQInvTick.exect(entity, itemstack);
-		}
-	}
+    private ItemGammaQuant() {}
 }

@@ -26,33 +26,15 @@ import net.minecraft.block.Block;
 
 import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockRedMushrooms extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:red_mushrooms")
-	public static final Block block = null;
-	public BlockRedMushrooms(ElementsAstrotweaksMod instance) {
-		super(instance, 235);
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new BlockCustomFlower());
-		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0,
-				new ModelResourceLocation("astrotweaks:red_mushrooms", "inventory"));
-	}
+public class BlockRedMushrooms {
+	public static final Block block = new BlockCustomFlower();
 	public static class BlockCustomFlower extends BlockFlower {
 		public BlockCustomFlower() {
 			setSoundType(SoundType.PLANT);
 			setHardness(0F);
 			setResistance(0F);
 			setUnlocalizedName("red_mushrooms");
-			setRegistryName("red_mushrooms");
+			setRegistryName("astrotweaks", "red_mushrooms");
 		}
 
 		@Override

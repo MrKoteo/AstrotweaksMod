@@ -29,25 +29,8 @@ import astrotweaks.ElementsAstrotweaksMod;
 
 import java.util.List;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockUKillerBlock extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:u_killer_block")
-	public static final Block block = null;
-	public BlockUKillerBlock(ElementsAstrotweaksMod instance) {
-		super(instance, 444);
-	}
-
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new BlockCustom().setRegistryName("u_killer_block"));
-		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
-	}
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0,
-				new ModelResourceLocation("astrotweaks:u_killer_block", "inventory"));
-	}
+public class BlockUKillerBlock {
+	public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "u_killer_block");
 	public static class BlockCustom extends Block {
 		public BlockCustom() {
 			super(Material.IRON, MapColor.IRON);

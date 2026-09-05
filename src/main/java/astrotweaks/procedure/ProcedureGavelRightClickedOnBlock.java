@@ -21,7 +21,7 @@ public class ProcedureGavelRightClickedOnBlock {
     public static void executeProcedure(int x, int y, int z, World world, Entity entity, ItemStack itemstack) {
 
         // check mainhand has contain Gavel
-        boolean holdingGavel = ((entity instanceof EntityLivingBase) ? ((EntityLivingBase) entity).getHeldItemMainhand() : ItemStack.EMPTY).getItem() == new ItemStack(astrotweaks.item.ItemGavel.block, 1).getItem();
+        boolean holdingGavel = ((entity instanceof EntityLivingBase) ? ((EntityLivingBase) entity).getHeldItemMainhand() : ItemStack.EMPTY).getItem() == new ItemStack(astrotweaks.item.ItemGavel.GAVEL, 1).getItem();
         if (!holdingGavel) return;
 
         IBlockState state = world.getBlockState(new BlockPos(x, y, z));

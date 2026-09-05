@@ -1,11 +1,4 @@
-
 package astrotweaks.item;
-
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 
 import net.minecraft.world.World;
 import net.minecraft.item.ItemStack;
@@ -13,35 +6,15 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.Item;
 import net.minecraft.item.EnumAction;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
 import astrotweaks.procedure.ProcedureSpoiledFoodEaten;
 
-import astrotweaks.ElementsAstrotweaksMod;
-
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ItemSpoiledSpiderEye1 extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:spoiled_spider_eye")
-	public static final Item block = null;
-	public ItemSpoiledSpiderEye1(ElementsAstrotweaksMod instance) {
-		super(instance, 215);
-	}
-
-	@Override
-	public void initElements() {
-		elements.items.add(() -> new ItemFoodCustom());
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(block, 0, new ModelResourceLocation("astrotweaks:spoiled_spider_eye", "inventory"));
-	}
+public final class ItemSpoiledSpiderEye1 {
+	public static final Item SPOILED_SPIDER_EYE = new ItemSpoiledSpiderEye1.ItemFoodCustom().setRegistryName("astrotweaks", "spoiled_spider_eye").setUnlocalizedName("spoiled_spider_eye");
+	private ItemSpoiledSpiderEye1() {}
 	public static class ItemFoodCustom extends ItemFood {
 		public ItemFoodCustom() {
 			super(1, 0f, false);
-			setUnlocalizedName("spoiled_spider_eye");
-			setRegistryName("spoiled_spider_eye");
 			setCreativeTab(null);
 			setMaxStackSize(64);
 		}

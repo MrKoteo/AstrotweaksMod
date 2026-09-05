@@ -1,6 +1,5 @@
 package astrotweaks.command;
 
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraft.world.World;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -11,24 +10,13 @@ import net.minecraft.command.ICommand;
 import net.minecraft.command.CommandException;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
-import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Arrays;
 import java.util.ArrayList;
 import astrotweaks.procedure.ProcedureRsummonProc;
-import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class CommandRsummon extends ElementsAstrotweaksMod.ModElement {
-    public CommandRsummon(ElementsAstrotweaksMod instance) {
-        super(instance, 552);
-    }
-    @Override
-    public void serverLoad(FMLServerStartingEvent event) {
-        event.registerServerCommand(new CommandHandler());
-    }
-
+public class CommandRsummon {
     public static class CommandHandler implements ICommand {
         @Override
         public int compareTo(ICommand c) {
@@ -120,19 +108,6 @@ public class CommandRsummon extends ElementsAstrotweaksMod.ModElement {
             if (args.length > index) {
                 nbt = String.join(" ", Arrays.copyOfRange(args, index, args.length));
             }
-
-            // Collect dependencies
-            /*
-            Map<String, Object> dependencies = new HashMap<>();
-            dependencies.put("world", world);
-            dependencies.put("entity", entity);
-            dependencies.put("entity_id", entityId);
-            dependencies.put("x", spawnX);
-            dependencies.put("y", spawnY);
-            dependencies.put("z", spawnZ);
-            dependencies.put("count", count);
-            dependencies.put("nbt", nbt);
-            */
 
             // Call procedure
             //                   executeProcedure(double x, double y, double z, World world, @Optional Entity entity, String 

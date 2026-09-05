@@ -139,7 +139,7 @@ public class ProcedureMTConvert {
 		if (!(te instanceof TileEntityLockableLoot)) return;
 
 		ItemStack gavelStack = safeGetSlotItemStack(te, 4);
-		if (gavelStack.isEmpty() || gavelStack.getItem() != ItemGavel.block) return;
+		if (gavelStack.isEmpty() || gavelStack.getItem() != ItemGavel.GAVEL) return;
 
 		boolean did = false;
 		if (canProcessUpgrade(te) && processUpgradeConversion(te)) {
