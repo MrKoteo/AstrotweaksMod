@@ -25,7 +25,8 @@ import java.util.HashSet;
 import java.util.Collections;
 import java.util.List;
 
-//@Mod.EventBusSubscriber(modid = "astrotweaks")
+
+
 public class RealisticBreak {
 	private static final Set<Block> PICKAXE_ONLY_BLOCKS = new HashSet<>();
 	private static final Set<Block> AXE_ONLY_BLOCKS = new HashSet<>();
@@ -135,7 +136,7 @@ public class RealisticBreak {
 	}
 	// HIGH priority for early solve
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onBreakBlock(BlockEvent.BreakEvent event) {
+    public static void onBreakBlock(BlockEvent.BreakEvent event) {
 	    EntityPlayer player = event.getPlayer();
 	    if (player == null) return;
 	    if (event.getState() == null) return;
@@ -213,8 +214,7 @@ public class RealisticBreak {
 			//}
 		);
 	}
-    public void postInit(FMLPostInitializationEvent event) {
+    public static void postInit() {
 		ExRules();
-        MinecraftForge.EVENT_BUS.register(new RealisticBreak());
     }
 }

@@ -113,8 +113,11 @@ public class ATBlocks {
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
     private ATBlocks() {}
+    public static final void ClearRegList() {
+        BLOCKS_TO_REGISTER = null;
+    }
 
-    private static final Block[] BLOCKS_TO_REGISTER = {
+    private static Block[] BLOCKS_TO_REGISTER = {
 
 
 

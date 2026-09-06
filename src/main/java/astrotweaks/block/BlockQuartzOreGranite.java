@@ -29,51 +29,18 @@ import net.minecraft.block.Block;
 import java.util.Random;
 
 import astrotweaks.creativetab.ATCreativeTabs;
-import astrotweaks.ModVariables;
 
-import astrotweaks.ElementsAstrotweaksMod;
+
 
 public class BlockQuartzOreGranite {
 	public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "quartz_ore_granite");
-
-/*
-	@Override
-	public void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
-		if (!(dimID == 0)) return;
-		if (!(AstrotweaksModVariables.Overworld_Quartz_Generation)) return;
-		
-		for (int i = 0; i < 6; i++) {  // gen attempts
-			int x = chunkX + random.nextInt(16);
-			int y = random.nextInt(30) + 25;
-			int z = chunkZ + random.nextInt(16);
-			(new WorldGenMinable(block.getDefaultState(), 4, new com.google.common.base.Predicate<IBlockState>() {
-				public boolean apply(IBlockState blockAt) {
-					boolean blockCriteria = false;
-					IBlockState require;
-					require = Blocks.STONE.getStateFromMeta(1);
-					try {
-						if ((blockAt.getBlock() == require.getBlock())
-								&& (blockAt.getBlock().getMetaFromState(blockAt) == require.getBlock().getMetaFromState(require)))
-							blockCriteria = true;
-					} catch (Exception e) {
-						if (blockAt.getBlock() == require.getBlock())
-							blockCriteria = true;
-					}
-					return blockCriteria;
-				}
-			})).generate(world, random, new BlockPos(x, y, z));
-		}
-	}
-
-*/
-
 
 	private static final com.google.common.base.Predicate<IBlockState> GRANITE_MATCH =
 	    state -> state != null && state.getBlock() == Blocks.STONE && state.getBlock().getMetaFromState(state) == 1;
 
 	public static void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
 	    if (dimID != 0) return;
-	    if (!ModVariables.OW_Quartz_Gen) return;
+	    //if (!ModVariables.OW_Quartz_Gen) return;
 	
 	    WorldGenMinable gen = new WorldGenMinable(block.getDefaultState(), 4, GRANITE_MATCH);
 	    for (int i = 0; i < 4; i++) {

@@ -14,7 +14,6 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -31,7 +30,8 @@ import astrotweaks.block.BlockGiantGrass;
 
 import astrotweaks.ModVariables;
 
-@Mod.EventBusSubscriber(modid = "astrotweaks")
+
+
 public class GrassGrowth {
 	// Configuration: delay range in seconds
 
@@ -140,12 +140,10 @@ public class GrassGrowth {
 		*/
 		int y = chunk.getHeightValue(localX, localZ) - 1;
 
-		if (y < 1) {
-			return null;
-		}
+		if (y < 1) return null;
+		
 
-		BlockPos.MutableBlockPos pos =
-				new BlockPos.MutableBlockPos(x, y, z);
+		BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos(x, y, z);
 
 		/*
 		* Пропускаем неполные блоки над поверхностью:
@@ -398,7 +396,6 @@ public class GrassGrowth {
 			if (giantGrass.placeGiantGrass(world, lowerPos)) { return; }
 		}
 	}
-
 
     // -------- Biome whitelist check (uses your ModVariables.GGAllowed) --------
 	//private static boolean isBiomeInBlacklist(Biome biome) {

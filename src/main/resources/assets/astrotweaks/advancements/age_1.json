@@ -18,5 +18,5 @@
       "trigger": "minecraft:impossible"
     }
   },
-  "parent": "astrotweaks:ages_adv"
+  "parent": "astrotweaks:root"
 }

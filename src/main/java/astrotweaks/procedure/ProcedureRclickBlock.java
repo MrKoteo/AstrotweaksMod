@@ -26,7 +26,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import astrotweaks.item.ATItems;
 
 
-import astrotweaks.ElementsAstrotweaksMod;
 
 
 @Mod.EventBusSubscriber(modid = "astrotweaks")

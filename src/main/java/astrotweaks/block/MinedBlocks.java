@@ -4,6 +4,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import net.minecraft.world.World;
@@ -28,10 +30,10 @@ import java.util.List;
 
 import astrotweaks.ModVariables;
 
-import astrotweaks.ElementsAstrotweaksMod;
+@Mod.EventBusSubscriber(modid = "astrotweaks")
+public class MinedBlocks {
+	public static final String MOD_ID = "astrotweaks";
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class MinedBlocks extends ElementsAstrotweaksMod.ModElement {
 	// Format: "registryName" or "registryName:*" (wildcard expands to 16 metas)
 	private static final String[] BLOCK_DATA = {
 	    "minecraft:stone",
@@ -156,15 +158,13 @@ public class MinedBlocks extends ElementsAstrotweaksMod.ModElement {
 	}
 
     private static final int GROUP_SIZE = 16;
-    private final List<Block> groupBlocks = new ArrayList<>();
-    private final List<Item> groupItems = new ArrayList<>();
+    private static final List<Block> groupBlocks = new ArrayList<>();
+    private static final List<Item> groupItems = new ArrayList<>();
+    private static boolean built = false;
 
-    public MinedBlocks(ElementsAstrotweaksMod instance) {
-        super(instance, 100000);
-    }
-
-    @Override
-    public void initElements() {
+    private static void build() {
+    	if (built) return;
+    	built = true;
     	if (!ModVariables.doRegisterMinedBlocks) return;
         int totalVariants = ENTRIES_BY_META.length;
         int groups = (totalVariants + GROUP_SIZE - 1) / GROUP_SIZE;
@@ -177,19 +177,28 @@ public class MinedBlocks extends ElementsAstrotweaksMod.ModElement {
             String regName = groupIndex == 0 ? "mined_block" : "mined_block_" + groupIndex;
 
             Block block = createGroupBlock(startGlobal, localCount, regName);
-            // add to elements (deferred suppliers)
-            elements.blocks.add(() -> block);
             groupBlocks.add(block);
 
             ItemBlock item = createGroupItem(block, groupIndex, startGlobal, localCount);
             item.setRegistryName(block.getRegistryName());
-            elements.items.add(() -> item);
             groupItems.add(item);
         }
     }
 
+    @SubscribeEvent
+    public static void registerBlocks(RegistryEvent.Register<Block> event) {
+        build();
+        for (Block block : groupBlocks) event.getRegistry().register(block);
+    }
+
+    @SubscribeEvent
+    public static void registerItems(RegistryEvent.Register<Item> event) {
+        build();
+        for (Item item : groupItems) event.getRegistry().register(item);
+    }
+
     // Create Block for group
-	private Block createGroupBlock(final int startGlobal, final int localCount, String registryName) {
+	private static Block createGroupBlock(final int startGlobal, final int localCount, String registryName) {
 	    final PropertyInteger prop = PropertyInteger.create("meta", 0, Math.max(1, localCount - 1));
 	    return new Block(Material.ROCK) {
 	        {
@@ -244,7 +253,7 @@ public class MinedBlocks extends ElementsAstrotweaksMod.ModElement {
 	    };
 	}
     // Create ItemBlock for group; getUnlocalizedName uses global index
-    private ItemBlock createGroupItem(final Block block, final int groupIndex, final int startGlobal, final int localCount) {
+    private static ItemBlock createGroupItem(final Block block, final int groupIndex, final int startGlobal, final int localCount) {
         return new ItemBlock(block) {
             {
                 setHasSubtypes(true);
@@ -265,26 +274,30 @@ public class MinedBlocks extends ElementsAstrotweaksMod.ModElement {
             }
         };
     }
-    @SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    @Override
-    public void registerModels(ModelRegistryEvent event) {
-        for (int g = 0; g < groupItems.size(); g++) {
-            Item item = groupItems.get(g);
-            //Block block = groupBlocks.get(g);
-            int startGlobal = g * GROUP_SIZE;
-            int localCount = Math.min(GROUP_SIZE, ENTRIES_BY_META.length - startGlobal);
-            for (int local = 0; local < localCount; local++) {
-                int globalIndex = startGlobal + local;
-                Entry entry = (globalIndex >= 0 && globalIndex < ENTRIES_BY_META.length) ? ENTRIES_BY_META[globalIndex] : null;
-                if (entry == null) continue;
-                if (entry.modelLoc == null) {
-                    String[] parts = entry.regName.split(":");
-                    String domain = parts.length > 1 ? parts[0] : "minecraft";
-                    String path = parts.length > 1 ? parts[1] : entry.regName;
-                    entry.modelLoc = new ModelResourceLocation(new ResourceLocation(domain, path), "inventory");
+
+    @Mod.EventBusSubscriber(modid = MOD_ID, value = Side.CLIENT)
+    public static class ClientHandler {
+        @SideOnly(Side.CLIENT)
+        @SubscribeEvent
+        public static void registerModels(ModelRegistryEvent event) {
+            build();
+            for (int g = 0; g < groupItems.size(); g++) {
+                Item item = groupItems.get(g);
+                //Block block = groupBlocks.get(g);
+                int startGlobal = g * GROUP_SIZE;
+                int localCount = Math.min(GROUP_SIZE, ENTRIES_BY_META.length - startGlobal);
+                for (int local = 0; local < localCount; local++) {
+                    int globalIndex = startGlobal + local;
+                    Entry entry = (globalIndex >= 0 && globalIndex < ENTRIES_BY_META.length) ? ENTRIES_BY_META[globalIndex] : null;
+                    if (entry == null) continue;
+                    if (entry.modelLoc == null) {
+                        String[] parts = entry.regName.split(":");
+                        String domain = parts.length > 1 ? parts[0] : "minecraft";
+                        String path = parts.length > 1 ? parts[1] : entry.regName;
+                        entry.modelLoc = new ModelResourceLocation(new ResourceLocation(domain, path), "inventory");
+                    }
+                    ModelLoader.setCustomModelResourceLocation(item, local, entry.modelLoc);
                 }
-                ModelLoader.setCustomModelResourceLocation(item, local, entry.modelLoc);
             }
         }
     }

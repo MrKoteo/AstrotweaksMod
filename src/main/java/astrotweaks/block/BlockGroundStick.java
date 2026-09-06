@@ -1,4 +1,5 @@
-package astrotweaks.block;
+
+package astrotweaks.block;
 
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
@@ -51,15 +52,13 @@ import java.util.Map;
 import java.util.HashMap;
 
 
-import astrotweaks.AstrotweaksModVariables;
 import astrotweaks.ModVariables;
-import astrotweaks.ElementsAstrotweaksMod;
+
 
 public class BlockGroundStick {
 	public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "ground_stick");
 
 	public static void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
-		if (!ModVariables.Enable_Ground_Elements) return;
 	    if (dimID != 0) return;
 			double sga = ModVariables.Stick_Gen_Attempts;
 			Set<Biome> sgb = ModVariables.Stick_Gen_Biomes_Cached; // now is Set<ResourceLocation>
@@ -70,7 +69,8 @@ public class BlockGroundStick {
 	public static class BlockCustom extends Block {
 		public static final PropertyDirection FACING = BlockHorizontal.FACING;
 		public BlockCustom() {
-			super(Material.CLOTH); // ???
+			super(Material.CLOTH);
+ // ???
 			setUnlocalizedName("ground_stick");
 			setSoundType(SoundType.LADDER);
 			setHardness(0F);
@@ -118,7 +118,8 @@ public class BlockGroundStick {
 					return new AxisAlignedBB(1, 0, 0, 0.125, 0.0625, 0.875);
 				case WEST :
 					return new AxisAlignedBB(0, 0, 1, 0.875, 0.0625, 0.125);
-			}*/
+			}
+*/
 			return new AxisAlignedBB(0.0675, 0.0, 0.0675, 0.9375, 0.0675, 0.9375);
 		}
 		@Override
@@ -162,7 +163,8 @@ public class BlockGroundStick {
 			return false;
 		}
 		//@Override public boolean isNormalCube(IBlockState state, IBlockAccess world, BlockPos pos) { return false; }
-		//@Override public boolean isTopSolid(IBlockState state) { return false; }
+		//
+@Override public boolean isTopSolid(IBlockState state) { return false; }
 		@Override
 		public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing face) {
 		    return BlockFaceShape.UNDEFINED;
@@ -189,7 +191,8 @@ public class BlockGroundStick {
 			int y = pos.getY();
 			int z = pos.getZ();
 			if (world.isBlockIndirectlyGettingPowered(new BlockPos(x, y, z)) > 0) {
-			} else {}
+			} else {
+}
 
 			if ((((world.getBlockState(new BlockPos((int) x, (int) y, (int) z))).getBlock() == BlockGroundStick.block.getDefaultState().getBlock())
 				&& ((world.getBlockState(new BlockPos((int) x, (int) (y - 1), (int) z))).getBlock() == Blocks.AIR.getDefaultState().getBlock()))) {

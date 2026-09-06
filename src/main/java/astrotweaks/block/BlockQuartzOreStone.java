@@ -30,9 +30,8 @@ import java.util.function.Predicate;
 import java.util.Random;
 
 import astrotweaks.creativetab.ATCreativeTabs;
-import astrotweaks.ModVariables;
 
-import astrotweaks.ElementsAstrotweaksMod;
+
 
 public class BlockQuartzOreStone {
 	public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "quartz_ore_stone");
@@ -42,7 +41,7 @@ public class BlockQuartzOreStone {
 
 	public static void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
 	    if (dimID != 0) return;
-	    if (!ModVariables.OW_Quartz_Gen) return;
+	    //if (!ModVariables.OW_Quartz_Gen) return;
 	
 	    WorldGenMinable gen = new WorldGenMinable(block.getDefaultState(), 4, STONE_MATCH);
 	    for (int i = 0; i < 6; i++) {

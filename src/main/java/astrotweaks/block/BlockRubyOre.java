@@ -31,9 +31,7 @@ import astrotweaks.item.ATItems;
 
 import astrotweaks.creativetab.ATCreativeTabs;
 
-import astrotweaks.ModVariables;
 
-import astrotweaks.ElementsAstrotweaksMod;
 
 public class BlockRubyOre {
 	public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "ruby_ore");
@@ -43,7 +41,7 @@ public class BlockRubyOre {
 
 	public static void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
 	    if (dimID != 0) return;
-	    if (!ModVariables.OW_Ruby_Gen) return;
+	    //if (!ModVariables.OW_Ruby_Gen) return;
 	
 	    WorldGenMinable gen = new WorldGenMinable(block.getDefaultState(), 3, STONE_MATCH);
 	    for (int i = 0; i < 7; i++) {

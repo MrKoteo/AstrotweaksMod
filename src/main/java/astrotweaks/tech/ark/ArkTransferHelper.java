@@ -48,7 +48,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.world.Teleporter;
 
-import astrotweaks.tech.qts.BlockQTPSupressor;
+import astrotweaks.tech.ATTechnologies;
 import astrotweaks.tech.qts.SuppressorManager;
 
 import java.util.ArrayList;
@@ -413,7 +413,7 @@ public class ArkTransferHelper {
     }
 	private static boolean isSuppressorInArea(World world, BlockPos min, BlockPos max) {
 	    for (BlockPos p : BlockPos.getAllInBoxMutable(min, max)) {
-	        if (world.getBlockState(p).getBlock() == BlockQTPSupressor.block) {
+	        if (world.getBlockState(p).getBlock() == ATTechnologies.QTP_SUPRESSOR) {
 	            return true;
 	        }
 	    }

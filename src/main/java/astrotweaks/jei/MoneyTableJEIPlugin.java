@@ -13,7 +13,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.client.resources.I18n;
-import astrotweaks.tech.mt.BlockMoneyTable;
+import astrotweaks.tech.ATTechnologies;
 import astrotweaks.tech.mt.MTGUI;
 import astrotweaks.item.*;
 import net.minecraft.init.Blocks;
@@ -48,7 +48,7 @@ public class MoneyTableJEIPlugin {
             registry.addAdvancedGuiHandlers(new GuiHandler[] {new GuiHandler()});
             registry.addRecipes(getAllRecipes(), Category.UID);
             registry.addRecipeClickArea(MTGUI.GuiWindow.class, 76, 10, 24, 16, Category.UID);
-            registry.addRecipeCatalyst(new ItemStack(BlockMoneyTable.block), Category.UID);
+            registry.addRecipeCatalyst(new ItemStack(ATTechnologies.MONEY_TABLE), Category.UID);
         }
     }
 

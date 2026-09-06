@@ -1,12 +1,7 @@
-package astrotweaks.block;
 
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.event.ModelRegistryEvent;
+package astrotweaks.block;
+
 import net.minecraftforge.oredict.OreDictionary;
-
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -25,9 +20,7 @@ import net.minecraft.block.Block;
 import net.minecraft.util.NonNullList;
 
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.Predicate;
 import java.util.Random;
-import java.util.List;
 
 import astrotweaks.util.DropHandler;
 import astrotweaks.util.DropHandler.DropEntry;
@@ -35,7 +28,8 @@ import astrotweaks.util.DropHandler.DropEntry;
 import astrotweaks.ModVariables;
 import astrotweaks.creativetab.ATCreativeTabs;
 
-import astrotweaks.ElementsAstrotweaksMod;
+
+
 public class BlockMineralsOre {
 	public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "minerals_ore");
 
@@ -43,7 +37,7 @@ public class BlockMineralsOre {
 
 	public static void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
 	    if (dimID != 0) return;
-	    if (!ModVariables.OW_Minerals_Gen) return;
+	    //if (!ModVariables.OW_Minerals_Gen) return;
 	
 	    WorldGenMinable gen = new WorldGenMinable(block.getDefaultState(), 8, STONE_MATCH);
 	    BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();

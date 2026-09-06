@@ -16,8 +16,8 @@ adv.age_6.descr=
 adv.age_6.title=Space Age
 adv.age_7.descr=*metatech
 adv.age_7.title=Future...
-adv.ages_adv.descr=Just like that?
-adv.ages_adv.title=Science!
+adv.root.descr=Just like that?
+adv.root.title=Science!
 adv.money.descr=(opening our own mint)
 adv.money.title=Money!
 
@@ -60,6 +60,11 @@ ark.send=SEND
 ark.success=§aThe Ark has been successfully moved!
 mt.convert=Convert
 
+
+
+
+# GUI
+gui.disconnect=Disconnect
 
 
 
@@ -223,8 +228,10 @@ item.quad_bbbb_quant.name=Quaternary system of quanta β-β-β-β
 item.quad_dddd_quant.name=Quaternary system of quanta Δ-Δ-Δ-Δ
 item.quad_gggg_quant.name=Quaternary system of quanta γ-γ-γ-γ
 item.quantum_bagde.name=Quantum bagde
+item.quantum_processor_0.name=Quantum Processor
 item.quantum_processor_1.name=Quantum Processor
 item.quantum_processor_2.name=Quantum Processor
+item.quasar_badge.name=Quasar badge
 item.red_led.name=Red LED
 item.redstone_brick.name=Redstone brick
 item.resistor.name=Resistor

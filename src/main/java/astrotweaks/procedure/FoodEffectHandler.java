@@ -14,13 +14,13 @@ import java.util.*;
 import astrotweaks.ModVariables;
 
 
-@Mod.EventBusSubscriber(modid = "astrotweaks")
+
 public class FoodEffectHandler {
     // map  "item -> effect"
     private static Map<ItemStack, PotionData[]> FOOD_EFFECTS = new HashMap<>();
 
 	public static void init() {
-		if (!(ModVariables.Food_Negative_Effects)) { FOOD_EFFECTS = Collections.emptyMap();return; }
+		//if (!(ModVariables.Food_Negative_Effects)) { FOOD_EFFECTS = Collections.emptyMap();return; }
 
 		Map<ItemStack, PotionData[]> map = new HashMap<>();
 		

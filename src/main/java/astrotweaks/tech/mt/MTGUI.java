@@ -4,13 +4,10 @@ package astrotweaks.tech.mt;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.input.Keyboard;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
@@ -31,22 +28,10 @@ import java.util.HashMap;
 
 import java.io.IOException;
 
-import astrotweaks.ElementsAstrotweaksMod;
-
 import astrotweaks.AstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class MTGUI extends ElementsAstrotweaksMod.ModElement {
+public class MTGUI {
 	public static int GUIID = 4;
-	//public static HashMap guistate = new HashMap();
-	public MTGUI(ElementsAstrotweaksMod instance) {
-		super(instance, 319);
-	}
-
-	@Override
-	public void preInit(FMLPreInitializationEvent event) {
-		elements.addNetworkMessage(GUIButtonPressedMessageHandler.class, GUIButtonPressedMessage.class, Side.SERVER);
-	}
 	public static class GuiContainerMod extends Container implements Supplier<Map<Integer, Slot>> {
 		private IInventory internal;
 		private World world;

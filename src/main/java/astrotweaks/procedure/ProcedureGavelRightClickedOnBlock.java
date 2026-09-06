@@ -10,9 +10,9 @@ import net.minecraft.block.state.IBlockState;
 
 import java.util.List;
 
-
 import astrotweaks.recipe.GavelRecipeRegistry;
 import astrotweaks.recipe.GavelRecipe;
+
 
 
 public class ProcedureGavelRightClickedOnBlock {

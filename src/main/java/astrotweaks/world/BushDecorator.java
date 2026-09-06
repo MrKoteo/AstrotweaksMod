@@ -34,13 +34,15 @@ import astrotweaks.block.BlockFern1;
 
 
 public class BushDecorator {
-	private static List<BushEntry> BUSHES = new ArrayList<>();
+	//private static List<BushEntry> BUSHES = new ArrayList<>();
 	private static Map<Biome, List<BushEntry>> BUSH_MAP;
 
 	private static Set<Block> GROUND_BLOCKS;
 	private static Set<Block> REPLACEABLE_BLOCKS;
 
-	private static final Set<ResourceLocation> Bush1_biomes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+    private static boolean initialized;
+
+	private static Set<ResourceLocation> Bush1_biomes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
 		new ResourceLocation("forest"),new ResourceLocation("taiga"),new ResourceLocation("forest_hills"), new ResourceLocation("taiga_hills"),
 		new ResourceLocation("birch_forest"),new ResourceLocation("birch_forest_hills"),new ResourceLocation("roofed_forest"), new ResourceLocation("redwood_taiga"),
 		new ResourceLocation("redwood_taiga_hills"),new ResourceLocation("smaller_extreme_hills"),new ResourceLocation("extreme_hills_with_trees"),
@@ -48,47 +50,40 @@ public class BushDecorator {
 		new ResourceLocation("mutated_birch_forest_hills"),new ResourceLocation("mutated_roofed_forest"),new ResourceLocation("mutated_redwood_taiga"),
 		new ResourceLocation("mutated_redwood_taiga_hills"),new ResourceLocation("mutated_extreme_hills_with_trees"),new ResourceLocation("extreme_hills")
 	))); // Bush
-	private static final Set<ResourceLocation> Bush2_biomes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+	private static Set<ResourceLocation> Bush2_biomes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
 		new ResourceLocation("swampland"), new ResourceLocation("redwood_taiga"), new ResourceLocation("redwood_taiga_hills"),
 		new ResourceLocation("mutated_swampland"), new ResourceLocation("mutated_redwood_taiga"),new ResourceLocation("mutated_redwood_taiga_hills")
 	))); // Swamp bush
-	private static final Set<ResourceLocation> Bush3_biomes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+	private static Set<ResourceLocation> Bush3_biomes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
 		new ResourceLocation("taiga"),new ResourceLocation("taiga_hills"),new ResourceLocation("redwood_taiga"),new ResourceLocation("redwood_taiga_hills"),
 		new ResourceLocation("smaller_extreme_hills"), new ResourceLocation("extreme_hills_with_trees"),new ResourceLocation("mutated_taiga"),
 		new ResourceLocation("mutated_redwood_taiga"),new ResourceLocation("mutated_redwood_taiga_hills"),new ResourceLocation("mutated_extreme_hills_with_trees"),
 		new ResourceLocation("taiga_cold"),new ResourceLocation("taiga_cold_hills"),new ResourceLocation("mutated_taiga_cold")
 	))); // Taiga
-	private static final Set<ResourceLocation> Bush4_biomes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+	private static Set<ResourceLocation> Bush4_biomes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
 		new ResourceLocation("jungle"),new ResourceLocation("jungle_hills"),new ResourceLocation("jungle_edge"),new ResourceLocation("mutated_jungle"),
 		new ResourceLocation("mutated_jungle_edge")
 	))); // Jungle
-	private static final Set<ResourceLocation> Bush5_biomes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+	private static Set<ResourceLocation> Bush5_biomes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
 		new ResourceLocation("forest"),new ResourceLocation("forest_hills"),new ResourceLocation("mutated_forest"),new ResourceLocation("birch_forest_hills"),
 		new ResourceLocation("birch_forest"),new ResourceLocation("roofed_forest"),new ResourceLocation("smaller_extreme_hills"),
 		new ResourceLocation("extreme_hills_with_trees"),new ResourceLocation("mutated_birch_forest"),new ResourceLocation("mutated_birch_forest_hills"), 
 		new ResourceLocation("mutated_roofed_forest"),new ResourceLocation("mutated_extreme_hills_with_trees")
 	))); // Siren' ?
-	private static final Set<ResourceLocation> Bush6_biomes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+	private static Set<ResourceLocation> Bush6_biomes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
 		new ResourceLocation("plains"), new ResourceLocation("mutated_plains"), new ResourceLocation("birch_forest"), new ResourceLocation("birch_forest_hills"),
 		new ResourceLocation("mutated_birch_forest"),new ResourceLocation("mutated_birch_forest_hills")
 	))); // Smooth bush
-	private static final Set<ResourceLocation> Bush7_biomes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+	private static Set<ResourceLocation> Bush7_biomes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
 		new ResourceLocation("jungle"),new ResourceLocation("jungle_hills"),new ResourceLocation("jungle_edge"),new ResourceLocation("mutated_jungle"), 
 		new ResourceLocation("mutated_jungle_edge")
 	))); // Jungle
-	private static final Set<ResourceLocation> Fern1_biomes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+	private static Set<ResourceLocation> Fern1_biomes = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
 		new ResourceLocation("taiga"), new ResourceLocation("taiga_hills"), new ResourceLocation("mutated_taiga"),new ResourceLocation("redwood_taiga"),
 		new ResourceLocation("redwood_taiga_hills"),new ResourceLocation("mutated_redwood_taiga"), new ResourceLocation("mutated_redwood_taiga_hills")
 	))); // Fern
 
-    private static Set<Biome> Bush1_biomes_ch;
-    private static Set<Biome> Bush2_biomes_ch;
-    private static Set<Biome> Bush3_biomes_ch;
-    private static Set<Biome> Bush4_biomes_ch;
-    private static Set<Biome> Bush5_biomes_ch;
-    private static Set<Biome> Bush6_biomes_ch;
-    private static Set<Biome> Bush7_biomes_ch;
-    private static Set<Biome> Fern1_biomes_ch;
+
 
     private static Set<Biome> toBiomeSet(Set<ResourceLocation> rlSet) {
         Set<Biome> biomeSet = new HashSet<>();
@@ -103,49 +98,70 @@ public class BushDecorator {
         return Collections.unmodifiableSet(biomeSet);
     }
 	///
-	public static void addBush(Block block, Set<Biome> biomes, double frequency, int clusterDensity) {
-		BUSHES.add(new BushEntry(block.getDefaultState(), biomes, frequency, clusterDensity));
+	public static void addBush(Map<Biome, List<BushEntry>> map, Block block, Set<Biome> biomes, double frequency, int clusterDensity) {
+        BushEntry entry = new BushEntry(block.getDefaultState(), frequency, clusterDensity);
+
+        for (Biome biome : biomes) {
+            map.computeIfAbsent(
+                biome,
+                key -> new ArrayList<>()
+            ).add(entry);
+        }
 	}
 	public static void init() {
 		System.out.println("Bush Decorator was Init !");
-        Bush1_biomes_ch = toBiomeSet(Bush1_biomes);
-        Bush2_biomes_ch = toBiomeSet(Bush2_biomes);
-        Bush3_biomes_ch = toBiomeSet(Bush3_biomes);
-        Bush4_biomes_ch = toBiomeSet(Bush4_biomes);
-        Bush5_biomes_ch = toBiomeSet(Bush5_biomes);
-        Bush6_biomes_ch = toBiomeSet(Bush6_biomes);
-        Bush7_biomes_ch = toBiomeSet(Bush7_biomes);
-        Fern1_biomes_ch = toBiomeSet(Fern1_biomes);
+        Map<Biome, List<BushEntry>> map = new HashMap<>();
+
+
 
 		//		Block, 			  Biome, 		chance, count
-		addBush(BlockBush1.block, Bush1_biomes_ch, 1.5, 8); // Forest
-		addBush(BlockBush2.block, Bush2_biomes_ch, 1.9, 9); // swamp
-		addBush(BlockBush3.block, Bush3_biomes_ch, 1.7, 7); // Taiga
-		addBush(BlockBush4.block, Bush4_biomes_ch, 1.8, 11);// Jungle
-		addBush(BlockBush5.block, Bush5_biomes_ch, 1.0, 6); // siren
-		addBush(BlockBush6.block, Bush6_biomes_ch, 0.65,8); // Plains
-		addBush(BlockBush7.block, Bush7_biomes_ch, 1.6, 9); // Jungle
+		//addBush(BlockBush1.block, Bush1_biomes_ch, 1.5, 8); // Forest
+		//addBush(BlockBush2.block, Bush2_biomes_ch, 1.9, 9); // swamp
+		//addBush(BlockBush3.block, Bush3_biomes_ch, 1.7, 7); // Taiga
+		//addBush(BlockBush4.block, Bush4_biomes_ch, 1.8, 11);// Jungle
+		//addBush(BlockBush5.block, Bush5_biomes_ch, 1.0, 6); // siren
+		//addBush(BlockBush6.block, Bush6_biomes_ch, 0.65,8); // Plains
+		//addBush(BlockBush7.block, Bush7_biomes_ch, 1.6, 9); // Jungle
+		//addBush(BlockFern1.block, Fern1_biomes_ch, 2.3, 12); //
 
-		addBush(BlockFern1.block, Fern1_biomes_ch, 2.3, 12); //
+        addBush(map, BlockBush1.block, toBiomeSet(Bush1_biomes), 1.5, 8);
+        addBush(map, BlockBush2.block, toBiomeSet(Bush2_biomes), 1.9, 9);
+        addBush(map, BlockBush3.block, toBiomeSet(Bush3_biomes), 1.7, 7);
+        addBush(map, BlockBush4.block, toBiomeSet(Bush4_biomes), 1.8, 11);
+        addBush(map, BlockBush5.block, toBiomeSet(Bush5_biomes), 1.0, 6);
+        addBush(map, BlockBush6.block, toBiomeSet(Bush6_biomes), 0.65, 8);
+        addBush(map, BlockBush7.block, toBiomeSet(Bush7_biomes), 1.6, 9);
+        addBush(map, BlockFern1.block, toBiomeSet(Fern1_biomes), 2.3, 12);
+
 
 		// final
-		BUSHES = Collections.unmodifiableList(new ArrayList<>(BUSHES));
+        Map<Biome, List<BushEntry>> immutableMap = new HashMap<>();
 
-	    Map<Biome, List<BushEntry>> map = new HashMap<>();
-	    for (BushEntry e : BUSHES) {
-	        for (Biome b : e.biomes) {
-	            map.computeIfAbsent(b, k -> new ArrayList<>()).add(e);
-	        }
-	    }
-	    // make immutable
-	    Map<Biome, List<BushEntry>> immutable = new HashMap<>();
-	    for (Map.Entry<Biome,List<BushEntry>> me : map.entrySet()) {
-	        immutable.put(me.getKey(), Collections.unmodifiableList(me.getValue()));
-	    }
-	    BUSH_MAP = Collections.unmodifiableMap(immutable);
+        for (Map.Entry<Biome, List<BushEntry>> entry : map.entrySet()) {
+            immutableMap.put(
+                entry.getKey(),
+                Collections.unmodifiableList(
+                    new ArrayList<>(entry.getValue())
+                )
+            );
+        }
 
-	    initBlockSets();
+        BUSH_MAP = Collections.unmodifiableMap(immutableMap);
+
+        // Очистка мусора
+        Bush1_biomes = null;
+        Bush2_biomes = null;
+        Bush3_biomes = null;
+        Bush4_biomes = null;
+        Bush5_biomes = null;
+        Bush6_biomes = null;
+        Bush7_biomes = null;
+        Fern1_biomes = null;
+
+        initBlockSets();
 	}
+
+
 
 	///
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -213,7 +229,7 @@ public class BushDecorator {
 
 	    //Chunk chunk = world.getChunk(chunkX, chunkZ);
         Chunk chunk = world.getChunkFromChunkCoords(chunkX, chunkZ);
-        if (chunk == null) return;
+        //if (chunk == null) return; // Это считается бесполезным
 	
 	    // calc center; exclude [0..15] borders by using [1..14]
 	    int localX = rand.nextInt(14) + 1; // [1..14]
@@ -268,16 +284,29 @@ public class BushDecorator {
 
         for (int y = startY; y > 0; y--) {
             mpos.setPos(baseX, y, baseZ);
-            IBlockState state = chunk.getBlockState(mpos);
-            Block block = state.getBlock();
+            Block below = chunk.getBlockState(mpos).getBlock();
+
+            if (!GROUND_BLOCKS.contains(below)) {
+                continue;
+            }
 
             mpos.setPos(baseX, y + 1, baseZ);
-            IBlockState above = chunk.getBlockState(mpos);
-            Block aboveBlock = above.getBlock();
+            Block above = chunk.getBlockState(mpos).getBlock();
 
-            if (GROUND_BLOCKS.contains(block) && REPLACEABLE_BLOCKS.contains(aboveBlock)) {
+            if (REPLACEABLE_BLOCKS.contains(above)) {
                 return y + 1;
             }
+
+            //IBlockState state = chunk.getBlockState(mpos);
+            //Block block = state.getBlock();
+
+            //mpos.setPos(baseX, y + 1, baseZ);
+            //IBlockState above = chunk.getBlockState(mpos);
+            //Block aboveBlock = above.getBlock();
+
+            //if (GROUND_BLOCKS.contains(block) && REPLACEABLE_BLOCKS.contains(aboveBlock)) {
+            //    return y + 1;
+            //}
         }
         return -1;
     }
@@ -304,12 +333,12 @@ public class BushDecorator {
 
     private static class BushEntry {
         final IBlockState state;
-        final Set<Biome> biomes;
+        //final Set<Biome> biomes;
         final double frequency;
         final int clusterDensity;
-        BushEntry(IBlockState state, Set<Biome> biomes, double frequency, int clusterDensity) {
+        BushEntry(IBlockState state, double frequency, int clusterDensity) {
             this.state = state;
-            this.biomes = biomes;
+            //this.biomes = biomes;
             this.frequency = frequency;
             this.clusterDensity = clusterDensity;
         }

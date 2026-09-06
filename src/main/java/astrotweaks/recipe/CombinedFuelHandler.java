@@ -5,15 +5,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import astrotweaks.item.*;
-import astrotweaks.ModVariables;
 import astrotweaks.block.*;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 
 
-@Mod.EventBusSubscriber(modid = "astrotweaks")
+
 public class CombinedFuelHandler {
 	public CombinedFuelHandler() {}
     private static class FuelEntry {
@@ -81,6 +79,7 @@ public class CombinedFuelHandler {
         new FuelEntry(Item.getItemFromBlock(Blocks.WEB), 20),
         new FuelEntry(Items.ARMOR_STAND, 400),
         new FuelEntry(Items.CARROT_ON_A_STICK, 300),
+        new FuelEntry(ItemSpoiledCarrotOnStick.SPOILED_CARROT_ON_STICK, 300),
         new FuelEntry(Item.getItemFromBlock(Blocks.REDSTONE_TORCH), 100),
 
 		new FuelEntry(Item.getItemFromBlock(BlockBush1.block), 40),
@@ -104,8 +103,6 @@ public class CombinedFuelHandler {
 
     @SubscribeEvent
     public static void onFuelBurnTime(FurnaceFuelBurnTimeEvent event) {
-        if (!ModVariables.Extra_Fuels) return;
-
         ItemStack fuel = event.getItemStack();
         for (FuelEntry entry : FUEL_ENTRIES) {
             if (entry.matches(fuel)) {

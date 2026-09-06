@@ -168,6 +168,7 @@ public class UOredictRegistrar {
 		OreDictionary.registerOre("shulkerBox", new ItemStack(Blocks.RED_SHULKER_BOX, 1));
 		OreDictionary.registerOre("shulkerBox", new ItemStack(Blocks.BLACK_SHULKER_BOX, 1));
 
+		/* Чета форджу не нравятся кровати с OreDict тегами -.-
 		OreDictionary.registerOre("bed", new ItemStack(Blocks.BED, 1));
 		OreDictionary.registerOre("bed", new ItemStack(Blocks.BED, 1, 1));
 		OreDictionary.registerOre("bed", new ItemStack(Blocks.BED, 1, 2));
@@ -184,6 +185,7 @@ public class UOredictRegistrar {
 		OreDictionary.registerOre("bed", new ItemStack(Blocks.BED, 1, 13));
 		OreDictionary.registerOre("bed", new ItemStack(Blocks.BED, 1, 14));
 		OreDictionary.registerOre("bed", new ItemStack(Blocks.BED, 1, 15));
+		*/
 
 		OreDictionary.registerOre("carpet", new ItemStack(Blocks.CARPET, 1));
 		OreDictionary.registerOre("carpet", new ItemStack(Blocks.CARPET, 1, 1));

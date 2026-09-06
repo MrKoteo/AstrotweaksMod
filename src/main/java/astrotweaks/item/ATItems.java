@@ -194,7 +194,6 @@ public final class ATItems {
     public static final Item VOID_MATTER_CORE = createItem( "void_matter_core", "void_matter_core", ATCreativeTabs.ASTRO_TWEAKS_CT, 64, (stack, world, tooltip, flag) -> tooltip.add("stable!") );
     public static final Item YELLOW_LED = createItem( "yellow_led", "yellow_led", ATCreativeTabs.ASTRO_TWEAKS_CT, 64, null );
 
-
     public static final Item SURVIVALIST_BADGE = createItem( "survivalist_badge", "survivalist_badge", ATCreativeTabs.ASTRO_TWEAKS_CT, 1, null );  
     public static final Item PHILISTINE_BADGE = createItem( "philistine_badge", "philistine_badge", ATCreativeTabs.ASTRO_TWEAKS_CT, 1, null );  
     public static final Item ENGENEER_BADGE = createItem( "engeneer_badge", "engeneer_badge", ATCreativeTabs.ASTRO_TWEAKS_CT, 1, null );  
@@ -204,6 +203,7 @@ public final class ATItems {
     public static final Item SINGULARITY_BADGE = createItem( "singularity_badge", "singularity_badge", ATCreativeTabs.ASTRO_TWEAKS_CT, 1, null );  
     public static final Item QUANTUM_BADGE = createItem( "quantum_bagde", "quantum_bagde", ATCreativeTabs.ASTRO_TWEAKS_CT, 1, null );  
     public static final Item PLANET_BADGE = createItem( "planet_badge", "planet_badge", ATCreativeTabs.ASTRO_TWEAKS_CT, 1, null );  
+    public static final Item QUASAR_BADGE = createItem( "quasar_badge", "quasar_badge", ATCreativeTabs.ASTRO_TWEAKS_CT, 1, null );  
     
     public static final Item SCIENCE = createItem( "science", "science", ATCreativeTabs.ASTRO_TWEAKS_CT, 1, (stack, world, tooltip, flag) -> tooltip.add("Under development") );  
     public static final Item PLANT_FIBER = createItem( "plant_fiber", "plant_fiber", ATCreativeTabs.ASTRO_TWEAKS_CT, 64, (stack, world, tooltip, flag) -> tooltip.add(new TextComponentTranslation("item.plant_fiber.tooltip").getFormattedText()) );  
@@ -213,7 +213,11 @@ public final class ATItems {
 
     private ATItems() {}
 
-    private static final Item[] ItemsToRegister = {
+    public static final void ClearRegList() {
+        ItemsToRegister = null;
+    }
+
+    private static Item[] ItemsToRegister = {
 
 
 
@@ -265,7 +269,7 @@ NEUTRONIUM_SINGULARITY,INFINITY_SINGULARITY,
 
 LIGHT_OFF,LIGHT_MID,LIGHT_ON,
 SCIENCE,GENETICS,NUCLEAR,SPACE_STATION_ICO,SUBSPACE_ICO,
-SURVIVALIST_BADGE,PHILISTINE_BADGE,ENGENEER_BADGE,MASTER_BADGE,PHOENIX_BADGE,SPACE_BADGE,SINGULARITY_BADGE,QUANTUM_BADGE,PLANET_BADGE, 
+SURVIVALIST_BADGE,PHILISTINE_BADGE,ENGENEER_BADGE,MASTER_BADGE,PHOENIX_BADGE,SPACE_BADGE,SINGULARITY_BADGE,QUANTUM_BADGE,PLANET_BADGE,QUASAR_BADGE, 
 
 // ===== Converted elements =====
 

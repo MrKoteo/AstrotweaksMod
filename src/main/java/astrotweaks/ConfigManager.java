@@ -90,6 +90,12 @@ public class ConfigManager {
 			ModVariables.Money_Can_Conversion = safeGetBoolean(config, "Money_Can_Conversion", "misc", ModVariables.Money_Can_Conversion, "Can coins be converted in Money Table? (y/n)");
 			ModVariables.Money_ConvCount = safeGetInt(config, "Money_ConvCount", "misc", ModVariables.Money_ConvCount, 1, 50, "Maximum number of coins that can be processed at one conv (1-50)");
 
+			ModVariables.NoRedFlash = safeGetBoolean(config, "No_Red_Flash", "misc", ModVariables.NoRedFlash, "Remove entities red flash when taking damage (y/n)");
+
+
+
+
+
 
 			ModVariables.Enable_Depths_Dimension = safeGetBoolean(config, "Enable_Depths_Dimension", "world", ModVariables.Enable_Depths_Dimension, "Should register Depths dimension? (y/n)");
 			ModVariables.Enable_Depths_Dim_Bedrock_TP = safeGetBoolean(config, "Enable_Depths_Dim_Bedrock_TP", "world", ModVariables.Enable_Depths_Dim_Bedrock_TP, "Allow access to the Depths via Bedrock? (y/n)");
@@ -102,9 +108,18 @@ public class ConfigManager {
 			ModVariables.GG_Tall_Density = safeGetInt(config, "Tall_Grass_Density", "world", ModVariables.GG_Tall_Density, 1, 25, "Maximum tall grass (double_plant:2) density (1-25)");
 
 
-			ModVariables.QM_is_fully_unbreakable = safeGetBoolean(config, "QM_is_fully_unbreakable", "Game mechanics", ModVariables.QM_is_fully_unbreakable, "Prohibit the player from breaking the QM_block");
 
+
+
+
+
+			ModVariables.QM_is_fully_unbreakable = safeGetBoolean(config, "QM_is_fully_unbreakable", "Game mechanics", ModVariables.QM_is_fully_unbreakable, "Prohibit the player from breaking the QM_block");
 			ModVariables.Enable_RealisticBreak = safeGetBoolean(config, "Enable_RealisticBreak", "Game mechanics", ModVariables.Enable_RealisticBreak, "More realistic conditions for destruction of blocks");
+			ModVariables.Enable_StepUp = safeGetBoolean(config, "Enable_StepUp", "Game mechanics", ModVariables.Enable_StepUp, "1-block high step, without auto-jump");
+
+
+
+
 
 
 

@@ -16,8 +16,8 @@ adv.age_6.descr=
 adv.age_6.title=Космическая Эра
 adv.age_7.descr=*метатехнологии
 adv.age_7.title=Будущее...
-adv.ages_adv.descr=Просто так?
-adv.ages_adv.title=Наука!
+adv.root.descr=Просто так?
+adv.root.title=Наука!
 adv.money.descr=(Открываем свой монетный двор)
 adv.money.title=Деньги!
 
@@ -60,6 +60,11 @@ ark.send=ВВОД
 ark.success=§aКовчег успешно перемещён!
 mt.convert=Обменять
 
+
+
+
+# GUI
+gui.disconnect=Отключиться
 
 
 # Предметы
@@ -222,8 +227,10 @@ item.quad_bbbb_quant.name=Кватернарная система квантов
 item.quad_dddd_quant.name=Кватернарная система квантов Δ-Δ-Δ-Δ
 item.quad_gggg_quant.name=Кватернарная система квантов γ-γ-γ-γ
 item.quantum_bagde.name=Значок кванта
+item.quantum_processor_0.name=Квантовый процессор
 item.quantum_processor_1.name=Квантовый процессор
 item.quantum_processor_2.name=Квантовый процессор
+item.quasar_badge.name=Значок квазара
 item.red_led.name=Красный светодиод
 item.redstone_brick.name=Редстоуновый кирпич
 item.resistor.name=Резистор

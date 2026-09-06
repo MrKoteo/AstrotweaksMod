@@ -12,13 +12,6 @@ import java.util.List;
 public class GavelRecipeRegistry {
     private static final List<GavelRecipe> RECIPES = new ArrayList<>();
 
-	/*
-    @SubscribeEvent
-	public static void init(FMLInitializationEvent event) {
-		GavelRecipeRegistry.initDefaults();
-	}
-	*/
-
     public static void register(GavelRecipe r) {
         RECIPES.add(r);
     }

@@ -1,13 +1,6 @@
 
 package astrotweaks.tech.mt;
 
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-
 import net.minecraft.world.World;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.util.math.BlockPos;
@@ -23,15 +16,12 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.Item;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.Container;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.IProperty;
@@ -45,32 +35,8 @@ import net.minecraft.block.Block;
 import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.AstrotweaksMod;
-import astrotweaks.ElementsAstrotweaksMod;
 
-
-
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockMoneyTable extends ElementsAstrotweaksMod.ModElement {
-	@GameRegistry.ObjectHolder("astrotweaks:money_table")
-	public static final Block block = null;
-	public BlockMoneyTable(ElementsAstrotweaksMod instance) {
-		super(instance, 1);
-	}
-	@Override
-	public void initElements() {
-		elements.blocks.add(() -> new BlockCustom().setRegistryName("money_table"));
-		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
-	}
-	@Override
-	public void init(FMLInitializationEvent event) {
-		GameRegistry.registerTileEntity(TileEntityCustom.class, "astrotweaks:te_money_table");
-	}
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0,
-				new ModelResourceLocation("astrotweaks:money_table", "inventory"));
-	}
+public class BlockMoneyTable {
 	public static class BlockCustom extends Block implements ITileEntityProvider {
 		public static final PropertyDirection FACING = BlockHorizontal.FACING;
 		public BlockCustom() {

@@ -1,12 +1,5 @@
 package astrotweaks.tech.qts;
 
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-
 import net.minecraft.world.World;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumHand;
@@ -16,17 +9,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.Item;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.Block;
-//import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.entity.player.EntityPlayerMP;
 
@@ -37,51 +26,13 @@ import net.minecraft.util.math.ChunkPos;
 
 import astrotweaks.creativetab.ATCreativeTabs;
 
-
 import astrotweaks.ModVariables;
 import astrotweaks.AstrotweaksMod;
-import astrotweaks.ElementsAstrotweaksMod;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class BlockQTPSupressor extends ElementsAstrotweaksMod.ModElement {
+public class BlockQTPSupressor {
 
 	private static final int Max_Range = ModVariables.QTS_Max_Range;
 
-	@GameRegistry.ObjectHolder("astrotweaks:qtp_supressor")
-	public static final Block block = null;
-	public BlockQTPSupressor(ElementsAstrotweaksMod instance) {super(instance,727);}
-	@Override public void initElements() {
-		elements.blocks.add(() -> new BlockCustom().setRegistryName("qtp_supressor"));
-		elements.items.add(() -> new ItemBlock(block).setRegistryName(block.getRegistryName()));
-	}
-	@Override
-	public void init(FMLInitializationEvent event) {
-		GameRegistry.registerTileEntity(TileEntityCustom.class, "astrotweaks:te_qtp_supressor");
-	    ForgeChunkManager.setForcedChunkLoadingCallback(AstrotweaksMod.instance, new ForgeChunkManager.LoadingCallback() {
-	        @Override
-	        public void ticketsLoaded(List<Ticket> tickets, World world) {
-	            if (world.isRemote) return;
-	            for (Ticket ticket : tickets) {
-	                NBTTagCompound data = ticket.getModData();
-	                if (data.hasKey("x") && data.hasKey("z")) {
-	                    int x = data.getInteger("x");
-	                    int z = data.getInteger("z");
-	                    // we will restore the forcibly uploaded chunk, if necessary
-	                    ChunkPos cp = new ChunkPos(x >> 4, z >> 4);
-	                    ForgeChunkManager.forceChunk(ticket, cp);
-	                    // can also restore range/other fields from data
-	                } else {
-						// if you saved the chunk coords directly in the ticket: example below
-	                    // ForgeChunkManager.forceChunk(ticket, new ChunkPos(ticket.getChunkX(), ticket.getChunkZ()));
-	                }
-	            }
-	        }
-	    });
-	}
-	@SideOnly(Side.CLIENT)
-	@Override public void registerModels(ModelRegistryEvent event) {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block),0,new ModelResourceLocation("astrotweaks:qtp_supressor","inventory"));
-	}
 	public static class BlockCustom extends Block implements ITileEntityProvider {
 		public BlockCustom() {
 			super(Material.IRON);

@@ -60,9 +60,9 @@ public class BlockGiantGrass {
 
         // array of possible drops
         private static final DropEntry[] DE_TABLE = new DropEntry[] {
-            new DropEntry("minecraft:wheat_seeds",    1, 8.0),
+            new DropEntry("minecraft:wheat_seeds",    1, 12.0),
 			new DropEntry("minecraft:tallgrass",    1, 2.0, 1),
-            new DropEntry("none",    			1, 90.0)
+            new DropEntry("none",    			1, 86.0)
         };
 		private static final DropHandler DE_DROP_TABLE = new DropHandler(DE_TABLE);
 		@Override public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {

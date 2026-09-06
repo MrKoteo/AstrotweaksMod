@@ -1,13 +1,6 @@
 package astrotweaks.tech.ark;
 
-//import org.lwjgl.opengl.GL11;
 import org.lwjgl.input.Keyboard;
-
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import net.minecraft.world.World;
 import net.minecraft.util.math.BlockPos;
@@ -25,6 +18,9 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -33,23 +29,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.io.IOException;
 
-import astrotweaks.ElementsAstrotweaksMod;
 import astrotweaks.AstrotweaksMod;
 
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ArkGUI extends ElementsAstrotweaksMod.ModElement {
+public class ArkGUI {
 	public static int GUIID = 10;
 	public static HashMap guistate = new HashMap();
-	public ArkGUI(ElementsAstrotweaksMod instance) {super(instance, 720);}
-	// GUI have:  4 button "SEND", 5 number fields, Text title of GUI.
-
-	@Override
-	public void preInit(FMLPreInitializationEvent event) {
-		elements.addNetworkMessage(GUIButtonPressedMessageHandler.class, GUIButtonPressedMessage.class, Side.SERVER);
-		elements.addNetworkMessage(ArkActionMessageHandler.class, ArkActionMessage.class, Side.SERVER);
-
-	}
 
 	// Message for transferring data from the GUI
 	public static class ArkActionMessage implements IMessage {
@@ -195,6 +180,7 @@ public class ArkGUI extends ElementsAstrotweaksMod.ModElement {
 			this.x = x; this.y = y; this.z = z;
 			this.entity = entity;
 		}
+		private int k60;
 	    @Override
 	    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 	        this.drawDefaultBackground();
@@ -214,12 +200,12 @@ public class ArkGUI extends ElementsAstrotweaksMod.ModElement {
 	        fontRenderer.drawString(I18n.format("ark.interface"), k + 32, l + 5, 0x8020FF);
 
 			// Добавить подсказки рядом с полями вввода
-
-			fontRenderer.drawString("DimID", k + 60, l + 22, 0xEEEEEE);
-			fontRenderer.drawString("X", k + 60, l + 46, 0xEEEEEE);
-			fontRenderer.drawString("Y", k + 60, l + 70, 0xEEEEEE);
-			fontRenderer.drawString("Z", k + 60, l + 94, 0xEEEEEE);
-			fontRenderer.drawString("Delay", k + 60, l + 118,0xEEEEEE);
+			k60 = k + 60;
+			fontRenderer.drawString("DimID", k60, l + 22, 0xEEEEEE);
+			fontRenderer.drawString("X", k60, l + 46, 0xEEEEEE);
+			fontRenderer.drawString("Y", k60, l + 70, 0xEEEEEE);
+			fontRenderer.drawString("Z", k60, l + 94, 0xEEEEEE);
+			fontRenderer.drawString("Delay", k60, l + 118,0xEEEEEE);
 	    }
 	    @Override
 	    public void updateScreen() {
@@ -250,6 +236,9 @@ public class ArkGUI extends ElementsAstrotweaksMod.ModElement {
 	        if (delayField.textboxKeyTyped(typedChar, keyCode)) return;
 	        super.keyTyped(typedChar, keyCode);
 	    }
+
+		private int k11;
+		private int k90;
 	    @Override
 	    public void initGui() {
 	        super.initGui();
@@ -263,39 +252,40 @@ public class ArkGUI extends ElementsAstrotweaksMod.ModElement {
 	        buttonList.clear();
 		
 			// ну типа TE всегда определён
-		    //if (teArk != null) {
+
 			clearMode = teArk.getClearMode();
 			captureEntities = teArk.getCaptureEntities();
 			captureItems = teArk.getCaptureItems();
-		        //delayTicks = teArk.getDelayTicks();
-		    //}
 
-		    TargetDimID = new GuiTextField(0, fontRenderer, k + 11, l + 20, 45, 12);
+			k11 = k + 11;
+			k90 = k + 90;
+
+		    TargetDimID = new GuiTextField(0, fontRenderer, k11, l + 20, 45, 12);
 		    TargetDimID.setMaxStringLength(9);
 		    TargetDimID.setText(teArk != null ? String.valueOf(teArk.getTargetDim()) : "0");
 
-		    TW_X = new GuiTextField(1, fontRenderer, k + 11, l + 44, 45, 12);
+		    TW_X = new GuiTextField(1, fontRenderer, k11, l + 44, 45, 12);
 		    TW_X.setMaxStringLength(8);
 		    TW_X.setText(teArk != null ? String.valueOf(teArk.getTargetX()) : "0");
 
-		    TW_Y = new GuiTextField(2, fontRenderer, k + 11, l + 68, 45, 12);
+		    TW_Y = new GuiTextField(2, fontRenderer, k11, l + 68, 45, 12);
 		    TW_Y.setMaxStringLength(8);
 		    TW_Y.setText(teArk != null ? String.valueOf(teArk.getTargetY()) : "65");
 
-		    TW_Z = new GuiTextField(3, fontRenderer, k + 11, l + 92, 45, 12);
+		    TW_Z = new GuiTextField(3, fontRenderer, k11, l + 92, 45, 12);
 		    TW_Z.setMaxStringLength(8);
 		    TW_Z.setText(teArk != null ? String.valueOf(teArk.getTargetZ()) : "0");
 
-		    btnClearMode = new GuiButton(1, k + 90, l + 20, 50, 18, getClearModeText());
+		    btnClearMode = new GuiButton(1, k90, l + 20, 50, 18, getClearModeText());
 		    buttonList.add(btnClearMode);
 
-		    btnCaptureEntities = new GuiButton(2, k + 90, l + 44, 50, 18, getCaptureEntitiesText());
+		    btnCaptureEntities = new GuiButton(2, k90, l + 44, 50, 18, getCaptureEntitiesText());
 		    buttonList.add(btnCaptureEntities);
 
-		    btnCaptureItems = new GuiButton(3, k + 90, l + 68, 50, 18, getCaptureItemsText());
+		    btnCaptureItems = new GuiButton(3, k90, l + 68, 50, 18, getCaptureItemsText());
 		    buttonList.add(btnCaptureItems);
 		
-		    delayField = new GuiTextField(4, fontRenderer, k + 11, l + 116, 45, 12);
+		    delayField = new GuiTextField(4, fontRenderer, k11, l + 116, 45, 12);
 		    delayField.setMaxStringLength(6);
 		    delayField.setText(teArk != null ? String.valueOf(teArk.getDelayTicks()) : "5");
 

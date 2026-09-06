@@ -15,10 +15,9 @@ import astrotweaks.world.DepthsDim;
 //import astrotweaks.procedure.ProcedureSwitchDimProc;
 import java.util.HashMap;
 
-import astrotweaks.ModVariables;
 
-@Mod.EventBusSubscriber(modid = "astrotweaks")
-public final class ProcedureMineDimEnter {
+
+public final class MineDimEnter {
     //private static final int OVERWORLD_ID = 0;
     private static final int CAVERN_DIM_ID = DepthsDim.DIMID;
     private static final int MIN_HEIGHT_OVERWORLD = 5;
@@ -26,11 +25,10 @@ public final class ProcedureMineDimEnter {
     private static final int TELEPORT_HEIGHT_OVERWORLD = 5;
     private static final int TELEPORT_HEIGHT_CAVERN = 252;
 
-    public ProcedureMineDimEnter() {}
+    public MineDimEnter() {}
 
     @SubscribeEvent
     public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
-    	if (!ModVariables.Enable_Depths_Dim_Bedrock_TP) return;
 
         World world = event.getWorld();
         if (world.isRemote) return;

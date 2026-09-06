@@ -9,7 +9,7 @@ import net.minecraft.command.ICommandSender;
 import java.util.HashMap;
 
 
-import astrotweaks.AstrotweaksModVariables;
+import astrotweaks.ModVariables;
 
 
 public class ProcedureShowDeathsProc {
@@ -22,8 +22,8 @@ public class ProcedureShowDeathsProc {
 	}
 
 	private static void setShowDeaths(World world, boolean value) {
-		AstrotweaksModVariables.MapVariables.get(world).showDeaths = value;
-		AstrotweaksModVariables.MapVariables.get(world).syncData(world);
+		ModVariables.MapVariables.get(world).showDeaths = value;
+		ModVariables.MapVariables.get(world).syncData(world);
 	}
 
 	private static ICommandSender makeSender(final World world) {
@@ -47,13 +47,13 @@ public class ProcedureShowDeathsProc {
 			setShowDeaths(world, false);
 		} else {
 			// toggle
-			boolean cur = AstrotweaksModVariables.MapVariables.get(world).showDeaths;
+			boolean cur = ModVariables.MapVariables.get(world).showDeaths;
 			setShowDeaths(world, !cur);
 		}
 
 		if (!world.isRemote && world.getMinecraftServer() != null) {
 			ICommandSender sender = makeSender(world);
-			if (AstrotweaksModVariables.MapVariables.get(world).showDeaths) {
+			if (ModVariables.MapVariables.get(world).showDeaths) {
 				world.getMinecraftServer().getCommandManager().executeCommand(sender, "scoreboard objectives setdisplay sidebar deathCountX");
 			} else {
 				world.getMinecraftServer().getCommandManager().executeCommand(sender, "scoreboard objectives setdisplay sidebar");

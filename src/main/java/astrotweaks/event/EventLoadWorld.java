@@ -1,4 +1,4 @@
-package astrotweaks.procedure;
+package astrotweaks.event;
 
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -14,14 +14,12 @@ import net.minecraft.command.ICommandSender;
 
 
 import astrotweaks.ElementsAstrotweaksMod;
-import astrotweaks.AstrotweaksModVariables;
 import astrotweaks.ModVariables;
 
-@ElementsAstrotweaksMod.ModElement.Tag
-public class ProcedureLoadWorld extends ElementsAstrotweaksMod.ModElement {
-	public ProcedureLoadWorld(ElementsAstrotweaksMod instance) {
-		super(instance, 317);
-	}
+
+
+public class EventLoadWorld {
+	public EventLoadWorld() {}
 
 	// Lightweight ICommandSender implementation that delegates to a world/server
 	private static class SimpleCommandSender implements ICommandSender {
@@ -47,7 +45,7 @@ public class ProcedureLoadWorld extends ElementsAstrotweaksMod.ModElement {
 	}
 
 	public static void exect(World world, WorldEvent.Load event) {
-		//if (!AstrotweaksModVariables.AstroTech_Environment && !AstrotweaksModVariables.Marked) return;
+		//if (!ModVariables.AstroTech_Environment && !ModVariables.Marked) return;
 
 
 
@@ -55,15 +53,11 @@ public class ProcedureLoadWorld extends ElementsAstrotweaksMod.ModElement {
 		runCommand(world, "scoreboard objectives add deathCountX deathCount \u0421\u043C\u0435\u0440\u0442\u0438");
 		runCommand(world, "gamerule randomTickSpeed 2");
 
-		AstrotweaksModVariables.MapVariables.get(world).Marked = true;
+		ModVariables.MapVariables.get(world).Marked = true;
 	}
 	@SubscribeEvent
 	public void onWorldLoad(WorldEvent.Load event) {
 		World world = event.getWorld();
-		if (ModVariables.AstroTech_Environment && !AstrotweaksModVariables.MapVariables.get(world).Marked) {exect(world, event); }
-	}
-	@Override
-	public void preInit(FMLPreInitializationEvent event) {
-		MinecraftForge.EVENT_BUS.register(this);
+		if (ModVariables.AstroTech_Environment && !ModVariables.MapVariables.get(world).Marked) {exect(world, event); }
 	}
 }

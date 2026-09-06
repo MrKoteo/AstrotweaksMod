@@ -52,7 +52,6 @@ import java.util.Random;
 
 import astrotweaks.item.ATItems;
 
-import astrotweaks.AstrotweaksModVariables;
 import astrotweaks.ModVariables;
 import astrotweaks.ElementsAstrotweaksMod;
 
@@ -60,7 +59,6 @@ public class BlockGroundRock1 {
 	public static final Block block = new BlockCustom().setRegistryName("astrotweaks", "ground_rock_1");
 
 	public static void generateWorld(Random random, int chunkX, int chunkZ, World world, int dimID, IChunkGenerator cg, IChunkProvider cp) {
-		if (!ModVariables.Enable_Ground_Elements) return;
 	    if (dimID != 0) return;
 			double rga = ModVariables.Rock_Gen_Attempts;
 			Set<Biome> rgb = ModVariables.Rock_Gen_Biomes_Cached;

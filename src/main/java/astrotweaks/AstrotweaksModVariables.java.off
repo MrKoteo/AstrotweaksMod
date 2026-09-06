@@ -151,4 +151,7 @@ public class AstrotweaksModVariables {
 			this.data.readFromNBT(ByteBufUtils.readTag(buf));
 		}
 	}
+
+
+
 }
