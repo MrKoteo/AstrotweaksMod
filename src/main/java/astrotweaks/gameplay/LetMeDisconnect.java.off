@@ -2,6 +2,7 @@ package astrotweaks.gameplay;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiCreateFlatWorld;
 import net.minecraft.client.gui.GuiDownloadTerrain;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiMultiplayer;
@@ -17,7 +18,8 @@ import net.minecraft.client.multiplayer.GuiConnecting;
 
 
 
-//@Mod.EventBusSubscriber(modid = "astrotweaks", value = Side.CLIENT)
+// хуйня какая-то ес чесн
+
 public final class LetMeDisconnect {
 
     private static final int DISCONNECT_BUTTON_ID = 44289;
@@ -25,22 +27,24 @@ public final class LetMeDisconnect {
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    public static void onInitGui(GuiScreenEvent.InitGuiEvent.Post event) {
+    public void onInitGui(GuiScreenEvent.InitGuiEvent.Post event) {
         GuiScreen screen = event.getGui();
 
         if (!isSupportedScreen(screen)) return;
 
         int buttonWidth = 150;
         int buttonHeight = 20;
-        int x = (screen.width - buttonWidth) / 2;
-        int y = screen.height - 40;
+        int x = screen.width/2 - buttonWidth/2;
+        int y = (screen.height - screen.height / 4) - buttonHeight;
+
+        //System.out.println("screen aviable 1");
 
         event.getButtonList().add(new GuiButton(DISCONNECT_BUTTON_ID, x, y, buttonWidth, buttonHeight, I18n.format("gui.disconnect")));
     }
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    public static void onButtonPressed(GuiScreenEvent.ActionPerformedEvent.Pre event) {
+    public void onButtonPressed(GuiScreenEvent.ActionPerformedEvent.Pre event) {
         GuiButton button = event.getButton();
         GuiScreen screen = event.getGui();
 
@@ -49,6 +53,8 @@ public final class LetMeDisconnect {
         if (!isSupportedScreen(screen)) return;
         
         disconnect();
+
+        //System.out.println("screen aviable 2");
 
         // Не даём игре обработать кнопку повторно
         event.setCanceled(true);

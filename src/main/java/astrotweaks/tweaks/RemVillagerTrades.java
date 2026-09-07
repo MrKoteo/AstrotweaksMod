@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerCareer;
 import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import astrotweaks.ModVariables;
+//import astrotweaks.ModVariables;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 public final class RemVillagerTrades {
 
     public static void onLoadComplete() {
-        if (!ModVariables.Remove_METS_engineer) return;
+        //if (!ModVariables.Remove_METS_engineer) return;
         if (!Loader.isModLoaded("mets")) return;
 
         try {

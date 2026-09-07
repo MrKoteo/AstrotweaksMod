@@ -31,17 +31,13 @@ import net.minecraft.potion.Potion;
 import net.minecraft.item.Item;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
-import astrotweaks.tech.qts.SuppressorEventHandler;
 
 import astrotweaks.world.CavernMobModifier;
-import astrotweaks.world.DecorateGroungElements;
 import astrotweaks.world.GrassGrowth;
 import astrotweaks.gui.GUIHandler;
 import astrotweaks.procedure.FoodEffectHandler;
 import astrotweaks.procedure.MineDimEnter;
-import astrotweaks.world.BlockWorldGen;
 import astrotweaks.world.BushDecorator;
-import astrotweaks.gameplay.LetMeDisconnect;
 import astrotweaks.gameplay.RealisticBreak;
 import astrotweaks.gameplay.StepUp;
 import astrotweaks.recipe.CombinedFuelHandler;
@@ -112,6 +108,7 @@ public class AstrotweaksMod {
 		astrotweaks.world.BlockWorldGen.register();
 
 
+
 		// BUS  events
 		MinecraftForge.EVENT_BUS.register(new astrotweaks.event.EventLoadWorld());
 
@@ -122,6 +119,7 @@ public class AstrotweaksMod {
 		if (ModVariables.Food_Negative_Effects) MinecraftForge.EVENT_BUS.register(new FoodEffectHandler());
 		if (ModVariables.GG_ENABLED) MinecraftForge.EVENT_BUS.register(new GrassGrowth());
     	if (ModVariables.Enable_Depths_Dim_Bedrock_TP) MinecraftForge.EVENT_BUS.register(new MineDimEnter());
+		//MinecraftForge.EVENT_BUS.register(new LetMeDisconnect());
 
 
 	}
@@ -152,12 +150,13 @@ public class AstrotweaksMod {
 		astrotweaks.recipe.GavelRecipeRegistry.initDefaults();
 
 
-		MinecraftForge.EVENT_BUS.register(new SuppressorEventHandler()); // init
-
 		if (ModVariables.Enable_RealisticBreak) {
 			astrotweaks.gameplay.RealisticBreak.postInit();
 			MinecraftForge.EVENT_BUS.register(new RealisticBreak());
 		}
+
+
+
 
 
 	}
@@ -175,7 +174,7 @@ public class AstrotweaksMod {
 		//GrassGrowth.reloadFromConfig();
 
 
-		MinecraftForge.EVENT_BUS.register(new LetMeDisconnect());
+
 
 	}
 

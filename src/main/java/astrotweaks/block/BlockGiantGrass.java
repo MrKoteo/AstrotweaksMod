@@ -73,6 +73,7 @@ public class BlockGiantGrass {
 
         @Override public boolean isOpaqueCube(IBlockState state) { return false; }
         @Override public boolean isFullCube(IBlockState state) { return false; }
+        @Override public float getAmbientOcclusionLightValue(IBlockState state) { return 1.0F; }
         @Override public boolean isPassable(IBlockAccess world, BlockPos pos) { return true; }
         @Override public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) { return NULL_AABB; }
 		@Override public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) { return FULL_BLOCK_AABB; }

@@ -19,7 +19,6 @@ import net.minecraft.block.Block;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.entity.player.EntityPlayerMP;
 
-import java.util.List;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraft.util.math.ChunkPos;
@@ -28,6 +27,8 @@ import astrotweaks.creativetab.ATCreativeTabs;
 
 import astrotweaks.ModVariables;
 import astrotweaks.AstrotweaksMod;
+
+
 
 public class BlockQTPSupressor {
 
@@ -52,15 +53,17 @@ public class BlockQTPSupressor {
 			return tileentity == null ? false : tileentity.receiveClientEvent(eventID, eventParam);
 		}
 		@Override public EnumBlockRenderType getRenderType(IBlockState state) {return EnumBlockRenderType.MODEL;}
-		@Override public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing,
-				float hitX, float hitY, float hitZ) {
+		@Override public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 			if (!world.isRemote) {
 				TileEntity te = world.getTileEntity(pos);
 				if (te instanceof TileEntityCustom) {
 					TileEntityCustom sup = (TileEntityCustom) te;
 					int currentRange = sup.getRange();
 					int lmod = calc_lmod(currentRange);
-					int newRange = currentRange + lmod;
+					// Shift + ПКМ уменьшает дальность,
+					// обычный ПКМ увеличивает
+					int newRange = player.isSneaking() ? currentRange - lmod : currentRange + lmod;
+
 					sup.setRange(newRange);
 					if (player instanceof EntityPlayerMP) {
 						((EntityPlayerMP) player).sendMessage(new TextComponentTranslation("qts.change_range", newRange));

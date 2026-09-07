@@ -5,7 +5,6 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.*;
@@ -77,7 +76,7 @@ public class FoodEffectHandler {
     }
 
     @SubscribeEvent
-    public static void onFoodEaten(LivingEntityUseItemEvent.Finish event) {
+    public void onFoodEaten(LivingEntityUseItemEvent.Finish event) {
     	if (Math.random() < 0.25) return;
         if (!(event.getEntityLiving() instanceof EntityPlayer)) return;
         ItemStack eaten = event.getItem();

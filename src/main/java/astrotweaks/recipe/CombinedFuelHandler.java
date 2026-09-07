@@ -102,7 +102,7 @@ public class CombinedFuelHandler {
     };
 
     @SubscribeEvent
-    public static void onFuelBurnTime(FurnaceFuelBurnTimeEvent event) {
+    public void onFuelBurnTime(FurnaceFuelBurnTimeEvent event) {
         ItemStack fuel = event.getItemStack();
         for (FuelEntry entry : FUEL_ENTRIES) {
             if (entry.matches(fuel)) {

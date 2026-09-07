@@ -28,7 +28,7 @@ public final class ServerPingFix { /* Это то же самое, что и в 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         if (event.phase != TickEvent.Phase.END) return;
-
+        if (!ModVariables.ServerPingFix) return;
 
     	if (EnableSPF) {
             trackedScreen = null;

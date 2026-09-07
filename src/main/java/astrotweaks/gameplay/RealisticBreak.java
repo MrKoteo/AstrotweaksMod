@@ -136,7 +136,7 @@ public class RealisticBreak {
 	}
 	// HIGH priority for early solve
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onBreakBlock(BlockEvent.BreakEvent event) {
+    public void onBreakBlock(BlockEvent.BreakEvent event) {
 	    EntityPlayer player = event.getPlayer();
 	    if (player == null) return;
 	    if (event.getState() == null) return;

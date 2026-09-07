@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockDoublePlant.EnumPlantType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.BlockDoublePlant.EnumBlockHalf;
 
 import java.util.*;
@@ -33,9 +34,7 @@ import astrotweaks.ModVariables;
 
 
 public class GrassGrowth {
-	// Configuration: delay range in seconds
-
-	private static int GRASS_DENSITY = ModVariables.GG_Density; // def 14
+	private static int GRASS_DENSITY = ModVariables.GG_Density; // def 18
 	private static int TALL_GRASS_DENSITY = ModVariables.GG_Tall_Density; // def 9
 	private static int GIANT_GRASS_DENSITY = ModVariables.GG_Giant_Density; // def 4
     private static int MIN_DELAY_TICKS = ModVariables.GG_MIN_DELAY_TICK;
@@ -45,17 +44,21 @@ public class GrassGrowth {
     private static boolean GG_ON = ModVariables.GG_ENABLED;
 
 	// Порог перехода на след. уровень высоты
-	private static final int GRASS_THRESHOLD = 13;
-	private static final int TALL_GRASS_THRESHOLD = 8;
-	//private static final int GIANT_GRASS_THRESHOLD = 3;
+	private static final int GRASS_THRESHOLD = GRASS_DENSITY - 1;
+	private static final int TALL_GRASS_THRESHOLD = TALL_GRASS_DENSITY - 1;
+	//private static final int GIANT_GRASS_THRESHOLD = GIANT_GRASS_DENSITY - 1;
 
     //private static BitSet BIOME_BLACKLIST;
+
+	
+
 
 
     // Per-dimension priority queues
 	private static final Map<Integer, PriorityQueue<ScheduledChunk>> queues = new ConcurrentHashMap<>();
 	private static final Map<Integer, Set<Long>> loadedChunks = new ConcurrentHashMap<>();
 	private static final Map<Integer, Map<Long, Long>> scheduledTimes = new ConcurrentHashMap<>();
+	private static final Object STATE_LOCK = new Object();
 
     static {
         if (MIN_DELAY_TICKS > MAX_DELAY_TICKS) {
@@ -104,18 +107,15 @@ public class GrassGrowth {
 	    return scheduledTimes.computeIfAbsent(dim, k -> new ConcurrentHashMap<>());
 	}
 	private static void addToQueue(int dim, ScheduledChunk chunk) {
-	    if (chunk == null) return;
-	    PriorityQueue<ScheduledChunk> q = getQueue(dim);
-	    synchronized (q) {
-	        q.add(chunk);
-	    }
+		if (chunk == null) return;
+		synchronized (STATE_LOCK) {
+			getQueue(dim).add(chunk);
+		}
 	}
 	private static boolean isTurfBlock(IBlockState state) {
 		if (state.getBlock() == Blocks.GRASS) {
 			return true;
 		}
-		// Оставлено в соответствии с твоей текущей логикой:
-		// подзол также может быть источником роста.
 		if (state.getBlock() == Blocks.DIRT) {
 			return state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL;
 		}
@@ -123,6 +123,9 @@ public class GrassGrowth {
 	}
 	private static boolean isReplaceableGrassAbove(IBlockState state) {
 		return (state.getBlock() == Blocks.AIR || (state.getBlock() == Blocks.TALLGRASS) && (state.getValue(BlockTallGrass.TYPE) == BlockTallGrass.EnumType.GRASS));
+	}
+	private static boolean isFoliage(IBlockState state) {
+		return state.getMaterial() == Material.LEAVES;
 	}
 
 	private static BlockPos findGrassSurface(World world, int x, int z) {
@@ -135,8 +138,7 @@ public class GrassGrowth {
 		int localZ = z & 15;
 
 		/*
-		* getHeightValue() возвращает Y сразу над верхним блоком
-		* согласно heightmap чанка.
+		* getHeightValue() возвращает Y сразу над верхним блоком согласно heightmap чанка.
 		*/
 		int y = chunk.getHeightValue(localX, localZ) - 1;
 
@@ -147,8 +149,7 @@ public class GrassGrowth {
 
 		/*
 		* Пропускаем неполные блоки над поверхностью:
-		* снег, растения и прочие блоки с нулевой прозрачностью
-		* для heightmap.
+		* снег, растения и прочие блоки с нулевой прозрачностью для heightmap.
 		*/
 		while (y >= 1) {
 			pos.setY(y);
@@ -166,6 +167,15 @@ public class GrassGrowth {
 				}
 				return null;
 			}
+
+			/*
+			* Листву можно пропускать и продолжать сканирование вниз.
+			*/
+			if (isFoliage(state)) {
+				y--;
+				continue;
+			}
+
 			/*
 			* Если верхний блок является полноценным непрозрачным блоком,
 			* значит доступной поверхности дёрна в этом столбце нет.
@@ -180,95 +190,134 @@ public class GrassGrowth {
 
 
 
-
-
-
     // -------- Chunk load/unload events --------
     @SubscribeEvent
-    public static void onChunkLoad(ChunkEvent.Load event) {
+    public void onChunkLoad(ChunkEvent.Load event) {
     	if (!GG_ON) return;
         World world = event.getWorld();
-        if (world == null || world.provider.getDimension() != 0) return;
+		if (/*world == null || */world.isRemote) return;
+        if (world.provider.getDimension() != 0) return;
+
         Chunk chunk = event.getChunk();
         long key = ChunkPos.asLong(chunk.x, chunk.z);
         int dim = world.provider.getDimension();
 
-        getLoadedSet(dim).add(key);
-
         // Schedule first check with random delay
-        long currentTick = world.getTotalWorldTime();
-        long delay = MIN_DELAY_TICKS + ThreadLocalRandom.current().nextInt(MAX_DELAY_TICKS - MIN_DELAY_TICKS + 1);
-        long scheduled = currentTick + delay;
+		long currentTick = world.getTotalWorldTime();
+		long delay = MIN_DELAY_TICKS + ThreadLocalRandom.current().nextInt(MAX_DELAY_TICKS - MIN_DELAY_TICKS + 1);
+		long scheduled = currentTick + delay;
 
-        Map<Long, Long> times = getScheduledMap(dim);
-        times.put(key, scheduled);
-        addToQueue(dim, new ScheduledChunk(key, dim, scheduled));
+		synchronized (STATE_LOCK) {
+			getLoadedSet(dim).add(key);
+			getScheduledMap(dim).put(key, scheduled);
+			getQueue(dim).add(new ScheduledChunk(key, dim, scheduled));
+		}
+        //Map<Long, Long> times = getScheduledMap(dim);
+        //times.put(key, scheduled);
+
     }
 
     @SubscribeEvent
-    public static void onChunkUnload(ChunkEvent.Unload event) {
+    public void onChunkUnload(ChunkEvent.Unload event) {
     	if (!GG_ON) return;
         World world = event.getWorld();
-        if (world == null || world.provider.getDimension() != 0) return;
+		if (/*world == null || */world.isRemote) return;
+        if (world.provider.getDimension() != 0) return;
+
         Chunk chunk = event.getChunk();
         long key = ChunkPos.asLong(chunk.x, chunk.z);
         int dim = world.provider.getDimension();
 
-        getLoadedSet(dim).remove(key);
-        getScheduledMap(dim).remove(key);
+		synchronized (STATE_LOCK) {
+			getLoadedSet(dim).remove(key);
+			getScheduledMap(dim).remove(key);
+
+			// Старую запись из PriorityQueue можно не удалять.
+			// Она будет отброшена при обработке.
+		}
+
+        //getLoadedSet(dim).remove(key);
+        //getScheduledMap(dim).remove(key);
         // The queue entry will be ignored during processing if not found in loaded set
     }
 
     // -------- World tick processing --------
     @SubscribeEvent
-    public static void onWorldTick(TickEvent.WorldTickEvent event) {
+    public void onWorldTick(TickEvent.WorldTickEvent event) {
     	if (!GG_ON) return;
         if (event.phase != TickEvent.Phase.END) return;
         World world = event.world;
-        if (world.isRemote) return; // server only
+        if (/*world == null || */world.isRemote) return; // server only
         int dim = world.provider.getDimension();
         if (dim != 0) return;
 
-        PriorityQueue<ScheduledChunk> queue = getQueue(dim);
+		long currentTick = world.getTotalWorldTime();
+		int processed = 0;
 
-        Set<Long> loaded = getLoadedSet(dim);
-        Map<Long, Long> times = getScheduledMap(dim);
-        long currentTick = world.getTotalWorldTime();
+        //PriorityQueue<ScheduledChunk> queue = getQueue(dim);
 
-        int processed = 0;
+       // Set<Long> loaded = getLoadedSet(dim);
+        //Map<Long, Long> times = getScheduledMap(dim);
+
+
         while (processed < MAX_OPER_PER_TICK) {
 		    ScheduledChunk scheduled;
-		    synchronized (queue) {
-		        if (queue.isEmpty() || processed >= MAX_OPER_PER_TICK) break;
-		        scheduled = queue.peek();
-		        if (scheduled == null) { queue.poll(); continue; }
-		        if (scheduled.scheduledTime > currentTick) break;
-		        queue.poll(); // remove from queue
-		    }
+        	long key;
 
-            long key = scheduled.chunkKey;
-            Long actualTime = times.get(key);
-            if (actualTime == null || actualTime != scheduled.scheduledTime) {// Stale entry (chunk reloaded) - skip
-                continue;
-            }
-            if (!loaded.contains(key)) // Chunk unloaded - don't reschedule
-                continue;
+		    synchronized (STATE_LOCK) {
+				PriorityQueue<ScheduledChunk> queue = getQueue(dim);
+				Set<Long> loaded = getLoadedSet(dim);
+				Map<Long, Long> times = getScheduledMap(dim);
 
+		        if (queue.isEmpty()) break;
+
+				ScheduledChunk first = queue.peek();
+				if (first == null) {
+					queue.poll();
+					continue;
+				}
+				if (first.scheduledTime > currentTick) break;
+				
+				scheduled = queue.poll();
+
+				Long actualTime = times.get(scheduled.chunkKey);
+				if (actualTime == null || actualTime.longValue() != scheduled.scheduledTime) 
+					continue;
+				if (!loaded.contains(scheduled.chunkKey)) continue;
+
+				key = scheduled.chunkKey;
+			}
+
+			// STATE_LOCK здесь уже отпущен.
+			// Но этот код всё равно должен выполняться серверным потоком.
 			int cx = (int)(key & 0xFFFFFFFFL);
 			int cz = (int)((key >>> 32) & 0xFFFFFFFFL);
+
 			//ChunkPos pos = new ChunkPos(cx, cz);
             Chunk chunk = world.getChunkFromChunkCoords(cx, cz);
 			if (chunk == null || !chunk.isLoaded()) continue;
-            // Perform growth logic
 
+            // Perform growth logic
             performGrowth(world, chunk);
 
-            // Reschedule for another random delay
-		    long delay = MIN_DELAY_TICKS + ThreadLocalRandom.current().nextInt(MAX_DELAY_TICKS - MIN_DELAY_TICKS + 1);
-		    long newScheduled = currentTick + delay;
-		    times.put(key, newScheduled);
-		    synchronized (queue) { queue.add(new ScheduledChunk(key, dim, newScheduled)); }
-		    processed++;
+			// Reschedule for another random delay
+			long delay = MIN_DELAY_TICKS + ThreadLocalRandom.current().nextInt(MAX_DELAY_TICKS - MIN_DELAY_TICKS + 1);
+			long newScheduled = currentTick + delay;
+
+			synchronized (STATE_LOCK) {
+				Set<Long> loaded = getLoadedSet(dim);
+				Map<Long, Long> times = getScheduledMap(dim);
+				PriorityQueue<ScheduledChunk> queue = getQueue(dim);
+
+				// Чанк мог выгрузиться, пока выполнялся performGrowth().
+				if (!loaded.contains(key)) {
+					times.remove(key);
+					continue;
+				}
+				times.put(key, newScheduled);
+				queue.add(new ScheduledChunk(key, dim, newScheduled));
+			}
+			processed++;
         }
     }
 
@@ -278,9 +327,10 @@ public class GrassGrowth {
 
     // -------- Main growth algorithm --------
     private static void performGrowth(World world, Chunk chunk) {
-	    final int baseX = chunk.x * 16;
-	    final int baseZ = chunk.z * 16;
+	    int baseX = chunk.x * 16;
+	    int baseZ = chunk.z * 16;
 	    ThreadLocalRandom rnd = ThreadLocalRandom.current();
+		
 
 	    int x = baseX + rnd.nextInt(16);
 	    int z = baseZ + rnd.nextInt(16);
@@ -297,20 +347,13 @@ public class GrassGrowth {
 	    //Biome biome = world.getBiome(mpos);
 	    //if (isBiomeInBlacklist(biome)) return;
 
-	    //final int MID = 64;
-	    //final int MINY = 2;
-	    //final int MAXY = 180;
-	    //BlockPos.MutableBlockPos probe = new BlockPos.MutableBlockPos(x, 64, z);;
 	    IBlockState state;
 		Block block;
-	    //BlockPos grassPos = null;
 
 		BlockPos grassPos = findGrassSurface(world, x, z);
-
 	    if (grassPos == null) return; // это важно, так как grassPos бывает null 
 
 		Biome biome = world.getBiome(grassPos);
-
 		if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)) {
 			return;
 		}
@@ -360,7 +403,6 @@ public class GrassGrowth {
 		// x2 = 64%		-> 16
 		// x3 = 12%		-> 3
 
-
 		// ---- Попытка поставить обычную траву ----
 		if ((tallCount > 0 || doubleCount > 0 || tripleCount > 0) && tallCount < GRASS_DENSITY && Sum < 25) {
 			BlockPos above = grassPos.up();
@@ -404,14 +446,21 @@ public class GrassGrowth {
 	//}
     // -------- Cleanup on world load (avoid stale data across sessions) --------
     @SubscribeEvent
-    public static void onWorldLoad(WorldEvent.Load event) {
+    public void onWorldLoad(WorldEvent.Load event) {
     	if (!GG_ON) return;
         World world = event.getWorld();
-        if (world == null || world.provider.getDimension() != 0) return;
+		if (/*world == null || */world.isRemote) return;
+        if (world.provider.getDimension() != 0) return;
         int dim = world.provider.getDimension();
-        queues.remove(dim);
-        loadedChunks.remove(dim);
-        scheduledTimes.remove(dim);
+		synchronized (STATE_LOCK) {
+			PriorityQueue<ScheduledChunk> queue = queues.get(dim);
+			if (queue != null) queue.clear();
 
+			Set<Long> loaded = loadedChunks.get(dim);
+			if (loaded != null) loaded.clear();
+
+			Map<Long, Long> times = scheduledTimes.get(dim);
+			if (times != null) times.clear();
+		}
     }
 }

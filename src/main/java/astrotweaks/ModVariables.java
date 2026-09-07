@@ -32,8 +32,8 @@ public class ModVariables {
 	//								   МИНУТ * сек * тик
 	public static int GG_MIN_DELAY_TICK = 5 * 60 * 20; // 5 minutes
 	public static int GG_MAX_DELAY_TICK = 15 * 60 * 20; // 15 minutes
-	public static int GG_MAX_OPER_PER_TICK = 16;
-	public static int GG_Density = 17; // blocks in area
+	public static int GG_MAX_OPER_PER_TICK = 32;
+	public static int GG_Density = 18; // blocks in area
 	public static int GG_Tall_Density = 10;
 	public static int GG_Giant_Density = 3;
 	public static boolean GG_ENABLED = true;
@@ -47,6 +47,7 @@ public class ModVariables {
 
 	public static boolean Enable_RealisticBreak = false;
 	public static double ExplosionDamageMult = 1.5D;
+	public static boolean Enable_Dirt2Path = true;
 
 	public static boolean QM_is_fully_unbreakable = true;
 	public static boolean Better_Smelting = true;
