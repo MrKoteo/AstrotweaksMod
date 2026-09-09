@@ -28,6 +28,9 @@ public class ModVariables {
 	public static boolean EnableProgressionSystem = false;
 	public static boolean AstroTech_Environment = false;
 
+	public static boolean MULTIVERSE = true;
+	public static boolean Enable_TDARK = true; // ничего не делает в игре если MULTIVERSE == False
+
 
 	//								   МИНУТ * сек * тик
 	public static int GG_MIN_DELAY_TICK = 5 * 60 * 20; // 5 minutes
@@ -44,6 +47,10 @@ public class ModVariables {
 
 	public static boolean ServerPingFix = true;
 	public static boolean Enable_StepUp = true;
+	public static boolean No_Potion_Icons = true;
+	public static boolean No_Damage_Shaking = true;
+
+
 
 	public static boolean Enable_RealisticBreak = false;
 	public static double ExplosionDamageMult = 1.5D;

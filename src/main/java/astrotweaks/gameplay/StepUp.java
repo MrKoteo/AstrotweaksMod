@@ -21,9 +21,9 @@ public class StepUp {
         //Minecraft minecraft = Minecraft.getMinecraft();
         EntityPlayer player = event.player;
 
-        if (player == null) {
-            return;
-        }
+        //if (player == null) return;
+        //if (player.isSneaking()) enabled = false;
+        enabled = player.isSneaking() ? true : false;
 
         player.stepHeight = enabled ? STEP_HEIGHT : DEFAULT_STEP_HEIGHT;
     }

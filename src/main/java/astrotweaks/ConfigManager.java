@@ -111,6 +111,8 @@ public class ConfigManager {
 			
 			//// # Tweaks
 			ModVariables.NoRedFlash = safeGetBoolean(config, "No_Red_Flash", "Tweaks", ModVariables.NoRedFlash, "Remove entities red flash when taking damage (y/n)");
+			ModVariables.No_Damage_Shaking = safeGetBoolean(config, "No_Damage_Shaking", "Tweaks", ModVariables.No_Damage_Shaking, "Removes the player's screen shake when taking damage (y/n)");
+			ModVariables.No_Potion_Icons = safeGetBoolean(config, "No_Potion_Icons", "Tweaks", ModVariables.No_Potion_Icons, "Disable Potion Icons in the top right of screen (y/n)");
 			ModVariables.ServerPingFix = safeGetBoolean(config, "ServerPingFix", "Tweaks", ModVariables.ServerPingFix, "Like in mod \"FIX MY PINGGGGGG\" (y/n)");
 			ModVariables.Better_Smelting = safeGetBoolean(config, "Better_Smelting", "Tweaks", ModVariables.Better_Smelting, "Enable more smelting recipes? (y/n)");
 			ModVariables.ExplosionDamageMult = safeGetDouble(config, "Explosion_Damage_Multiplier", "Tweaks", ModVariables.ExplosionDamageMult, 0.0, 100.0, "Explosive damage modifier. (DAMAGE * Multiplier)");

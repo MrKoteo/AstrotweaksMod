@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -38,6 +39,7 @@ import astrotweaks.gui.GUIHandler;
 import astrotweaks.procedure.FoodEffectHandler;
 import astrotweaks.procedure.MineDimEnter;
 import astrotweaks.world.BushDecorator;
+import astrotweaks.gameplay.NoDamageShaking;
 import astrotweaks.gameplay.RealisticBreak;
 import astrotweaks.gameplay.StepUp;
 import astrotweaks.recipe.CombinedFuelHandler;
@@ -51,13 +53,14 @@ import astrotweaks.creativetab.ATCreativeTabs;
 public class AstrotweaksMod {
 
 	public static final String MODID = "astrotweaks";
-	public static final String VERSION = "b6.0";
+	public static final String VERSION = "b6.1";
 
 
 	public static final SimpleNetworkWrapper PACKET_HANDLER = NetworkRegistry.INSTANCE.newSimpleChannel("astrotweaks:a");
 	static {
 		PACKET_HANDLER.registerMessage(ModVariables.WorldSavedDataSyncMessageHandler.class, ModVariables.WorldSavedDataSyncMessage.class, 0, Side.SERVER);
 		PACKET_HANDLER.registerMessage(ModVariables.WorldSavedDataSyncMessageHandler.class, ModVariables.WorldSavedDataSyncMessage.class, 0, Side.CLIENT);
+		PACKET_HANDLER.registerMessage(astrotweaks.Multiverse.MessageMultiverse.ClientHandler.class, astrotweaks.Multiverse.MessageMultiverse.class, 1, Side.CLIENT);
 	}
 	@SidedProxy(clientSide = "astrotweaks.ClientProxyAstrotweaksMod", serverSide = "astrotweaks.ServerProxyAstrotweaksMod")
 	public static IProxyAstrotweaksMod proxy;
@@ -112,6 +115,10 @@ public class AstrotweaksMod {
 		// BUS  events
 		MinecraftForge.EVENT_BUS.register(new astrotweaks.event.EventLoadWorld());
 
+		// Multiverse: world/portal events live on the Forge bus, player/tick events on the FML bus.
+		MinecraftForge.EVENT_BUS.register(new astrotweaks.Multiverse.MultiverseEvents());
+		net.minecraftforge.fml.common.FMLCommonHandler.instance().bus().register(new astrotweaks.Multiverse.MultiverseEvents());
+
 
 		if (ModVariables.Extra_Fuels) MinecraftForge.EVENT_BUS.register(new CombinedFuelHandler());
 		if (ModVariables.Enable_Depths_Dimension) MinecraftForge.EVENT_BUS.register(new CavernMobModifier());
@@ -119,6 +126,8 @@ public class AstrotweaksMod {
 		if (ModVariables.Food_Negative_Effects) MinecraftForge.EVENT_BUS.register(new FoodEffectHandler());
 		if (ModVariables.GG_ENABLED) MinecraftForge.EVENT_BUS.register(new GrassGrowth());
     	if (ModVariables.Enable_Depths_Dim_Bedrock_TP) MinecraftForge.EVENT_BUS.register(new MineDimEnter());
+		if (ModVariables.No_Potion_Icons) MinecraftForge.EVENT_BUS.register(new astrotweaks.gameplay.NoEffectIcons());
+		if (ModVariables.No_Damage_Shaking) MinecraftForge.EVENT_BUS.register(new NoDamageShaking());
 		//MinecraftForge.EVENT_BUS.register(new LetMeDisconnect());
 
 
@@ -185,6 +194,14 @@ public class AstrotweaksMod {
 		astrotweaks.command.ATCommands.init(event);
 		//elements.getElements().forEach(element -> element.serverLoad(event));
 		proxy.serverLoad(event);
+	}
+
+	@Mod.EventHandler
+	public void serverStop(FMLServerStoppingEvent event) {
+		net.minecraft.server.MinecraftServer server = net.minecraftforge.fml.common.FMLCommonHandler.instance().getMinecraftServerInstance();
+		if (server != null) {
+			astrotweaks.Multiverse.LevelManager.getInstance().saveAll(server);
+		}
 	}
 
 	

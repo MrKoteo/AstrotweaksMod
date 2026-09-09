@@ -356,6 +356,7 @@ tile.aisle_cleaning_tape.name=Aisle cleaning
 tile.apple_block.name=Apple block
 tile.ark.name=Dimensional Ark
 tile.ark_resonator.name=Ark Core Resonator
+tile.tdark.name=Trans-Dimensional Ark [WIP]
 tile.beetroot_block.name=Beetroot block
 tile.brass_block.name=Brass block
 tile.bread_block.name=Bread block

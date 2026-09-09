@@ -12,7 +12,6 @@ import astrotweaks.item.*;
 import astrotweaks.block.*;
 
 import astrotweaks.ModVariables;
-//import net.minecraft.item.ItemGlassBottle;
 
 
 

@@ -2,6 +2,7 @@ buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
         mavenCentral()
+        //maven { url "https://maven.cleanroommc.com" }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.53', changing: true
@@ -12,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 
 
-version = 'b6.0'
+version = mod_version
 group = project.findProperty('group') ?: 'astrotweaks'
 archivesBaseName = '[1.12.2] AstroTweaks'
 

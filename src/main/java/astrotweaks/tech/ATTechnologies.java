@@ -7,7 +7,8 @@ import astrotweaks.tech.ark.BlockArkResonator;
 import astrotweaks.tech.mt.MTGUI;
 import astrotweaks.tech.mt.BlockMoneyTable;
 import astrotweaks.tech.qts.BlockQTPSupressor;
-
+import astrotweaks.tech.tdark.BlockTDArk;
+import astrotweaks.tech.tdark.TDArkGUI;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -40,12 +41,14 @@ public class ATTechnologies {
 
     public static final Block QTP_SUPRESSOR = new BlockQTPSupressor.BlockCustom().setRegistryName("qtp_supressor");
 
+    public static final Block TDARK = new BlockTDArk.BlockCustom().setRegistryName("tdark");
+
 
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
     private static final Block[] BLOCKS = { 
-        ARK, ARK_RESONATOR, MONEY_TABLE, QTP_SUPRESSOR 
+        ARK, ARK_RESONATOR, MONEY_TABLE, QTP_SUPRESSOR, TDARK
     };
 
     private ATTechnologies() {}
@@ -68,6 +71,7 @@ public class ATTechnologies {
         GameRegistry.registerTileEntity(BlockArk.TileEntityCustom.class, "astrotweaks:te_ark");
         GameRegistry.registerTileEntity(BlockMoneyTable.TileEntityCustom.class, "astrotweaks:te_money_table");
         GameRegistry.registerTileEntity(BlockQTPSupressor.TileEntityCustom.class, "astrotweaks:te_qtp_supressor");
+        GameRegistry.registerTileEntity(BlockTDArk.TileEntityCustom.class, "astrotweaks:te_tdark");
         ForgeChunkManager.setForcedChunkLoadingCallback(AstrotweaksMod.instance, new ForgeChunkManager.LoadingCallback() {
             @Override
             public void ticketsLoaded(List<ForgeChunkManager.Ticket> tickets, World world) {
@@ -88,7 +92,11 @@ public class ATTechnologies {
     static {
         AstrotweaksMod.PACKET_HANDLER.registerMessage(ArkGUI.ArkActionMessageHandler.class, ArkGUI.ArkActionMessage.class, 10, net.minecraftforge.fml.relauncher.Side.SERVER);
         AstrotweaksMod.PACKET_HANDLER.registerMessage(ArkGUI.GUIButtonPressedMessageHandler.class, ArkGUI.GUIButtonPressedMessage.class, 11, net.minecraftforge.fml.relauncher.Side.SERVER);
+        
         AstrotweaksMod.PACKET_HANDLER.registerMessage(MTGUI.GUIButtonPressedMessageHandler.class, MTGUI.GUIButtonPressedMessage.class, 12, net.minecraftforge.fml.relauncher.Side.SERVER);
+
+        AstrotweaksMod.PACKET_HANDLER.registerMessage(TDArkGUI.TDArkActionMessageHandler.class, TDArkGUI.TDArkActionMessage.class, 20, net.minecraftforge.fml.relauncher.Side.SERVER);
+        AstrotweaksMod.PACKET_HANDLER.registerMessage(TDArkGUI.GUIButtonPressedMessageHandler.class, TDArkGUI.GUIButtonPressedMessage.class, 21, net.minecraftforge.fml.relauncher.Side.SERVER);
     }
 
     @Mod.EventBusSubscriber(modid = "astrotweaks", value = Side.CLIENT)
